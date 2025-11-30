@@ -267,7 +267,10 @@ h2 {
   min-width: 200px;
 }
 
-#subscribe input[type = submit] {
+#subscribe .submitButton a {
+  line-height: 30px;
+  display: inline-block;
+  text-decoration: none;
   border: 0;
   min-width: 80px;
   height: 30px;
@@ -282,7 +285,7 @@ h2 {
   transition: all 250ms ease-out;
 }
 
-#subscribe input[type = submit]:hover {
+#subscribe .submitButton a:hover {
   background-color: #F46036;
   -webkit-transition: all 250ms ease-out;
   -ms-transition: all 250ms ease-out;

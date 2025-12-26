@@ -56,6 +56,12 @@ h2 {
 
 #promo {
   background-color: #F46036;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001;
+  transition: transform 0.3s ease;
 }
 
 #promo>div {
@@ -73,6 +79,18 @@ h2 {
 
 #topMenu {
   height: 60px;
+  position: fixed;
+  top: 48px;
+  left: 0;
+  width: 100%;
+  background: white;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-hidden {
+  transform: translateY(-200px);
 }
 
 #topLinks {
@@ -125,10 +143,10 @@ h2 {
 #banner {
   background-image: url(Images/favicon.png);
   background-repeat: no-repeat;
-  background-position: center top;
+  background-position: center 120px;
   width: 100%;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 240px;
   color: #333;
 }
 
@@ -138,7 +156,7 @@ h2 {
 }
 
 #banner .logo {
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 #banner #action a {

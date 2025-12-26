@@ -17,4 +17,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show next message
     promoMessages[currentIndex].style.display = 'block';
   }, 5000); // 5000 milliseconds = 5 seconds
+
+  // Smart Reveal Header
+  const nav = document.getElementById('topMenu');
+  const promo = document.getElementById('promo');
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > lastScrollY && window.scrollY > 100) {
+      // Scrolling down
+      nav.classList.add('nav-hidden');
+      promo.classList.add('nav-hidden');
+    } else {
+      // Scrolling up
+      nav.classList.remove('nav-hidden');
+      promo.classList.remove('nav-hidden');
+    }
+    lastScrollY = window.scrollY;
+  });
 });

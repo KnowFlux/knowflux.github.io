@@ -35,4 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     lastScrollY = window.scrollY;
   });
+
+  // Dynamic Copyright Year (CST)
+  const updateYear = () => {
+    const yearElement = document.getElementById('copyright-year');
+    if (yearElement) {
+      // Get current UTC time and adjust for CST (UTC-6)
+      const now = new Date();
+      const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const cstOffset = -6;
+      const cstDate = new Date(utcTime + (3600000 * cstOffset));
+      yearElement.textContent = cstDate.getFullYear();
+    }
+  };
+  updateYear();
 });

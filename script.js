@@ -49,4 +49,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
   updateYear();
+
+  // Mobile Submenu Double-Tap Logic
+  const readLink = document.getElementById('read-link');
+  let clickCount = 0;
+
+  if (readLink) {
+    readLink.addEventListener('click', function(e) {
+      // Check if we are on a touch device or small screen
+      if (window.innerWidth <= 1024) { 
+        if (clickCount === 0) {
+          e.preventDefault(); // Stop the first click from redirecting
+          const parentLi = this.parentElement;
+          parentLi.classList.toggle('submenu-active');
+          clickCount++;
+          
+          // Reset click count if they click elsewhere
+          setTimeout(() => {
+            // We don't reset immediately to allow the second click
+          }, 300);
+        } else {
+          // Second click: let the natural link behavior happen
+          clickCount = 0; 
+        }
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!readLink.contains(e.target)) {
+        readLink.parentElement.classList.remove('submenu-active');
+        clickCount = 0;
+      }
+    });
+  }
 });

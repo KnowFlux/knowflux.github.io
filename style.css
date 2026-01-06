@@ -103,11 +103,52 @@ h2 {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
+/* Submenu Styling */
 #topLinks li {
   float: left;
+  position: relative; /* Essential for positioning the submenu relative to this item */
+}
+
+#topLinks li ul {
+  display: block;
+  position: absolute;
+  top: 100%; /* Position it directly below the parent link */
+  left: 0;
+  background: white;
+  min-width: 150px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1002; /* Higher than topMenu to stay on top */
+  padding: 10px 0;
+  border-top: 2px solid #4392F1;
+}
+
+#topLinks li:hover > ul,
+#topLinks li.submenu-active > ul {
+  opacity: 1;
+  visibility: visible;
+  top: 100%; /* Adjusts if needed for smooth transition */
+}
+
+#topLinks li ul li {
+  float: none; /* Stack submenu items vertically */
+  width: 100%;
+}
+
+#topLinks li ul li a {
+  display: block;
+  padding: 10px 20px;
+  text-align: left;
+  font-size: 14px;
+}
+
+#topLinks li ul li a:hover {
+  background-color: #f9f9f9;
+  text-decoration: none;
 }
 #topLinks li a {
   color: #333;

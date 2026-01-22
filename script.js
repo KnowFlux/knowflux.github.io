@@ -54,9 +54,22 @@ document.addEventListener('DOMContentLoaded', function() {
   const progressBar = document.getElementById('scroll-progress-bar');
   if (progressBar) {
     window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+      const winScroll = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight; 
+      const height = scrollHeight - clientHeight;
+      
+      let scrolled = (winScroll / height) * 100;
+      
+      // Touchscreen optimization: auto-fill if near the bottom (e.g. 97%+)
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      if (isTouch && scrolled > 97) {
+        scrolled = 100;
+      }
+      
+      if (scrolled > 100) scrolled = 100;
+      if (scrolled < 0) scrolled = 0;
+      
       progressBar.style.height = scrolled + "%";
     });
   }
@@ -92,6 +105,23 @@ document.addEventListener('DOMContentLoaded', function() {
         readLink.parentElement.classList.remove('submenu-active');
         clickCount = 0;
       }
+    });
+  }
+
+  // Random Poem Redirect Logic
+  const randomPoemBtn = document.getElementById('random-poem-btn');
+  if (randomPoemBtn) {
+    const poems = [
+      'finalmoment.html',
+      'symbolsofnature.html',
+      'unrestfulstillness.html',
+      'rhythmoftheredriver.html'
+    ];
+    
+    randomPoemBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const randomIndex = Math.floor(Math.random() * poems.length);
+      window.location.href = poems[randomIndex];
     });
   }
 });

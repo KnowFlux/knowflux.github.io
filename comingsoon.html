@@ -100,8 +100,22 @@
 
     <div class="spacer v40"></div>
     <div id="pagesLink">
-      <a href="page2.html">BACK TO PAGE 2</a>
+      <a href="index.html" id="dynamic-back-link">BACK TO PAGE</a>
     </div>
+
+  <script>
+    // Logic for dynamic "Back to Page" button
+    const backLink = document.getElementById('dynamic-back-link');
+    if (backLink) {
+      const referrer = document.referrer;
+      if (referrer && referrer.includes(window.location.hostname) && !referrer.includes('comingsoon.html')) {
+        backLink.href = referrer;
+      } else {
+        // Default to the last available page if no valid referrer
+        backLink.href = 'page4.html'; 
+      }
+    }
+  </script>
   </div>
 
   
@@ -155,7 +169,7 @@
       const now = new Date();
       let targetDate = new Date();
       
-      // Set to the next occurrence of Sunday at 3 PM
+      // Set to the next occurrence of Sunday at 3 PM local time
       targetDate.setDate(now.getDate() + (targetDay + 7 - now.getDay()) % 7);
       targetDate.setHours(targetHour, 0, 0, 0);
 

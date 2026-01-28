@@ -23,7 +23,7 @@ The site embraces a retro-modern aesthetic:
 - **Poetry Grid**: A flexible, responsive grid system for browsing haikus, triplets, and other poetic forms.
 - **Random Poem Discovery**: A specialized "Read Poetry" feature that intelligently selects a random piece from the collection to inspire readers.
 - **Smart Progress Tracking**: A custom vertical progress bar (on specific long-form pages) that tracks reading progress with a soft blue glow.
-- **Static Search**: Powered by Pagefind for lightning-fast, privacy-conscious searching across all content.
+- **Static Search**: Powered by Algolia for lightning-fast, privacy-conscious searching across all content.
 - **Countdown System**: An automated weekly release countdown timer for upcoming content releases.
 - **Mobile Optimized**: Fully responsive design using modern CSS (`clamp`, `svh` units) to ensure a stable and beautiful experience across all devices.
 
@@ -47,7 +47,7 @@ KnowFlux/
 ## Technical Implementation
 
 - **No Frameworks**: Pure HTML5, CSS3, and Vanilla JavaScript.
-- **Zero Dependencies**: Aside from Google Fonts and the Pagefind index, the site is entirely self-contained for maximum performance and portability.
+- **Zero Dependencies**: Aside from Google Fonts, the Algolia index, and FormSpree for feedback, the site is entirely self-contained for maximum performance and portability.
 - **Deployment**: Hosted as a static site, optimized for modern browsers with built-in cache-busting mechanisms.
 
 

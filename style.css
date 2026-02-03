@@ -533,7 +533,7 @@ h2 {
 
 /* Page1 specific content padding to accommodate progress bar */
 #page1-content {
-  padding-left: 3px; /* Adjusted to balance the 5px left position + width + 5px gap */
+  padding-left: 5px; /* Adjusted to balance the 5px left position + width + 5px gap */
 }
 
 @media (max-width: 600px) {

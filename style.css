@@ -551,13 +551,6 @@ h2 {
   text-transform: uppercase;
 }
 
-#poetry-content hr {
-  background-color: #F46036;
-  height: 3px;
-  border: 0;
-  width: 100px;
-  margin: -5px auto 10px;
-}
 
 #poetry-content h3 {
   text-align: center;
@@ -594,6 +587,14 @@ h2 {
   text-align: center;
 }
 
+.underline {
+  background-color: #F46036;
+  height: 3px;
+  border: 0;
+  width: 100px;
+  margin: -5px auto 10px;
+}
+
 .poetry-flex-grid {
   display: flex;
   flex-wrap: wrap;
@@ -613,6 +614,7 @@ h2 {
   /* vertical centering if needed */
   text-align: center;
 }
+
 
 .poetry-box {
   display: block;
@@ -789,6 +791,9 @@ details p {
   align-items: center;
 }
 
+
+
+
 /* Feature Link Styling */
 .feature-link {
   text-decoration: none !important;
@@ -807,8 +812,7 @@ details p {
   background: none !important;
 }
 
-.feature-link:hover h2,
-.feature-link:hover .subheading {
+.feature-link:hover h2 {
   text-decoration: underline !important;
 }
 

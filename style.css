@@ -864,6 +864,21 @@ details p {
   margin-right: auto;
 }
 
+.dreamMemText {
+  font-style: italic;
+  color: #555;
+  padding: 20px;
+  margin: 30px 0;
+  background: #fff;
+  border: 2px solid #eee;
+  box-shadow: 0 10px 30px rgba(67, 146, 241, 0.15);
+  border-radius: 12px;
+}
+
+.thoughtText {
+  font-style: italic;
+}
+
 @media (max-width: 768px) {
   .poetry-flex-grid .feature-link {
     flex-direction: column;

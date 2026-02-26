@@ -47,7 +47,7 @@ KnowFlux/
 ├── aboutbook.html      # Your Guide to the Story
 ├── pages.html          # The Archive of Dreams
 ├── chapters.html       # Strategic Story Navigation
-├── poetry.html         # The Rhythmic Grid
+├── poetry.html         # The Gateway to the Rhythm of Words
 ├── comingsoon.html     # The Hype Station (Countdown!)
 ├── feedback.html       # The Reader's Voice
 ├── search.html         # The Infinite Finder

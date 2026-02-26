@@ -24,6 +24,9 @@ h2 {
   font-size: 30px;
 }
 
+.spacer.v10 {
+  height: 10px;
+}
 .spacer.v20 {
   height: 20px;
 }
@@ -244,6 +247,29 @@ h2 {
   padding: 20px 40px;
 }
 
+.action {
+  display: flex;
+  justify-content: center;
+}
+.action a{
+  -webkit-transition: all 250ms ease-out;
+  -ms-transition: all 250ms ease-out;
+  transition: all 250ms ease-out;
+  padding: 20px;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  background-color: #4392F1;
+}
+
+.action a:hover {
+  -webkit-transition: all 250ms ease-out;
+  -ms-transition: all 250ms ease-out;
+  transition: all 250ms ease-out;
+  background-color: #F46036;
+  padding: 20px 40px;
+}
+
 .feature {
   display: flex;
   align-items: center;
@@ -263,6 +289,7 @@ h2 {
 .feature .rightColumn .text {
   padding: 20px;
   min-height: 260px;
+  font-size: 20px;
 }
 
 .feature hr {
@@ -875,8 +902,36 @@ details p {
   border-radius: 12px;
 }
 
-.thoughtText {
-  font-style: italic;
+.responsive-book-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .responsive-book-layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .responsive-book-layout .leftColumn,
+  .responsive-book-layout .rightColumn {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .responsive-book-layout .featureImage img {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .responsive-book-layout .text {
+    padding: 10px 0;
+    text-align: center;
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 768px) {

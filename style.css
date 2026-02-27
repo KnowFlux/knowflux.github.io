@@ -276,6 +276,34 @@ h2 {
   margin-top: 80px;
 }
 
+@media (max-width: 768px) {
+  .feature {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature .leftColumn,
+  .feature .rightColumn {
+    width: 100%;
+    flex: none;
+  }
+
+  .feature .leftColumn {
+    margin-bottom: 20px;
+  }
+
+  .feature .leftColumn .featureImage img {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+  }
+
+  .feature .rightColumn .text {
+    min-height: auto;
+    padding: 0 10px;
+  }
+}
+
 .feature .leftColumn,
 .feature .rightColumn {
   flex: 1;

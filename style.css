@@ -934,8 +934,11 @@ details p {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
 }
+
+
 
 @media (max-width: 768px) {
   .responsive-book-layout {

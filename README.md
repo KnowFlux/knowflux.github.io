@@ -17,12 +17,12 @@ We believe stories should *pop*! Our site is a love letter to classic gaming aes
 
 ## ⚡ Power-Packed Features
 
-- **📖 Epic Reading Journey:** Dive into our "About Book" section for immersive synopses or jump straight into the action with our "Open Book" feature.
+- **📖 Epic Reading Journey:** Dive into our "About Book" section for immersive synopses or jump straight into the action with our "Open Book" feature. Now featuring **The Pinnacle of Reality**, our latest upcoming blockbuster!
 - **🖋️ Poetry in Motion:** A dynamic, responsive grid showcasing Haikus, Triplets, and more—all styled with our signature sharp-edged boxes.
 - **🎲 Poetic Roulette:** Feeling lucky? Our **Random Poem Discovery** button picks a hidden gem from our collection just for you!
 - **📊 Level Up Your Reading:** Exclusive vertical progress bars with a soft blue glow track your journey through every chapter.
 - **⏱️ The Countdown is On:** Never miss a beat with our automated weekly release timer. The next story is always just around the corner!
-- **📱 Smooth Scrolling:** Optimized for every screen size using cutting-edge CSS—no clunky hamburger menus here!
+- **📱 Ultra-Responsive Design:** Optimized for every screen size using cutting-edge CSS. Our new **Stacked Mobile Layout** ensures a perfect reading experience on the go, with big, bold visuals that adapt to your device.
 
 ---
 
@@ -36,6 +36,7 @@ We’ve combined simplicity with powerful integrations to keep KnowFlux lightnin
 | **Feedback** | **Formspree** — Direct-to-inbox reader reactions with a sleek, custom UI. |
 | **Community** | **Kit** — Keeping our fans in the loop with weekly literary drops. |
 | **Core** | **Pure Vanilla JS, HTML5, & CSS3** — No frameworks, just pure, unadulterated performance. |
+| **Mobile** | **Flexbox Magic** — Smart, stacked layouts for the ultimate mobile-first experience. |
 
 ---
 
@@ -47,7 +48,7 @@ KnowFlux/
 ├── aboutbook.html      # Your Guide to the Story
 ├── pages.html          # The Archive of Dreams
 ├── chapters.html       # Strategic Story Navigation
-├── poetry.html         # The Gateway to the Rhythm of Words
+├── poetry.html         # The Rhythmic Grid
 ├── comingsoon.html     # The Hype Station (Countdown!)
 ├── feedback.html       # The Reader's Voice
 ├── search.html         # The Infinite Finder

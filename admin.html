@@ -249,10 +249,108 @@
       .field-row { flex-direction: column; }
       .section { padding: 20px 18px; }
     }
+
+    #login-overlay {
+      position: fixed;
+      inset: 0;
+      background: #f4f4f4;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #login-overlay .overlay-header {
+      background: #333;
+      padding: 18px 30px;
+    }
+
+    #login-overlay .overlay-header .logo {
+      font-family: 'Anton', cursive;
+      font-size: 22px;
+      color: #4392F1;
+      text-decoration: none;
+    }
+
+    #login-card {
+      max-width: 400px;
+      width: 100%;
+      margin: 80px auto 0;
+      background: white;
+      border-radius: 10px;
+      padding: 40px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+
+    #login-card h2 {
+      font-family: 'Anton', cursive;
+      font-weight: normal;
+      font-size: 26px;
+      margin: 0 0 6px;
+      color: #222;
+    }
+
+    #login-card .subtitle {
+      color: #888;
+      font-size: 14px;
+      margin: 0 0 28px;
+    }
+
+    #login-card input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 6px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+
+    #login-card input[type="password"]:focus {
+      outline: none;
+      border-color: #4392F1;
+    }
+
+    #login-card button {
+      width: 100%;
+      background: #4392F1;
+      color: white;
+      border: none;
+      padding: 13px;
+      font-family: 'Anton', cursive;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    #login-card button:hover { background: #F46036; }
+    #login-card button:disabled { background: #aaa; cursor: not-allowed; }
+
+    #login-error {
+      color: #c0392b;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
   </style>
 </head>
 
 <body>
+
+  <div id="login-overlay">
+    <div class="overlay-header">
+      <a class="logo" href="index.html">KnowFlux</a>
+    </div>
+    <div id="login-card">
+      <h2>Admin Access</h2>
+      <p class="subtitle">Enter the password to continue.</p>
+      <p id="login-error"></p>
+      <label for="login-password" style="font-size:13px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Password</label>
+      <input type="password" id="login-password" autocomplete="current-password">
+      <button id="login-btn">ENTER</button>
+    </div>
+  </div>
 
   <div class="admin-header">
     <a class="logo" href="index.html">KnowFlux</a>
@@ -331,6 +429,66 @@ Separate each paragraph with a blank line."></textarea>
   </div>
 
   <script>
+    const TOKEN_KEY = 'kf_admin_token';
+
+    function getToken() {
+      return sessionStorage.getItem(TOKEN_KEY) || '';
+    }
+
+    function showOverlay() {
+      document.getElementById('login-overlay').style.display = 'flex';
+      document.getElementById('login-password').focus();
+    }
+
+    function hideOverlay() {
+      document.getElementById('login-overlay').style.display = 'none';
+    }
+
+    if (getToken()) {
+      hideOverlay();
+    } else {
+      showOverlay();
+    }
+
+    document.getElementById('login-btn').addEventListener('click', async function() {
+      const password = document.getElementById('login-password').value;
+      const errEl = document.getElementById('login-error');
+      const btn = this;
+
+      btn.disabled = true;
+      btn.textContent = 'CHECKING...';
+      errEl.style.display = 'none';
+
+      try {
+        const res = await fetch('/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'password=' + encodeURIComponent(password)
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          sessionStorage.setItem(TOKEN_KEY, data.token);
+          hideOverlay();
+        } else {
+          errEl.textContent = data.error || 'Incorrect password.';
+          errEl.style.display = 'block';
+          document.getElementById('login-password').value = '';
+          document.getElementById('login-password').focus();
+        }
+      } catch (err) {
+        errEl.textContent = 'Could not reach the server.';
+        errEl.style.display = 'block';
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'ENTER';
+    });
+
+    document.getElementById('login-password').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') document.getElementById('login-btn').click();
+    });
+
     document.getElementById('dream_toggle').addEventListener('change', function() {
       document.getElementById('dream_area').classList.toggle('visible', this.checked);
       document.getElementById('dream_content').required = this.checked;
@@ -363,10 +521,21 @@ Separate each paragraph with a blank line."></textarea>
       try {
         const res = await fetch('/admin/generate', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Auth-Token': getToken()
+          },
           body: body
         });
         const data = await res.json();
+
+        if (res.status === 401) {
+          sessionStorage.removeItem(TOKEN_KEY);
+          showOverlay();
+          btn.disabled = false;
+          btn.textContent = 'GENERATE PAGE';
+          return;
+        }
 
         result.style.display = 'block';
 

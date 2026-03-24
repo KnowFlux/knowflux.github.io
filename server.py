@@ -3,10 +3,15 @@ import socketserver
 import urllib.parse
 import json
 import re
+import secrets
 from pathlib import Path
 
 PORT = 5000
 BASE_DIR = Path(__file__).parent
+
+ADMIN_PASSWORD = "Kf$9mXpQ#2vNrL7w"
+SESSIONS = set()
+
 
 
 def generate_page_html(page_num, chapter_title, main_paragraphs, dream_paragraphs=None, thought_text=None):
@@ -83,7 +88,7 @@ def generate_page_html(page_num, chapter_title, main_paragraphs, dream_paragraph
             <a href="poetry.html">Poetry</a>
           </li>
           <li>
-            <a href="search.html" title="Search"><span class="search-icon">&#x1F50D;</span></a>
+            <a href="search.html" title="Search"><span class="search-icon">🔍</span></a>
           </li>
         </ul>
       </div>
@@ -151,21 +156,39 @@ def update_pages_html(page_num, chapter_title):
 
 
 class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
+
     def end_headers(self):
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
         self.send_header("Expires", "0")
         super().end_headers()
 
+    def _is_authenticated(self):
+        token = self.headers.get("X-Auth-Token", "")
+        return token in SESSIONS and token != ""
+
     def do_GET(self):
-        if self.path == "/admin":
+        if self.path in ("/admin", "/admin.html"):
             self.path = "/admin.html"
         super().do_GET()
 
     def do_POST(self):
-        if self.path == "/admin/generate":
-            content_length = int(self.headers.get("Content-Length", 0))
-            post_data = self.rfile.read(content_length).decode("utf-8")
-            params = urllib.parse.parse_qs(post_data)
+        content_length = int(self.headers.get("Content-Length", 0))
+        post_data = self.rfile.read(content_length).decode("utf-8")
+        params = urllib.parse.parse_qs(post_data)
+
+        if self.path == "/admin/login":
+            password = params.get("password", [""])[0]
+            if password == ADMIN_PASSWORD:
+                token = secrets.token_hex(32)
+                SESSIONS.add(token)
+                self._send_json(200, {"success": True, "token": token})
+            else:
+                self._send_json(401, {"success": False, "error": "Incorrect password."})
+
+        elif self.path == "/admin/generate":
+            if not self._is_authenticated():
+                self._send_json(401, {"success": False, "error": "Unauthorized."})
+                return
 
             try:
                 page_num = int(params.get("page_num", [""])[0])
@@ -212,6 +235,7 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self._send_json(400, {"success": False, "error": "Page number must be a valid number."})
             except Exception as e:
                 self._send_json(500, {"success": False, "error": str(e)})
+
         else:
             self.send_response(404)
             self.end_headers()

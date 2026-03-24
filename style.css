@@ -930,6 +930,10 @@ details p {
   border-radius: 12px;
 }
 
+.thoughtText {
+  font-style: italic;
+}
+
 .responsive-book-layout {
   display: flex;
   flex-wrap: wrap;

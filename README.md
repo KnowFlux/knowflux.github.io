@@ -61,4 +61,4 @@ KnowFlux/
 ### Join the Movement.
 **KnowFlux** isn't just a website; it's a blooming ecosystem for the creative soul. 
 
-© 2026 KnowFlux. *Stay Creative.*
+© 2026 KnowFlux. *Keep Blooming, Keep Flying*

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <title>Page Generator | KnowFlux Admin</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
+  <link rel="icon" type="image/png" href="Images/favicon.png">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    .admin-header {
+      background: #333;
+      color: white;
+      padding: 18px 30px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .admin-header .logo {
+      font-family: 'Anton', cursive;
+      font-size: 22px;
+      color: #4392F1;
+      text-decoration: none;
+    }
+
+    .admin-header h1 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+      font-weight: normal;
+      margin: 0;
+      color: #ccc;
+    }
+
+    .wrap {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    h2 {
+      font-family: 'Anton', cursive;
+      font-size: 28px;
+      font-weight: normal;
+      margin: 0 0 6px;
+      color: #222;
+    }
+
+    .subtitle {
+      color: #888;
+      margin-bottom: 36px;
+      font-size: 14px;
+    }
+
+    .section {
+      background: white;
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    .section-title {
+      font-family: 'Anton', cursive;
+      font-size: 15px;
+      font-weight: normal;
+      letter-spacing: 1px;
+      color: #4392F1;
+      text-transform: uppercase;
+      margin: 0 0 20px;
+    }
+
+    .field-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 6px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      color: #333;
+      transition: border-color 0.2s;
+      background: #fafafa;
+    }
+
+    input[type="number"]:focus,
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #4392F1;
+      background: white;
+    }
+
+    input[type="number"] {
+      max-width: 140px;
+    }
+
+    textarea {
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .optional-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .optional-toggle input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #4392F1;
+    }
+
+    .optional-toggle span {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .optional-area {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .optional-area.visible {
+      display: flex;
+    }
+
+    .generate-btn {
+      background-color: #4392F1;
+      color: white;
+      border: none;
+      padding: 14px 40px;
+      font-family: 'Anton', cursive;
+      font-size: 18px;
+      font-weight: normal;
+      letter-spacing: 1px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.2s, padding 0.2s;
+      display: block;
+      width: 100%;
+    }
+
+    .generate-btn:hover {
+      background-color: #F46036;
+    }
+
+    .generate-btn:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    #result {
+      display: none;
+      border-radius: 10px;
+      padding: 22px 28px;
+      margin-top: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    #result.success {
+      background: #e8f5e9;
+      border-left: 4px solid #4CAF50;
+      color: #2e7d32;
+    }
+
+    #result.error {
+      background: #fdecea;
+      border-left: 4px solid #f44336;
+      color: #b71c1c;
+    }
+
+    #result .result-title {
+      font-family: 'Anton', cursive;
+      font-size: 18px;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+
+    #result ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    #result a {
+      color: #4392F1;
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #4392F1;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 520px) {
+      .field-row { flex-direction: column; }
+      .section { padding: 20px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="admin-header">
+    <a class="logo" href="index.html">KnowFlux</a>
+    <h1>/ Page Generator</h1>
+  </div>
+
+  <div class="wrap">
+    <h2>Generate a New Page</h2>
+    <p class="subtitle">Fill in the details below. The new page file, the previous page's navigation, and the Pages index will all be updated automatically.</p>
+
+    <form id="adminForm">
+
+      <div class="section">
+        <div class="section-title">Page Info</div>
+        <div class="field-row">
+          <div class="field">
+            <label for="page_num">Page Number</label>
+            <input type="number" id="page_num" name="page_num" min="2" placeholder="e.g. 7" required>
+          </div>
+          <div class="field">
+            <label for="chapter_title">Chapter / Page Title</label>
+            <input type="text" id="chapter_title" name="chapter_title" placeholder="e.g. A Mysterious Audience" required>
+            <span class="hint">This appears as the subtitle under the page number.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Main Content</div>
+        <div class="field">
+          <label for="main_content">Paragraphs</label>
+          <textarea id="main_content" name="main_content" rows="12" placeholder="Paste your paragraphs here.
+
+Separate each paragraph with a blank line.
+
+Like this — each blank line starts a new paragraph." required></textarea>
+          <span class="hint">Leave a blank line between each paragraph. Line breaks within a paragraph are fine.</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Dream / Memory Section <span style="font-family:Open Sans;font-size:12px;color:#aaa;font-style:italic;text-transform:none;letter-spacing:0;">(optional)</span></div>
+        <label class="optional-toggle">
+          <input type="checkbox" id="dream_toggle">
+          <span>This page includes a dream or memory section (shown in italics with a divider)</span>
+        </label>
+        <div class="optional-area" id="dream_area">
+          <label for="dream_content">Dream / Memory Paragraphs</label>
+          <textarea id="dream_content" name="dream_content" rows="8" placeholder="Paste the dream or memory paragraphs here.
+
+Separate each paragraph with a blank line."></textarea>
+          <span class="hint">These will appear in the styled dream/memory block with a horizontal divider above them.</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Thought Text <span style="font-family:Open Sans;font-size:12px;color:#aaa;font-style:italic;text-transform:none;letter-spacing:0;">(optional)</span></div>
+        <label class="optional-toggle">
+          <input type="checkbox" id="thought_toggle">
+          <span>This page ends with a highlighted thought or inner monologue line</span>
+        </label>
+        <div class="optional-area" id="thought_area">
+          <label for="thought_text">Thought Text</label>
+          <input type="text" id="thought_text" name="thought_text" placeholder="e.g. What just happened?">
+          <span class="hint">A single line shown in the styled thought block, placed after the main content.</span>
+        </div>
+      </div>
+
+      <button type="submit" class="generate-btn" id="generateBtn">GENERATE PAGE</button>
+
+    </form>
+
+    <div id="result"></div>
+
+    <a href="index.html" class="back-link">← Back to site</a>
+  </div>
+
+  <script>
+    document.getElementById('dream_toggle').addEventListener('change', function() {
+      document.getElementById('dream_area').classList.toggle('visible', this.checked);
+      document.getElementById('dream_content').required = this.checked;
+    });
+
+    document.getElementById('thought_toggle').addEventListener('change', function() {
+      document.getElementById('thought_area').classList.toggle('visible', this.checked);
+    });
+
+    document.getElementById('adminForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('generateBtn');
+      const result = document.getElementById('result');
+      btn.disabled = true;
+      btn.textContent = 'GENERATING...';
+      result.style.display = 'none';
+      result.className = '';
+
+      const formData = new FormData(this);
+      if (!document.getElementById('dream_toggle').checked) {
+        formData.set('dream_content', '');
+      }
+      if (!document.getElementById('thought_toggle').checked) {
+        formData.set('thought_text', '');
+      }
+
+      const body = new URLSearchParams(formData).toString();
+
+      try {
+        const res = await fetch('/admin/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body
+        });
+        const data = await res.json();
+
+        result.style.display = 'block';
+
+        if (data.success) {
+          const pageNum = document.getElementById('page_num').value;
+          result.className = 'success';
+          result.innerHTML = `
+            <div class="result-title">Page ${pageNum} is ready!</div>
+            <ul>
+              <li><strong>${data.file}</strong> has been created.</li>
+              ${data.prev_updated ? `<li>Page ${pageNum - 1}'s navigation has been updated to link to this page.</li>` : ''}
+              <li><strong>pages.html</strong> has been updated with the new page card.</li>
+              <li>When you're happy with the result, publish the site as usual.</li>
+            </ul>
+            <br><a href="${data.file}" target="_blank">Preview the new page →</a>
+          `;
+          this.reset();
+          document.getElementById('dream_area').classList.remove('visible');
+          document.getElementById('thought_area').classList.remove('visible');
+        } else {
+          result.className = 'error';
+          result.innerHTML = `<div class="result-title">Something went wrong</div>${data.error}`;
+        }
+      } catch (err) {
+        result.style.display = 'block';
+        result.className = 'error';
+        result.innerHTML = `<div class="result-title">Connection error</div>Could not reach the server. Make sure the server is running.`;
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'GENERATE PAGE';
+    });
+  </script>
+
+</body>
+</html>

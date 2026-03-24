@@ -31,16 +31,16 @@ def generate_page_html(page_num, chapter_title, main_paragraphs, dream_paragraph
 
     if prev_page >= 1:
         nav = (
-            '      <div class="page-footer-action" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">\n'
-            f'        <a href="page{prev_page}.html" class="comingSoonButton" style="padding: 15px 30px;">&#x2B05;&#xFE0F;</a>\n'
-            '        <a href="comingsoon.html" class="comingSoonButton" style="padding: 15px 30px;">COMING SOON!</a>\n'
-            '      </div>'
+            '    <div class="page-footer-action" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">\n'
+            f'      <a href="page{prev_page}.html" class="comingSoonButton" style="padding: 15px 30px;">⬅️</a>\n'
+            '      <a href="comingsoon.html" class="comingSoonButton">COMING SOON!</a>\n'
+            '    </div>'
         )
     else:
         nav = (
-            '      <div class="page-footer-action">\n'
-            '        <a href="page2.html" class="comingSoonButton">&#x27A1;&#xFE0F;</a>\n'
-            '      </div>'
+            '    <div class="page-footer-action">\n'
+            '      <a href="page2.html" class="comingSoonButton">➡️</a>\n'
+            '    </div>'
         )
 
     return f"""<!DOCTYPE html>
@@ -97,9 +97,9 @@ def generate_page_html(page_num, chapter_title, main_paragraphs, dream_paragraph
     </div>
 
     <div class="page-content" id="page1-content">
-{main_content}{extra_sections}
+{main_content}{extra_sections}    </div>
+
 {nav}
-    </div>
   </div>
 
   <div id="scroll-progress-container">
@@ -123,7 +123,7 @@ def update_previous_page(prev_page_num, new_page_num):
     content = prev_file.read_text(encoding="utf-8")
     new_content = re.sub(
         r'<a href="comingsoon\.html" class="comingSoonButton"[^>]*>COMING SOON!</a>',
-        f'<a href="page{new_page_num}.html" class="comingSoonButton" style="padding: 15px 30px;">&#x27A1;&#xFE0F;</a>',
+        f'<a href="page{new_page_num}.html" class="comingSoonButton">➡️</a>',
         content,
     )
     prev_file.write_text(new_content, encoding="utf-8")

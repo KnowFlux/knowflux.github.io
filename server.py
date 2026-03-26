@@ -14,25 +14,54 @@ SESSIONS = set()
 
 
 
-def generate_page_html(page_num, chapter_title, main_paragraphs, dream_paragraphs=None, thought_text=None):
+def parse_content_blocks(raw_content):
+    segments = []
+    current_type = "normal"
+    current_lines = []
+    for line in raw_content.splitlines():
+        stripped = line.strip().lower()
+        if stripped in ("[dream]", "[/dream]", "[thought]", "[/thought]"):
+            if current_lines:
+                text = "\n".join(current_lines).strip()
+                if text:
+                    segments.append((current_type, text))
+            current_lines = []
+            if stripped == "[dream]":
+                current_type = "dream"
+            elif stripped in ("[/dream]", "[/thought]"):
+                current_type = "normal"
+            elif stripped == "[thought]":
+                current_type = "thought"
+        else:
+            current_lines.append(line)
+    if current_lines:
+        text = "\n".join(current_lines).strip()
+        if text:
+            segments.append((current_type, text))
+    return segments
+
+
+def generate_page_html(page_num, chapter_title, raw_content):
     prev_page = page_num - 1
+    segments = parse_content_blocks(raw_content)
 
     main_content = ""
-    for para in main_paragraphs:
-        if para.strip():
-            main_content += f"      <p>{para.strip()}</p>\n\n"
-
-    extra_sections = ""
-    if dream_paragraphs:
-        extra_sections += "      <hr class=\"underline\"/>\n\n"
-        extra_sections += "      <div class=\"dreamMemText\">\n\n"
-        for para in dream_paragraphs:
-            if para.strip():
-                extra_sections += f"        <p>{para.strip()}</p>\n\n"
-        extra_sections += "      </div>\n"
-
-    if thought_text:
-        extra_sections += f"      <div class=\"thoughtText\">\n        <p>{thought_text.strip()}</p>\n      </div>\n"
+    for seg_type, content in segments:
+        paragraphs = [p.strip() for p in re.split(r"\n\s*\n", content) if p.strip()]
+        if not paragraphs:
+            continue
+        if seg_type == "normal":
+            for p in paragraphs:
+                main_content += f"      <p>{p}</p>\n\n"
+        elif seg_type == "dream":
+            main_content += "      <hr class=\"underline\"/>\n\n"
+            main_content += "      <div class=\"dreamMemText\">\n\n"
+            for p in paragraphs:
+                main_content += f"        <p>{p}</p>\n\n"
+            main_content += "      </div>\n\n"
+        elif seg_type == "thought":
+            for p in paragraphs:
+                main_content += f"      <div class=\"thoughtText\">\n        <p>{p}</p>\n      </div>\n\n"
 
     if prev_page >= 1:
         nav = (
@@ -102,7 +131,7 @@ def generate_page_html(page_num, chapter_title, main_paragraphs, dream_paragraph
     </div>
 
     <div class="page-content" id="page1-content">
-{main_content}{extra_sections}    </div>
+{main_content}    </div>
 
 {nav}
   </div>
@@ -193,32 +222,22 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             try:
                 page_num = int(params.get("page_num", [""])[0])
                 chapter_title = params.get("chapter_title", [""])[0].strip()
-                main_content = params.get("main_content", [""])[0]
-                dream_content = params.get("dream_content", [""])[0]
-                thought_text = params.get("thought_text", [""])[0].strip()
+                raw_content = params.get("main_content", [""])[0]
 
                 if not chapter_title:
                     self._send_json(400, {"success": False, "error": "Chapter title is required."})
                     return
 
-                main_paragraphs = [p.strip() for p in re.split(r"\n\s*\n", main_content) if p.strip()]
-                if not main_paragraphs:
+                if not raw_content.strip():
                     self._send_json(400, {"success": False, "error": "Main content cannot be empty."})
                     return
-
-                dream_paragraphs = None
-                if dream_content.strip():
-                    dream_paragraphs = [p.strip() for p in re.split(r"\n\s*\n", dream_content) if p.strip()]
-
-                if not thought_text:
-                    thought_text = None
 
                 new_page_file = BASE_DIR / f"page{page_num}.html"
                 if new_page_file.exists():
                     self._send_json(400, {"success": False, "error": f"page{page_num}.html already exists! Delete it first if you want to regenerate."})
                     return
 
-                html = generate_page_html(page_num, chapter_title, main_paragraphs, dream_paragraphs, thought_text)
+                html = generate_page_html(page_num, chapter_title, raw_content)
                 new_page_file.write_text(html, encoding="utf-8")
 
                 prev_updated = update_previous_page(page_num - 1, page_num)

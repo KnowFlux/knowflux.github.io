@@ -245,6 +245,47 @@
       text-decoration: underline;
     }
 
+    .format-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .format-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-right: 2px;
+    }
+
+    .format-btn {
+      padding: 5px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 20px;
+      background: white;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.15s;
+      line-height: 1.5;
+    }
+
+    .format-btn:hover {
+      border-color: #4392F1;
+      color: #4392F1;
+    }
+
+    .format-btn.active {
+      background: #4392F1;
+      border-color: #4392F1;
+      color: white;
+    }
+
     @media (max-width: 520px) {
       .field-row { flex-direction: column; }
       .section { padding: 20px 18px; }
@@ -379,43 +420,27 @@
       </div>
 
       <div class="section">
-        <div class="section-title">Main Content</div>
+        <div class="section-title">Content</div>
         <div class="field">
-          <label for="main_content">Paragraphs</label>
-          <textarea id="main_content" name="main_content" rows="12" placeholder="Paste your paragraphs here.
+          <div class="format-toolbar">
+            <span class="format-label">Format:</span>
+            <button type="button" class="format-btn" id="dream-btn" data-marker="dream">Dream / Memory</button>
+            <button type="button" class="format-btn" id="thought-btn" data-marker="thought">Thought</button>
+          </div>
+          <textarea id="main_content" name="main_content" rows="16" placeholder="Write your content here. Separate each paragraph with a blank line.
 
-Separate each paragraph with a blank line.
+Use the Dream/Memory or Thought buttons above to switch formatting. Click a button to open that block — the matching marker is inserted at your cursor. Click it again to close the block and return to normal text.
 
-Like this — each blank line starts a new paragraph." required></textarea>
-          <span class="hint">Leave a blank line between each paragraph. Line breaks within a paragraph are fine.</span>
-        </div>
-      </div>
+Example:
 
-      <div class="section">
-        <div class="section-title">Dream / Memory Section <span style="font-family:Open Sans;font-size:12px;color:#aaa;font-style:italic;text-transform:none;letter-spacing:0;">(optional)</span></div>
-        <label class="optional-toggle">
-          <input type="checkbox" id="dream_toggle">
-          <span>This page includes a dream or memory section (shown in italics with a divider)</span>
-        </label>
-        <div class="optional-area" id="dream_area">
-          <label for="dream_content">Dream / Memory Paragraphs</label>
-          <textarea id="dream_content" name="dream_content" rows="8" placeholder="Paste the dream or memory paragraphs here.
+Normal paragraph here.
 
-Separate each paragraph with a blank line."></textarea>
-          <span class="hint">These will appear in the styled dream/memory block with a horizontal divider above them.</span>
-        </div>
-      </div>
+[dream]
+She was standing in a forest that didn't exist.
+[/dream]
 
-      <div class="section">
-        <div class="section-title">Thought Text <span style="font-family:Open Sans;font-size:12px;color:#aaa;font-style:italic;text-transform:none;letter-spacing:0;">(optional)</span></div>
-        <label class="optional-toggle">
-          <input type="checkbox" id="thought_toggle">
-          <span>This page ends with a highlighted thought or inner monologue line</span>
-        </label>
-        <div class="optional-area" id="thought_area">
-          <label for="thought_text">Thought Text</label>
-          <input type="text" id="thought_text" name="thought_text" placeholder="e.g. What just happened?">
-          <span class="hint">A single line shown in the styled thought block, placed after the main content.</span>
+Back to normal." required></textarea>
+          <span class="hint">Dream/Memory blocks render in a styled italic card. Thought lines render centered in blue italic. You can mix formats freely throughout the page.</span>
         </div>
       </div>
 
@@ -489,13 +514,25 @@ Separate each paragraph with a blank line."></textarea>
       if (e.key === 'Enter') document.getElementById('login-btn').click();
     });
 
-    document.getElementById('dream_toggle').addEventListener('change', function() {
-      document.getElementById('dream_area').classList.toggle('visible', this.checked);
-      document.getElementById('dream_content').required = this.checked;
-    });
+    function insertAtCursor(textarea, text) {
+      const start = textarea.selectionStart;
+      const val = textarea.value;
+      const prefix = (start > 0 && val[start - 1] !== '\n') ? '\n' : '';
+      const suffix = (start < val.length && val[start] !== '\n') ? '\n' : '';
+      const insert = prefix + text + suffix;
+      textarea.value = val.slice(0, start) + insert + val.slice(start);
+      textarea.selectionStart = textarea.selectionEnd = start + insert.length;
+      textarea.focus();
+    }
 
-    document.getElementById('thought_toggle').addEventListener('change', function() {
-      document.getElementById('thought_area').classList.toggle('visible', this.checked);
+    document.querySelectorAll('.format-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const marker = this.dataset.marker;
+        const textarea = document.getElementById('main_content');
+        const isActive = this.classList.contains('active');
+        insertAtCursor(textarea, isActive ? `[/${marker}]` : `[${marker}]`);
+        this.classList.toggle('active', !isActive);
+      });
     });
 
     document.getElementById('adminForm').addEventListener('submit', async function(e) {
@@ -508,15 +545,7 @@ Separate each paragraph with a blank line."></textarea>
       result.style.display = 'none';
       result.className = '';
 
-      const formData = new FormData(this);
-      if (!document.getElementById('dream_toggle').checked) {
-        formData.set('dream_content', '');
-      }
-      if (!document.getElementById('thought_toggle').checked) {
-        formData.set('thought_text', '');
-      }
-
-      const body = new URLSearchParams(formData).toString();
+      const body = new URLSearchParams(new FormData(this)).toString();
 
       try {
         const res = await fetch('/admin/generate', {
@@ -553,8 +582,7 @@ Separate each paragraph with a blank line."></textarea>
             <br><a href="${data.file}" target="_blank">Preview the new page →</a>
           `;
           this.reset();
-          document.getElementById('dream_area').classList.remove('visible');
-          document.getElementById('thought_area').classList.remove('visible');
+          document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
         } else {
           result.className = 'error';
           result.innerHTML = `<div class="result-title">Something went wrong</div>${data.error}`;

@@ -1,22 +1,25 @@
 // Script file for KnowFlux
 
-// Promo message cycling
-document.addEventListener('DOMContentLoaded', function() {
+// Ensure script runs after DOM is ready and guard missing elements
+document.addEventListener('DOMContentLoaded', () => {
+  // Promo message cycling
   const promoElement = document.getElementById('promo');
-  const promoMessages = promoElement.querySelectorAll('div');
-  let currentIndex = 0;
+  if (promoElement) {
+    const promoMessages = promoElement.querySelectorAll('div');
+    let currentIndex = 0;
 
-  // Cycle through promo messages every 5 seconds
-  setInterval(function() {
-    // Hide current message
-    promoMessages[currentIndex].style.display = 'none';
+    // Cycle through promo messages every 5 seconds
+    setInterval(function() {
+      // Hide current message
+      promoMessages[currentIndex].style.display = 'none';
 
-    // Move to next message
-    currentIndex = (currentIndex + 1) % promoMessages.length;
+      // Move to next message
+      currentIndex = (currentIndex + 1) % promoMessages.length;
 
-    // Show next message
-    promoMessages[currentIndex].style.display = 'block';
-  }, 5000); // 5000 milliseconds = 5 seconds
+      // Show next message
+      promoMessages[currentIndex].style.display = 'block';
+    }, 5000); // 5000 milliseconds = 5 seconds
+  }
 
   // Smart Reveal Header
   const nav = document.getElementById('topMenu');

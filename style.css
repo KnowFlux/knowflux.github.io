@@ -504,12 +504,14 @@ h2 {
 
 /* Styling for Pages and Chapters links in read.html */
 #pagesLink,
-.spacer.v10 {
+#chaptersLink,
+#aboutLink {
   text-align: center;
 }
 
 #pagesLink a,
-#chaptersLink a {
+#chaptersLink a,
+#aboutLink a {
   -webkit-transition: all 250ms ease-out;
   -ms-transition: all 250ms ease-out;
   transition: all 250ms ease-out;
@@ -527,7 +529,49 @@ h2 {
 }
 
 #pagesLink a:hover,
-#chaptersLink a:hover {
+#chaptersLink a:hover,
+#aboutLink a:hover {
+  background-color: #F46036;
+  padding: 15px 45px;
+}
+
+/* Centered, evenly-spaced link row used on pages/chapters/about blocks */
+.link-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 10px auto 0;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.link-row .link-item {
+  flex: 1 1 120px;
+  min-width: 120px;
+  text-align: center;
+}
+
+/* Reuse visual style of the other buttons for links in the row */
+.link-row .link-item a {
+  -webkit-transition: all 250ms ease-out;
+  -ms-transition: all 250ms ease-out;
+  transition: all 250ms ease-out;
+  padding: 15px 30px;
+  background-color: #4392F1;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 10px 0;
+}
+
+.link-row .link-item a:hover {
   background-color: #F46036;
   padding: 15px 45px;
 }

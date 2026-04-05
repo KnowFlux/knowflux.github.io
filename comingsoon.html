@@ -165,18 +165,30 @@
 
     const targetDay = 0; // Sunday (0)
     const targetHour = 15; // 3 PM
+    const centralTimeOffsetHours = -5; // CDT is UTC-5 for summer time
 
     function getNextTargetDate() {
       const now = new Date();
-      let targetDate = new Date();
-      
-      // Set to the next occurrence of Sunday at 3 PM local time
-      targetDate.setDate(now.getDate() + (targetDay + 7 - now.getDay()) % 7);
-      targetDate.setHours(targetHour, 0, 0, 0);
 
-      // If that time has already passed today, move to next week
+      // Convert the current time to fixed Central Standard Time (UTC-6)
+      const nowUtc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+      const centralTimeMillis = nowUtc.getTime() + centralTimeOffsetHours * 60 * 60 * 1000;
+      const centralDate = new Date(centralTimeMillis);
+
+      const daysUntilTarget = (targetDay + 7 - centralDate.getUTCDay()) % 7;
+      const targetUtcHour = targetHour - centralTimeOffsetHours; // convert Central time hour to UTC hour
+      let targetDate = new Date(Date.UTC(
+        centralDate.getUTCFullYear(),
+        centralDate.getUTCMonth(),
+        centralDate.getUTCDate() + daysUntilTarget,
+        targetUtcHour,
+        0,
+        0,
+        0
+      ));
+
       if (targetDate <= now) {
-        targetDate.setDate(targetDate.getDate() + 7);
+        targetDate = new Date(targetDate.getTime() + 7 * 24 * 60 * 60 * 1000);
       }
       return targetDate.getTime();
     }

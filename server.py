@@ -12,7 +12,7 @@ from pathlib import Path
 # --- CONFIGURATION ---
 PORT = int(os.environ.get("PORT", 10000))
 BASE_DIR = Path(__file__).parent
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "Kf$9mXpQ#2vNrL7w")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
 SESSIONS = set()
 
 # GitHub API Settings (Set these in Render Dashboard)

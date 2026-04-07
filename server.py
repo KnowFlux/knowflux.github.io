@@ -6,7 +6,7 @@ import re
 import secrets
 from pathlib import Path
 
-PORT = 5000
+PORT = 10000
 BASE_DIR = Path(__file__).parent
 
 ADMIN_PASSWORD = "Kf$9mXpQ#2vNrL7w"

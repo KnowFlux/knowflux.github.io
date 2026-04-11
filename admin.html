@@ -426,10 +426,9 @@
             <span class="format-label">Format:</span>
             <button type="button" class="format-btn" id="dream-btn" data-marker="dream">Dream / Memory</button>
             <button type="button" class="format-btn" id="thought-btn" data-marker="thought">Thought</button>
+            <button type="button" class="format-btn" id="underline-btn" data-marker="underline">Underline</button>
           </div>
-          <textarea id="main_content" name="main_content" rows="16" placeholder="Write your content here. Separate each paragraph with a blank line.
-
-Use the Dream/Memory or Thought buttons above to switch formatting. Click a button to open that block — the matching marker is inserted at your cursor. Click it again to close the block and return to normal text.
+Use the Dream/Memory, Thought, or Underline buttons above to switch formatting. Click a button to open that block — the matching marker is inserted at your cursor. Click it again to close the block and return to normal text.
 
 Example:
 
@@ -439,8 +438,13 @@ Normal paragraph here.
 She was standing in a forest that didn't exist.
 [/dream]
 
+This is a [thought]thought in blue italic[/thought] continuing on the same line.
+
+[underline]
+[/underline]
+
 Back to normal." required></textarea>
-          <span class="hint">Dream/Memory blocks render in a styled italic card. Thought lines render centered in blue italic. You can mix formats freely throughout the page.</span>
+          <span class="hint">Dream/Memory blocks render in a styled italic card. Thought text renders in blue italic inline. Underline blocks render as an orange horizontal line. You can mix formats freely throughout the page.</span>
         </div>
       </div>
 

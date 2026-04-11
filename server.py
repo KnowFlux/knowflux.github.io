@@ -15,12 +15,16 @@ SESSIONS = set()
 
 
 def parse_content_blocks(raw_content):
+    # First, handle inline markers for thought
+    content = raw_content.replace('[thought]', '<span class="thoughtText">').replace('[/thought]', '</span>')
+    
+    # Then parse blocks for dream and underline
     segments = []
     current_type = "normal"
     current_lines = []
-    for line in raw_content.splitlines():
+    for line in content.splitlines():
         stripped = line.strip().lower()
-        if stripped in ("[dream]", "[/dream]", "[thought]", "[/thought]"):
+        if stripped in ("[dream]", "[underline]"):
             if current_lines:
                 text = "\n".join(current_lines).strip()
                 if text:
@@ -28,10 +32,15 @@ def parse_content_blocks(raw_content):
             current_lines = []
             if stripped == "[dream]":
                 current_type = "dream"
-            elif stripped in ("[/dream]", "[/thought]"):
-                current_type = "normal"
-            elif stripped == "[thought]":
-                current_type = "thought"
+            elif stripped == "[underline]":
+                current_type = "underline"
+        elif stripped in ("[/dream]", "[/underline]"):
+            if current_lines:
+                text = "\n".join(current_lines).strip()
+                if text:
+                    segments.append((current_type, text))
+            current_lines = []
+            current_type = "normal"
         else:
             current_lines.append(line)
     if current_lines:
@@ -59,9 +68,8 @@ def generate_page_html(page_num, chapter_title, raw_content):
             for p in paragraphs:
                 main_content += f"        <p>{p}</p>\n\n"
             main_content += "      </div>\n\n"
-        elif seg_type == "thought":
-            for p in paragraphs:
-                main_content += f"      <div class=\"thoughtText\">\n        <p>{p}</p>\n      </div>\n\n"
+        elif seg_type == "underline":
+            main_content += "      <div class=\"underline\"></div>\n\n"
 
     if prev_page >= 1:
         nav = (

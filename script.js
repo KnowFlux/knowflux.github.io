@@ -111,6 +111,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Handle nested submenus on mobile
+  const nestedSubmenuItems = document.querySelectorAll('#topLinks li.has-submenu > a');
+  nestedSubmenuItems.forEach(link => {
+    if (link.id !== 'read-link') { // Don't duplicate the main Read link handler
+      link.addEventListener('click', function(e) {
+        if (window.innerWidth <= 1024) {
+          e.preventDefault();
+          const parentLi = this.parentElement;
+          parentLi.classList.toggle('submenu-active');
+        }
+      });
+    }
+  });
+
   // Random Poem Redirect Logic
   const randomPoemBtn = document.getElementById('random-poem-btn');
   if (randomPoemBtn) {

@@ -4,7 +4,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8" />
-  <title>Page Generator | KnowFlux Admin</title>
+  <title>Content Generator | KnowFlux Admin</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
   <link rel="icon" type="image/png" href="Images/favicon.png">
   <style>
@@ -110,6 +110,7 @@
 
     input[type="number"],
     input[type="text"],
+    select,
     textarea {
       width: 100%;
       padding: 10px 14px;
@@ -124,6 +125,7 @@
 
     input[type="number"]:focus,
     input[type="text"]:focus,
+    select:focus,
     textarea:focus {
       outline: none;
       border-color: #4392F1;
@@ -134,40 +136,18 @@
       max-width: 140px;
     }
 
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
     textarea {
       resize: vertical;
       line-height: 1.6;
-    }
-
-    .optional-toggle {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .optional-toggle input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-      accent-color: #4392F1;
-    }
-
-    .optional-toggle span {
-      font-size: 14px;
-      color: #555;
-    }
-
-    .optional-area {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .optional-area.visible {
-      display: flex;
     }
 
     .generate-btn {
@@ -286,9 +266,65 @@
       color: white;
     }
 
+    /* Content type tabs */
+    .content-type-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      background: white;
+      border-radius: 10px;
+      padding: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    .type-tab {
+      flex: 1;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+      cursor: pointer;
+      border-radius: 7px;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .type-tab:hover {
+      color: #4392F1;
+      background: #f0f6ff;
+    }
+
+    .type-tab.active {
+      background: #4392F1;
+      color: white;
+    }
+
+    .form-panel {
+      display: none;
+    }
+
+    .form-panel.active {
+      display: block;
+    }
+
+    .new-section-row {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .new-section-row.visible {
+      display: flex;
+    }
+
     @media (max-width: 520px) {
       .field-row { flex-direction: column; }
       .section { padding: 20px 18px; }
+      .content-type-tabs { flex-direction: column; }
     }
 
     #login-overlay {
@@ -395,62 +431,136 @@
 
   <div class="admin-header">
     <a class="logo" href="index.html">KnowFlux</a>
-    <h1>/ Page Generator</h1>
+    <h1>/ Content Generator</h1>
   </div>
 
   <div class="wrap">
-    <h2>Generate a New Page</h2>
-    <p class="subtitle">Fill in the details below. The new page file, the previous page's navigation, and the Pages index will all be updated automatically.</p>
+    <h2>Generate New Content</h2>
+    <p class="subtitle">Choose what you want to create, fill in the details, and it will be generated automatically.</p>
 
-    <form id="adminForm">
+    <div class="content-type-tabs">
+      <button class="type-tab active" data-panel="pinnacle">The Pinnacle of Reality</button>
+      <button class="type-tab" data-panel="poetry">Poetry</button>
+      <button class="type-tab" data-panel="exploded">Exploded</button>
+    </div>
 
-      <div class="section">
-        <div class="section-title">Page Info</div>
-        <div class="field-row">
-          <div class="field">
-            <label for="page_num">Page Number</label>
-            <input type="number" id="page_num" name="page_num" min="2" placeholder="e.g. 7" required>
-          </div>
-          <div class="field">
-            <label for="chapter_title">Chapter / Page Title</label>
-            <input type="text" id="chapter_title" name="chapter_title" placeholder="e.g. A Mysterious Audience" required>
-            <span class="hint">This appears as the subtitle under the page number.</span>
+    <!-- The Pinnacle of Reality -->
+    <div id="panel-pinnacle" class="form-panel active">
+      <form id="pinnacleForm">
+        <div class="section">
+          <div class="section-title">Page Info</div>
+          <div class="field-row">
+            <div class="field">
+              <label for="pinnacle_page_num">Page Number</label>
+              <input type="number" id="pinnacle_page_num" name="page_num" min="1" placeholder="e.g. 9" required>
+            </div>
+            <div class="field">
+              <label for="pinnacle_chapter_title">Chapter / Page Title</label>
+              <input type="text" id="pinnacle_chapter_title" name="chapter_title" placeholder="e.g. A Mysterious Audience" required>
+              <span class="hint">This appears as the subtitle under the page number.</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="section">
-        <div class="section-title">Content</div>
-        <div class="field">
-          <div class="format-toolbar">
-            <span class="format-label">Format:</span>
-            <button type="button" class="format-btn" id="dream-btn" data-marker="dream">Dream / Memory</button>
-            <button type="button" class="format-btn" id="thought-btn" data-marker="thought">Thought</button>
-            <button type="button" class="format-btn" id="underline-btn" data-marker="underline">Underline</button>
+        <div class="section">
+          <div class="section-title">Content</div>
+          <div class="field">
+            <div class="format-toolbar">
+              <span class="format-label">Format:</span>
+              <button type="button" class="format-btn" data-marker="dream" data-target="pinnacle_content">Dream / Memory</button>
+              <button type="button" class="format-btn" data-marker="thought" data-target="pinnacle_content">Thought</button>
+              <button type="button" class="format-btn" data-marker="underline" data-target="pinnacle_content">Underline</button>
+            </div>
+            <textarea id="pinnacle_content" name="main_content" rows="14" placeholder="Enter the page content here..." required></textarea>
+            <span class="hint">Dream/Memory blocks render in a styled italic card. Thought text renders in blue italic inline. Underline renders as an orange horizontal line.</span>
           </div>
-          <textarea id="main_content" name="main_content" placeholder="Enter the page content here. Use the Dream/Memory, Thought, or Underline buttons above to switch formatting. Click a button to open that block — the matching marker is inserted at your cursor. Click it again to close the block and return to normal text.
+        </div>
+
+        <button type="submit" class="generate-btn">GENERATE PAGE</button>
+      </form>
+    </div>
+
+    <!-- Poetry -->
+    <div id="panel-poetry" class="form-panel">
+      <form id="poetryForm">
+        <div class="section">
+          <div class="section-title">Poem Info</div>
+          <div class="field" style="margin-bottom: 20px;">
+            <label for="poem_title">Poem Title</label>
+            <input type="text" id="poem_title" name="poem_title" placeholder="e.g. The Final Moment" required>
+          </div>
+          <div class="field">
+            <label for="poem_section">Section</label>
+            <select id="poem_section" name="section_select" required>
+              <option value="" disabled selected>Loading sections...</option>
+            </select>
+            <span class="hint">Choose an existing section or create a new one.</span>
+          </div>
+          <div class="new-section-row" id="new-section-row">
+            <label for="new_section_name">New Section Name</label>
+            <input type="text" id="new_section_name" name="new_section_name" placeholder="e.g. Sonnets">
+            <span class="hint">This will be added as a new section on the Poetry page.</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Poem Content</div>
+          <div class="field">
+            <textarea id="poetry_content" name="main_content" rows="14" placeholder="Enter each line of the poem here. Leave a blank line between stanzas.
 
 Example:
 
-Normal paragraph here.
+Final raindrop falls
+The world suspended in time
+'Fore it hits the ground
 
-[dream]
-She was standing in a forest that didn't exist.
-[/dream]
-
-This is a [thought]thought in blue italic[/thought] continuing on the same line.
-
-[underline]
-[/underline]
-
-Back to normal." required></textarea>
-          <span class="hint">Dream/Memory blocks render in a styled italic card. Thought text renders in blue italic inline. Underline blocks render as an orange horizontal line. You can mix formats freely throughout the page.</span>
+Absolute silence
+Raindrop twinkles in the light
+Like a falling star" required></textarea>
+            <span class="hint">Blank lines between stanzas create visual spacing. Each line becomes its own paragraph.</span>
+          </div>
         </div>
-      </div>
 
-      <button type="submit" class="generate-btn" id="generateBtn">GENERATE PAGE</button>
+        <button type="submit" class="generate-btn">GENERATE POEM</button>
+      </form>
+    </div>
 
-    </form>
+    <!-- Exploded -->
+    <div id="panel-exploded" class="form-panel">
+      <form id="explodedForm">
+        <div class="section">
+          <div class="section-title">Page Info</div>
+          <div class="field-row">
+            <div class="field">
+              <label for="exploded_page_num">Page Number</label>
+              <input type="number" id="exploded_page_num" name="page_num" min="1" placeholder="e.g. 1" required>
+            </div>
+            <div class="field">
+              <label for="exploded_chapter_title">Chapter / Page Title</label>
+              <input type="text" id="exploded_chapter_title" name="chapter_title" placeholder="e.g. The Beginning" required>
+              <span class="hint">This appears as the subtitle under the page number.</span>
+            </div>
+          </div>
+          <p class="hint" style="margin:0;">If the Exploded pages index doesn't exist yet, it will be created automatically.</p>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Content</div>
+          <div class="field">
+            <div class="format-toolbar">
+              <span class="format-label">Format:</span>
+              <button type="button" class="format-btn" data-marker="dream" data-target="exploded_content">Dream / Memory</button>
+              <button type="button" class="format-btn" data-marker="thought" data-target="exploded_content">Thought</button>
+              <button type="button" class="format-btn" data-marker="underline" data-target="exploded_content">Underline</button>
+            </div>
+            <textarea id="exploded_content" name="main_content" rows="14" placeholder="Enter the page content here..." required></textarea>
+            <span class="hint">Dream/Memory blocks render in a styled italic card. Thought text renders in blue italic inline. Underline renders as an orange horizontal line.</span>
+          </div>
+        </div>
+
+        <button type="submit" class="generate-btn">GENERATE PAGE</button>
+      </form>
+    </div>
 
     <div id="result"></div>
 
@@ -475,6 +585,7 @@ Back to normal." required></textarea>
 
     if (getToken()) {
       hideOverlay();
+      loadPoetrySections();
     } else {
       showOverlay();
     }
@@ -499,6 +610,7 @@ Back to normal." required></textarea>
         if (data.success) {
           sessionStorage.setItem(TOKEN_KEY, data.token);
           hideOverlay();
+          loadPoetrySections();
         } else {
           errEl.textContent = data.error || 'Incorrect password.';
           errEl.style.display = 'block';
@@ -518,41 +630,177 @@ Back to normal." required></textarea>
       if (e.key === 'Enter') document.getElementById('login-btn').click();
     });
 
-    function insertAtCursor(textarea, text) {
-      const start = textarea.selectionStart;
-      const val = textarea.value;
-      const prefix = (start > 0 && val[start - 1] !== '\n') ? '\n' : '';
-      const suffix = (start < val.length && val[start] !== '\n') ? '\n' : '';
-      const insert = prefix + text + suffix;
-      textarea.value = val.slice(0, start) + insert + val.slice(start);
-      textarea.selectionStart = textarea.selectionEnd = start + insert.length;
-      textarea.focus();
-    }
+    // Tab switching
+    document.querySelectorAll('.type-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('panel-' + this.dataset.panel).classList.add('active');
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('result').className = '';
+      });
+    });
 
+    // Format buttons (work across both book forms)
     document.querySelectorAll('.format-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         const marker = this.dataset.marker;
-        const textarea = document.getElementById('main_content');
+        const targetId = this.dataset.target;
+        const textarea = document.getElementById(targetId);
+        const start = textarea.selectionStart;
+        const val = textarea.value;
         const isActive = this.classList.contains('active');
-        insertAtCursor(textarea, isActive ? `[/${marker}]` : `[${marker}]`);
+        const text = isActive ? `[/${marker}]` : `[${marker}]`;
+        const prefix = (start > 0 && val[start - 1] !== '\n') ? '\n' : '';
+        const suffix = (start < val.length && val[start] !== '\n') ? '\n' : '';
+        const insert = prefix + text + suffix;
+        textarea.value = val.slice(0, start) + insert + val.slice(start);
+        textarea.selectionStart = textarea.selectionEnd = start + insert.length;
+        textarea.focus();
         this.classList.toggle('active', !isActive);
       });
     });
 
-    document.getElementById('adminForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+    // Load poetry sections from server
+    async function loadPoetrySections() {
+      const select = document.getElementById('poem_section');
+      try {
+        const res = await fetch('/admin/poetry-sections', {
+          headers: { 'X-Auth-Token': getToken() }
+        });
+        const data = await res.json();
+        if (data.success) {
+          select.innerHTML = '';
+          data.sections.forEach(function(s) {
+            const opt = document.createElement('option');
+            opt.value = s;
+            opt.textContent = s;
+            select.appendChild(opt);
+          });
+          const newOpt = document.createElement('option');
+          newOpt.value = '__new__';
+          newOpt.textContent = '+ New Section...';
+          select.appendChild(newOpt);
+          if (data.sections.length > 0) select.value = data.sections[0];
+        }
+      } catch (e) {
+        select.innerHTML = '<option value="__new__">+ New Section...</option>';
+      }
+    }
 
-      const btn = document.getElementById('generateBtn');
+    document.getElementById('poem_section').addEventListener('change', function() {
+      const row = document.getElementById('new-section-row');
+      const nameInput = document.getElementById('new_section_name');
+      if (this.value === '__new__') {
+        row.classList.add('visible');
+        nameInput.required = true;
+      } else {
+        row.classList.remove('visible');
+        nameInput.required = false;
+      }
+    });
+
+    function showResult(success, html) {
       const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.className = success ? 'success' : 'error';
+      result.innerHTML = html;
+    }
+
+    function handleUnauth() {
+      sessionStorage.removeItem(TOKEN_KEY);
+      showOverlay();
+    }
+
+    // Shared handler for Pinnacle and Exploded forms
+    function handleBookForm(formId, endpoint, btnLabel) {
+      document.getElementById(formId).addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = this.querySelector('.generate-btn');
+        btn.disabled = true;
+        btn.textContent = 'GENERATING...';
+        document.getElementById('result').style.display = 'none';
+
+        const body = new URLSearchParams(new FormData(this)).toString();
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'X-Auth-Token': getToken()
+            },
+            body: body
+          });
+
+          if (res.status === 401) { handleUnauth(); btn.disabled = false; btn.textContent = btnLabel; return; }
+
+          const data = await res.json();
+          if (data.success) {
+            const pageNum = data.page_num;
+            const notes = [];
+            if (data.prev_updated) notes.push(`<li>Page ${pageNum - 1}'s navigation has been updated to link here.</li>`);
+            if (data.pages_created) notes.push(`<li><strong>${data.pages_file}</strong> was created as the pages index.</li>`);
+            if (data.chapters_created) notes.push(`<li><strong>${data.chapters_file}</strong> was created as the chapters index.</li>`);
+            notes.push(`<li><strong>${data.pages_file}</strong> has been updated with the new page card.</li>`);
+            if (data.chapter_is_new) {
+              notes.push(`<li><strong>${data.chapters_file}</strong> has been updated — new chapter added.</li>`);
+            } else {
+              notes.push(`<li>Chapter already exists in <strong>${data.chapters_file}</strong> — no duplicate added.</li>`);
+            }
+            showResult(true, `
+              <div class="result-title">Page ${pageNum} is ready!</div>
+              <ul>
+                <li><strong>${data.file}</strong> has been created.</li>
+                ${notes.join('')}
+              </ul>
+              <br><a href="${data.file}" target="_blank">Preview the new page →</a>
+            `);
+            this.reset();
+            this.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+          } else {
+            showResult(false, `<div class="result-title">Something went wrong</div>${data.error}`);
+          }
+        } catch (err) {
+          showResult(false, `<div class="result-title">Connection error</div>Could not reach the server.`);
+        }
+
+        btn.disabled = false;
+        btn.textContent = btnLabel;
+      });
+    }
+
+    handleBookForm('pinnacleForm', '/admin/generate-pinnacle', 'GENERATE PAGE');
+    handleBookForm('explodedForm', '/admin/generate-exploded', 'GENERATE PAGE');
+
+    // Poetry form submit
+    document.getElementById('poetryForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.generate-btn');
       btn.disabled = true;
       btn.textContent = 'GENERATING...';
-      result.style.display = 'none';
-      result.className = '';
+      document.getElementById('result').style.display = 'none';
 
-      const body = new URLSearchParams(new FormData(this)).toString();
+      const sectionSelect = document.getElementById('poem_section');
+      let sectionName = sectionSelect.value;
+      if (sectionName === '__new__') {
+        sectionName = document.getElementById('new_section_name').value.trim();
+        if (!sectionName) {
+          showResult(false, `<div class="result-title">Missing info</div>Please enter a name for the new section.`);
+          btn.disabled = false;
+          btn.textContent = 'GENERATE POEM';
+          return;
+        }
+      }
+
+      const formData = new FormData(this);
+      formData.set('section_name', sectionName);
+      formData.delete('section_select');
+      formData.delete('new_section_name');
+      const body = new URLSearchParams(formData).toString();
 
       try {
-        const res = await fetch('/admin/generate', {
+        const res = await fetch('/admin/generate-poetry', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -560,46 +808,33 @@ Back to normal." required></textarea>
           },
           body: body
         });
+
+        if (res.status === 401) { handleUnauth(); btn.disabled = false; btn.textContent = 'GENERATE POEM'; return; }
+
         const data = await res.json();
-
-        if (res.status === 401) {
-          sessionStorage.removeItem(TOKEN_KEY);
-          showOverlay();
-          btn.disabled = false;
-          btn.textContent = 'GENERATE PAGE';
-          return;
-        }
-
-        result.style.display = 'block';
-
         if (data.success) {
-          const pageNum = document.getElementById('page_num').value;
-          result.className = 'success';
-          result.innerHTML = `
-            <div class="result-title">Page ${pageNum} is ready!</div>
+          showResult(true, `
+            <div class="result-title">Poem ready!</div>
             <ul>
               <li><strong>${data.file}</strong> has been created.</li>
-              ${data.prev_updated ? `<li>Page ${pageNum - 1}'s navigation has been updated to link to this page.</li>` : ''}
-              <li><strong>pages.html</strong> has been updated with the new page card.</li>
-              <li>When you're happy with the result, publish the site as usual.</li>
+              <li>Added to the <strong>${data.section}</strong> section on poetry.html.</li>
             </ul>
-            <br><a href="${data.file}" target="_blank">Preview the new page →</a>
-          `;
+            <br><a href="${data.file}" target="_blank">Preview the poem →</a>
+          `);
           this.reset();
-          document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+          loadPoetrySections();
+          document.getElementById('new-section-row').classList.remove('visible');
         } else {
-          result.className = 'error';
-          result.innerHTML = `<div class="result-title">Something went wrong</div>${data.error}`;
+          showResult(false, `<div class="result-title">Something went wrong</div>${data.error}`);
         }
       } catch (err) {
-        result.style.display = 'block';
-        result.className = 'error';
-        result.innerHTML = `<div class="result-title">Connection error</div>Could not reach the server. Make sure the server is running.`;
+        showResult(false, `<div class="result-title">Connection error</div>Could not reach the server.`);
       }
 
       btn.disabled = false;
-      btn.textContent = 'GENERATE PAGE';
+      btn.textContent = 'GENERATE POEM';
     });
+
   </script>
 
 </body>

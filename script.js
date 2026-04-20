@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Desktop: fix nested submenu overflow (fly-out to right, flip left if needed)
   // ---------------------------------------------------------------------------
   function fixDesktopSubOverflow() {
-    if (window.innerWidth <= 768) return;
+    // Run on all non-mobile screens (600px+) for more sensitive overflow detection
+    if (window.innerWidth <= 600) return;
     document.querySelectorAll('#topLinks li ul li').forEach(li => {
       li.addEventListener('mouseenter', function() {
         const subUl = this.querySelector(':scope > ul');
@@ -77,7 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
         subUl.classList.remove('flip-left');
         // Force reflow
         const rect = subUl.getBoundingClientRect();
-        if (rect.right > window.innerWidth - 10) {
+        // Use 50px buffer for more conservative, sensitive detection (prevents off-screen)
+        if (rect.right > window.innerWidth - 50) {
           subUl.classList.add('flip-left');
         }
         subUl.style.visibility = '';

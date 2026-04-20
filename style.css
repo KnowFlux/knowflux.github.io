@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+
 body {
   margin: 0;
   padding: 0;
@@ -145,7 +147,6 @@ h2 {
   float: none;
   /* Stack submenu items vertically */
   width: 100%;
-  position: relative;
 }
 
 #topLinks li ul li a {
@@ -158,33 +159,6 @@ h2 {
 #topLinks li ul li a:hover {
   background-color: #f9f9f9;
   text-decoration: none;
-}
-
-/* Nested submenu (submenu within submenu) */
-#topLinks li ul li ul {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 100%;
-  background: white;
-  min-width: 150px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 1003;
-  /* Higher than parent submenu */
-  padding: 10px 0;
-  border-top: 2px solid #4392F1;
-  margin-top: -10px;
-  /* Align with parent item */
-}
-
-#topLinks li ul li:hover>ul,
-#topLinks li ul li.submenu-active>ul {
-  opacity: 1;
-  visibility: visible;
-  left: 100%;
 }
 
 #topLinks li a {
@@ -532,14 +506,12 @@ h2 {
 
 /* Styling for Pages and Chapters links in read.html */
 #pagesLink,
-#chaptersLink,
-#aboutLink {
+.spacer.v10 {
   text-align: center;
 }
 
 #pagesLink a,
-#chaptersLink a,
-#aboutLink a {
+#chaptersLink a {
   -webkit-transition: all 250ms ease-out;
   -ms-transition: all 250ms ease-out;
   transition: all 250ms ease-out;
@@ -557,49 +529,7 @@ h2 {
 }
 
 #pagesLink a:hover,
-#chaptersLink a:hover,
-#aboutLink a:hover {
-  background-color: #F46036;
-  padding: 15px 45px;
-}
-
-/* Centered, evenly-spaced link row used on pages/chapters/about blocks */
-.link-row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  max-width: 800px;
-  margin: 10px auto 0;
-  padding: 0 15px;
-  box-sizing: border-box;
-}
-
-.link-row .link-item {
-  flex: 1 1 120px;
-  min-width: 120px;
-  text-align: center;
-}
-
-/* Reuse visual style of the other buttons for links in the row */
-.link-row .link-item a {
-  -webkit-transition: all 250ms ease-out;
-  -ms-transition: all 250ms ease-out;
-  transition: all 250ms ease-out;
-  padding: 15px 30px;
-  background-color: #4392F1;
-  color: white;
-  text-decoration: none;
-  border-radius: 30px;
-  display: inline-block;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 10px 0;
-}
-
-.link-row .link-item a:hover {
+#chaptersLink a:hover {
   background-color: #F46036;
   padding: 15px 45px;
 }
@@ -1006,6 +936,8 @@ details p {
   font-style: italic;
 }
 
+
+
 .responsive-book-layout {
   display: flex;
   flex-wrap: wrap;
@@ -1063,4 +995,1127 @@ details p {
     width: 100%;
     max-width: 800px;
   }
+}
+
+
+/* ==========================================================================
+   READING EXPERIENCE ENHANCEMENTS
+   Targets all book pages (any page containing .page-content).
+   Activated via body.reading-page class added by JavaScript.
+   Covers: Exploded, The Pinnacle of Reality, and any future book pages.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1.  CSS Custom Properties — reading defaults
+   -------------------------------------------------------------------------- */
+
+body.reading-page {
+  --rdr-font-size:     19px;
+  --rdr-line-height:   1.92;
+  --rdr-para-gap:      28px;
+  --rdr-max-width:     680px;
+  --rdr-text-color:    #222;
+  --rdr-bg:            #fafaf8;
+  --rdr-blue:          #4392F1;
+  --rdr-orange:        #F46036;
+  --rdr-black:         #000;
+  --rdr-transition:    font-size 0.22s ease, max-width 0.28s ease,
+                       line-height 0.22s ease;
+}
+
+
+/* --------------------------------------------------------------------------
+   2.  Font-size variants  (set via reader toolbar, persisted in localStorage)
+   -------------------------------------------------------------------------- */
+
+body.reading-page.rdr-text-sm {
+  --rdr-font-size:   16px;
+  --rdr-line-height: 1.85;
+  --rdr-para-gap:    22px;
+}
+
+body.reading-page.rdr-text-md {
+  --rdr-font-size:   19px;
+  --rdr-line-height: 1.92;
+  --rdr-para-gap:    28px;
+}
+
+body.reading-page.rdr-text-lg {
+  --rdr-font-size:   22px;
+  --rdr-line-height: 1.96;
+  --rdr-para-gap:    32px;
+}
+
+body.reading-page.rdr-text-xl {
+  --rdr-font-size:   26px;
+  --rdr-line-height: 2.02;
+  --rdr-para-gap:    38px;
+}
+
+
+/* --------------------------------------------------------------------------
+   3.  Line-width variants  (set via reader toolbar)
+   -------------------------------------------------------------------------- */
+
+body.reading-page.rdr-width-narrow { --rdr-max-width: 500px; }
+body.reading-page.rdr-width-normal { --rdr-max-width: 680px; }
+body.reading-page.rdr-width-wide   { --rdr-max-width: 860px; }
+
+/* Desktop overrides — wider, more spacious widths (> 768px only) */
+@media (min-width: 769px) {
+  body.reading-page.rdr-width-narrow { --rdr-max-width: 680px; }
+  body.reading-page.rdr-width-normal { --rdr-max-width: 920px; }
+  body.reading-page.rdr-width-wide   { --rdr-max-width: min(1180px, calc(100vw - 40px)); }
+}
+
+
+/* --------------------------------------------------------------------------
+   3b. Font-family variants  (set via reader toolbar)
+   -------------------------------------------------------------------------- */
+
+body.reading-page.rdr-font-garamond .page-content,
+body.reading-page.rdr-font-garamond .page-content p {
+  font-family: 'EB Garamond', Georgia, serif;
+  letter-spacing: 0.008em;
+  word-spacing:   0.02em;
+}
+
+body.reading-page.rdr-font-lora .page-content,
+body.reading-page.rdr-font-lora .page-content p {
+  font-family: 'Lora', Georgia, serif;
+  letter-spacing: 0.006em;
+}
+
+/* Normal font restores the reading-page default (Open Sans) */
+body.reading-page.rdr-font-normal .page-content,
+body.reading-page.rdr-font-normal .page-content p {
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+/* --------------------------------------------------------------------------
+   4.  Core page-content typography override
+   -------------------------------------------------------------------------- */
+
+body.reading-page .page-content {
+  font-size:          var(--rdr-font-size);
+  line-height:        var(--rdr-line-height);
+  color:              var(--rdr-text-color);
+  max-width:          var(--rdr-max-width);
+  margin:             0 auto 60px;
+  text-align:         left;          /* left > justify — no rivers on screen */
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering:     optimizeLegibility;
+  font-kerning:       normal;
+  word-spacing:       0.01em;
+  letter-spacing:     0.012em;
+  transition:         var(--rdr-transition);
+  hyphens:            auto;
+  -webkit-hyphens:    auto;
+}
+
+body.reading-page .page-content p {
+  margin-bottom: var(--rdr-para-gap);
+  orphans: 3;
+  widows: 3;
+}
+
+
+/* --------------------------------------------------------------------------
+   5.  Drop Cap — decorative opening letter of chapter-start pages only
+   -------------------------------------------------------------------------- */
+
+body.reading-page.chapter-start .page-content > p:first-of-type::first-letter {
+  font-family:    'Anton', cursive;
+  font-size:      5em;
+  line-height:    0.76;
+  float:          left;
+  margin-right:   0.1em;
+  margin-top:     0.09em;
+  margin-bottom:  0;
+  color:          var(--rdr-blue);
+  text-transform: uppercase;
+  padding:        0 5px 2px 0;
+  text-shadow:    3px 3px 0 var(--rdr-black);
+}
+
+
+/* --------------------------------------------------------------------------
+   6.  Chapter / Page Header redesign
+   -------------------------------------------------------------------------- */
+
+body.reading-page .page-header-container {
+  margin-top:     116px;
+  margin-bottom:  44px;
+  padding-bottom: 28px;
+  border-bottom:  3px solid var(--rdr-black);
+  position:       relative;
+}
+
+/* Blue accent bar above the page number */
+body.reading-page .page-header-container::before {
+  content:       '';
+  display:       block;
+  width:         56px;
+  height:        6px;
+  background:    var(--rdr-blue);
+  margin-bottom: 18px;
+  box-shadow:    3px 3px 0 var(--rdr-black);
+}
+
+body.reading-page .page-title {
+  font-size:      clamp(40px, 8vw, 72px);
+  line-height:    1;
+  color:          var(--rdr-blue);
+  text-shadow:    3px 3px 0 var(--rdr-black);
+  letter-spacing: -1px;
+  margin:         0;
+}
+
+body.reading-page .page-subtitle {
+  font-family:    'Open Sans', sans-serif;
+  font-size:      clamp(17px, 2.8vw, 26px);
+  font-weight:    700;
+  color:          #333;
+  margin:         8px 0 0;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+
+/* --------------------------------------------------------------------------
+   7.  Reading meta row — word count + estimated reading time badges
+       (DOM elements injected by JavaScript)
+   -------------------------------------------------------------------------- */
+
+.rdr-meta {
+  display:     flex;
+  align-items: center;
+  gap:         12px;
+  margin-top:  16px;
+  flex-wrap:   wrap;
+}
+
+.rdr-time-badge,
+.rdr-word-badge {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            6px;
+  font-family:    'Open Sans', sans-serif;
+  font-size:      12px;
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  padding:        5px 12px;
+  border:         2px solid var(--rdr-black);
+  white-space:    nowrap;
+  line-height:    1;
+}
+
+.rdr-time-badge {
+  background: #333;
+  color:      #fff;
+  box-shadow: 2px 2px 0 var(--rdr-blue);
+}
+
+.rdr-word-badge {
+  background: #fff;
+  color:      #333;
+  box-shadow: 2px 2px 0 var(--rdr-orange);
+}
+
+
+/* --------------------------------------------------------------------------
+   8.  Page navigation buttons redesign
+       Nintendo-style: hard black border + offset shadow, press animation
+   -------------------------------------------------------------------------- */
+
+body.reading-page .page-footer-action {
+  display:        flex;
+  align-items:    center;
+  justify-content: space-between;
+  margin-bottom:  80px;
+  padding-top:    36px;
+  border-top:     3px solid var(--rdr-black);
+  gap:            12px;
+}
+
+/* Override the global pill-shape button on reading pages */
+body.reading-page .comingSoonButton {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             10px;
+  font-family:     'Open Sans', sans-serif;
+  font-size:       14px;
+  font-weight:     700;
+  text-transform:  uppercase;
+  letter-spacing:  0.08em;
+  padding:         13px 26px;
+  background:      var(--rdr-blue);
+  color:           #fff;
+  text-decoration: none;
+  border:          3px solid var(--rdr-black);
+  border-radius:   0;               /* flat Nintendo edge */
+  box-shadow:      4px 4px 0 var(--rdr-black);
+  transition:      background 0.12s ease,
+                   transform  0.08s ease,
+                   box-shadow 0.08s ease;
+  cursor:          pointer;
+}
+
+body.reading-page .comingSoonButton:hover {
+  background:  var(--rdr-orange);
+  transform:   translate(-2px, -2px);
+  box-shadow:  6px 6px 0 var(--rdr-black);
+}
+
+body.reading-page .comingSoonButton:active {
+  transform:  translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--rdr-black);
+}
+
+
+/* --------------------------------------------------------------------------
+   9.  dreamMemText enhancement  (italic dream / memory passages)
+   -------------------------------------------------------------------------- */
+
+body.reading-page .dreamMemText {
+  font-style:    italic;
+  color:         #3a3a3a;
+  padding:       22px 26px 22px 32px;
+  margin:        36px 0;
+  background:    #f7f9ff;
+  border-left:   5px solid var(--rdr-blue);
+  border-right:  none;
+  border-top:    none;
+  border-bottom: none;
+  box-shadow:    4px 4px 0 var(--rdr-blue);
+  border-radius: 0;
+  position:      relative;
+  font-size:     0.96em;
+  line-height:   1.88;
+  overflow:      visible;
+}
+
+
+
+/* --------------------------------------------------------------------------
+   10. thoughtText — simple italic, no extra decoration
+   -------------------------------------------------------------------------- */
+
+body.reading-page .thoughtText {
+  font-style: italic;
+}
+
+
+/* --------------------------------------------------------------------------
+   11. Blockquote / pull-quote  (any <blockquote> inside page-content)
+   -------------------------------------------------------------------------- */
+
+body.reading-page .page-content blockquote {
+  margin:     38px 0;
+  padding:    22px 28px 22px 28px;
+  background: #fff;
+  border:     3px solid var(--rdr-black);
+  box-shadow: 5px 5px 0 var(--rdr-orange);
+  font-size:  1.12em;
+  font-style: italic;
+  line-height: 1.72;
+  color:      #333;
+  position:   relative;
+}
+
+body.reading-page .page-content blockquote::before {
+  content:        '\275D';          /* heavy double turned comma */
+  font-family:    Georgia, serif;
+  font-size:      52px;
+  color:          var(--rdr-orange);
+  font-style:     normal;
+  position:       absolute;
+  top:           -16px;
+  left:           14px;
+  line-height:    1;
+  pointer-events: none;
+}
+
+body.reading-page .page-content blockquote p {
+  margin: 0 0 10px;
+}
+
+body.reading-page .page-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+body.reading-page .page-content blockquote cite {
+  display:        block;
+  margin-top:     14px;
+  font-size:      0.82em;
+  font-style:     normal;
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color:          #777;
+}
+
+
+/* --------------------------------------------------------------------------
+   12. Text selection colour
+   -------------------------------------------------------------------------- */
+
+body.reading-page ::selection      { background: rgba(67,146,241,0.22); color: #000; }
+body.reading-page ::-moz-selection { background: rgba(67,146,241,0.22); color: #000; }
+
+
+/* --------------------------------------------------------------------------
+   13. Scroll progress bar — sharper, more polished look on reading pages
+   -------------------------------------------------------------------------- */
+
+body.reading-page #scroll-progress-container {
+  width:        8px;
+  border-radius: 0;
+  border:       2px solid rgba(0,0,0,0.5);
+  background:   #ebebeb;
+  box-shadow:   2px 2px 0 rgba(67,146,241,0.35);
+  overflow:     visible;
+}
+
+body.reading-page #scroll-progress-bar {
+  background:    linear-gradient(to bottom, #4392F1 0%, #2c6fd4 100%);
+  box-shadow:    none;
+  border-radius: 0;
+  transition:    height 0.07s linear;
+}
+
+/* Orange tick mark at the bottom of the container (always visible) */
+body.reading-page #scroll-progress-container::after {
+  content:    '';
+  display:    block;
+  position:   absolute;
+  bottom:     -3px;
+  left:       -3px;
+  right:      -3px;
+  height:     5px;
+  background: var(--rdr-orange);
+  border:     1px solid var(--rdr-black);
+}
+
+
+
+/* --------------------------------------------------------------------------
+   14. Reader Toolbar — three-dots toggle button (fixed, right edge)
+   -------------------------------------------------------------------------- */
+
+#rdr-toolbar-toggle {
+  position:        fixed;
+  right:           -1px;
+  top:             50%;
+  transform:       translateY(-50%);
+  z-index:         1500;
+  width:           20px;
+  height:          54px;
+  background:      #fff;
+  border:          2px solid var(--rdr-black);
+  border-right:    none;
+  border-radius:   5px 0 0 5px;
+  box-shadow:      -2px 2px 0 var(--rdr-blue);
+  cursor:          pointer;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       16px;
+  line-height:     1;
+  color:           #333;
+  transition:      background 0.14s, color 0.14s;
+  user-select:     none;
+}
+
+#rdr-toolbar-toggle:hover {
+  background: var(--rdr-blue);
+  color:      #fff;
+}
+
+#rdr-toolbar-toggle[aria-expanded="true"] {
+  background: var(--rdr-blue);
+  color:      #fff;
+}
+
+
+/* --------------------------------------------------------------------------
+   15. Reader Settings — slide-over overlay backdrop + panel
+   -------------------------------------------------------------------------- */
+
+#rdr-settings-overlay {
+  display:    none;
+  position:   fixed;
+  inset:      0;
+  z-index:    1498;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+#rdr-settings-overlay.rdr-open {
+  display: block;
+}
+
+#rdr-settings-panel {
+  position:   fixed;
+  top:        0;
+  right:      0;
+  height:     100%;
+  width:      270px;
+  max-width:  85vw;
+  z-index:    1499;
+  background: #fff;
+  border-left: 3px solid var(--rdr-black);
+  box-shadow: -5px 0 0 rgba(67, 146, 241, 0.35);
+  overflow-y: auto;
+  transform:  translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#rdr-settings-panel.rdr-open {
+  transform: translateX(0);
+}
+
+#rdr-settings-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         14px 18px;
+  background:      #333;
+  border-bottom:   3px solid var(--rdr-blue);
+  position:        sticky;
+  top:             0;
+  z-index:         1;
+}
+
+#rdr-settings-title {
+  font-family:    'Anton', cursive;
+  font-size:      16px;
+  color:          #fff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#rdr-settings-close {
+  background:  none;
+  border:      none;
+  color:       #fff;
+  font-size:   18px;
+  cursor:      pointer;
+  padding:     4px 8px;
+  border-radius: 4px;
+  line-height: 1;
+  transition:  background 0.15s;
+}
+
+#rdr-settings-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+#rdr-settings-body {
+  padding: 22px 18px;
+}
+
+.rdr-tb-section {
+  margin-bottom: 15px;
+}
+
+.rdr-tb-section:last-child {
+  margin-bottom: 0;
+}
+
+.rdr-tb-label {
+  font-family:    'Open Sans', sans-serif;
+  font-size:      10px;
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color:          #aaa;
+  margin-bottom:  7px;
+}
+
+.rdr-btn-row {
+  display: flex;
+  gap:     6px;
+}
+
+/* Individual control buttons inside the toolbar */
+.rdr-ctrl-btn {
+  flex:            1;
+  padding:         8px 3px;
+  background:      #fff;
+  border:          2px solid var(--rdr-black);
+  box-shadow:      2px 2px 0 var(--rdr-black);
+  cursor:          pointer;
+  font-family:     'Open Sans', sans-serif;
+  font-size:       13px;
+  font-weight:     700;
+  color:           #333;
+  text-align:      center;
+  line-height:     1;
+  white-space:     nowrap;
+  transition:      background 0.1s, transform 0.07s, box-shadow 0.07s, color 0.1s;
+}
+
+.rdr-ctrl-btn:hover {
+  background: #f0f0f0;
+}
+
+.rdr-ctrl-btn.rdr-active {
+  background: var(--rdr-blue);
+  color:      #fff;
+  box-shadow: 2px 2px 0 var(--rdr-black);
+}
+
+.rdr-ctrl-btn:active {
+  transform:  translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--rdr-black);
+}
+
+/* Font-type buttons use a slightly smaller size so 3 fit comfortably */
+.rdr-font-row .rdr-ctrl-btn {
+  font-size:  11px;
+  padding:    8px 2px;
+}
+
+/* Full-width button (focus mode toggle) */
+.rdr-full-btn {
+  width:          100%;
+  padding:        9px 12px;
+  background:     #fff;
+  border:         2px solid var(--rdr-black);
+  box-shadow:     2px 2px 0 var(--rdr-black);
+  cursor:         pointer;
+  font-family:    'Open Sans', sans-serif;
+  font-size:      12px;
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color:          #333;
+  text-align:     center;
+  transition:     background 0.14s, color 0.14s;
+}
+
+.rdr-full-btn:hover {
+  background: #333;
+  color:      #fff;
+}
+
+.rdr-full-btn.rdr-active {
+  background: #333;
+  color:      #fff;
+}
+
+
+/* --------------------------------------------------------------------------
+   16. Focus mode — everything outside the text recedes
+   -------------------------------------------------------------------------- */
+
+body.reading-page.rdr-focus #promo,
+body.reading-page.rdr-focus #topMenu,
+body.reading-page.rdr-focus #scroll-progress-container,
+body.reading-page.rdr-focus #copyright,
+body.reading-page.rdr-focus .page-footer-action {
+  opacity:         0.07;
+  transition:      opacity 0.4s ease;
+  pointer-events:  none;
+}
+
+/* Keep the toolbar accessible in focus mode */
+body.reading-page.rdr-focus #rdr-toolbar-toggle,
+body.reading-page.rdr-focus #rdr-settings-panel,
+body.reading-page.rdr-focus #rdr-settings-overlay,
+body.reading-page.rdr-focus #rdr-back-top {
+  opacity:        1 !important;
+  pointer-events: all !important;
+}
+
+body.reading-page.rdr-focus .page-content {
+  color: #111;
+}
+
+
+/* --------------------------------------------------------------------------
+   17. Keyboard navigation hint (shown briefly on first visit to a book page)
+   -------------------------------------------------------------------------- */
+
+#rdr-kbd-hint {
+  position:    fixed;
+  bottom:      22px;
+  left:        50%;
+  transform:   translateX(-50%) translateY(56px);
+  background:  #222;
+  color:       #fff;
+  border:      2px solid var(--rdr-black);
+  box-shadow:  3px 3px 0 var(--rdr-blue);
+  padding:     10px 22px;
+  font-family: 'Open Sans', sans-serif;
+  font-size:   13px;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index:     1600;
+  opacity:     0;
+  transition:  transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+}
+
+#rdr-kbd-hint.rdr-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity:   1;
+}
+
+#rdr-kbd-hint kbd {
+  background:    var(--rdr-blue);
+  color:         #fff;
+  padding:       2px 8px;
+  font-size:     12px;
+  margin:        0 3px;
+  border-radius: 2px;
+  font-family:   'Open Sans', sans-serif;
+}
+
+
+/* --------------------------------------------------------------------------
+   18. Back-to-top button
+   -------------------------------------------------------------------------- */
+
+#rdr-back-top {
+  position:    fixed;
+  bottom:      22px;
+  right:       18px;
+  z-index:     1400;
+  width:       42px;
+  height:      42px;
+  background:  #fff;
+  border:      3px solid var(--rdr-black);
+  box-shadow:  3px 3px 0 var(--rdr-black);
+  cursor:      pointer;
+  display:     flex;
+  align-items: center;
+  justify-content: center;
+  font-size:   18px;
+  color:       #333;
+  opacity:     0;
+  visibility:  hidden;
+  transform:   translateY(12px);
+  transition:  opacity   0.22s ease,
+               visibility 0.22s,
+               transform  0.22s ease,
+               background 0.14s,
+               box-shadow 0.1s;
+}
+
+#rdr-back-top.rdr-visible {
+  opacity:    1;
+  visibility: visible;
+  transform:  translateY(0);
+}
+
+#rdr-back-top:hover {
+  background: var(--rdr-blue);
+  color:      #fff;
+  box-shadow: 4px 4px 0 var(--rdr-black);
+}
+
+#rdr-back-top:active {
+  transform:  translateY(2px);
+  box-shadow: 1px 1px 0 var(--rdr-black);
+}
+
+
+/* --------------------------------------------------------------------------
+   19. Chapter completion toast (shown when scroll reaches 100%)
+   -------------------------------------------------------------------------- */
+
+#rdr-complete-toast {
+  position:    fixed;
+  top:         110px;
+  left:        50%;
+  transform:   translateX(-50%) translateY(-24px);
+  background:  #fff;
+  border:      3px solid var(--rdr-black);
+  box-shadow:  5px 5px 0 var(--rdr-orange);
+  padding:     14px 28px;
+  font-family: 'Anton', cursive;
+  font-size:   18px;
+  color:       var(--rdr-orange);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  z-index:     1700;
+  opacity:     0;
+  visibility:  hidden;
+  transition:  opacity   0.3s ease,
+               transform 0.3s ease,
+               visibility 0.3s;
+  pointer-events: none;
+}
+
+#rdr-complete-toast.rdr-visible {
+  opacity:    1;
+  visibility: visible;
+  transform:  translateX(-50%) translateY(0);
+}
+
+
+/* --------------------------------------------------------------------------
+   20. Responsive — mobile (≤ 768px)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  /* Ensure text clears the fixed three-dots settings button */
+  body.reading-page .page-content {
+    padding-right: 36px;
+  }
+
+  /* Back-to-top moves to bottom-left to avoid overlap */
+  #rdr-back-top {
+    right:  auto;
+    left:   18px;
+    bottom: 16px;
+  }
+
+  /* Smaller drop cap on narrow screens */
+  body.reading-page.chapter-start .page-content > p:first-of-type::first-letter {
+    font-size:  3.8em;
+    text-shadow: 2px 2px 0 var(--rdr-black);
+  }
+
+  body.reading-page .dreamMemText {
+    padding: 18px 20px;
+  }
+
+  body.reading-page .page-content blockquote {
+    padding: 18px 18px;
+  }
+
+  body.reading-page #scroll-progress-container {
+    width: 5px;
+  }
+
+  .rdr-meta { gap: 8px; }
+
+  #rdr-kbd-hint { display: none; }   /* Arrow keys irrelevant on mobile */
+}
+
+
+/* --------------------------------------------------------------------------
+   21. Responsive — small phones (≤ 480px)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 480px) {
+
+  body.reading-page .page-content {
+    padding: 0 2px;
+  }
+
+  .rdr-btn-row {
+    gap: 4px;
+  }
+
+  .rdr-ctrl-btn {
+    padding:   8px 1px;
+    font-size: 11px;
+  }
+
+  body.reading-page .comingSoonButton {
+    padding:   11px 18px;
+    font-size: 13px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   22. Print stylesheet — clean, ad-free output for book pages
+   -------------------------------------------------------------------------- */
+
+@media print {
+
+  #promo,
+  #topMenu,
+  #scroll-progress-container,
+  #rdr-toolbar-toggle,
+  #rdr-settings-panel,
+  #rdr-settings-overlay,
+  #rdr-kbd-hint,
+  #rdr-back-top,
+  #rdr-complete-toast,
+  .page-footer-action {
+    display: none !important;
+  }
+
+  body.reading-page {
+    background: #fff;
+  }
+
+  body.reading-page .page-content {
+    font-size:   12pt;
+    line-height: 1.65;
+    max-width:   100%;
+    color:       #000;
+    text-align:  left;
+    hyphens:     auto;
+  }
+
+  body.reading-page .page-content p {
+    margin-bottom: 14pt;
+  }
+
+  body.reading-page .page-header-container {
+    margin-top:    0;
+    margin-bottom: 24pt;
+    padding-bottom: 14pt;
+    border-bottom: 1.5pt solid #000;
+  }
+
+  body.reading-page .page-header-container::before {
+    background: #000;
+    box-shadow: none;
+  }
+
+  body.reading-page .page-title {
+    font-size:   32pt;
+    color:       #000;
+    text-shadow: none;
+  }
+
+  body.reading-page .page-subtitle {
+    font-size: 16pt;
+    color:     #000;
+  }
+
+  body.reading-page .dreamMemText {
+    border-left:  3pt solid #555;
+    box-shadow:   none;
+    background:   #f5f5f5;
+  }
+
+  body.reading-page .page-content blockquote {
+    border:     1.5pt solid #333;
+    box-shadow: none;
+    background: #f9f9f9;
+  }
+
+  body.reading-page .page-content blockquote::before {
+    display: none;
+  }
+
+  body.reading-page.chapter-start .page-content > p:first-of-type::first-letter {
+    text-shadow: none;
+    color:       #000;
+  }
+}
+
+/* ==========================================================================
+   DESKTOP: Level-2+ nested submenus (fly out to the right of parent item)
+   ========================================================================== */
+
+/* Mark any li that contains a submenu so it has relative positioning */
+#topLinks li ul li {
+  position: relative;
+}
+
+/* Level 2+ submenus open to the RIGHT of their parent li */
+#topLinks li ul li ul {
+  top: 0;
+  left: 100%;
+  border-top: none;
+  border-left: 2px solid #4392F1;
+}
+
+/* If JS detects right-edge overflow, flip to the LEFT instead */
+#topLinks li ul li ul.flip-left {
+  left: auto;
+  right: 100%;
+  border-left: none;
+  border-right: 2px solid #4392F1;
+}
+
+/* Show indicator arrow on desktop items that have nested submenus */
+#topLinks li ul li.has-submenu > a::after {
+  content: ' ›';
+  font-size: 14px;
+  float: right;
+  margin-left: 8px;
+  color: #4392F1;
+}
+
+/* ==========================================================================
+   MOBILE (≤768px): disable dropdown submenus; show indicator only
+   ========================================================================== */
+
+/* Hamburger button — hidden on desktop, shown on mobile */
+#mnav-hamburger {
+  display: none;
+  float: right;
+  margin-top: 14px;
+  padding: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#mnav-hamburger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+#mnav-hamburger:hover span {
+  background: #4392F1;
+}
+
+@media (max-width: 768px) {
+
+  /* Hide all nav links — hamburger replaces them */
+  #topLinks {
+    display: none !important;
+  }
+
+  #mnav-hamburger {
+    display: flex;
+  }
+}
+
+/* ==========================================================================
+   MOBILE NAV OVERLAY
+   ========================================================================== */
+
+#mnav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+#mnav-overlay.open {
+  display: block;
+}
+
+#mnav-panels {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 82vw;
+  max-width: 340px;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Individual sliding panel */
+.mnav-panel {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.mnav-panel.mnav-active {
+  transform: translateX(0);
+}
+
+/* Previous panel slides 30% to the left to give depth */
+.mnav-panel.mnav-out {
+  transform: translateX(-28%);
+}
+
+/* Exiting panel slides back to the right */
+.mnav-panel.mnav-exit {
+  transform: translateX(100%);
+}
+
+/* Panel header bar */
+.mnav-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: #333;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 3px solid #4392F1;
+}
+
+.mnav-action-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.mnav-action-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.mnav-title {
+  font-family: 'Anton', cursive;
+  font-size: 18px;
+  color: #4392F1;
+  letter-spacing: 0.5px;
+  flex: 1;
+}
+
+/* Items list inside a panel */
+.mnav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mnav-list li {
+  border-bottom: 1px solid #eee;
+}
+
+/* Shared style for both link and button items */
+.mnav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+  box-sizing: border-box;
+}
+
+.mnav-item:hover,
+.mnav-item:focus {
+  background: #f4f4f4;
+  color: #4392F1;
+  outline: none;
+}
+
+.mnav-arrow {
+  font-size: 22px;
+  font-weight: bold;
+  color: #4392F1;
+  line-height: 1;
+  flex-shrink: 0;
 }

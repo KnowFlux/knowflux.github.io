@@ -506,6 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (pageNum === 1) {
         // First numbered page is always a chapter start
         document.body.classList.add('chapter-start');
+        markFirstParagraphForDropCap();
         return;
       }
       // Fetch the previous page and compare subtitles
@@ -514,7 +515,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var curName  = curSubEl ? curSubEl.textContent.trim() : '';
       fetch(prevUrl)
         .then(function(r) {
-          if (!r.ok) { document.body.classList.add('chapter-start'); return ''; }
+          if (!r.ok) { document.body.classList.add('chapter-start'); markFirstParagraphForDropCap(); return ''; }
           return r.text();
         })
         .then(function(html) {
@@ -522,10 +523,25 @@ document.addEventListener('DOMContentLoaded', function() {
           var doc     = (new DOMParser()).parseFromString(html, 'text/html');
           var prevSub = doc.querySelector('.page-subtitle');
           var prevName = prevSub ? prevSub.textContent.trim() : '';
-          if (prevName !== curName) document.body.classList.add('chapter-start');
+          if (prevName !== curName) {
+            document.body.classList.add('chapter-start');
+            markFirstParagraphForDropCap();
+          }
         })
         .catch(function() {});
     }());
+
+    // ── Mark first paragraph for drop cap (handles dreamMemText/thoughtText) ─────
+    function markFirstParagraphForDropCap() {
+      var pageContent = document.querySelector('.page-content');
+      if (!pageContent) return;
+      
+      // Find the first paragraph element, whether it's a direct child or nested
+      var firstPara = pageContent.querySelector('p');
+      if (firstPara) {
+        firstPara.classList.add('rdr-drop-cap-target');
+      }
+    }
 
     // Keyboard hint — show once per browser session
     var hintShown = sessionStorage.getItem('rdr-kbd-shown');

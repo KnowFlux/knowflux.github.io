@@ -1127,7 +1127,7 @@ body.reading-page .page-content p {
    5.  Drop Cap — decorative opening letter of chapter-start pages only
    -------------------------------------------------------------------------- */
 
-body.reading-page.chapter-start .page-content > p:first-of-type::first-letter {
+body.reading-page.chapter-start .page-content .rdr-drop-cap-target::first-letter {
   font-family:    'Anton', cursive;
   font-size:      5em;
   line-height:    0.76;
@@ -1780,7 +1780,7 @@ body.reading-page.rdr-focus .page-content {
   }
 
   /* Smaller drop cap on narrow screens */
-  body.reading-page.chapter-start .page-content > p:first-of-type::first-letter {
+  body.reading-page.chapter-start .page-content .rdr-drop-cap-target::first-letter {
     font-size:  3.8em;
     text-shadow: 2px 2px 0 var(--rdr-black);
   }
@@ -1904,7 +1904,7 @@ body.reading-page.rdr-focus .page-content {
     display: none;
   }
 
-  body.reading-page.chapter-start .page-content > p:first-of-type::first-letter {
+  body.reading-page.chapter-start .page-content .rdr-drop-cap-target::first-letter {
     text-shadow: none;
     color:       #000;
   }

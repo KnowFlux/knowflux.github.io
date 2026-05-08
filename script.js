@@ -383,6 +383,11 @@ document.addEventListener('DOMContentLoaded', function() {
         '<button class="rdr-full-btn" id="rdr-focus-btn">' +
           (savedFocus ? '\u2726 Exit Focus' : '\u2726 Focus Mode') +
         '</button>' +
+      '</div>' +
+      '<div class="rdr-tb-section">' +
+        '<button class="rdr-full-btn" id="rdr-dark-btn">' +
+          '\ud83c\udf19 Dark Mode' +
+        '</button>' +
       '</div>';
 
     settingsPanel.appendChild(toolbar);
@@ -460,6 +465,32 @@ document.addEventListener('DOMContentLoaded', function() {
       localStorage.setItem('rdr-focus', isFocus);
       this.textContent = isFocus ? '\u2726 Exit Focus' : '\u2726 Focus Mode';
       this.classList.toggle('rdr-active', isFocus);
+    });
+
+    // ── Dark mode (reading pages only) ────────────────────────────────────────
+    const READING_DARK_MODE_KEY = 'knowflux-reading-dark-mode';
+    const darkBtn = document.getElementById('rdr-dark-btn');
+    const isDarkEnabled = localStorage.getItem(READING_DARK_MODE_KEY) === 'true';
+    
+    // Apply dark mode on page load if enabled
+    if (isDarkEnabled) {
+      document.documentElement.setAttribute('data-dark-mode', 'true');
+      darkBtn.classList.add('rdr-active');
+    }
+    
+    darkBtn.addEventListener('click', function() {
+      const isCurrentlyDark = document.documentElement.getAttribute('data-dark-mode') === 'true';
+      const newState = !isCurrentlyDark;
+      
+      if (newState) {
+        document.documentElement.setAttribute('data-dark-mode', 'true');
+        darkBtn.classList.add('rdr-active');
+      } else {
+        document.documentElement.removeAttribute('data-dark-mode');
+        darkBtn.classList.remove('rdr-active');
+      }
+      
+      localStorage.setItem(READING_DARK_MODE_KEY, newState);
     });
 
     // ── Keyboard arrow navigation between pages ───────────────────────────────

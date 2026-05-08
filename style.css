@@ -2119,3 +2119,240 @@ body.reading-page.rdr-focus .page-content {
   line-height: 1;
   flex-shrink: 0;
 }
+/* ==========================================================================
+   DARK MODE STYLES (Reading Pages Only)
+   ========================================================================== */
+
+/* Root dark mode attribute */
+html[data-dark-mode="true"] {
+  --bg-color: #1a1a1a;
+  --text-color: #e8e8e8;
+  --link-color: #64b5f6;
+  --link-hover-color: #90caf9;
+  --border-color: #444;
+  --footer-bg: #0d0d0d;
+  --footer-text: #e8e8e8;
+  --input-bg: #2a2a2a;
+  --input-border: #555;
+}
+
+html[data-dark-mode="true"] {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+html[data-dark-mode="true"] body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+html[data-dark-mode="true"] #promo {
+  background-color: #d32f2f;
+}
+
+html[data-dark-mode="true"] #topMenu {
+  background: #1a1a1a;
+  border-bottom: 1px solid var(--border-color);
+}
+
+html[data-dark-mode="true"] #topLinks li a {
+  color: var(--text-color);
+}
+
+html[data-dark-mode="true"] #topLinks li a:hover {
+  color: var(--link-hover-color);
+}
+
+html[data-dark-mode="true"] #topLinks li ul {
+  background: #252525;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+}
+
+html[data-dark-mode="true"] #topLinks li ul li a:hover {
+  background-color: #333;
+}
+
+html[data-dark-mode="true"] #footer,
+html[data-dark-mode="true"] #subscribe {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+}
+
+html[data-dark-mode="true"] #footer li a,
+html[data-dark-mode="true"] #subscribe a {
+  color: var(--link-color);
+}
+
+html[data-dark-mode="true"] #footer li a:hover,
+html[data-dark-mode="true"] #subscribe a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+html[data-dark-mode="true"] #copyright {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  border-top: 1px solid var(--border-color);
+}
+
+/* All headings */
+html[data-dark-mode="true"] h1,
+html[data-dark-mode="true"] h2,
+html[data-dark-mode="true"] h3,
+html[data-dark-mode="true"] h4,
+html[data-dark-mode="true"] h5,
+html[data-dark-mode="true"] h6 {
+  color: #f0f0f0;
+}
+
+/* All paragraph text */
+html[data-dark-mode="true"] p {
+  color: var(--text-color);
+}
+
+/* Special text types - ensure visibility */
+html[data-dark-mode="true"] .dreamMemText,
+html[data-dark-mode="true"] .thoughtText,
+html[data-dark-mode="true"] span.dreamMemText,
+html[data-dark-mode="true"] span.thoughtText {
+  color: #d0d0ff;
+}
+
+html[data-dark-mode="true"] .page-subtitle {
+  color: #b0b0b0;
+}
+
+/* Links */
+html[data-dark-mode="true"] a {
+  color: var(--link-color);
+}
+
+html[data-dark-mode="true"] a:hover {
+  color: var(--link-hover-color);
+}
+
+/* Form elements */
+html[data-dark-mode="true"] input,
+html[data-dark-mode="true"] textarea,
+html[data-dark-mode="true"] select {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-color: var(--input-border);
+}
+
+/* Poetry boxes and features */
+html[data-dark-mode="true"] .poetry-box {
+  background-color: #252525;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+html[data-dark-mode="true"] .poetry-box:hover {
+  background-color: #2a2a2a;
+}
+
+/* Mobile navigation */
+html[data-dark-mode="true"] #mnav-overlay {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+html[data-dark-mode="true"] .mnav-panel {
+  background: #1a1a1a;
+}
+
+html[data-dark-mode="true"] .mnav-item {
+  color: var(--text-color);
+}
+
+html[data-dark-mode="true"] .mnav-item:hover,
+html[data-dark-mode="true"] .mnav-item:focus {
+  background: #2a2a2a;
+  color: var(--link-hover-color);
+}
+
+html[data-dark-mode="true"] .mnav-list li {
+  border-bottom-color: #333;
+}
+
+html[data-dark-mode="true"] .mnav-header {
+  background: #0d0d0d;
+  border-bottom: 1px solid var(--border-color);
+}
+
+html[data-dark-mode="true"] .mnav-title {
+  color: #64b5f6;
+}
+
+html[data-dark-mode="true"] .mnav-arrow {
+  color: #64b5f6;
+}
+
+/* Reading page specific */
+html[data-dark-mode="true"] .reading-page .page-content {
+  color: var(--text-color);
+}
+
+html[data-dark-mode="true"] .page-header-container {
+  color: var(--text-color);
+}
+
+html[data-dark-mode="true"] .rdr-header {
+  color: var(--text-color);
+}
+
+html[data-dark-mode="true"] .rdr-meta {
+  color: #a8a8a8;
+}
+
+html[data-dark-mode="true"] .rdr-time-badge,
+html[data-dark-mode="true"] .rdr-word-badge {
+  color: #a8a8a8;
+  border-color: #444;
+}
+
+/* Horizontal rules and separators */
+html[data-dark-mode="true"] hr {
+  border-color: var(--border-color);
+}
+
+/* Feature links */
+html[data-dark-mode="true"] .feature-link h2 {
+  color: #90caf9;
+}
+
+html[data-dark-mode="true"] .feature-link:hover h2 {
+  color: #b0d4ff;
+}
+
+html[data-dark-mode="true"] .subheading {
+  color: #a0a0a0;
+}
+
+/* Settings panel text */
+html[data-dark-mode="true"] #rdr-settings-panel {
+  background: #1a1a1a;
+  color: var(--text-color);
+}
+
+html[data-dark-mode="true"] .rdr-tb-label {
+  color: #f0f0f0;
+}
+
+html[data-dark-mode="true"] .rdr-ctrl-btn,
+html[data-dark-mode="true"] .rdr-full-btn {
+  background-color: #2a2a2a;
+  color: var(--text-color);
+  border-color: #444;
+}
+
+html[data-dark-mode="true"] .rdr-ctrl-btn:hover,
+html[data-dark-mode="true"] .rdr-full-btn:hover {
+  background-color: #333;
+  color: var(--link-hover-color);
+}
+
+html[data-dark-mode="true"] .rdr-ctrl-btn.rdr-active,
+html[data-dark-mode="true"] .rdr-full-btn.rdr-active {
+  background-color: #4392F1;
+  color: #fff;
+}

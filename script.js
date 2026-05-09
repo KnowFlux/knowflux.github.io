@@ -63,31 +63,74 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ---------------------------------------------------------------------------
-  // Desktop: fix nested submenu overflow (fly-out to right, flip left if needed)
+  // Desktop: Click-to-open navigation for cleaner menu interaction
   // ---------------------------------------------------------------------------
-  function fixDesktopSubOverflow() {
-    // Run on all non-mobile screens (600px+) for more sensitive overflow detection
+  function setupClickToOpenMenu() {
     if (window.innerWidth <= 600) return;
-    document.querySelectorAll('#topLinks li ul li').forEach(li => {
-      li.addEventListener('mouseenter', function() {
-        const subUl = this.querySelector(':scope > ul');
-        if (!subUl) return;
-        // Temporarily make it visible off-screen to measure
-        subUl.style.visibility = 'hidden';
-        subUl.style.pointerEvents = 'none';
+    
+    // Add click handlers to all menu items with submenus
+    document.querySelectorAll('#topLinks li.has-submenu').forEach(li => {
+      const link = li.querySelector(':scope > a');
+      if (!link) return;
+      
+      link.addEventListener('click', function(e) {
+        // Prevent navigation if this is just a menu toggle
+        if (this.getAttribute('href') === '#') {
+          e.preventDefault();
+        }
+        
+        // Stop propagation to prevent triggering the document-level close handler
+        e.stopPropagation();
+        
+        // Toggle this submenu
+        li.classList.toggle('submenu-active');
+        
+        // Close other open submenus at the same level
+        li.parentNode.querySelectorAll(':scope > li.has-submenu').forEach(otherLi => {
+          if (otherLi !== li && !otherLi.contains(li)) {
+            otherLi.classList.remove('submenu-active');
+          }
+        });
+      });
+    });
+    
+    // Close submenus when clicking outside the menu
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#topLinks')) {
+        document.querySelectorAll('#topLinks li.has-submenu').forEach(li => {
+          li.classList.remove('submenu-active');
+        });
+      }
+    });
+    
+    // Close submenu when clicking on a navigation link (not a submenu toggle)
+    document.querySelectorAll('#topLinks li ul a').forEach(link => {
+      link.addEventListener('click', function() {
+        // Only close if this is NOT a submenu toggle link (href="#")
+        if (this.getAttribute('href') !== '#') {
+          setTimeout(() => {
+            document.querySelectorAll('#topLinks li.has-submenu').forEach(li => {
+              li.classList.remove('submenu-active');
+            });
+          }, 100);
+        }
+      });
+    });
+    
+    // Fix submenu overflow (position left if goes off-screen)
+    function adjustSubmenuPosition() {
+      document.querySelectorAll('#topLinks li.has-submenu.submenu-active > ul').forEach(subUl => {
         subUl.classList.remove('flip-left');
-        // Force reflow
         const rect = subUl.getBoundingClientRect();
-        // Use 50px buffer for more conservative, sensitive detection (prevents off-screen)
         if (rect.right > window.innerWidth - 50) {
           subUl.classList.add('flip-left');
         }
-        subUl.style.visibility = '';
-        subUl.style.pointerEvents = '';
       });
-    });
+    }
+    
+    document.addEventListener('click', adjustSubmenuPosition);
   }
-  fixDesktopSubOverflow();
+  setupClickToOpenMenu();
 
   // ---------------------------------------------------------------------------
   // Mobile Nav Overlay System

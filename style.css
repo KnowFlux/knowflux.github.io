@@ -135,12 +135,11 @@ h2 {
   border-top: 2px solid #4392F1;
 }
 
-#topLinks li:hover>ul,
+/* Click-to-open menus: only show submenus when .submenu-active class is applied */
 #topLinks li.submenu-active>ul {
   opacity: 1;
   visibility: visible;
   top: 100%;
-  /* Adjusts if needed for smooth transition */
 }
 
 #topLinks li ul li {
@@ -170,6 +169,8 @@ h2 {
   -ms-transition: all 250ms ease-out;
   transition: all 250ms ease-out;
 }
+
+
 
 .search-icon {
   font-size: 20px;
@@ -2216,6 +2217,17 @@ html[data-dark-mode="true"] .thoughtText,
 html[data-dark-mode="true"] span.dreamMemText,
 html[data-dark-mode="true"] span.thoughtText {
   color: #d0d0ff;
+}
+
+html[data-dark-mode="true"] body.reading-page .dreamMemText {
+  background: #252535;
+  color: #d8d8ff;
+  border-left-color: #7aa3e0;
+  box-shadow: 4px 4px 0 rgba(122, 163, 224, 0.5);
+}
+
+html[data-dark-mode="true"] body.reading-page .thoughtText {
+  color: #d8d8ff;
 }
 
 html[data-dark-mode="true"] .page-subtitle {

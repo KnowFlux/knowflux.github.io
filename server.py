@@ -480,8 +480,14 @@ def update_poetry_html(poem_title, poem_filename, section_name):
 class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def end_headers(self):
-        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
-        self.send_header("Expires", "0")
+        # Allow aggressive caching for static assets (images, CSS, JS)
+        if self.path.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.css', '.js')):
+            # Cache images and static assets for 30 days
+            self.send_header("Cache-Control", "public, max-age=2592000")
+        else:
+            # Don't cache dynamic content
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+            self.send_header("Expires", "0")
         super().end_headers()
 
     def _is_authenticated(self):

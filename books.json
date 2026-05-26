@@ -231,6 +231,7 @@
   ],
   "poetry": {
     "url": "/poetry.html",
+    "description": "Haikus and Triplets from KnowFlux author Rainer Penn.",
     "coverImage": "/Images/SuperPoetryCover.png",
     "sections": {
       "Haikus": [

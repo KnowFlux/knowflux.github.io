@@ -7,6 +7,7 @@
       "totalPages": 15,
       "pagesUrl": "/exploded-pages.html",
       "chaptersUrl": "/exploded-chapters.html",
+      "coverImage": "/Images/ExplodedCover.png",
       "pages": [
         {
           "page_number": 1,
@@ -207,6 +208,7 @@
       "totalPages": 1,
       "pagesUrl": "/pinnacle-pages.html",
       "chaptersUrl": "/pinnacle-chapters.html",
+      "coverImage": "/Images/UltraRealityPinnacle.png",
       "pages": [
         {
           "page_number": 1,
@@ -229,6 +231,7 @@
   ],
   "poetry": {
     "url": "/poetry.html",
+    "coverImage": "/Images/SuperPoetryCover.png",
     "sections": {
       "Haikus": [
         {

@@ -246,7 +246,7 @@ h2 {
   -webkit-transition: all 250ms ease-out;
   -ms-transition: all 250ms ease-out;
   transition: all 250ms ease-out;
-  background-color: #F46036;
+  background-color: #ff3c00;
   padding: 20px 40px;
 }
 
@@ -269,7 +269,7 @@ h2 {
   -webkit-transition: all 250ms ease-out;
   -ms-transition: all 250ms ease-out;
   transition: all 250ms ease-out;
-  background-color: #F46036;
+  background-color: #ff3c00;
   padding: 20px 40px;
 }
 
@@ -855,7 +855,7 @@ details p {
 /* Feature Link Styling */
 .feature-link {
   text-decoration: none !important;
-  color: #333 !important;
+  color: #000 !important;
   transition: color 250ms ease-out;
   display: block;
   padding: 0 !important;

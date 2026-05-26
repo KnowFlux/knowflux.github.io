@@ -8,117 +8,45 @@
       "pagesUrl": "/exploded-pages.html",
       "chaptersUrl": "/exploded-chapters.html",
       "coverImage": "/Images/ExplodedCover.png",
-      "pages": [
-        {
-          "page_number": 1,
-          "chapter_title": "Prologue",
-          "file": "exploded-page1.html",
-          "url": "/exploded-page1.html"
-        },
-        {
-          "page_number": 2,
-          "chapter_title": "A Mysterious Audience",
-          "file": "exploded-page2.html",
-          "url": "/exploded-page2.html"
-        },
-        {
-          "page_number": 3,
-          "chapter_title": "A Mysterious Audience",
-          "file": "exploded-page3.html",
-          "url": "/exploded-page3.html"
-        },
-        {
-          "page_number": 4,
-          "chapter_title": "A Mysterious Audience",
-          "file": "exploded-page4.html",
-          "url": "/exploded-page4.html"
-        },
-        {
-          "page_number": 5,
-          "chapter_title": "A Mysterious Audience",
-          "file": "exploded-page5.html",
-          "url": "/exploded-page5.html"
-        },
-        {
-          "page_number": 6,
-          "chapter_title": "A Mysterious Audience",
-          "file": "exploded-page6.html",
-          "url": "/exploded-page6.html"
-        },
-        {
-          "page_number": 7,
-          "chapter_title": "A Murder",
-          "file": "exploded-page7.html",
-          "url": "/exploded-page7.html"
-        },
-        {
-          "page_number": 8,
-          "chapter_title": "A Murder",
-          "file": "exploded-page8.html",
-          "url": "/exploded-page8.html"
-        },
-        {
-          "page_number": 9,
-          "chapter_title": "A Murder",
-          "file": "exploded-page9.html",
-          "url": "/exploded-page9.html"
-        },
-        {
-          "page_number": 10,
-          "chapter_title": "A Murder",
-          "file": "exploded-page10.html",
-          "url": "/exploded-page10.html"
-        },
-        {
-          "page_number": 11,
-          "chapter_title": "A Murder",
-          "file": "exploded-page11.html",
-          "url": "/exploded-page11.html"
-        },
-        {
-          "page_number": 12,
-          "chapter_title": "A Murder",
-          "file": "exploded-page12.html",
-          "url": "/exploded-page12.html"
-        },
-        {
-          "page_number": 13,
-          "chapter_title": "A Calling",
-          "file": "exploded-page13.html",
-          "url": "/exploded-page13.html"
-        },
-        {
-          "page_number": 14,
-          "chapter_title": "A Calling",
-          "file": "exploded-page14.html",
-          "url": "/exploded-page14.html"
-        },
-        {
-          "page_number": 15,
-          "chapter_title": "A Calling",
-          "file": "exploded-page15.html",
-          "url": "/exploded-page15.html"
-        }
-      ],
       "chapters": {
-        "A Calling": [
+         "Prologue": [
           {
-            "page_number": 13,
-            "chapter_title": "A Calling",
-            "file": "exploded-page13.html",
-            "url": "/exploded-page13.html"
+            "page_number": 1,
+            "chapter_title": "Prologue",
+            "file": "exploded-page1.html",
+            "url": "/exploded-page1.html"
+          }
+        ],
+        "A Mysterious Audience": [
+          {
+            "page_number": 2,
+            "chapter_title": "A Mysterious Audience",
+            "file": "exploded-page2.html",
+            "url": "/exploded-page2.html"
           },
           {
-            "page_number": 14,
-            "chapter_title": "A Calling",
-            "file": "exploded-page14.html",
-            "url": "/exploded-page14.html"
+            "page_number": 3,
+            "chapter_title": "A Mysterious Audience",
+            "file": "exploded-page3.html",
+            "url": "/exploded-page3.html"
           },
           {
-            "page_number": 15,
-            "chapter_title": "A Calling",
-            "file": "exploded-page15.html",
-            "url": "/exploded-page15.html"
+            "page_number": 4,
+            "chapter_title": "A Mysterious Audience",
+            "file": "exploded-page4.html",
+            "url": "/exploded-page4.html"
+          },
+          {
+            "page_number": 5,
+            "chapter_title": "A Mysterious Audience",
+            "file": "exploded-page5.html",
+            "url": "/exploded-page5.html"
+          },
+          {
+            "page_number": 6,
+            "chapter_title": "A Mysterious Audience",
+            "file": "exploded-page6.html",
+            "url": "/exploded-page6.html"
           }
         ],
         "A Murder": [
@@ -159,44 +87,24 @@
             "url": "/exploded-page9.html"
           }
         ],
-        "A Mysterious Audience": [
+        "A Calling": [
           {
-            "page_number": 2,
-            "chapter_title": "A Mysterious Audience",
-            "file": "exploded-page2.html",
-            "url": "/exploded-page2.html"
+            "page_number": 13,
+            "chapter_title": "A Calling",
+            "file": "exploded-page13.html",
+            "url": "/exploded-page13.html"
           },
           {
-            "page_number": 3,
-            "chapter_title": "A Mysterious Audience",
-            "file": "exploded-page3.html",
-            "url": "/exploded-page3.html"
+            "page_number": 14,
+            "chapter_title": "A Calling",
+            "file": "exploded-page14.html",
+            "url": "/exploded-page14.html"
           },
           {
-            "page_number": 4,
-            "chapter_title": "A Mysterious Audience",
-            "file": "exploded-page4.html",
-            "url": "/exploded-page4.html"
-          },
-          {
-            "page_number": 5,
-            "chapter_title": "A Mysterious Audience",
-            "file": "exploded-page5.html",
-            "url": "/exploded-page5.html"
-          },
-          {
-            "page_number": 6,
-            "chapter_title": "A Mysterious Audience",
-            "file": "exploded-page6.html",
-            "url": "/exploded-page6.html"
-          }
-        ],
-        "Prologue": [
-          {
-            "page_number": 1,
-            "chapter_title": "Prologue",
-            "file": "exploded-page1.html",
-            "url": "/exploded-page1.html"
+            "page_number": 15,
+            "chapter_title": "A Calling",
+            "file": "exploded-page15.html",
+            "url": "/exploded-page15.html"
           }
         ]
       }

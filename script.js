@@ -707,6 +707,32 @@ document.addEventListener('DOMContentLoaded', function() {
   })(); // end initReadingExperience
 
   // ---------------------------------------------------------------------------
+  // Book Contents Tab System (for contents.html and similar)
+  // ---------------------------------------------------------------------------
+  (function initBookTabs() {
+    const tabContainer = document.getElementById('book-tabs');
+    if (!tabContainer) return; // not on contents page
+
+    const tabs = tabContainer.querySelectorAll('.book-tab');
+    const panels = document.querySelectorAll('#book-content > .book-panel');
+
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        // Remove .active from all tabs
+        tabs.forEach(function(t) { t.classList.remove('active'); });
+        // Add .active to clicked tab
+        this.classList.add('active');
+
+        // Show matching panel, hide others
+        const bookId = this.getAttribute('data-book');
+        panels.forEach(function(panel) {
+          panel.style.display = (panel.id === 'panel-' + bookId) ? 'block' : 'none';
+        });
+      });
+    });
+  })();
+
+  // ---------------------------------------------------------------------------
   // Random Poem Redirect
   // ---------------------------------------------------------------------------
   const randomPoemBtn = document.getElementById('random-poem-btn');

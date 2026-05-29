@@ -2368,3 +2368,30 @@ html[data-dark-mode="true"] .rdr-full-btn.rdr-active {
   background-color: #4392F1;
   color: #fff;
 }
+
+.book-panel ul {
+  list-style: none;           /* remove default bullets */
+  padding-left: 0;            /* remove default left padding */
+  margin: 8px 0 16px 0;      /* space above/below the list */
+}
+
+.book-panel li {
+  margin: 6px 0;              /* space between items */
+  padding: 8px 12px;         /* internal padding – makes them feel clickable */
+  border-radius: 8px;        /* rounded corners */
+  background: #f5f8fa;       /* light grey background */
+  transition: background 0.2s, transform 0.1s;  /* smooth hover effect */
+}
+
+.book-panel li a {
+  text-decoration: none;     /* remove underline from links */
+  color: #4392F1;            /* your blue */
+  font-weight: 600;
+  display: block;            /* makes the whole li clickable */
+}
+
+/* Hover effect – subtle lift and color change */
+.book-panel li:hover {
+  background: #e0edff;       /* lighter blue background */
+  transform: translateX(4px);  /* slides right a bit */
+}

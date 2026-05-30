@@ -795,6 +795,7 @@ details {
   max-width: 800px;
   box-shadow: 6px 6px 0px #F46036;
   /* KnowFlux Orange shadow */
+  transition: box-shadow 0.3s ease;
 }
 
 details summary {
@@ -804,6 +805,10 @@ details summary {
   cursor: pointer;
   outline: none;
   text-transform: uppercase;
+}
+
+details[open] {
+  box-shadow: 6px 6px 0px #4392F1;
 }
 
 details p {

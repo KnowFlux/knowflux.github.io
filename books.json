@@ -51,24 +51,6 @@
         ],
         "A Murder": [
           {
-            "page_number": 10,
-            "chapter_title": "A Murder",
-            "file": "exploded-page10.html",
-            "url": "/exploded-page10.html"
-          },
-          {
-            "page_number": 11,
-            "chapter_title": "A Murder",
-            "file": "exploded-page11.html",
-            "url": "/exploded-page11.html"
-          },
-          {
-            "page_number": 12,
-            "chapter_title": "A Murder",
-            "file": "exploded-page12.html",
-            "url": "/exploded-page12.html"
-          },
-          {
             "page_number": 7,
             "chapter_title": "A Murder",
             "file": "exploded-page7.html",
@@ -85,6 +67,24 @@
             "chapter_title": "A Murder",
             "file": "exploded-page9.html",
             "url": "/exploded-page9.html"
+          },
+          {
+            "page_number": 10,
+            "chapter_title": "A Murder",
+            "file": "exploded-page10.html",
+            "url": "/exploded-page10.html"
+          },
+          {
+            "page_number": 11,
+            "chapter_title": "A Murder",
+            "file": "exploded-page11.html",
+            "url": "/exploded-page11.html"
+          },
+          {
+            "page_number": 12,
+            "chapter_title": "A Murder",
+            "file": "exploded-page12.html",
+            "url": "/exploded-page12.html"
           }
         ],
         "A Calling": [
@@ -117,14 +117,6 @@
       "pagesUrl": "/pinnacle-pages.html",
       "chaptersUrl": "/pinnacle-chapters.html",
       "coverImage": "/Images/UltraRealityPinnacle.png",
-      "pages": [
-        {
-          "page_number": 1,
-          "chapter_title": "Prologue: Shattered",
-          "file": "pinnacle-page1.html",
-          "url": "/pinnacle-page1.html"
-        }
-      ],
       "chapters": {
         "Prologue: Shattered": [
           {

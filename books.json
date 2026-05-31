@@ -3,7 +3,7 @@
     {
       "id": "exploded",
       "title": "Exploded",
-      "description": "Mysteries Unravel And Truth Is Revealed",
+      "description": "Mysteries unravel and truth is revealed.",
       "totalPages": 15,
       "pagesUrl": "/exploded-pages.html",
       "chaptersUrl": "/exploded-chapters.html",
@@ -112,7 +112,7 @@
     {
       "id": "pinnacle",
       "title": "The Pinnacle of Reality",
-      "description": "An Epic Tale of Reality and Destiny",
+      "description": "An epic tale of reality and destiny.",
       "totalPages": 1,
       "pagesUrl": "/pinnacle-pages.html",
       "chaptersUrl": "/pinnacle-chapters.html",
@@ -131,7 +131,7 @@
   ],
   "poetry": {
     "url": "/poetry.html",
-    "description": "Haikus and Triplets from KnowFlux author Rainer Penn.",
+    "description": "Poetry from author Rainer Penn.",
     "coverImage": "/Images/SuperPoetryCover.png",
     "sections": {
       "Haikus": [

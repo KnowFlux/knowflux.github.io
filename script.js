@@ -749,4 +749,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  const randomBookBtn = document.getElementById('random-book-btn');
+  if (randomBookBtn) {
+    const books = [
+      'exploded-page1.html',
+      'pinnacle-page1.html'
+    ];
+    randomBookBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = books[Math.floor(Math.random() * books.length)];
+    });
+  }
+
 });

@@ -198,11 +198,19 @@ h2 {
 
 #topMenu .logo {
   float: left;
-  padding-top: 13px;
+  height: 60px;
   font-size: 24px;
   color: #333;
   text-decoration: underline;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+
+  .logo img {
+    height: 40px;
+    width: auto;
+  }
 
 #topMenu .logo:hover {
   color: #4392F1;
@@ -213,22 +221,23 @@ h2 {
 }
 
 #banner {
-  background-image: url(Images/favicon.png);
-  background-repeat: no-repeat;
-  background-position: center 120px;
   width: 100%;
   text-align: center;
-  padding-top: 240px;
+  padding-top: 150px;
   color: #333;
 }
 
 #banner .tagline {
   padding-bottom: 20px;
-  padding-top: 0px;
+  margin-top: 0px;
 }
 
 #banner .logo {
   margin-top: 0px;
+}
+
+#banner #action {
+  margin-bottom: 100px;
 }
 
 #banner #action a {
@@ -641,7 +650,7 @@ h2 {
 }
 
 .content-page {
-  padding-top: 150px;
+  padding-top: 0px;
   text-align: center;
 }
 

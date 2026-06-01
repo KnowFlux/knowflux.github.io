@@ -361,6 +361,73 @@ def update_previous_page_nav(prev_file_path, new_page_filename):
 
 
 # ---------------------------------------------------------------------------
+# contents.html updater
+# ---------------------------------------------------------------------------
+
+def update_contents_html(book_id, chapter_title, page_num, file_prefix):
+    """Add a new page entry to contents.html under the correct book panel."""
+    contents_file = BASE_DIR / "contents.html"
+    if not contents_file.exists():
+        return False
+
+    content = contents_file.read_text(encoding="utf-8")
+
+    # Find the panel for this book
+    panel_id = f'id="panel-{book_id}"'
+    panel_start = content.find(panel_id)
+    if panel_start == -1:
+        return False
+
+    # Find the end of this panel's opening tag
+    opening_end = content.find('>', panel_start) + 1
+    # The panel's closing </div> is the first </div> after the opening tag
+    panel_close = content.find('</div>', opening_end)
+    if panel_close == -1:
+        return False
+
+    inner = content[opening_end:panel_close]
+
+    # Build the page list item (12-space indent matches contents.html)
+    page_entry = f'            <li><a href="{file_prefix}{page_num}.html">Page {page_num}</a></li>\n'
+
+    # Check if a details block with this chapter title already exists
+    # Use a regex that allows whitespace around the summary text
+    chapter_pattern = re.compile(r'<summary>\s*' + re.escape(chapter_title) + r'\s*</summary>')
+    match = chapter_pattern.search(inner)
+
+    if match:
+        # Find the <ul> that belongs to this details block (the one after the summary)
+        summary_end = inner.find('</summary>', match.start()) + len('</summary>')
+        # Search for the next <ul> after summary_end
+        ul_start = inner.find('<ul>', summary_end)
+        if ul_start != -1:
+            ul_close = inner.find('</ul>', ul_start)
+            if ul_close != -1:
+                new_inner = inner[:ul_close] + page_entry + inner[ul_close:]
+                content = content[:opening_end] + new_inner + content[panel_close:]
+            else:
+                return False
+        else:
+            # No <ul> yet – create one after the summary
+            # Insert <ul>...</ul> after the summary
+            new_inner = inner[:summary_end] + '\n          <ul>\n' + page_entry + '          </ul>\n' + inner[summary_end:]
+            content = content[:opening_end] + new_inner + content[panel_close:]
+    else:
+        # New chapter – create a new details block
+        new_details = (
+            f'\n        <details>\n'
+            f'          <summary>{chapter_title}</summary>\n'
+            f'          <ul>\n'
+            f'{page_entry}          </ul>\n'
+            f'        </details>\n'
+        )
+        content = content[:panel_close] + new_details + content[panel_close:]
+
+    contents_file.write_text(content, encoding="utf-8")
+    return True
+
+
+# ---------------------------------------------------------------------------
 # Poetry
 # ---------------------------------------------------------------------------
 
@@ -746,6 +813,14 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                         f'      </a>\n'
                     )
                     add_card_to_index(chapters_file, chapters_card)
+
+                # Update contents.html
+                update_contents_html(
+                    book_id="exploded" if is_exploded else "pinnacle",
+                    chapter_title=chapter_title,
+                    page_num=page_num,
+                    file_prefix=file_prefix
+                )
 
                 # Regenerate books.json
                 save_books_json()

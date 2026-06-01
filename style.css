@@ -654,6 +654,10 @@ h2 {
   text-align: center;
 }
 
+.content-page + .content-page h2 {
+  margin-top: 60px;
+}
+
 .underline {
   background-color: #F46036;
   height: 3px;

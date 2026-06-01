@@ -686,6 +686,81 @@ def generate_books_json():
     return books_data
 
 
+def get_priority_and_freq(filename):
+    """Determine SEO priority and change frequency for a page."""
+    if filename in ('index.html', ''):
+        return 1.0, 'weekly'
+    elif filename in ('aboutbook.html', 'poetry.html', 'contents.html'):
+        return 0.9, 'weekly'
+    elif filename.endswith('-pages.html') or filename.endswith('-chapters.html'):
+        return 0.85, 'weekly'
+    elif filename.startswith('exploded-page') or filename.startswith('pinnacle-page'):
+        return 0.8, 'weekly'
+    elif filename in ('comingsoon.html',):
+        return 0.5, 'monthly'
+    else:
+        # Poetry and other content pages
+        return 0.8, 'weekly'
+
+
+def update_sitemap():
+    """Generate and update sitemap.xml with all pages."""
+    sitemap_file = BASE_DIR / "sitemap.xml"
+    
+    # Build the sitemap
+    base_url = "https://knowflux.github.io"
+    from datetime import datetime
+    today = datetime.now().strftime("%Y-%m-%d")
+    
+    # Start building XML
+    xml_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    
+    # Get all HTML files in root directory
+    html_files = sorted(BASE_DIR.glob("*.html"))
+    
+    # Exclude admin.html from sitemap
+    excluded_files = {'admin.html'}
+    
+    # Collect and organize pages
+    pages_to_include = []
+    
+    # Add root URLs
+    pages_to_include.append(('/', 1.0, 'weekly', today))
+    pages_to_include.append(('index.html', 1.0, 'weekly', today))
+    
+    for html_file in html_files:
+        filename = html_file.name
+        if filename in excluded_files or filename == 'index.html':
+            continue
+        
+        priority, freq = get_priority_and_freq(filename)
+        pages_to_include.append((filename, priority, freq, today))
+    
+    # Generate XML entries
+    for page_path, priority, changefreq, lastmod in pages_to_include:
+        if page_path == '/':
+            loc = base_url + '/'
+        else:
+            loc = f"{base_url}/{page_path}"
+        
+        xml_lines.append('  <url>')
+        xml_lines.append(f'    <loc>{loc}</loc>')
+        xml_lines.append(f'    <lastmod>{lastmod}</lastmod>')
+        xml_lines.append(f'    <changefreq>{changefreq}</changefreq>')
+        xml_lines.append(f'    <priority>{priority:.1f}</priority>')
+        xml_lines.append('  </url>')
+    
+    xml_lines.append('</urlset>')
+    
+    # Write to file
+    sitemap_content = '\n'.join(xml_lines)
+    sitemap_file.write_text(sitemap_content, encoding="utf-8")
+    return True
+
+
 def save_books_json():
     """Generate and save books.json to disk."""
     books_data = generate_books_json()
@@ -774,12 +849,6 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                     self._send_json(400, {"success": False, "error": f"{new_filename} already exists. Delete it first to regenerate."})
                     return
 
-                # Auto-create index files if needed
-                pages_file = BASE_DIR / pages_filename
-                chapters_file = BASE_DIR / chapters_filename
-                pages_created = ensure_index_file(pages_file, PAGES_INDEX_TEMPLATE, book_title, pages_heading)
-                chapters_created = ensure_index_file(chapters_file, CHAPTERS_INDEX_TEMPLATE, book_title, chapters_heading)
-
                 # Generate the page
                 html = generate_page_html(page_num, chapter_title, raw_content, file_prefix, book_title)
                 new_page_file.write_text(html, encoding="utf-8")
@@ -790,30 +859,6 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                     prev_file = BASE_DIR / f"{file_prefix}{page_num - 1}.html"
                     prev_updated = update_previous_page_nav(prev_file, new_filename)
 
-                # Add card to pages index
-                pages_card = (
-                    f'      <a href="{new_filename}" class="feature-link">\n'
-                    f'        <div class="poetry-box">\n'
-                    f'          <h3>PAGE {page_num}</h3>\n'
-                    f'          <div class="subheading">{chapter_title.upper()}</div>\n'
-                    f'        </div>\n'
-                    f'      </a>\n'
-                )
-                add_card_to_index(pages_file, pages_card)
-
-                # Add card to chapters index only if this chapter title isn't already listed
-                chapter_is_new = not chapter_title_exists(chapters_file, chapter_title)
-                if chapter_is_new:
-                    chapters_card = (
-                        f'      <a href="{new_filename}" class="feature-link">\n'
-                        f'        <div class="poetry-box">\n'
-                        f'          <h3>{chapter_title}</h3>\n'
-                        f'          <div class="subheading">PAGE {page_num}</div>\n'
-                        f'        </div>\n'
-                        f'      </a>\n'
-                    )
-                    add_card_to_index(chapters_file, chapters_card)
-
                 # Update contents.html
                 update_contents_html(
                     book_id="exploded" if is_exploded else "pinnacle",
@@ -822,19 +867,15 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                     file_prefix=file_prefix
                 )
 
-                # Regenerate books.json
+                # Regenerate books.json and sitemap
                 save_books_json()
+                update_sitemap()
 
                 self._send_json(200, {
                     "success": True,
                     "file": new_filename,
-                    "pages_file": pages_filename,
-                    "chapters_file": chapters_filename,
-                    "pages_created": pages_created,
-                    "chapters_created": chapters_created,
                     "prev_updated": prev_updated,
                     "page_num": page_num,
-                    "chapter_is_new": chapter_is_new,
                 })
 
             except ValueError:
@@ -871,8 +912,9 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 poem_file.write_text(html, encoding="utf-8")
                 update_poetry_html(poem_title, poem_filename, section_name)
 
-                # Regenerate books.json
+                # Regenerate books.json and sitemap
                 save_books_json()
+                update_sitemap()
 
                 self._send_json(200, {
                     "success": True,

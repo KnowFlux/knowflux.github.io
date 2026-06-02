@@ -60,23 +60,22 @@
   </div>
     <center>
       <div id="search" ></div>
+      <div id="search"></div>
       <script>
         SiteSearch.init({
-          container: "#search",
-          applicationId: "35ZM5XO0NQ",
-          apiKey: "388e9eebd6c36c12a70cc6f3b3796ace",
-          indexName: "www_knowflux_ink_35zm5xo0nq_pages",
-          detached: false,
-          attributes: {
-            primaryText: "keywords", // the attribute to display in the hits list
-            secondaryText: "title", // the secondary attribute to display in the hits list
-            tertiaryText: "description", // the tertiary attribute to display in the hits list
-            url: "url", // the URL of the hit
-            image: "" // the image URL of the hit
-          },
-          darkMode: false,
-        });
-      </script>
+        container: "#search",
+        applicationId: "35ZM5XO0NQ",
+        apiKey: "388e9eebd6c36c12a70cc6f3b3796ace",
+        indexName: "www_knowflux_ink_35zm5xo0nq_pages",
+        attributes: {
+        primaryText: "title", // the attribute to display in the hits list
+        secondaryText: "description", // the secondary attribute to display in the hits list
+        tertiaryText: "url", // the tertiary attribute to display in the hits list
+        url: "url", // the URL of the hit
+      },
+    });
+    </script>
+
       <div class = "clear spacer v50"></div>
       <div style="margin-top: 20px; font-family: 'Open Sans', sans-serif; color: #333; font-size: 16px;">
         <p style="margin-bottom: 5px; font-size: 16px;">Enjoying the content? <a href="#subscribe" style="color: #4392F1; font-weight: bold; text-decoration: underline;">Subscribe</a> to receive updates!</p>

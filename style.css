@@ -283,21 +283,23 @@ h2 {
 }
 
 .feature {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
   align-items: center;
   margin-top: 80px;
 }
 
 @media (max-width: 768px) {
   .feature {
-    flex-direction: column;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 30px;
   }
 
-  .feature .leftColumn,
-  .feature .rightColumn {
-    width: 100%;
-    flex: none;
+  .feature .leftColumn {
+    width: 70vw;
+    margin: 0 auto;
   }
 
   .feature .leftColumn {
@@ -305,43 +307,77 @@ h2 {
   }
 
   .feature .leftColumn .featureImage img {
-    max-width: 500px;
+    margin: 0 auto;
     width: 100%;
     height: auto;
   }
 
   .feature .rightColumn .text {
-    min-height: auto;
-    padding: 0 10px;
+    font-size: 17px;
+    min-height: 260px;
+    text-align: center;
+  }
+
+  .feature .rightColumn .text .subheading {
+      margin-top: 3px;
   }
 }
 
-.feature .leftColumn,
-.feature .rightColumn {
-  flex: 1;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.feature .leftColumn {
+  max-width: 400px;
+  justify-self: center;
 }
 
-.feature .leftColumn .text,
-.feature .rightColumn .text {
-  padding: 20px;
-  min-height: 260px;
-  font-size: 20px;
+.feature .leftColumn .featureImage img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .feature hr {
-  background-color: #333;
-  height: 1px;
+  background-color: #F46036;
+  height: 3px;
   border: 0;
-  width: 50px;
+  width: 100px;
+  margin: 10px auto;
 }
 
-.featureImage img {
-  max-width: 100%;
-  height: auto;
+
+.feature .rightColumn .text {
+  padding: 20px 0px;
+  min-height: 260px;
+  text-align: center;
+  font-size: 17px;
+}
+
+/* ── LOUD BADGE ── */
+.feature .badge {
+  display: block;                  /* sits on its own line */
+  width: fit-content;
+  margin: 0 auto 12px;             /* centered, space below */
+  background: #F46036;
+  color: #fff;
+  font-family: 'Anton', cursive;
+  font-size: 26px;                 /* big */
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 #000;
+  letter-spacing: 2px;
+  transform: rotate(-2deg);        /* slight tilt – loud but deliberate */
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: badge-pulse 2s infinite ease-in-out;
+  user-select: none;
+}
+
+.feature .badge:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 8px 8px 0 #000;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { transform: rotate(-2deg) scale(1); }
+  50%      { transform: rotate(-2deg) scale(1.08); }
 }
 
 #subscribe {

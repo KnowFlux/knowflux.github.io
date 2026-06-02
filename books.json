@@ -3,18 +3,171 @@
     {
       "id": "exploded",
       "title": "Exploded",
-      "description": "Mysteries unravel and truth is revealed.",
-      "totalPages": 15,
+      "description": "Mysteries Unravel And Truth Is Revealed",
+      "totalPages": 16,
       "pagesUrl": "/exploded-pages.html",
       "chaptersUrl": "/exploded-chapters.html",
-      "coverImage": "/Images/ExplodedCover.png",
+      "pages": [
+        {
+          "page_number": 1,
+          "chapter_title": "Prologue",
+          "file": "exploded-page1.html",
+          "url": "/exploded-page1.html"
+        },
+        {
+          "page_number": 2,
+          "chapter_title": "A Mysterious Audience",
+          "file": "exploded-page2.html",
+          "url": "/exploded-page2.html"
+        },
+        {
+          "page_number": 3,
+          "chapter_title": "A Mysterious Audience",
+          "file": "exploded-page3.html",
+          "url": "/exploded-page3.html"
+        },
+        {
+          "page_number": 4,
+          "chapter_title": "A Mysterious Audience",
+          "file": "exploded-page4.html",
+          "url": "/exploded-page4.html"
+        },
+        {
+          "page_number": 5,
+          "chapter_title": "A Mysterious Audience",
+          "file": "exploded-page5.html",
+          "url": "/exploded-page5.html"
+        },
+        {
+          "page_number": 6,
+          "chapter_title": "A Mysterious Audience",
+          "file": "exploded-page6.html",
+          "url": "/exploded-page6.html"
+        },
+        {
+          "page_number": 7,
+          "chapter_title": "A Murder",
+          "file": "exploded-page7.html",
+          "url": "/exploded-page7.html"
+        },
+        {
+          "page_number": 8,
+          "chapter_title": "A Murder",
+          "file": "exploded-page8.html",
+          "url": "/exploded-page8.html"
+        },
+        {
+          "page_number": 9,
+          "chapter_title": "A Murder",
+          "file": "exploded-page9.html",
+          "url": "/exploded-page9.html"
+        },
+        {
+          "page_number": 10,
+          "chapter_title": "A Murder",
+          "file": "exploded-page10.html",
+          "url": "/exploded-page10.html"
+        },
+        {
+          "page_number": 11,
+          "chapter_title": "A Murder",
+          "file": "exploded-page11.html",
+          "url": "/exploded-page11.html"
+        },
+        {
+          "page_number": 12,
+          "chapter_title": "A Murder",
+          "file": "exploded-page12.html",
+          "url": "/exploded-page12.html"
+        },
+        {
+          "page_number": 13,
+          "chapter_title": "A Calling",
+          "file": "exploded-page13.html",
+          "url": "/exploded-page13.html"
+        },
+        {
+          "page_number": 14,
+          "chapter_title": "A Calling",
+          "file": "exploded-page14.html",
+          "url": "/exploded-page14.html"
+        },
+        {
+          "page_number": 15,
+          "chapter_title": "A Calling",
+          "file": "exploded-page15.html",
+          "url": "/exploded-page15.html"
+        },
+        {
+          "page_number": 16,
+          "chapter_title": "A Calling",
+          "file": "exploded-page16.html",
+          "url": "/exploded-page16.html"
+        }
+      ],
       "chapters": {
-         "Prologue": [
+        "A Calling": [
           {
-            "page_number": 1,
-            "chapter_title": "Prologue",
-            "file": "exploded-page1.html",
-            "url": "/exploded-page1.html"
+            "page_number": 13,
+            "chapter_title": "A Calling",
+            "file": "exploded-page13.html",
+            "url": "/exploded-page13.html"
+          },
+          {
+            "page_number": 14,
+            "chapter_title": "A Calling",
+            "file": "exploded-page14.html",
+            "url": "/exploded-page14.html"
+          },
+          {
+            "page_number": 15,
+            "chapter_title": "A Calling",
+            "file": "exploded-page15.html",
+            "url": "/exploded-page15.html"
+          },
+          {
+            "page_number": 16,
+            "chapter_title": "A Calling",
+            "file": "exploded-page16.html",
+            "url": "/exploded-page16.html"
+          }
+        ],
+        "A Murder": [
+          {
+            "page_number": 10,
+            "chapter_title": "A Murder",
+            "file": "exploded-page10.html",
+            "url": "/exploded-page10.html"
+          },
+          {
+            "page_number": 11,
+            "chapter_title": "A Murder",
+            "file": "exploded-page11.html",
+            "url": "/exploded-page11.html"
+          },
+          {
+            "page_number": 12,
+            "chapter_title": "A Murder",
+            "file": "exploded-page12.html",
+            "url": "/exploded-page12.html"
+          },
+          {
+            "page_number": 7,
+            "chapter_title": "A Murder",
+            "file": "exploded-page7.html",
+            "url": "/exploded-page7.html"
+          },
+          {
+            "page_number": 8,
+            "chapter_title": "A Murder",
+            "file": "exploded-page8.html",
+            "url": "/exploded-page8.html"
+          },
+          {
+            "page_number": 9,
+            "chapter_title": "A Murder",
+            "file": "exploded-page9.html",
+            "url": "/exploded-page9.html"
           }
         ],
         "A Mysterious Audience": [
@@ -49,62 +202,12 @@
             "url": "/exploded-page6.html"
           }
         ],
-        "A Murder": [
+        "Prologue": [
           {
-            "page_number": 7,
-            "chapter_title": "A Murder",
-            "file": "exploded-page7.html",
-            "url": "/exploded-page7.html"
-          },
-          {
-            "page_number": 8,
-            "chapter_title": "A Murder",
-            "file": "exploded-page8.html",
-            "url": "/exploded-page8.html"
-          },
-          {
-            "page_number": 9,
-            "chapter_title": "A Murder",
-            "file": "exploded-page9.html",
-            "url": "/exploded-page9.html"
-          },
-          {
-            "page_number": 10,
-            "chapter_title": "A Murder",
-            "file": "exploded-page10.html",
-            "url": "/exploded-page10.html"
-          },
-          {
-            "page_number": 11,
-            "chapter_title": "A Murder",
-            "file": "exploded-page11.html",
-            "url": "/exploded-page11.html"
-          },
-          {
-            "page_number": 12,
-            "chapter_title": "A Murder",
-            "file": "exploded-page12.html",
-            "url": "/exploded-page12.html"
-          }
-        ],
-        "A Calling": [
-          {
-            "page_number": 13,
-            "chapter_title": "A Calling",
-            "file": "exploded-page13.html",
-            "url": "/exploded-page13.html"
-          },
-          {
-            "page_number": 14,
-            "chapter_title": "A Calling",
-            "file": "exploded-page14.html",
-            "url": "/exploded-page14.html"
-          },
-          {
-            "page_number": 15,
-            "chapter_title": "A Calling",
-            "file": "exploded-page15.html",
-            "url": "/exploded-page15.html"
+            "page_number": 1,
+            "chapter_title": "Prologue",
+            "file": "exploded-page1.html",
+            "url": "/exploded-page1.html"
           }
         ]
       }
@@ -112,11 +215,18 @@
     {
       "id": "pinnacle",
       "title": "The Pinnacle of Reality",
-      "description": "An epic tale of reality and destiny.",
+      "description": "An Epic Tale of Reality and Destiny",
       "totalPages": 1,
       "pagesUrl": "/pinnacle-pages.html",
       "chaptersUrl": "/pinnacle-chapters.html",
-      "coverImage": "/Images/UltraRealityPinnacle.png",
+      "pages": [
+        {
+          "page_number": 1,
+          "chapter_title": "Prologue: Shattered",
+          "file": "pinnacle-page1.html",
+          "url": "/pinnacle-page1.html"
+        }
+      ],
       "chapters": {
         "Prologue: Shattered": [
           {
@@ -131,8 +241,6 @@
   ],
   "poetry": {
     "url": "/poetry.html",
-    "description": "Poetry from author Rainer Penn.",
-    "coverImage": "/Images/SuperPoetryCover.png",
     "sections": {
       "Haikus": [
         {
@@ -165,5 +273,5 @@
       ]
     }
   },
-  "lastUpdated": "2026-05-19T22:01:50.232370"
+  "lastUpdated": "2026-06-02T17:21:17.840483"
 }

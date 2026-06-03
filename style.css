@@ -283,9 +283,7 @@ h2 {
 }
 
 .feature {
-  gap: 40px;
-  align-items: center;
-  margin-top: 80px;
+  
 }
 
 @media (max-width: 768px) {
@@ -350,6 +348,51 @@ h2 {
 @keyframes badge-pulse {
   0%, 100% { transform: rotate(-2deg) scale(1); }
   50%      { transform: rotate(-2deg) scale(1.08); }
+}
+
+
+/* ── Index book features: desktop side‑by‑side, mobile stack ── */
+.home-book-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+  margin-top: 80px;
+  text-align: left;
+}
+
+.home-book-card .leftColumn {
+  flex: 0 0 auto;
+  width: 400px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.home-book-card .featureImage img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.home-book-card .rightColumn {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-size: 17px;
+}
+
+@media (max-width: 768px) {
+  .home-book-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+  }
+  .home-book-card .leftColumn {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
 }
 
 #subscribe {
@@ -2592,4 +2635,3 @@ html[data-dark-mode="true"] .rdr-full-btn.rdr-active {
   .search-result-card p {
     font-size: 13px;
   }
-}

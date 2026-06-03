@@ -283,8 +283,6 @@ h2 {
 }
 
 .feature {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 40px;
   align-items: center;
   margin-top: 80px;
@@ -292,34 +290,7 @@ h2 {
 
 @media (max-width: 768px) {
   .feature {
-    display: grid;
-    grid-template-columns: 1fr;
     margin-top: 30px;
-  }
-
-  .feature .leftColumn {
-    width: 70vw;
-    margin: 0 auto;
-  }
-
-  .feature .leftColumn {
-    margin-bottom: 20px;
-  }
-
-  .feature .leftColumn .featureImage img {
-    margin: 0 auto;
-    width: 100%;
-    height: auto;
-  }
-
-  .feature .rightColumn .text {
-    font-size: 17px;
-    min-height: 260px;
-    text-align: center;
-  }
-
-  .feature .rightColumn .text .subheading {
-      margin-top: 3px;
   }
 }
 
@@ -343,12 +314,13 @@ h2 {
 }
 
 
-.feature .rightColumn .text {
-  padding: 20px 0px;
-  min-height: 260px;
-  text-align: center;
-  font-size: 17px;
-}
+
+
+
+
+
+
+
 
 /* ── LOUD BADGE ── */
 .feature .badge {
@@ -360,8 +332,8 @@ h2 {
   font-family: 'Anton', cursive;
   font-size: 26px;                 /* big */
   text-transform: uppercase;
-  padding: 10px 24px;
   border: 4px solid #000;
+  padding: 10px 24px;
   box-shadow: 6px 6px 0 #000;
   letter-spacing: 2px;
   transform: rotate(-2deg);        /* slight tilt – loud but deliberate */
@@ -993,38 +965,62 @@ details p {
 
 
 
+/* ── BOOK LAYOUT: SIDE BY SIDE ON DESKTOP, STACK ON MOBILE ── */
 .responsive-book-layout {
   display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
+  flex-direction: row;
+  gap: 40px;
   align-items: center;
   justify-content: center;
+  margin-top: 60px;
 }
 
+.responsive-book-layout .leftColumn {
+  flex: 1 1 50%;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
+.responsive-book-layout .rightColumn {
+  text-align: center;
+  font-size: 18px;
+  flex: 1 1 50%;
+  min-width: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.responsive-book-layout .featureImage img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Desktop: side-by-side layout (default above, maintained on larger screens) */
+@media (min-width: 769px) {
+  .responsive-book-layout {
+    flex-direction: row;
+  }
+}
 
 @media (max-width: 768px) {
   .responsive-book-layout {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 30px;
   }
 
   .responsive-book-layout .leftColumn,
   .responsive-book-layout .rightColumn {
     width: 100%;
     max-width: 100%;
+    padding: 20px 15px;
   }
 
   .responsive-book-layout .featureImage img {
     max-width: 300px;
     margin: 0 auto;
-  }
-
-  .responsive-book-layout .text {
-    padding: 10px 0;
-    text-align: center;
-    font-size: 18px;
   }
 }
 
@@ -2448,4 +2444,152 @@ html[data-dark-mode="true"] .rdr-full-btn.rdr-active {
 .book-panel li:hover {
   background: #e0edff;       /* lighter blue background */
   transform: translateX(4px);  /* slides right a bit */
+}
+
+#search-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 15px 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  border: 2px solid #4392F1;
+  border-radius: 50px;
+  outline: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  box-sizing: border-box;
+  margin-bottom: 0; /* ensure no extra space */
+}
+
+#search-input:focus {
+  border-color: #F46036;
+  box-shadow: 0 0 0 3px rgba(244, 96, 54, 0.2);
+}
+
+/* Results box – no flex, just a scrollable container with min-height */
+#results-box {
+  margin-top: 20px;
+  max-height: 500px;
+  min-height: 150px;
+  overflow-y: auto;
+  background: #fff;
+  border: 2px solid #4392F1;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+/* Placeholder text – shown when no query has been typed */
+#search-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #bbb;
+  font-size: 16px;
+  text-align: center;
+  padding: 20px;
+  pointer-events: none;
+}
+
+/* Hide placeholder once #search-results has content */
+#search-results:not(:empty) ~ #search-placeholder {
+  display: none;
+}
+
+/* Result cards */
+#search-results {
+  /* natural block flow */
+}
+
+.search-result-card {
+  display: block;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #F46036;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.search-result-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: #fafafa;
+}
+
+.search-result-card h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  margin: 0 0 6px 0;
+  color: #4392F1;
+}
+
+.search-result-card p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  color: #555;
+}
+
+.no-results, .search-error {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #999;
+  padding: 40px 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #search-section {
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+
+  #search-input {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+
+  #results-box {
+    max-height: 60vh;
+    min-height: 120px;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  #search-placeholder {
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  .search-result-card {
+    padding: 12px 16px;
+  }
+
+  .search-result-card h3 {
+    font-size: 17px;
+  }
+
+  .search-result-card p {
+    font-size: 13px;
+  }
+}
+
+  .search-result-card p {
+    font-size: 13px;
+  }
 }

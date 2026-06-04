@@ -416,9 +416,31 @@ h2 {
   padding: 20px 0;
   width: 100%;
   text-align: center;
+}
+
+/* ── Footer Reveal Animation ── */
+#footer,
+#copyright {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#footer[data-reveal="false"],
+#copyright[data-reveal="false"] {
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
+  transform: translateY(40px);
+}
+
+#footer[data-reveal="true"],
+#copyright[data-reveal="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#footer.revealed,
+#copyright.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 #footer .wrap {
@@ -462,8 +484,6 @@ h2 {
   padding: 20px 0;
   font-size: 16px;
   width: 100%;
-  visibility: hidden;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
 #copyright .wrap {
@@ -497,34 +517,6 @@ h2 {
   transform: translateX(-3px);
 }
 
-#footer.revealed,
-#copyright.revealed {
-  opacity: 1;
-  visibility: visible;
-}
-
-#end-loading-bar {
-  position: fixed;
-  bottom:0;
-  left: 0;
-  width: 0%;
-  height: 12px;
-  background: repeating-linear-gradient(
-    90deg,
-    #4392F1 0px, #4392F1 10px,
-    #F46036 10px, #F46036 20px
-  );
-  border-top: 2px solid #000;
-  z-index: 999;
-  transition: width 0.1s linear;
-  opacity: 0;
-  visibility: hidden;
-}
-
-#end-loading-bar.active {
-  opacity: 1;
-  visibility: visible;
-}
 
 /* Book Summary Styling for read.html */
 #bookSummary {

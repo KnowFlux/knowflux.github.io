@@ -762,55 +762,37 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ===============================================================
-  // Loading bar + reveal footer at page bottom
+  // Footer Reveal on Scroll — slides in when subscribe section is visible
   // ===============================================================
   (function() {
-    const loadingBar = document.getElementById('end-loading-bar');
     const footer = document.getElementById('footer');
     const copyright = document.getElementById('copyright');
-    let loadingFinished = false;
-    let pageReady = false;
+    const subscribe = document.getElementById('subscribe');
+    if (!footer || !copyright || !subscribe) return;
 
+    let revealed = false;
 
-    if (!loadingBar || !footer || !copyright) return;
-
-    function startLoading() {
-      let progress = 0;
-      const duration = 2000;
-      const step = 10;
-      const interval = 200;
-
-      loadingBar.classList.add('active');
-
-      const timer = setInterval(function() {
-        progress += step;
-        if (progress >= 100) {
-          progress = 100;
-          clearInterval(timer);
-          onLoadingComplete();
-        }
-        loadingBar.style.width = progress + '%';
-      }, interval);
-    }
-
-    function onLoadingComplete() {
-      footer.classList.add('revealed');
-      copyright.classList.add('revealed');
-      loadingBar.classList.remove('active');
-      loadingBar.style.display = 'none';
-      loadingFinished = true;
-    }
-
-    setTimeout(() => { pageReady = true; }, 500);
-
-    window.addEventListener('scroll', function() {
-      if (loadingFinished) return;
-      if (!pageReady) return;
-      const footerRect = footer.getBoundingClientRect();
-      if (footerRect.top <= window.innerHeight && !loadingBar.classList.contains('active')) {
-        startLoading();
+    function attemptReveal() {
+      if (revealed) return;
+      const subRect = subscribe.getBoundingClientRect();
+      // Reveal when the bottom of the subscribe section enters the viewport
+      if (subRect.bottom <= window.innerHeight + 20) {
+        revealed = true;
+        setTimeout(function() {
+          footer.setAttribute('data-reveal', 'true');
+          copyright.setAttribute('data-reveal', 'true');
+          window.removeEventListener('scroll', scrollHandler);
+        }, 500);
       }
-    });
+    }
+
+    function scrollHandler() {
+      attemptReveal();
+    }
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    // Also check immediately in case user loads mid-page
+    attemptReveal();
   })();
 
 });

@@ -662,6 +662,49 @@ h2 {
   }
 }
 
+/* ── Reading experience on poetry pages ── */
+body.reading-page .poetry-content {
+  font-size:          var(--rdr-font-size);
+  line-height:        var(--rdr-line-height);
+  color:              var(--rdr-text-color);
+  max-width:          var(--rdr-max-width);
+  margin:             0 auto 40px;
+  text-align:         center;
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering:     optimizeLegibility;
+  font-kerning:       normal;
+  word-spacing:       0.01em;
+  letter-spacing:     0.012em;
+  transition:         var(--rdr-transition);
+  hyphens:            auto;
+  -webkit-hyphens:    auto;
+}
+
+body.reading-page .poetry-content p {
+  margin-bottom: 0;
+  orphans: 3;
+  widows: 3;
+}
+
+body.reading-page.rdr-font-garamond .poetry-content,
+body.reading-page.rdr-font-garamond .poetry-content p {
+  font-family: 'EB Garamond', Georgia, serif;
+  letter-spacing: 0.008em;
+  word-spacing:   0.02em;
+}
+
+body.reading-page.rdr-font-lora .poetry-content,
+body.reading-page.rdr-font-lora .poetry-content p {
+  font-family: 'Lora', Georgia, serif;
+  letter-spacing: 0.006em;
+}
+
+body.reading-page.rdr-font-normal .poetry-content,
+body.reading-page.rdr-font-normal .poetry-content p {
+  font-family: 'Open Sans', sans-serif;
+}
+
 /* Poetry Page Content Styling */
 #poetry-content h2 {
   color: #4392F1;
@@ -1702,6 +1745,11 @@ body.reading-page #scroll-progress-container::after {
 .rdr-full-btn.rdr-active {
   background: #333;
   color:      #fff;
+}
+
+/* When in a button row, full buttons become flex halves */
+.rdr-btn-row .rdr-full-btn {
+  flex: 1;
 }
 
 

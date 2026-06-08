@@ -321,48 +321,59 @@ document.addEventListener('DOMContentLoaded', function() {
   // No HTML files need to be modified — everything is driven from here.
   // ---------------------------------------------------------------------------
   (function initReadingExperience() {
+    const bookContent  = document.querySelector('.page-content');
+    const poetryContent = document.querySelector('.poetry-content');
+    if (!bookContent && !poetryContent) return;     // Not a reading page
 
-    const content = document.querySelector('.page-content');
-    if (!content) return;               // Not a book page — stop here.
+    const isPoetryPage = !!poetryContent;
+    const content = bookContent || poetryContent;   // whichever exists
 
-    // Mark the body so every scoped CSS rule activates
     document.body.classList.add('reading-page');
 
-    // ── Restore user preferences from localStorage ───────────────────────────
+    // ── Restore user preferences from localStorage ──
     const FONT_SIZES    = ['rdr-text-sm', 'rdr-text-md', 'rdr-text-lg', 'rdr-text-xl'];
     const WIDTHS        = ['rdr-width-narrow', 'rdr-width-normal', 'rdr-width-wide'];
     const FONT_FAMILIES = ['rdr-font-normal', 'rdr-font-garamond', 'rdr-font-lora'];
-    const savedSize     = localStorage.getItem('rdr-font-size')    || 'rdr-text-md';
-    const savedWidth    = localStorage.getItem('rdr-width')        || 'rdr-width-normal';
-    const savedFont     = localStorage.getItem('rdr-font-family')  || 'rdr-font-normal';
-    const savedFocus    = localStorage.getItem('rdr-focus')        === 'true';
+
+    const PREFERENCES_SAVED = 'rdr-preferences-saved';
+    const preferencesSaved = localStorage.getItem(PREFERENCES_SAVED) === 'true';
+
+    var savedSize  = 'rdr-text-md';
+    var savedWidth = 'rdr-width-normal';
+    var savedFont  = 'rdr-font-normal';
+    var savedFocus = false;
+
+    if (preferencesSaved) {
+      savedSize  = localStorage.getItem('rdr-font-size')   || 'rdr-text-md';
+      savedWidth = localStorage.getItem('rdr-width')       || 'rdr-width-normal';
+      savedFont  = localStorage.getItem('rdr-font-family') || 'rdr-font-normal';
+      savedFocus = localStorage.getItem('rdr-focus')       === 'true';
+    }
 
     document.body.classList.add(savedSize, savedWidth, savedFont);
     if (savedFocus) document.body.classList.add('rdr-focus');
 
-    // ── Word count + estimated reading time ──────────────────────────────────
-    const words       = content.innerText.trim().split(/\s+/).filter(Boolean).length;
-    const readingMins = Math.max(1, Math.round(words / 200));
-    const header      = document.querySelector('.page-header-container');
-
-    if (header) {
-      const meta = document.createElement('div');
-      meta.className = 'rdr-meta';
-
-      const timeBadge = document.createElement('span');
-      timeBadge.className = 'rdr-time-badge';
-      timeBadge.textContent = '\u23F1 ' + readingMins + ' min read';
-
-      const wordBadge = document.createElement('span');
-      wordBadge.className = 'rdr-word-badge';
-      wordBadge.textContent = words.toLocaleString() + ' words';
-
-      meta.appendChild(timeBadge);
-      meta.appendChild(wordBadge);
-      header.appendChild(meta);
+    // ── Word count + reading time (only for book pages) ──
+    if (!isPoetryPage) {
+      const words       = content.innerText.trim().split(/\s+/).filter(Boolean).length;
+      const readingMins = Math.max(1, Math.round(words / 200));
+      const header      = document.querySelector('.page-header-container');
+      if (header) {
+        const meta = document.createElement('div');
+        meta.className = 'rdr-meta';
+        const timeBadge = document.createElement('span');
+        timeBadge.className = 'rdr-time-badge';
+        timeBadge.textContent = '\u23F1 ' + readingMins + ' min read';
+        const wordBadge = document.createElement('span');
+        wordBadge.className = 'rdr-word-badge';
+        wordBadge.textContent = words.toLocaleString() + ' words';
+        meta.appendChild(timeBadge);
+        meta.appendChild(wordBadge);
+        header.appendChild(meta);
+      }
     }
 
-    // ── Three-dots toggle button ──────────────────────────────────────────────
+    // ── Three-dots toggle button ──
     const toggleBtn = document.createElement('button');
     toggleBtn.id = 'rdr-toolbar-toggle';
     toggleBtn.setAttribute('aria-label', 'Reading settings');
@@ -370,12 +381,12 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleBtn.innerHTML = '&#x22EE;';
     document.body.appendChild(toggleBtn);
 
-    // ── Slide-over backdrop overlay ───────────────────────────────────────────
+    // ── Slide-over backdrop overlay ──
     const settingsOverlay = document.createElement('div');
     settingsOverlay.id = 'rdr-settings-overlay';
     document.body.appendChild(settingsOverlay);
 
-    // ── Slide-over settings panel ─────────────────────────────────────────────
+    // ── Slide-over settings panel ──
     const settingsPanel = document.createElement('div');
     settingsPanel.id = 'rdr-settings-panel';
     settingsPanel.setAttribute('role', 'dialog');
@@ -389,11 +400,11 @@ document.addEventListener('DOMContentLoaded', function() {
       '<button id="rdr-settings-close" aria-label="Close settings">&#x2715;</button>';
     settingsPanel.appendChild(panelHeader);
 
-    // The toolbar variable points to the button container so existing queries work
     const toolbar = document.createElement('div');
     toolbar.id = 'rdr-settings-body';
 
-    var widthSection = isMobile() ? '' :
+    // Line width section: never for poetry; also hidden on mobile
+    var widthSection = (isPoetryPage || (window.innerWidth <= 768)) ? '' :
       '<div class="rdr-tb-section rdr-width-section">' +
         '<div class="rdr-tb-label">Line Width</div>' +
         '<div class="rdr-btn-row">' +
@@ -422,27 +433,44 @@ document.addEventListener('DOMContentLoaded', function() {
         '</div>' +
       '</div>' +
       widthSection +
-      '<div class="rdr-tb-section">' +
-        '<button class="rdr-full-btn" id="rdr-focus-btn">' +
-          (savedFocus ? '\u2726 Exit Focus' : '\u2726 Focus Mode') +
-        '</button>' +
-      '</div>' +
+      // Focus mode: only for book pages
+      (isPoetryPage ? '' :
+        '<div class="rdr-tb-section">' +
+          '<button class="rdr-full-btn" id="rdr-focus-btn">' +
+            (savedFocus ? '\u2726 Exit Focus' : '\u2726 Focus Mode') +
+          '</button>' +
+        '</div>') +
       '<div class="rdr-tb-section">' +
         '<button class="rdr-full-btn" id="rdr-dark-btn">' +
           '\ud83c\udf19 Dark Mode' +
         '</button>' +
-      '</div>';
+      '</div>' +
+      '<div class="rdr-tb-section rdr-save-section">' +
+        '<button class="rdr-full-btn" id="rdr-save-btn">' +
+          '\ud83d\udcbe Save Preferences' +
+        '</button>' +
+      '</div>' +
+      // Bookmark: only for book pages
+      (isPoetryPage ? '' :
+        '<div class="rdr-tb-section rdr-bookmark-section">' +
+          '<button class="rdr-full-btn" id="rdr-bookmark-btn">' +
+            '\ud83d\udccd Bookmark' +
+          '</button>' +
+        '</div>');
 
     settingsPanel.appendChild(toolbar);
 
-    // Mark the saved-state buttons as active
+    // Mark saved-state buttons as active
     const initSizeBtn  = toolbar.querySelector('[data-size="'  + savedSize  + '"]');
     const initWidthBtn = toolbar.querySelector('[data-width="' + savedWidth + '"]');
     const initFontBtn  = toolbar.querySelector('[data-font="'  + savedFont  + '"]');
     if (initSizeBtn)  initSizeBtn.classList.add('rdr-active');
     if (initWidthBtn) initWidthBtn.classList.add('rdr-active');
     if (initFontBtn)  initFontBtn.classList.add('rdr-active');
-    if (savedFocus)   document.getElementById('rdr-focus-btn').classList.add('rdr-active');
+    if (savedFocus && !isPoetryPage) {
+      const focusBtn = document.getElementById('rdr-focus-btn');
+      if (focusBtn) focusBtn.classList.add('rdr-active');
+    }
 
     // Open / close slide-over
     function openToolbar() {
@@ -462,7 +490,6 @@ document.addEventListener('DOMContentLoaded', function() {
       e.stopPropagation();
       settingsPanel.classList.contains('rdr-open') ? closeToolbar() : openToolbar();
     });
-
     settingsOverlay.addEventListener('click', closeToolbar);
     document.getElementById('rdr-settings-close').addEventListener('click', closeToolbar);
 
@@ -472,7 +499,6 @@ document.addEventListener('DOMContentLoaded', function() {
         var f = this.dataset.font;
         FONT_FAMILIES.forEach(function(c) { document.body.classList.remove(c); });
         document.body.classList.add(f);
-        localStorage.setItem('rdr-font-family', f);
         toolbar.querySelectorAll('.rdr-font-btn').forEach(function(b) { b.classList.remove('rdr-active'); });
         this.classList.add('rdr-active');
       }.bind(btn));
@@ -484,47 +510,43 @@ document.addEventListener('DOMContentLoaded', function() {
         var size = this.dataset.size;
         FONT_SIZES.forEach(function(c) { document.body.classList.remove(c); });
         document.body.classList.add(size);
-        localStorage.setItem('rdr-font-size', size);
         toolbar.querySelectorAll('.rdr-size-btn').forEach(function(b) { b.classList.remove('rdr-active'); });
         this.classList.add('rdr-active');
       }.bind(btn));
     });
 
-    // Line-width control
+    // Line-width control (only if buttons exist)
     toolbar.querySelectorAll('.rdr-width-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var w = this.dataset.width;
         WIDTHS.forEach(function(c) { document.body.classList.remove(c); });
         document.body.classList.add(w);
-        localStorage.setItem('rdr-width', w);
         toolbar.querySelectorAll('.rdr-width-btn').forEach(function(b) { b.classList.remove('rdr-active'); });
         this.classList.add('rdr-active');
       }.bind(btn));
     });
 
-    // Focus mode
-    document.getElementById('rdr-focus-btn').addEventListener('click', function() {
-      var isFocus = document.body.classList.toggle('rdr-focus');
-      localStorage.setItem('rdr-focus', isFocus);
-      this.textContent = isFocus ? '\u2726 Exit Focus' : '\u2726 Focus Mode';
-      this.classList.toggle('rdr-active', isFocus);
-    });
+    // Focus mode (only if button exists)
+    const focusBtn = document.getElementById('rdr-focus-btn');
+    if (focusBtn) {
+      focusBtn.addEventListener('click', function() {
+        var isFocus = document.body.classList.toggle('rdr-focus');
+        this.textContent = isFocus ? '\u2726 Exit Focus' : '\u2726 Focus Mode';
+        this.classList.toggle('rdr-active', isFocus);
+      });
+    }
 
-    // ── Dark mode (reading pages only) ────────────────────────────────────────
+    // ── Dark mode ──
     const READING_DARK_MODE_KEY = 'knowflux-reading-dark-mode';
     const darkBtn = document.getElementById('rdr-dark-btn');
-    const isDarkEnabled = localStorage.getItem(READING_DARK_MODE_KEY) === 'true';
-    
-    // Apply dark mode on page load if enabled
+    const isDarkEnabled = preferencesSaved && localStorage.getItem(READING_DARK_MODE_KEY) === 'true';
     if (isDarkEnabled) {
       document.documentElement.setAttribute('data-dark-mode', 'true');
       darkBtn.classList.add('rdr-active');
     }
-    
     darkBtn.addEventListener('click', function() {
       const isCurrentlyDark = document.documentElement.getAttribute('data-dark-mode') === 'true';
       const newState = !isCurrentlyDark;
-      
       if (newState) {
         document.documentElement.setAttribute('data-dark-mode', 'true');
         darkBtn.classList.add('rdr-active');
@@ -532,28 +554,82 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.removeAttribute('data-dark-mode');
         darkBtn.classList.remove('rdr-active');
       }
-      
-      localStorage.setItem(READING_DARK_MODE_KEY, newState);
     });
 
-    // ── Keyboard arrow navigation between pages ───────────────────────────────
+    // ── Save Preferences ──
+    const saveBtn = document.getElementById('rdr-save-btn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function() {
+        var currentSize = 'rdr-text-md';
+        FONT_SIZES.forEach(function(c) { if (document.body.classList.contains(c)) currentSize = c; });
+        var currentWidth = 'rdr-width-normal';
+        WIDTHS.forEach(function(c) { if (document.body.classList.contains(c)) currentWidth = c; });
+        var currentFont = 'rdr-font-normal';
+        FONT_FAMILIES.forEach(function(c) { if (document.body.classList.contains(c)) currentFont = c; });
+        var currentFocus = document.body.classList.contains('rdr-focus');
+        var currentDark = document.documentElement.getAttribute('data-dark-mode') === 'true';
+
+        localStorage.setItem('rdr-font-size', currentSize);
+        localStorage.setItem('rdr-width', currentWidth);
+        localStorage.setItem('rdr-font-family', currentFont);
+        localStorage.setItem('rdr-focus', currentFocus);
+        localStorage.setItem('knowflux-reading-dark-mode', currentDark);
+        localStorage.setItem(PREFERENCES_SAVED, 'true');
+
+        saveBtn.textContent = '\u2714 Preference Saved!';
+        setTimeout(function() { saveBtn.textContent = '\ud83d\udcbe Save Preferences'; }, 2000);
+      });
+    }
+
+    // ── Bookmark button (only for books) ──
+    if (!isPoetryPage) {
+      (function initBookmark() {
+        var bookmarkBtn = document.getElementById('rdr-bookmark-btn');
+        if (!bookmarkBtn) return;
+        var pageUrl = window.location.pathname.split('/').pop();
+        var bookName = '';
+        if (pageUrl.startsWith('exploded-page')) bookName = 'exploded';
+        else if (pageUrl.startsWith('pinnacle-page')) bookName = 'pinnacle';
+        if (!bookName) { bookmarkBtn.style.display = 'none'; return; }
+        var storageKey = 'knowflux-bookmark-' + bookName;
+        var currentBookmark = localStorage.getItem(storageKey);
+        function updateBookmarkBtn() {
+          if (currentBookmark === pageUrl) {
+            bookmarkBtn.textContent = '\u2705 Bookmarked';
+            bookmarkBtn.classList.add('rdr-active');
+          } else {
+            bookmarkBtn.textContent = '\ud83d\udccd Bookmark';
+            bookmarkBtn.classList.remove('rdr-active');
+          }
+        }
+        updateBookmarkBtn();
+        bookmarkBtn.addEventListener('click', function() {
+          if (currentBookmark === pageUrl) {
+            localStorage.removeItem(storageKey);
+            currentBookmark = null;
+          } else {
+            localStorage.setItem(storageKey, pageUrl);
+            currentBookmark = pageUrl;
+          }
+          updateBookmarkBtn();
+          if (window.applyBookmarks) window.applyBookmarks();
+        });
+      })();
+    }
+
+    // ── Keyboard arrow navigation ──
     var nextHref = null;
     var prevHref = null;
-
-    // Pull links directly from the footer nav buttons
     var footerLinks = document.querySelectorAll('.page-footer-action a');
     footerLinks.forEach(function(a) {
       var href = a.getAttribute('href');
       var txt  = a.textContent.trim();
-      // Emoji arrows are reliable indicators in the current markup
       if (txt.includes('\u27A1') || txt.includes('\u27B6') || txt.includes('\u2192')) {
         nextHref = href;
       } else if (txt.includes('\u2B05') || txt.includes('\u2190')) {
         prevHref = href;
       }
     });
-
-    // Fallback: infer from URL pattern (e.g. exploded-page3.html → page2 / page4)
     if (!nextHref || !prevHref) {
       var fileName  = window.location.pathname.split('/').pop();
       var pageMatch = fileName.match(/^(.+?-page)(\d+)\.html$/);
@@ -564,60 +640,54 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!nextHref)            nextHref = prefix + (num + 1) + '.html';
       }
     }
-
     document.addEventListener('keydown', function(e) {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (e.key === 'ArrowRight' && nextHref) window.location.href = nextHref;
       if (e.key === 'ArrowLeft'  && prevHref) window.location.href = prevHref;
     });
 
-    // ── Chapter-start detection — adds 'chapter-start' class for drop cap ─────
-    (function detectChapterStart() {
-      var curFile  = window.location.pathname.split('/').pop();
-      var curMatch = curFile.match(/^(.+?-page)(\d+)\.html$/);
-      if (!curMatch) return;
-      var pageNum = parseInt(curMatch[2], 10);
-      if (pageNum === 1) {
-        // First numbered page is always a chapter start
-        document.body.classList.add('chapter-start');
-        markFirstParagraphForDropCap();
-        return;
-      }
-      // Fetch the previous page and compare subtitles
-      var prevUrl  = curMatch[1] + (pageNum - 1) + '.html';
-      var curSubEl = document.querySelector('.page-subtitle');
-      var curName  = curSubEl ? curSubEl.textContent.trim() : '';
-      fetch(prevUrl)
-        .then(function(r) {
-          if (!r.ok) { document.body.classList.add('chapter-start'); markFirstParagraphForDropCap(); return ''; }
-          return r.text();
-        })
-        .then(function(html) {
-          if (!html) return;
-          var doc     = (new DOMParser()).parseFromString(html, 'text/html');
-          var prevSub = doc.querySelector('.page-subtitle');
-          var prevName = prevSub ? prevSub.textContent.trim() : '';
-          if (prevName !== curName) {
-            document.body.classList.add('chapter-start');
-            markFirstParagraphForDropCap();
-          }
-        })
-        .catch(function() {});
-    }());
+    // ── Chapter-start detection (only for books) ──
+    if (!isPoetryPage) {
+      (function detectChapterStart() {
+        var curFile  = window.location.pathname.split('/').pop();
+        var curMatch = curFile.match(/^(.+?-page)(\d+)\.html$/);
+        if (!curMatch) return;
+        var pageNum = parseInt(curMatch[2], 10);
+        if (pageNum === 1) {
+          document.body.classList.add('chapter-start');
+          markFirstParagraphForDropCap();
+          return;
+        }
+        var prevUrl  = curMatch[1] + (pageNum - 1) + '.html';
+        var curSubEl = document.querySelector('.page-subtitle');
+        var curName  = curSubEl ? curSubEl.textContent.trim() : '';
+        fetch(prevUrl)
+          .then(function(r) {
+            if (!r.ok) { document.body.classList.add('chapter-start'); markFirstParagraphForDropCap(); return ''; }
+            return r.text();
+          })
+          .then(function(html) {
+            if (!html) return;
+            var doc     = (new DOMParser()).parseFromString(html, 'text/html');
+            var prevSub = doc.querySelector('.page-subtitle');
+            var prevName = prevSub ? prevSub.textContent.trim() : '';
+            if (prevName !== curName) {
+              document.body.classList.add('chapter-start');
+              markFirstParagraphForDropCap();
+            }
+          })
+          .catch(function() {});
+      }());
+    }
 
-    // ── Mark first paragraph for drop cap (handles dreamMemText/thoughtText) ─────
     function markFirstParagraphForDropCap() {
       var pageContent = document.querySelector('.page-content');
       if (!pageContent) return;
-      
-      // Find the first paragraph element, whether it's a direct child or nested
       var firstPara = pageContent.querySelector('p');
-      if (firstPara) {
-        firstPara.classList.add('rdr-drop-cap-target');
-      }
+      if (firstPara) firstPara.classList.add('rdr-drop-cap-target');
     }
 
-    // Keyboard hint — show once per browser session
+    // Keyboard hint
     var hintShown = sessionStorage.getItem('rdr-kbd-shown');
     if (!hintShown && (nextHref || prevHref)) {
       var hint = document.createElement('div');
@@ -635,74 +705,65 @@ document.addEventListener('DOMContentLoaded', function() {
       sessionStorage.setItem('rdr-kbd-shown', '1');
     }
 
-    // ── Back-to-top button ────────────────────────────────────────────────────
+    // ── Back-to-top button ──
     var backTop = document.createElement('button');
     backTop.id  = 'rdr-back-top';
     backTop.setAttribute('aria-label', 'Back to top');
-    backTop.textContent = '\u2191';    // ↑
+    backTop.textContent = '\u2191';
     document.body.appendChild(backTop);
-
     backTop.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ── Chapter completion toast ──────────────────────────────────────────────
-    var toast        = document.createElement('div');
-    toast.id         = 'rdr-complete-toast';
-    var subtitle     = document.querySelector('.page-subtitle');
-    var chapterName  = subtitle ? subtitle.textContent.trim() : 'Chapter';
-    toast.textContent = chapterName + ' \u2014 Complete!';
-    document.body.appendChild(toast);
-    var toastShown   = false;
-    var isChapterEnd = !nextHref; // true if this is the final page (no next)
-
-    // Fetch the next sequential page (by URL pattern) to compare its subtitle
-    // This avoids relying on footer links which may have inconsistent hrefs
-    var curFile      = window.location.pathname.split('/').pop();
-    var curPageMatch = curFile.match(/^(.+?-page)(\d+)\.html$/);
-    var fetchNextUrl = curPageMatch
-      ? curPageMatch[1] + (parseInt(curPageMatch[2], 10) + 1) + '.html'
-      : null;
-
-    if (fetchNextUrl) {
-      fetch(fetchNextUrl)
-        .then(function(r) {
-          if (!r.ok) { isChapterEnd = true; return ''; } // no next page → chapter ends
-          return r.text();
-        })
-        .then(function(html) {
-          if (!html) return;
-          var parser   = new DOMParser();
-          var doc      = parser.parseFromString(html, 'text/html');
-          var nextSub  = doc.querySelector('.page-subtitle');
-          var nextName = nextSub ? nextSub.textContent.trim() : '';
-          isChapterEnd = nextName !== chapterName;
-        })
-        .catch(function() { isChapterEnd = false; });
+    // ── Chapter completion toast (only for books) ──
+    if (!isPoetryPage) {
+      var toast        = document.createElement('div');
+      toast.id         = 'rdr-complete-toast';
+      var subtitle     = document.querySelector('.page-subtitle');
+      var chapterName  = subtitle ? subtitle.textContent.trim() : 'Chapter';
+      toast.textContent = chapterName + ' \u2014 Complete!';
+      document.body.appendChild(toast);
+      var toastShown   = false;
+      var isChapterEnd = !nextHref;
+      var curFile      = window.location.pathname.split('/').pop();
+      var curPageMatch = curFile.match(/^(.+?-page)(\d+)\.html$/);
+      var fetchNextUrl = curPageMatch ? curPageMatch[1] + (parseInt(curPageMatch[2], 10) + 1) + '.html' : null;
+      if (fetchNextUrl) {
+        fetch(fetchNextUrl)
+          .then(function(r) {
+            if (!r.ok) { isChapterEnd = true; return ''; }
+            return r.text();
+          })
+          .then(function(html) {
+            if (!html) return;
+            var parser   = new DOMParser();
+            var doc      = parser.parseFromString(html, 'text/html');
+            var nextSub  = doc.querySelector('.page-subtitle');
+            var nextName = nextSub ? nextSub.textContent.trim() : '';
+            isChapterEnd = nextName !== chapterName;
+          })
+          .catch(function() { isChapterEnd = false; });
+      }
+      window.addEventListener('scroll', function() {
+        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+        var total    = document.documentElement.scrollHeight - window.innerHeight;
+        var pct      = total > 0 ? Math.round((scrolled / total) * 100) : 0;
+        if (scrolled > 400) backTop.classList.add('rdr-visible');
+        else backTop.classList.remove('rdr-visible');
+        if (pct >= 100 && !toastShown && isChapterEnd) {
+          toastShown = true;
+          toast.classList.add('rdr-visible');
+          setTimeout(function() { toast.classList.remove('rdr-visible'); }, 3200);
+        }
+      });
+    } else {
+      // Still show back-to-top on scroll (for poetry)
+      window.addEventListener('scroll', function() {
+        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrolled > 400) backTop.classList.add('rdr-visible');
+        else backTop.classList.remove('rdr-visible');
+      });
     }
-
-    // ── Unified scroll handler (back-to-top + toast) ─────────────────────────
-    window.addEventListener('scroll', function() {
-      var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-      var total    = document.documentElement.scrollHeight - window.innerHeight;
-      var pct      = total > 0 ? Math.round((scrolled / total) * 100) : 0;
-
-      // Back-to-top visibility
-      if (scrolled > 400) {
-        backTop.classList.add('rdr-visible');
-      } else {
-        backTop.classList.remove('rdr-visible');
-      }
-
-      // Chapter completion toast — only fires at the last page of a chapter
-      if (pct >= 100 && !toastShown && isChapterEnd) {
-        toastShown = true;
-        toast.classList.add('rdr-visible');
-        setTimeout(function() {
-          toast.classList.remove('rdr-visible');
-        }, 3200);
-      }
-    });
 
   })(); // end initReadingExperience
 
@@ -729,6 +790,31 @@ document.addEventListener('DOMContentLoaded', function() {
           panel.style.display = (panel.id === 'panel-' + bookId) ? 'block' : 'none';
         });
       });
+
+      // ── Apply Bookmarks: rewrite first-page links to bookmarked page ─────────
+      window.applyBookmarks = function() {
+        var bookmarks = {
+          exploded: localStorage.getItem('knowflux-bookmark-exploded'),
+          pinnacle: localStorage.getItem('knowflux-bookmark-pinnacle')
+        };
+
+        // Find all links that point to the first page of either book
+        document.querySelectorAll('a[href="exploded-page1.html"]').forEach(function(link) {
+          if (bookmarks.exploded && bookmarks.exploded !== 'exploded-page1.html') {
+            link.setAttribute('data-original-href', 'exploded-page1.html');
+            link.href = bookmarks.exploded;
+          }
+        });
+        document.querySelectorAll('a[href="pinnacle-page1.html"]').forEach(function(link) {
+          if (bookmarks.pinnacle && bookmarks.pinnacle !== 'pinnacle-page1.html') {
+            link.setAttribute('data-original-href', 'pinnacle-page1.html');
+            link.href = bookmarks.pinnacle;
+          }
+        });
+      };
+
+  // Run immediately on page load
+  window.applyBookmarks();
     });
   })();
 
@@ -796,5 +882,7 @@ document.addEventListener('DOMContentLoaded', function() {
   })();
 
 });
+
+
 
 

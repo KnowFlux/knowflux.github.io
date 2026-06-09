@@ -82,11 +82,11 @@ KnowFlux/
 ├── feedback.html              Feedback form (Formspree)
 ├── comingsoon.html            Placeholder / hype page
 │
-├── exploded-page1.html  …15   Book pages for "Exploded" (sci-fi novel)
+├── reader.html?book=exploded&page=1  …15   Book pages for "Exploded" (sci-fi novel)
 ├── exploded-pages.html        Grid index of all Exploded pages
 ├── exploded-chapters.html     Grid index grouped by chapter
 │
-├── pinnacle-page1.html  …     Book pages for "The Pinnacle of Reality"
+├── reader.html?book=pinnacle&page=1  …     Book pages for "The Pinnacle of Reality"
 ├── pinnacle-pages.html        Grid index (placeholder)
 ├── pinnacle-chapters.html     Grid index (placeholder)
 │
@@ -187,7 +187,7 @@ Every book page follows this consistent pattern, which the server uses for scrap
 There are **two different nav structures** in this project:
 
 1. **`COMMON_NAV`** in `server.py` — Used when generating pages via the admin panel. Simpler structure.
-2. **Page-level nav** in `exploded-page1.html` — Hand-edited, richer nested menu with "Books" → sub-menus.
+2. **Page-level nav** in `reader.html?book=exploded&page=1` — Hand-edited, richer nested menu with "Books" → sub-menus.
 
 This is a known inconsistency. Admin-generated pages get the simpler nav. If you want the richer nav everywhere, update `COMMON_NAV` in `server.py`.
 

@@ -11,6 +11,19 @@ from datetime import datetime
 
 BASE_DIR = Path(__file__).parent
 
+def extract_page_content(filename):
+    """Extract the main content HTML from a page file."""
+    filepath = BASE_DIR / filename
+    if not filepath.exists():
+        return ""
+    content = filepath.read_text(encoding="utf-8")
+    match = re.search(
+        r'<div class="page-content"[^>]*>(.*?)</div>',
+        content,
+        re.DOTALL
+    )
+    return match.group(1).strip() if match else ""
+
 def extract_page_info(filename):
     """Extract page number and chapter title from a page file."""
     filepath = BASE_DIR / filename
@@ -26,7 +39,8 @@ def extract_page_info(filename):
             "page_number": int(page_match.group(1)),
             "chapter_title": chapter_match.group(1),
             "file": filename,
-            "url": f"/{filename}"
+            "url": f"/{filename}",
+            "content": extract_page_content(filename)
         }
     return None
 
@@ -91,7 +105,7 @@ def generate_books_json():
     if exploded_pages:
         # Extract unique chapters from exploded pages
         exploded_chapters = {}
-        for page in exploded_pages:
+        for page in sorted(exploded_pages, key=lambda p: p["page_number"]):
             chapter = page["chapter_title"]
             if chapter not in exploded_chapters:
                 exploded_chapters[chapter] = []
@@ -106,7 +120,11 @@ def generate_books_json():
             "chaptersUrl": "/exploded-chapters.html",
             "pages": sorted(exploded_pages, key=lambda x: x["page_number"]),
             "chapters": {
-                chapter: pages for chapter, pages in sorted(exploded_chapters.items())
+                chapter: pages
+                for chapter, pages in sorted(
+                    exploded_chapters.items(),
+                    key=lambda item: min(p["page_number"] for p in item[1])
+                )
             }
         })
     
@@ -119,7 +137,7 @@ def generate_books_json():
     
     if pinnacle_pages:
         pinnacle_chapters = {}
-        for page in pinnacle_pages:
+        for page in sorted(pinnacle_pages, key=lambda p: p["page_number"]):
             chapter = page["chapter_title"]
             if chapter not in pinnacle_chapters:
                 pinnacle_chapters[chapter] = []
@@ -134,7 +152,11 @@ def generate_books_json():
             "chaptersUrl": "/pinnacle-chapters.html",
             "pages": sorted(pinnacle_pages, key=lambda x: x["page_number"]),
             "chapters": {
-                chapter: pages for chapter, pages in sorted(pinnacle_chapters.items())
+                chapter: pages
+                for chapter, pages in sorted(
+                    pinnacle_chapters.items(),
+                    key=lambda item: min(p["page_number"] for p in item[1])
+                )
             }
         })
     

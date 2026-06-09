@@ -97,7 +97,7 @@ COMMON_NAV = """\
             <a href="aboutbook.html" id="read-link">Read</a>
             <ul>
               <li><a href="aboutbook.html">About Book</a></li>
-              <li><a href="exploded-page1.html">Open Book</a></li>
+              <li><a href="reader.html?book=exploded&page=1">Open Book</a></li>
               <li><a href="exploded-pages.html">Pages</a></li>
               <li><a href="exploded-chapters.html">Chapters</a></li>
             </ul>
@@ -219,7 +219,7 @@ PAGES_INDEX_TEMPLATE = """\
     <div style="display:none;">Subscribe For Updates!</div>
     <div style="display:none;">Stay Tuned For Poetry And Prose!</div>
     <div style="display:none;">Send Feedback And See Responses!</div>
-  </div>
+  </div>s
   <div id="topMenu">
     <div class="wrap">
       <div id="topLinks">
@@ -229,7 +229,7 @@ PAGES_INDEX_TEMPLATE = """\
             <a href="aboutbook.html" id="read-link">Read</a>
             <ul>
               <li><a href="aboutbook.html">About Book</a></li>
-              <li><a href="exploded-page1.html">Open Book</a></li>
+              <li><a href="reader.html?book=exploded&page=1">Open Book</a></li>
               <li><a href="exploded-pages.html">Pages</a></li>
               <li><a href="exploded-chapters.html">Chapters</a></li>
             </ul>
@@ -285,7 +285,7 @@ CHAPTERS_INDEX_TEMPLATE = """\
             <a href="aboutbook.html" id="read-link">Read</a>
             <ul>
               <li><a href="aboutbook.html">About Book</a></li>
-              <li><a href="exploded-page1.html">Open Book</a></li>
+              <li><a href="reader.html?book=exploded&page=1">Open Book</a></li>
               <li><a href="exploded-pages.html">Pages</a></li>
               <li><a href="exploded-chapters.html">Chapters</a></li>
             </ul>
@@ -544,8 +544,22 @@ def update_poetry_html(poem_title, poem_filename, section_name):
 # Books JSON generation
 # ---------------------------------------------------------------------------
 
+def extract_page_content(filename):
+    """Extract the main content HTML from a page file."""
+    filepath = BASE_DIR / filename
+    if not filepath.exists():
+        return ""
+    content = filepath.read_text(encoding="utf-8")
+    match = re.search(
+        r'<div class="page-content"[^>]*>(.*?)</div>',
+        content,
+        re.DOTALL
+    )
+    return match.group(1).strip() if match else ""
+
+
 def extract_page_info(filename):
-    """Extract page number and chapter title from a page file."""
+    """Extract page number, chapter title, and content from a page file."""
     filepath = BASE_DIR / filename
     if not filepath.exists():
         return None
@@ -559,9 +573,11 @@ def extract_page_info(filename):
             "page_number": int(page_match.group(1)),
             "chapter_title": chapter_match.group(1),
             "file": filename,
-            "url": f"/{filename}"
+            "url": f"/{filename}",
+            "content": extract_page_content(filename)
         }
     return None
+
 
 
 def extract_poetry_data():
@@ -624,7 +640,7 @@ def generate_books_json():
     if exploded_pages:
         # Extract unique chapters from exploded pages
         exploded_chapters = {}
-        for page in exploded_pages:
+        for page in sorted(exploded_pages, key=lambda p: p["page_number"]):
             chapter = page["chapter_title"]
             if chapter not in exploded_chapters:
                 exploded_chapters[chapter] = []
@@ -652,7 +668,7 @@ def generate_books_json():
     
     if pinnacle_pages:
         pinnacle_chapters = {}
-        for page in pinnacle_pages:
+        for page in sorted(pinnacle_pages, key=lambda p: p["page_number"]):
             chapter = page["chapter_title"]
             if chapter not in pinnacle_chapters:
                 pinnacle_chapters[chapter] = []

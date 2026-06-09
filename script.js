@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ---------------------------------------------------------------------------
   const pageNum = document.querySelector('.page-title');
   if (pageNum && pageNum.textContent.match(/^Page \d+/)) {
-    localStorage.setItem('lastBookPage', window.location.pathname.split('/').pop());
+    localStorage.setItem('lastBookPage', window.location.pathname + window.location.search);
   }
 
   // ---------------------------------------------------------------------------
@@ -586,11 +586,11 @@ document.addEventListener('DOMContentLoaded', function() {
       (function initBookmark() {
         var bookmarkBtn = document.getElementById('rdr-bookmark-btn');
         if (!bookmarkBtn) return;
-        var pageUrl = window.location.pathname.split('/').pop();
-        var bookName = '';
-        if (pageUrl.startsWith('exploded-page')) bookName = 'exploded';
-        else if (pageUrl.startsWith('pinnacle-page')) bookName = 'pinnacle';
-        if (!bookName) { bookmarkBtn.style.display = 'none'; return; }
+        var params = new URLSearchParams(window.location.search);
+        var bookName = params.get('book') || '';
+        var pageNum  = params.get('page') || '';
+        if (!bookName || !pageNum) { bookmarkBtn.style.display = 'none'; return; }
+        var pageUrl = 'reader.html?book=' + bookName + '&page=' + pageNum;
         var storageKey = 'knowflux-bookmark-' + bookName;
         var currentBookmark = localStorage.getItem(storageKey);
         function updateBookmarkBtn() {
@@ -649,34 +649,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // ── Chapter-start detection (only for books) ──
     if (!isPoetryPage) {
       (function detectChapterStart() {
-        var curFile  = window.location.pathname.split('/').pop();
-        var curMatch = curFile.match(/^(.+?-page)(\d+)\.html$/);
-        if (!curMatch) return;
-        var pageNum = parseInt(curMatch[2], 10);
+        var params = new URLSearchParams(window.location.search);
+        var bookId = params.get('book');
+        var pageNum = parseInt(params.get('page'), 10);
+        if (!bookId || !pageNum) return;
+
+        // Page 1 is always a chapter start
         if (pageNum === 1) {
           document.body.classList.add('chapter-start');
           markFirstParagraphForDropCap();
           return;
         }
-        var prevUrl  = curMatch[1] + (pageNum - 1) + '.html';
+
         var curSubEl = document.querySelector('.page-subtitle');
         var curName  = curSubEl ? curSubEl.textContent.trim() : '';
-        fetch(prevUrl)
-          .then(function(r) {
-            if (!r.ok) { document.body.classList.add('chapter-start'); markFirstParagraphForDropCap(); return ''; }
-            return r.text();
-          })
-          .then(function(html) {
-            if (!html) return;
-            var doc     = (new DOMParser()).parseFromString(html, 'text/html');
-            var prevSub = doc.querySelector('.page-subtitle');
-            var prevName = prevSub ? prevSub.textContent.trim() : '';
-            if (prevName !== curName) {
-              document.body.classList.add('chapter-start');
-              markFirstParagraphForDropCap();
-            }
-          })
-          .catch(function() {});
+
+        // Look up the previous page's chapter title from books.json
+        var data = window.__booksData;
+        if (!data) return;
+        var bookData = data.books.find(function(b) { return b.id === bookId; });
+        if (!bookData) return;
+        var prevPage = bookData.pages.find(function(p) { return p.page_number === pageNum - 1; });
+        if (!prevPage) return;
+
+        if (prevPage.chapter_title !== curName) {
+          document.body.classList.add('chapter-start');
+          markFirstParagraphForDropCap();
+        }
       }());
     }
 
@@ -716,6 +715,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ── Chapter completion toast (only for books) ──
+    // ── Chapter completion toast (only for books) ──
     if (!isPoetryPage) {
       var toast        = document.createElement('div');
       toast.id         = 'rdr-complete-toast';
@@ -724,26 +724,27 @@ document.addEventListener('DOMContentLoaded', function() {
       toast.textContent = chapterName + ' \u2014 Complete!';
       document.body.appendChild(toast);
       var toastShown   = false;
-      var isChapterEnd = !nextHref;
-      var curFile      = window.location.pathname.split('/').pop();
-      var curPageMatch = curFile.match(/^(.+?-page)(\d+)\.html$/);
-      var fetchNextUrl = curPageMatch ? curPageMatch[1] + (parseInt(curPageMatch[2], 10) + 1) + '.html' : null;
-      if (fetchNextUrl) {
-        fetch(fetchNextUrl)
-          .then(function(r) {
-            if (!r.ok) { isChapterEnd = true; return ''; }
-            return r.text();
-          })
-          .then(function(html) {
-            if (!html) return;
-            var parser   = new DOMParser();
-            var doc      = parser.parseFromString(html, 'text/html');
-            var nextSub  = doc.querySelector('.page-subtitle');
-            var nextName = nextSub ? nextSub.textContent.trim() : '';
-            isChapterEnd = nextName !== chapterName;
-          })
-          .catch(function() { isChapterEnd = false; });
+
+      // Determine if this is the last page of the chapter using books.json
+      var isChapterEnd = !nextHref; // fallback: no next link = end
+      var params2 = new URLSearchParams(window.location.search);
+      var bookId2 = params2.get('book');
+      var pageNum2 = parseInt(params2.get('page'), 10);
+      if (bookId2 && pageNum2) {
+        var data2 = window.__booksData;
+        if (data2) {
+          var bd2 = data2.books.find(function(b) { return b.id === bookId2; });
+          if (bd2) {
+            var nextPage = bd2.pages.find(function(p) { return p.page_number === pageNum2 + 1; });
+            if (nextPage) {
+              isChapterEnd = (nextPage.chapter_title !== chapterName);
+            } else {
+              isChapterEnd = true; // no next page = end of book = end of chapter
+            }
+          }
+        }
       }
+
       window.addEventListener('scroll', function() {
         var scrolled = window.pageYOffset || document.documentElement.scrollTop;
         var total    = document.documentElement.scrollHeight - window.innerHeight;
@@ -755,13 +756,6 @@ document.addEventListener('DOMContentLoaded', function() {
           toast.classList.add('rdr-visible');
           setTimeout(function() { toast.classList.remove('rdr-visible'); }, 3200);
         }
-      });
-    } else {
-      // Still show back-to-top on scroll (for poetry)
-      window.addEventListener('scroll', function() {
-        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrolled > 400) backTop.classList.add('rdr-visible');
-        else backTop.classList.remove('rdr-visible');
       });
     }
 
@@ -798,16 +792,19 @@ document.addEventListener('DOMContentLoaded', function() {
           pinnacle: localStorage.getItem('knowflux-bookmark-pinnacle')
         };
 
+        var explodedFirstPage = 'reader.html?book=exploded&page=1'
+        var pinnacleFirstPage = 'reader.html?book=pinnacle&page=1'
+
         // Find all links that point to the first page of either book
-        document.querySelectorAll('a[href="exploded-page1.html"]').forEach(function(link) {
-          if (bookmarks.exploded && bookmarks.exploded !== 'exploded-page1.html') {
-            link.setAttribute('data-original-href', 'exploded-page1.html');
+        document.querySelectorAll('a[href="' + explodedFirstPage + '"]').forEach(function(link) {
+          if (bookmarks.exploded && bookmarks.exploded !== explodedFirstPage) {
+            link.setAttribute('data-original-href', explodedFirstPage);
             link.href = bookmarks.exploded;
           }
         });
-        document.querySelectorAll('a[href="pinnacle-page1.html"]').forEach(function(link) {
-          if (bookmarks.pinnacle && bookmarks.pinnacle !== 'pinnacle-page1.html') {
-            link.setAttribute('data-original-href', 'pinnacle-page1.html');
+        document.querySelectorAll('a[href="' + pinnacleFirstPage + '"]').forEach(function(link) {
+          if (bookmarks.pinnacle && bookmarks.pinnacle !== pinnacleFirstPage) {
+            link.setAttribute('data-original-href', pinnacleFirstPage);
             link.href = bookmarks.pinnacle;
           }
         });
@@ -838,8 +835,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const randomBookBtn = document.getElementById('random-book-btn');
   if (randomBookBtn) {
     const books = [
-      'exploded-page1.html',
-      'pinnacle-page1.html'
+      'reader.html?book=exploded&page=1',
+      'reader.html?book=pinnacle&page=1'
     ];
     randomBookBtn.addEventListener('click', function(e) {
       e.preventDefault();

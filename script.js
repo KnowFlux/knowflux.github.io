@@ -646,38 +646,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.key === 'ArrowLeft'  && prevHref) window.location.href = prevHref;
     });
 
-    // ── Chapter-start detection (only for books) ──
-    if (!isPoetryPage) {
-      (function detectChapterStart() {
-        var params = new URLSearchParams(window.location.search);
-        var bookId = params.get('book');
-        var pageNum = parseInt(params.get('page'), 10);
-        if (!bookId || !pageNum) return;
-
-        // Page 1 is always a chapter start
-        if (pageNum === 1) {
-          document.body.classList.add('chapter-start');
-          markFirstParagraphForDropCap();
-          return;
-        }
-
-        var curSubEl = document.querySelector('.page-subtitle');
-        var curName  = curSubEl ? curSubEl.textContent.trim() : '';
-
-        // Look up the previous page's chapter title from books.json
-        var data = window.__booksData;
-        if (!data) return;
-        var bookData = data.books.find(function(b) { return b.id === bookId; });
-        if (!bookData) return;
-        var prevPage = bookData.pages.find(function(p) { return p.page_number === pageNum - 1; });
-        if (!prevPage) return;
-
-        if (prevPage.chapter_title !== curName) {
-          document.body.classList.add('chapter-start');
-          markFirstParagraphForDropCap();
-        }
-      }());
-    }
+    // Chapter-start detection is now handled by reader.js
 
     function markFirstParagraphForDropCap() {
       var pageContent = document.querySelector('.page-content');
@@ -715,35 +684,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ── Chapter completion toast (only for books) ──
-    // ── Chapter completion toast (only for books) ──
     if (!isPoetryPage) {
       var toast        = document.createElement('div');
       toast.id         = 'rdr-complete-toast';
-      var subtitle     = document.querySelector('.page-subtitle');
-      var chapterName  = subtitle ? subtitle.textContent.trim() : 'Chapter';
-      toast.textContent = chapterName + ' \u2014 Complete!';
+      toast.textContent = (window.__chapterName || 'Chapter') + ' \u2014 Complete!';
       document.body.appendChild(toast);
       var toastShown   = false;
-
-      // Determine if this is the last page of the chapter using books.json
-      var isChapterEnd = !nextHref; // fallback: no next link = end
-      var params2 = new URLSearchParams(window.location.search);
-      var bookId2 = params2.get('book');
-      var pageNum2 = parseInt(params2.get('page'), 10);
-      if (bookId2 && pageNum2) {
-        var data2 = window.__booksData;
-        if (data2) {
-          var bd2 = data2.books.find(function(b) { return b.id === bookId2; });
-          if (bd2) {
-            var nextPage = bd2.pages.find(function(p) { return p.page_number === pageNum2 + 1; });
-            if (nextPage) {
-              isChapterEnd = (nextPage.chapter_title !== chapterName);
-            } else {
-              isChapterEnd = true; // no next page = end of book = end of chapter
-            }
-          }
-        }
-      }
 
       window.addEventListener('scroll', function() {
         var scrolled = window.pageYOffset || document.documentElement.scrollTop;
@@ -751,7 +697,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var pct      = total > 0 ? Math.round((scrolled / total) * 100) : 0;
         if (scrolled > 400) backTop.classList.add('rdr-visible');
         else backTop.classList.remove('rdr-visible');
-        if (pct >= 100 && !toastShown && isChapterEnd) {
+        if (pct >= 100 && !toastShown && window.__chapterEnd) {
           toastShown = true;
           toast.classList.add('rdr-visible');
           setTimeout(function() { toast.classList.remove('rdr-visible'); }, 3200);

@@ -14,7 +14,6 @@
     .then(function(data) {
       window.__booksData = data; // share with script.js
       console.log('Loaded books:', data.books.length);
-      // Step 3 goes here...
       // Find the book
       var bookData = data.books.find(function(b) {
         return b.id === book;
@@ -80,6 +79,34 @@
       }
       nextLink.className = 'comingSoonButton';
       navDiv.appendChild(nextLink);
+
+      // ── Chapter-start detection (drop caps) ──
+      (function detectChapterStart() {
+        if (pageNum === 1) {
+          document.body.classList.add('chapter-start');
+        } else {
+          var prevPg = bookData.pages.find(function(p) {
+            return p.page_number === pageNum - 1;
+          });
+          if (prevPg && prevPg.chapter_title !== page.chapter_title) {
+            document.body.classList.add('chapter-start');
+          }
+        }
+        // Mark first paragraph for drop cap if chapter just started
+        if (document.body.classList.contains('chapter-start')) {
+          var firstP = document.querySelector('.page-content p');
+          if (firstP) firstP.classList.add('rdr-drop-cap-target');
+        }
+      })();
+
+      // ── Chapter-end detection (toast) ──
+      var nextPg = bookData.pages.find(function(p) {
+        return p.page_number === pageNum + 1;
+      });
+      window.__chapterEnd = nextPg
+        ? (nextPg.chapter_title !== page.chapter_title)
+        : true;            // no next page = end of book = end of chapter
+      window.__chapterName = page.chapter_title;
     })
     .catch(function(error) {
       console.error(error);

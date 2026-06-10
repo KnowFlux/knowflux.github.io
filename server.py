@@ -140,294 +140,368 @@ SUBSCRIBE_FOOTER = """\
   </div>"""
 
 
-def build_page_nav(page_num, file_prefix):
-    """Build the footer nav for a book-style page."""
-    prev_num = page_num - 1
-    if prev_num >= 1:
-        return (
-            '    <div class="page-footer-action" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">\n'
-            f'      <a href="{file_prefix}{prev_num}.html" class="comingSoonButton">⬅️</a>\n'
-            '      <a href="comingsoon.html" class="comingSoonButton">COMING SOON!</a>\n'
-            '    </div>'
-        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ---------------------------------------------------------------------------
+
+# Update books.json directly with a new book page (no HTML file created)
+# ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def add_page_to_books_json(book_id, book_title, page_num, chapter_title, rendered_content):
+    """
+    Add a new page entry to books.json.
+    Parses raw content with [dream]/[thought]/[underline] markers into proper HTML.
+    """
+    books_json_file = BASE_DIR / "books.json"
+    
+    # Load existing data or start fresh
+    if books_json_file.exists():
+        with open(books_json_file, "r", encoding="utf-8") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = {"books": [], "poetry": {}, "lastUpdated": None}
     else:
-        return (
-            '    <div class="page-footer-action">\n'
-            f'      <a href="{file_prefix}2.html" class="comingSoonButton">➡️</a>\n'
-            '    </div>'
-        )
 
 
-def generate_page_html(page_num, chapter_title, raw_content, file_prefix, book_title):
-    segments = parse_content_blocks(raw_content)
-    main_content = render_content_blocks(segments)
-    nav = build_page_nav(page_num, file_prefix)
-
-    return f"""<!DOCTYPE html>
-<html lang="en">
-
-<head>
-{COMMON_HEAD}
-  <title>{book_title} — Page {page_num} | KnowFlux</title>
-</head>
-
-<body>
-{COMMON_NAV}
-  <div class="wrap">
-    <div class="page-header-container">
-      <h2 class="page-title">Page {page_num}</h2>
-      <h3 class="page-subtitle">{chapter_title}</h3>
-    </div>
-
-    <div class="page-content" id="page1-content">
-{main_content}    </div>
-
-{nav}
-  </div>
-
-  <div id="scroll-progress-container">
-    <div id="scroll-progress-bar"></div>
-  </div>
-
-{SUBSCRIBE_FOOTER}
-</body>
-
-</html>"""
 
 
-# ---------------------------------------------------------------------------
-# Pages index and chapters index helpers
-# ---------------------------------------------------------------------------
-
-PAGES_INDEX_TEMPLATE = """\
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8" />
-  <title>{book_title} — Pages | KnowFlux</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
-  <link rel="icon" type="image/png" href="Images/favicon.png">
-  <link rel="stylesheet" href="style.css?cachebust=13">
-  <script src="script.js?cachebust=13"></script>
-</head>
-
-<body>
-  <div id="promo">
-    <div>Content Posted Weekly!</div>
-    <div style="display:none;">Subscribe For Updates!</div>
-    <div style="display:none;">Stay Tuned For Poetry And Prose!</div>
-    <div style="display:none;">Send Feedback And See Responses!</div>
-  </div>s
-  <div id="topMenu">
-    <div class="wrap">
-      <div id="topLinks">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li class="has-submenu">
-            <a href="aboutbook.html" id="read-link">Read</a>
-            <ul>
-              <li><a href="aboutbook.html">About Book</a></li>
-              <li><a href="reader.html?book=exploded&page=1">Open Book</a></li>
-              <li><a href="exploded-pages.html">Pages</a></li>
-              <li><a href="exploded-chapters.html">Chapters</a></li>
-            </ul>
-          </li>
-          <li><a href="poetry.html">Poetry</a></li>
-          <li><a href="search.html" title="Search"><span class="search-icon">🔍</span></a></li>
-        </ul>
-      </div>
-      <a class="logo" href="index.html">KnowFlux</a>
-    </div>
-  </div>
-  <div class="wrap content-page">
-    <h1 class="page-title">{heading}</h1>
-    <div class="poetry-flex-grid">
-    </div>
-    <div class="spacer v100"></div>
-  </div>
-  <div id="copyright">
-    <div class="wrap">
-      <div>&copy; <span id="copyright-year">2026</span> <span class="logo">KnowFlux</span></div>
-    </div>
-  </div>
-</body>
-</html>"""
-
-CHAPTERS_INDEX_TEMPLATE = """\
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8" />
-  <title>{book_title} — Chapters | KnowFlux</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
-  <link rel="icon" type="image/png" href="Images/favicon.png">
-  <link rel="stylesheet" href="style.css?cachebust=13">
-  <script src="script.js?cachebust=13"></script>
-</head>
-
-<body>
-  <div id="promo">
-    <div>Content Posted Weekly!</div>
-    <div style="display:none;">Subscribe For Updates!</div>
-    <div style="display:none;">Stay Tuned For Poetry And Prose!</div>
-    <div style="display:none;">Send Feedback And See Responses!</div>
-  </div>
-  <div id="topMenu">
-    <div class="wrap">
-      <div id="topLinks">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li class="has-submenu">
-            <a href="aboutbook.html" id="read-link">Read</a>
-            <ul>
-              <li><a href="aboutbook.html">About Book</a></li>
-              <li><a href="reader.html?book=exploded&page=1">Open Book</a></li>
-              <li><a href="exploded-pages.html">Pages</a></li>
-              <li><a href="exploded-chapters.html">Chapters</a></li>
-            </ul>
-          </li>
-          <li><a href="poetry.html">Poetry</a></li>
-          <li><a href="search.html" title="Search"><span class="search-icon">🔍</span></a></li>
-        </ul>
-      </div>
-      <a class="logo" href="index.html">KnowFlux</a>
-    </div>
-  </div>
-  <div class="wrap content-page">
-    <h1 class="page-title">{heading}</h1>
-    <div class="poetry-flex-grid">
-    </div>
-    <div class="spacer v100"></div>
-  </div>
-  <div id="copyright">
-    <div class="wrap">
-      <div>&copy; <span id="copyright-year">2026</span> <span class="logo">KnowFlux</span></div>
-    </div>
-  </div>
-</body>
-</html>"""
 
 
-def ensure_index_file(filepath, template, book_title, heading):
-    """Create the index file from template if it doesn't exist. Returns True if created."""
-    if not filepath.exists():
-        content = template.format(book_title=book_title, heading=heading)
-        filepath.write_text(content, encoding="utf-8")
-        return True
-    return False
+        data = {"books": [], "poetry": {}, "lastUpdated": None}
+    
+    # Find or create the book entry
+    book_entry = None
+    for b in data.get("books", []):
+        if b.get("id") == book_id:
+            book_entry = b
+            break
+    
+    if book_entry is None:
+        book_entry = {
+            "id": book_id,
+            "title": book_title,
+            "description": "",
+            "totalPages": 0,
+            "pagesUrl": f"/{book_id}-pages.html",
+            "chaptersUrl": f"/{book_id}-chapters.html",
+            "pages": [],
+            "chapters": {}
+        }
+        data["books"].append(book_entry)
+    
+    # Check if page already exists (by page_number)
+    for p in book_entry["pages"]:
+        if p["page_number"] == page_num:
+            return False, f"Page {page_num} already exists in {book_title}."
+    
+    # Build the new page entry – note: no 'file' field since no HTML file exists
+    new_page = {
+        "page_number": page_num,
+        "chapter_title": chapter_title,
+        "content": rendered_content,
+        # 'file' and 'url' are omitted because pages are served dynamically
+    }
+    
+    # Insert in sorted order
+    book_entry["pages"].append(new_page)
+    book_entry["pages"].sort(key=lambda x: x["page_number"])
+    
+    # Update totalPages
+    book_entry["totalPages"] = len(book_entry["pages"])
+    
+    # Update chapters grouping
+    chapters = {}
+    for p in book_entry["pages"]:
+        ch = p["chapter_title"]
+        if ch not in chapters:
+            chapters[ch] = []
+        chapters[ch].append(p)
+    book_entry["chapters"] = chapters
+    
+    from datetime import datetime
+    data["lastUpdated"] = datetime.now().isoformat()
+    
+    # Write back
+    with open(books_json_file, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    
+    return True, None
 
 
-def add_card_to_index(filepath, card_html):
-    """Insert a card before the closing </div> of .poetry-flex-grid."""
-    content = filepath.read_text(encoding="utf-8")
-    marker = '    </div>\n    <div class="spacer v100">'
-    idx = content.find(marker)
-    if idx != -1:
-        content = content[:idx] + card_html + content[idx:]
-    else:
-        empty_grid = '    <div class="poetry-flex-grid">\n    </div>'
-        idx2 = content.find(empty_grid)
-        if idx2 != -1:
-            insert_at = idx2 + len('    <div class="poetry-flex-grid">\n')
-            content = content[:insert_at] + card_html + content[insert_at:]
-    filepath.write_text(content, encoding="utf-8")
 
 
-def chapter_title_exists(filepath, chapter_title):
-    """Return True if an <h3> with this chapter title already exists in the file."""
-    if not filepath.exists():
-        return False
-    content = filepath.read_text(encoding="utf-8")
-    titles = re.findall(r'<h3>([^<]+)</h3>', content)
-    return chapter_title.strip() in [t.strip() for t in titles]
 
 
-def update_previous_page_nav(prev_file_path, new_page_filename):
-    """Update the COMING SOON link in the previous page to point to the new page."""
-    if not prev_file_path.exists():
-        return False
-    content = prev_file_path.read_text(encoding="utf-8")
-    new_content = re.sub(
-        r'<a href="comingsoon\.html" class="comingSoonButton"[^>]*>COMING SOON!</a>',
-        f'<a href="{new_page_filename}" class="comingSoonButton">➡️</a>',
-        content,
-    )
-    prev_file_path.write_text(new_content, encoding="utf-8")
-    return new_content != content
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # ---------------------------------------------------------------------------
-# contents.html updater
-# ---------------------------------------------------------------------------
-
-def update_contents_html(book_id, chapter_title, page_num, file_prefix):
-    """Add a new page entry to contents.html under the correct book panel."""
-    contents_file = BASE_DIR / "contents.html"
-    if not contents_file.exists():
-        return False
-
-    content = contents_file.read_text(encoding="utf-8")
-
-    # Find the panel for this book
-    panel_id = f'id="panel-{book_id}"'
-    panel_start = content.find(panel_id)
-    if panel_start == -1:
-        return False
-
-    # Find the end of this panel's opening tag
-    opening_end = content.find('>', panel_start) + 1
-    # The panel's closing </div> is the first </div> after the opening tag
-    panel_close = content.find('</div>', opening_end)
-    if panel_close == -1:
-        return False
-
-    inner = content[opening_end:panel_close]
-
-    # Build the page list item (12-space indent matches contents.html)
-    page_entry = f'            <li><a href="{file_prefix}{page_num}.html">Page {page_num}</a></li>\n'
-
-    # Check if a details block with this chapter title already exists
-    # Use a regex that allows whitespace around the summary text
-    chapter_pattern = re.compile(r'<summary>\s*' + re.escape(chapter_title) + r'\s*</summary>')
-    match = chapter_pattern.search(inner)
-
-    if match:
-        # Find the <ul> that belongs to this details block (the one after the summary)
-        summary_end = inner.find('</summary>', match.start()) + len('</summary>')
-        # Search for the next <ul> after summary_end
-        ul_start = inner.find('<ul>', summary_end)
-        if ul_start != -1:
-            ul_close = inner.find('</ul>', ul_start)
-            if ul_close != -1:
-                new_inner = inner[:ul_close] + page_entry + inner[ul_close:]
-                content = content[:opening_end] + new_inner + content[panel_close:]
-            else:
-                return False
-        else:
-            # No <ul> yet – create one after the summary
-            # Insert <ul>...</ul> after the summary
-            new_inner = inner[:summary_end] + '\n          <ul>\n' + page_entry + '          </ul>\n' + inner[summary_end:]
-            content = content[:opening_end] + new_inner + content[panel_close:]
-    else:
-        # New chapter – create a new details block
-        new_details = (
-            f'\n        <details>\n'
-            f'          <summary>{chapter_title}</summary>\n'
-            f'          <ul>\n'
-            f'{page_entry}          </ul>\n'
-            f'        </details>\n'
-        )
-        content = content[:panel_close] + new_details + content[panel_close:]
-
-    contents_file.write_text(content, encoding="utf-8")
-    return True
 
 
-# ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Poetry
 # ---------------------------------------------------------------------------
 
@@ -759,11 +833,6 @@ def update_sitemap():
     for page_path, priority, changefreq, lastmod in pages_to_include:
         if page_path == '/':
             loc = base_url + '/'
-        else:
-            loc = f"{base_url}/{page_path}"
-        
-        xml_lines.append('  <url>')
-        xml_lines.append(f'    <loc>{loc}</loc>')
         xml_lines.append(f'    <lastmod>{lastmod}</lastmod>')
         xml_lines.append(f'    <changefreq>{changefreq}</changefreq>')
         xml_lines.append(f'    <priority>{priority:.1f}</priority>')
@@ -836,66 +905,48 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             if not self._is_authenticated():
                 self._send_json(401, {"success": False, "error": "Unauthorized."})
                 return
-            try:
-                is_exploded = self.path == "/admin/generate-exploded"
-                file_prefix = "exploded-page" if is_exploded else "pinnacle-page"
-                book_title = "Exploded" if is_exploded else "The Pinnacle of Reality"
-                pages_filename = "exploded-pages.html" if is_exploded else "pinnacle-pages.html"
-                chapters_filename = "exploded-chapters.html" if is_exploded else "pinnacle-chapters.html"
-                pages_heading = "EXPLODED — PAGES" if is_exploded else "THE PINNACLE OF REALITY — PAGES"
-                chapters_heading = "EXPLODED — CHAPTERS" if is_exploded else "THE PINNACLE OF REALITY — CHAPTERS"
 
-                page_num = int(params.get("page_num", [""])[0])
+            try:
+                page_num_str = params.get("page_num", [""])[0].strip()
                 chapter_title = params.get("chapter_title", [""])[0].strip()
                 raw_content = params.get("main_content", [""])[0]
 
-                if page_num < 1:
-                    self._send_json(400, {"success": False, "error": "Page number must be 1 or greater."})
+                if not page_num_str or not page_num_str.isdigit():
+                    self._send_json(400, {"success": False, "error": "Valid page number is required."})
                     return
+                page_num = int(page_num_str)
                 if not chapter_title:
-                    self._send_json(400, {"success": False, "error": "Chapter title is required."})
+                    self._send_json(400, {"success": False, "error": "Chapter / page title is required."})
                     return
                 if not raw_content.strip():
-                    self._send_json(400, {"success": False, "error": "Content cannot be empty."})
+                    self._send_json(400, {"success": False, "error": "Page content cannot be empty."})
                     return
 
-                new_filename = f"{file_prefix}{page_num}.html"
-                new_page_file = BASE_DIR / new_filename
-                if new_page_file.exists():
-                    self._send_json(400, {"success": False, "error": f"{new_filename} already exists. Delete it first to regenerate."})
-                    return
+                book_id = "exploded" if "exploded" in self.path else "pinnacle"
+                book_title = "Exploded" if book_id == "exploded" else "The Pinnacle of Reality"
 
-                # Generate the page
-                html = generate_page_html(page_num, chapter_title, raw_content, file_prefix, book_title)
-                new_page_file.write_text(html, encoding="utf-8")
+                segments = parse_content_blocks(raw_content)
+                rendered_content = render_content_blocks(segments)
 
-                # Update previous page's nav
-                prev_updated = False
-                if page_num > 1:
-                    prev_file = BASE_DIR / f"{file_prefix}{page_num - 1}.html"
-                    prev_updated = update_previous_page_nav(prev_file, new_filename)
-
-                # Update contents.html
-                update_contents_html(
-                    book_id="exploded" if is_exploded else "pinnacle",
-                    chapter_title=chapter_title,
-                    page_num=page_num,
-                    file_prefix=file_prefix
+                success, error_msg = add_page_to_books_json(
+                    book_id, book_title, page_num, chapter_title, rendered_content
                 )
+                if not success:
+                    self._send_json(400, {"success": False, "error": error_msg or "Could not add page."})
+                    return
 
-                # Regenerate books.json and sitemap
-                save_books_json()
+                # Don't call save_books_json() here — that scans HTML files on disk
+                # and would overwrite the new entry we just added to books.json.
+                # add_page_to_books_json already persists the change.
                 update_sitemap()
 
                 self._send_json(200, {
                     "success": True,
-                    "file": new_filename,
-                    "prev_updated": prev_updated,
                     "page_num": page_num,
+                    "book_id": book_id,
+                    "book_title": book_title,
                 })
 
-            except ValueError:
-                self._send_json(400, {"success": False, "error": "Page number must be a valid number."})
             except Exception as e:
                 self._send_json(500, {"success": False, "error": str(e)})
 

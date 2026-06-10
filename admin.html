@@ -716,6 +716,7 @@ Like a falling star" required></textarea>
 
     // Shared handler for Pinnacle and Exploded forms
     function handleBookForm(formId, endpoint, btnLabel) {
+      const bookId = endpoint.includes('exploded') ? 'exploded' : 'pinnacle';
       document.getElementById(formId).addEventListener('submit', async function(e) {
         e.preventDefault();
         const btn = this.querySelector('.generate-btn');
@@ -739,23 +740,13 @@ Like a falling star" required></textarea>
           const data = await res.json();
           if (data.success) {
             const pageNum = data.page_num;
-            const notes = [];
-            if (data.prev_updated) notes.push(`<li>Page ${pageNum - 1}'s navigation has been updated to link here.</li>`);
-            if (data.pages_created) notes.push(`<li><strong>${data.pages_file}</strong> was created as the pages index.</li>`);
-            if (data.chapters_created) notes.push(`<li><strong>${data.chapters_file}</strong> was created as the chapters index.</li>`);
-            notes.push(`<li><strong>${data.pages_file}</strong> has been updated with the new page card.</li>`);
-            if (data.chapter_is_new) {
-              notes.push(`<li><strong>${data.chapters_file}</strong> has been updated — new chapter added.</li>`);
-            } else {
-              notes.push(`<li>Chapter already exists in <strong>${data.chapters_file}</strong> — no duplicate added.</li>`);
-            }
             showResult(true, `
               <div class="result-title">Page ${pageNum} is ready!</div>
               <ul>
-                <li><strong>${data.file}</strong> has been created.</li>
-                ${notes.join('')}
+                <li>Page ${pageNum} has been added to <strong>books.json</strong>.</li>
+                <li>No HTML file was created — pages are now served dynamically via <strong>reader.html</strong>.</li>
               </ul>
-              <br><a href="${data.file}" target="_blank">Preview the new page →</a>
+              <br><a href="reader.html?book=${bookId}&page=${pageNum}" target="_blank">Preview the new page →</a>
             `);
             this.reset();
             this.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));

@@ -124,7 +124,7 @@ SUBSCRIBE_FOOTER = """\
       </center>
     </div>
   </div>
-  <div id="footer">
+  <div id = "footer" data-reveal = "false">
     <div class="wrap">
       <ul>
         <li><a href="feedback.html">Feedback</a></li>
@@ -133,7 +133,7 @@ SUBSCRIBE_FOOTER = """\
       </ul>
     </div>
   </div>
-  <div id="copyright">
+  <div id = "copyright" data-reveal = "false">
     <div class="wrap">
       <div>&copy; <span id="copyright-year">2026</span> <span class="logo">KnowFlux</span></div>
     </div>

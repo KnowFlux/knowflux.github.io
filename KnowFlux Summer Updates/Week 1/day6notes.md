@@ -1,5 +1,5 @@
 # Today's Plan
-The focus for today is refining the `index.html` footer area — specifically the `<div id="subscribe">`, `<div id="footer">`, and `<div id="copyright">` sections. After cross-referencing `style.css`, several CSS selector mismatches, deprecated HTML, and layout inconsistencies were identified. The plan is to clean these up, modernize the layout, and add subtle brand polish.
+The focus for today is refining the `index.html` footer area — specifically the `<div id="subscribe">`, `<div id = "footer" data-reveal = "false">`, and `<div id = "copyright" data-reveal = "false">` sections. After cross-referencing `style.css`, several CSS selector mismatches, deprecated HTML, and layout inconsistencies were identified. The plan is to clean these up, modernize the layout, and add subtle brand polish.
 
 # Ideas & Options For Improvement
 

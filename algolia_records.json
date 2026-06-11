@@ -1,176 +1,188 @@
 [
   {
-    "objectID": "index",
+    "objectID": "home",
     "title": "Home | KnowFlux",
     "description": "KnowFlux - A bold, Nintendo-inspired literary haven for creative writing with sharp visuals and epic reading experiences.",
-    "url": "/index.html"
+    "url": "/"
   },
   {
-    "objectID": "aboutbook",
+    "objectID": "aboutbook.html",
     "title": "About Book | KnowFlux",
     "description": "Discover The Pinnacle of Reality and Exploded - epic multi-page narratives from KnowFlux's collection of creative literature.",
     "url": "/aboutbook.html"
   },
   {
-    "objectID": "comingsoon",
+    "objectID": "comingsoon.html",
     "title": "Coming Soon | KnowFlux",
-    "description": "Make sure you know when the newest page drops in.",
+    "description": "Coming soon - new stories and poetry from KnowFlux.",
     "url": "/comingsoon.html"
   },
   {
-    "objectID": "contents",
+    "objectID": "contents.html",
     "title": "Contents | KnowFlux",
     "description": "Browse all chapters and pages of KnowFlux books.",
     "url": "/contents.html"
   },
   {
-    "objectID": "exploded-page1",
-    "title": "Page 1 | Exploded",
-    "description": "Read Exploded - an epic fantasy narrative about a dragon named Exploded and the trials that shape identity.",
-    "url": "/reader.html?book=exploded&page=1"
-  },
-  {
-    "objectID": "exploded-page10",
-    "title": "Page 10 | Exploded",
-    "description": "Read the 10th page in the Exploded series.",
-    "url": "/reader.html?book=exploded&page=10"
-  },
-  {
-    "objectID": "exploded-page11",
-    "title": "Page 11 | Exploded",
-    "description": "Read the 11th page in the Exploded series.",
-    "url": "/reader.html?book=exploded&page=11"
-  },
-  {
-    "objectID": "exploded-page12",
-    "title": "Page 12 | Exploded",
-    "description": "Read the 12th page in the Exploded seeries.",
-    "url": "/reader.html?book=exploded&page=12"
-  },
-  {
-    "objectID": "exploded-page13",
-    "title": "Page 13 | Exploded",
-    "description": "Read the 13th page in the Exploded series.",
-    "url": "/reader.html?book=exploded&page=13"
-  },
-  {
-    "objectID": "exploded-page14",
-    "title": "Page 14 | Exploded",
-    "description": "Read the 14th page in the Exploded series.",
-    "url": "/reader.html?book=exploded&page=14"
-  },
-  {
-    "objectID": "exploded-page15",
-    "title": "Page 15 | Exploded",
-    "description": "Read the 15th page in the Exploded series.",
-    "url": "/reader.html?book=exploded&page=15"
-  },
-  {
-    "objectID": "exploded-page16",
-    "title": "Page 16 | Exploded",
-    "description": "Read the 16th page in the Exploded series.",
-    "url": "/reader.html?book=exploded&page=16"
-  },
-  {
-    "objectID": "exploded-page2",
-    "title": "Page 2 | Exploded",
-    "description": "",
-    "url": "/reader.html?book=exploded&page=2"
-  },
-  {
-    "objectID": "exploded-page3",
-    "title": "Page 3 | Exploded",
-    "description": "",
-    "url": "/reader.html?book=exploded&page=3"
-  },
-  {
-    "objectID": "exploded-page4",
-    "title": "Page 4 | Exploded",
-    "description": "",
-    "url": "/reader.html?book=exploded&page=4"
-  },
-  {
-    "objectID": "exploded-page5",
-    "title": "Page 5 | Exploded",
-    "description": "",
-    "url": "/reader.html?book=exploded&page=5"
-  },
-  {
-    "objectID": "exploded-page6",
-    "title": "Page 7 | Exploded",
-    "description": "",
-    "url": "/reader.html?book=exploded&page=6"
-  },
-  {
-    "objectID": "exploded-page7",
-    "title": "Page 7 | Exploded",
-    "description": "",
-    "url": "/reader.html?book=exploded&page=7"
-  },
-  {
-    "objectID": "exploded-page8",
-    "title": "Page 8 | Exploded",
-    "description": "",
-    "url": "/reader.html?book=exploded&page=8"
-  },
-  {
-    "objectID": "exploded-page9",
-    "title": "Page 9 | Exploded",
-    "description": "",
-    "url": "/reader.html?book=exploded&page=9"
-  },
-  {
-    "objectID": "feedback",
+    "objectID": "feedback.html",
     "title": "Feedback | KnowFlux",
     "description": "Share your thoughts and feedback about KnowFlux stories and poetry.",
     "url": "/feedback.html"
   },
   {
-    "objectID": "finalmoment",
-    "title": "Untitled",
+    "objectID": "finalmoment.html",
+    "title": "KnowFlux",
     "description": "Experience The Final Moment, a haiku about suspended time and falling raindrops from KnowFlux poetry collection.",
     "url": "/finalmoment.html"
   },
   {
-    "objectID": "pinnacle-page1",
-    "title": "Page 1 | The Pinnacle of Reality",
-    "description": "Read The Pinnacle of Reality - an epic tale of self-discovery and the nature of existence.",
-    "url": "/reader.html?book=pinnacle&page=1"
-  },
-  {
-    "objectID": "poetry",
+    "objectID": "poetry.html",
     "title": "Poetry | KnowFlux",
     "description": "Explore beautiful haikus and poetic works celebrating the rhythm of words at KnowFlux.",
     "url": "/poetry.html"
   },
   {
-    "objectID": "rhythmoftheredriver",
+    "objectID": "reader.html",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html"
+  },
+  {
+    "objectID": "rhythmoftheredriver.html",
     "title": "Rhythm of the Red River | KnowFlux",
     "description": "Read Rhythm of the Re-driver - a poem about finding rhythm and momentum in life from KnowFlux.",
     "url": "/rhythmoftheredriver.html"
   },
   {
-    "objectID": "search",
+    "objectID": "search.html",
     "title": "Search | KnowFlux",
     "description": "Search our collection of stories and poetry from KnowFlux's library.",
     "url": "/search.html"
   },
   {
-    "objectID": "sowhisperedthewind",
+    "objectID": "sowhisperedthewind.html",
     "title": "So Whispered the Wind | KnowFlux",
     "description": "Read So Whispered the Wind, a haiku celebrating the abundance and resonance of words from KnowFlux.",
     "url": "/sowhisperedthewind.html"
   },
   {
-    "objectID": "symbolsofnature",
+    "objectID": "symbolsofnature.html",
     "title": "Symbols of Nature | KnowFlux",
     "description": "Read Symbols of Nature - a haiku capturing the essence of the natural world from KnowFlux poetry collection.",
     "url": "/symbolsofnature.html"
   },
   {
-    "objectID": "unrestfulstillness",
+    "objectID": "unrestfulstillness.html",
     "title": "Unrestful Stillness | KnowFlux",
     "description": "Read Unrestful Stillness - a haiku exploring the paradox of peace and motion from KnowFlux poetry.",
     "url": "/unrestfulstillness.html"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=1",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=1"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=2",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=2"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=3",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=3"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=4",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=4"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=5",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=5"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=6",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=6"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=7",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=7"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=8",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=8"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=9",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=9"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=10",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=10"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=11",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=11"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=12",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=12"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=13",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=13"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=14",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=14"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=15",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=15"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=16",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=16"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=17",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=17"
+  },
+  {
+    "objectID": "reader.html?book=pinnacle&page=1",
+    "title": "Read | KnowFlux",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=pinnacle&page=1"
   }
 ]

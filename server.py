@@ -794,55 +794,66 @@ def get_priority_and_freq(filename):
 
 
 def update_sitemap():
-    """Generate and update sitemap.xml with all pages."""
+    """Generate and write a valid sitemap.xml with all pages, including dynamic reader URLs from books.json."""
     sitemap_file = BASE_DIR / "sitemap.xml"
-    
-    # Build the sitemap
-    base_url = "https://knowflux.github.io"
+    base_url = "https://knowflux.ink"
     from datetime import datetime
     today = datetime.now().strftime("%Y-%m-%d")
-    
-    # Start building XML
+
     xml_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
-    
-    # Get all HTML files in root directory
+
     html_files = sorted(BASE_DIR.glob("*.html"))
-    
-    # Exclude admin.html from sitemap
-    excluded_files = {'admin.html'}
-    
-    # Collect and organize pages
-    pages_to_include = []
-    
-    # Add root URLs
-    pages_to_include.append(('/', 1.0, 'weekly', today))
-    pages_to_include.append(('index.html', 1.0, 'weekly', today))
-    
-    for html_file in html_files:
-        filename = html_file.name
-        if filename in excluded_files or filename == 'index.html':
+    excluded = {'admin.html'}
+
+    # Static pages
+    pages = [('/', 1.0, 'weekly', today)]
+    pages.append(('index.html', 1.0, 'weekly', today))
+
+    for f in html_files:
+        name = f.name
+        if name in excluded or name == 'index.html':
             continue
-        
-        priority, freq = get_priority_and_freq(filename)
-        pages_to_include.append((filename, priority, freq, today))
-    
-    # Generate XML entries
-    for page_path, priority, changefreq, lastmod in pages_to_include:
+        priority, freq = get_priority_and_freq(name)
+        pages.append((name, priority, freq, today))
+
+    # Add dynamic book pages from books.json
+    books_json_file = BASE_DIR / "books.json"
+    if books_json_file.exists():
+        try:
+            with open(books_json_file, "r", encoding="utf-8") as bf:
+                books_data = json.load(bf)
+            for book in books_data.get("books", []):
+                book_id = book.get("id", "")
+                for page in book.get("pages", []):
+                    page_num = page.get("page_number")
+                    if page_num is not None:
+                        # Reader URL: reader.html?book=<book_id>&page=<page_num>
+                        reader_url = f"reader.html?book={book_id}&page={page_num}"
+                        # Use 0.8 priority, weekly (same as static page)
+                        pages.append((reader_url, 0.8, 'weekly', today))
+        except (json.JSONDecodeError, Exception):
+            pass  # If books.json is corrupted, skip dynamic pages
+
+    for page_path, priority, changefreq, lastmod in pages:
         if page_path == '/':
             loc = base_url + '/'
+        elif page_path.startswith('reader.html?'):
+            # Dynamic URL: no leading slash before reader.html?
+            loc = f"{base_url}/{page_path}"
+        else:
+            loc = f"{base_url}/{page_path}"
+        xml_lines.append('  <url>')
+        xml_lines.append(f'    <loc>{loc}</loc>')
         xml_lines.append(f'    <lastmod>{lastmod}</lastmod>')
         xml_lines.append(f'    <changefreq>{changefreq}</changefreq>')
         xml_lines.append(f'    <priority>{priority:.1f}</priority>')
         xml_lines.append('  </url>')
     
     xml_lines.append('</urlset>')
-    
-    # Write to file
-    sitemap_content = '\n'.join(xml_lines)
-    sitemap_file.write_text(sitemap_content, encoding="utf-8")
+    sitemap_file.write_text('\n'.join(xml_lines) + '\n', encoding="utf-8")
     return True
 
 

@@ -26,17 +26,26 @@ class MetadataParser(HTMLParser):
         if self.in_title:
             self.title += data.strip()
 
+def make_object_id(url):
+    """Create a unique objectID from a URL."""
+    path = url.split('://', 1)[-1].split('/', 1)[-1] if '://' in url else url
+    if not path or path == '':
+        return 'home'
+    # Replace non-alphanumeric (except . and ? and =) with dash, but keep readability
+    clean = ''.join(c if c.isalnum() or c in '.-_?=&' else '-' for c in path)
+    return clean
+
 # Parse sitemap
 tree = ET.parse('sitemap.xml')  # or use the live URL
 root = tree.getroot()
 ns = {'ns': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
 
 records = []
-for url in root.findall('ns:url/ns:loc', ns):
-    page_url = url.text
-    # We only want .html pages (skip root index.html duplicate)
-    if '.html' not in page_url:
+for url_elem in root.findall('ns:url', ns):
+    loc_elem = url_elem.find('ns:loc', ns)
+    if loc_elem is None or not loc_elem.text:
         continue
+    page_url = loc_elem.text.strip()
 
     # Fetch the page content
     try:
@@ -50,12 +59,20 @@ for url in root.findall('ns:url/ns:loc', ns):
     parser.feed(html)
     parser.close()
 
-    # Create a record
+    # Build relative URL (remove domain)
+    domain = 'https://knowflux.ink'
+    if page_url.startswith(domain):
+        relative_url = page_url[len(domain):] or '/'
+    elif page_url.startswith('https://knowflux.github.io'):
+        relative_url = page_url[len('https://knowflux.github.io'):] or '/'
+    else:
+        relative_url = page_url  # fallback
+
     records.append({
-        "objectID": page_url.split('/')[-1].replace('.html', ''),
-        "title": parser.title or 'Untitled',
+        "objectID": make_object_id(page_url),
+        "title": parser.title or 'KnowFlux',
         "description": parser.description or '',
-        "url": page_url.replace('https://knowflux.github.io', '')  # make relative
+        "url": relative_url
     })
 
 # Write JSON

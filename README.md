@@ -34,6 +34,11 @@ We’ve combined the speed of raw web languages with powerful cloud integrations
 * **Serverless Forms:** Powered by **Formspree** to handle reader feedback directly from a custom vanilla UI without needing a backend server.
 * **Newsletter & Community:** Integrated with **Kit (ConvertKit)** to power weekly literary drops and audience growth.
 
+### 🔑 Connecting Your Own Services
+To make the search, feedback, and newsletter features work on your fork, you will need to swap out the placeholder API keys/endpoints in the code:
+1. **Algolia:** Replace the application ID and search-only API key in `script.js` with your own Algolia credentials.
+2. **Formspree:** Update the `<form action="...">` URL in `feedback.html` with your unique Formspree form ID.
+3. **Kit:** Update the newsletter subscription form action URL in the footer with your Kit form action link.
 
 ## 📂 Project Blueprint
 

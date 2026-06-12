@@ -26,19 +26,19 @@ We believe stories should *pop*! Our site is a love letter to classic gaming aes
 
 ---
 
-## 🛠️ The High-Tech Stack
+### 🛠️ The Lightweight Jamstack
+We’ve combined the speed of raw web languages with powerful cloud integrations to keep KnowFlux lightning-fast, interactive, and completely serverless:
 
-We’ve combined simplicity with powerful integrations to keep KnowFlux lightning-fast and interactive:
+* **Zero Frontend Frameworks:** Built with pure HTML5, CSS3, and Vanilla JS for instant page loads and clean code execution.
+* **Instant Search:** Powered by the **Algolia Search API** for lightning-fast, real-time client-side results.
+* **Serverless Forms:** Powered by **Formspree** to handle reader feedback directly from a custom vanilla UI without needing a backend server.
+* **Newsletter & Community:** Integrated with **Kit (ConvertKit)** to power weekly literary drops and audience growth.
 
-| Feature | Tech Powering It |
-| :--- | :--- |
-| **Search** | **Algolia** — Lightning-fast, instant results for every dream you're looking for. |
-| **Feedback** | **Formspree** — Direct-to-inbox reader reactions with a sleek, custom UI. |
-| **Community** | **Kit** — Keeping our fans in the loop with weekly literary drops. |
-| **Core** | **Pure Vanilla JS, HTML5, & CSS3** — No frameworks, just pure, unadulterated performance. |
-| **Mobile** | **Flexbox Magic** — Smart, stacked layouts for the ultimate mobile-first experience. |
-
----
+### 🔑 Connecting Your Own Services
+To make the search, feedback, and newsletter features work on your fork, you will need to swap out the placeholder API keys/endpoints in the code:
+1. **Algolia:** Replace the application ID and search-only API key in `script.js` with your own Algolia credentials.
+2. **Formspree:** Update the `<form action="...">` URL in `feedback.html` with your unique Formspree form ID.
+3. **Kit:** Update the newsletter subscription form action URL in the footer with your Kit form action link.
 
 ## 📂 Project Blueprint
 

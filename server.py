@@ -7,7 +7,7 @@ import secrets
 from pathlib import Path
 import os
 
-PORT = 5000
+PORT = int(os.environ.get('PORT', 500))
 BASE_DIR = Path(__file__).parent
 
 # Simple .env reader (no external package)

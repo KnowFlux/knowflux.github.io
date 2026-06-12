@@ -5,11 +5,21 @@ import json
 import re
 import secrets
 from pathlib import Path
+import os
 
 PORT = 5000
 BASE_DIR = Path(__file__).parent
 
-ADMIN_PASSWORD = "Kf$9mXpQ#2vNrL7w"
+# Simple .env reader (no external package)
+if os.path.exists('.env'):
+    with open('.env') as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#'):
+                key, _, value = line.partition('=')
+                os.environ[key.strip()] = value.strip()
+
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '')
 SESSIONS = set()
 
 
@@ -884,7 +894,7 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def _is_authenticated(self):
         token = self.headers.get("X-Auth-Token", "")
-        return token in SESSIONS and token != ""
+        return token in SESSIONS
 
     def do_GET(self):
         if self.path in ("/admin", "/admin.html"):

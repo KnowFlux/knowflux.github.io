@@ -117,7 +117,7 @@ COMMON_NAV = """\
 SUBSCRIBE_FOOTER = """\
   <div id="subscribe">
     <div class="wrap">
-      <h3>SUBSCRIBE TO RECEIVE UPDATES ABOUT NEW CONTENT</h3>
+      <h3>Leave your email here if you want front-row seats to the disaster that is our writing process.</h3>
       <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
       <center>
       <form action="https://app.kit.com/forms/8975170/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="8975170" data-uid="f1aefa469b" data-format="inline" data-version="5"><div data-style="clean"><div data-element="fields" class="seva-fields formkit-fields"><div class="formkit-field"><input class="formkit-input" name="email_address" placeholder="Your email address" required type="email"></div><button data-element="submit" class="formkit-submit"><span>Subscribe</span></button></div></div></form>

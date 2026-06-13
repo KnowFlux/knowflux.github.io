@@ -867,9 +867,9 @@ attemptReveal();
 const randomPoemBtn = document.getElementById('random-poem-btn');
 if (randomPoemBtn) {
 const poems = [
-    'finalmoment.html',
+    'Poetry/finalmoment.html',
     'symbolsofnature.html',
-    'unrestfulstillness.html',
+    'Poetry/unrestfulstillness.html.html',
     'rhythmofthereriver.html'
 ];
 randomPoemBtn.addEventListener('click', function(e) {

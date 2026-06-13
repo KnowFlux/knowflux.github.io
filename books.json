@@ -289,8 +289,8 @@
       "Haikus": [
         {
           "title": "The Final Moment",
-          "file": "finalmoment.html",
-          "url": "/finalmoment.html"
+          "file": "Poetry/finalmoment.html",
+          "url": "/Poetry/finalmoment.html"
         },
         {
           "title": "Symbols of Nature",
@@ -299,20 +299,20 @@
         },
         {
           "title": "Unrestful Stillness",
-          "file": "unrestfulstillness.html",
-          "url": "/unrestfulstillness.html"
+          "file": "Poetry/unrestfulstillness.html.html",
+          "url": "/Poetry/unrestfulstillness.html.html"
         },
         {
           "title": "So Whispered the Wind",
-          "file": "sowhisperedthewind.html",
-          "url": "/sowhisperedthewind.html"
+          "file": "Poetry/sowhisperedthewind.html",
+          "url": "/Poetry/sowhisperedthewind.html"
         }
       ],
       "Triplets": [
         {
           "title": "Rhythm of the Red River",
-          "file": "rhythmoftheredriver.html",
-          "url": "/rhythmoftheredriver.html"
+          "file": "Poetry/rhythmoftheredriver.html",
+          "url": "/Poetry/rhythmoftheredriver.html"
         }
       ]
     }

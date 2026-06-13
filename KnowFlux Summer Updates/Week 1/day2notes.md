@@ -50,7 +50,7 @@ selectors, styles, and scripts
 **Step 3** For each book pane: Use existing [admin.html](/admin.html) classes and id's
 
 
-**Step 4** For book chapter dropdowns: Use existing [sowhisperedthewind.html](/sowhisperedthewind.html) dropdowns
+**Step 4** For book chapter dropdowns: Use existing [Poetry/sowhisperedthewind.html](/Poetry/sowhisperedthewind.html) dropdowns
 
 
 **Step 5** For pages within chapters: Use basic HTML unordered list strucutre

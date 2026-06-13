@@ -251,7 +251,7 @@
   margin-bottom: 25px;
 }
 
-/* Poetry Content Styling (for pages like finalmoment.html) */
+/* Poetry Content Styling (for pages like Poetry/finalmoment.html) */
 .poetry-content {
   font-family: 'Open Sans', sans-serif;
   font-size: clamp(16px, 4vw, 22px);

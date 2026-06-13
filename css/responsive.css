@@ -1,0 +1,335 @@
+@media (max-width: 600px) {
+  #topLinks li a {
+    padding: 16px 8px;
+    font-size: 13px;
+  }
+  #topMenu .logo {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .feature {
+    margin-top: 30px;
+  }
+}
+
+.feature .leftColumn {
+  max-width: 400px;
+  justify-self: center;
+}
+
+.feature .leftColumn .featureImage img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.feature hr {
+  background-color: #F46036;
+  height: 3px;
+  border: 0;
+  width: 100px;
+  margin: 10px auto;
+}
+
+@media (max-width: 768px) {
+  .home-book-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+  }
+  .home-book-card .leftColumn {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .algolia-autocomplete,
+  .aa-Autocomplete,
+  .aa-InputWrapper,
+  .aa-Form,
+  .aa-Panel,
+  .aa-SearchBox {
+    width: 100% !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+  }
+  
+  .aa-DetachedSearchButton,
+  .aa-DetachedContainer {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  .aa-Input {
+    display: block !important;
+    width: 100% !important;
+    padding: 10px !important;
+    border: 2px solid #000 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  #scroll-progress-container {
+    width: 6px;
+  }
+}
+
+/* Desktop: side-by-side layout (default above, maintained on larger screens) */
+@media (min-width: 769px) {
+  .responsive-book-layout {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsive-book-layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .responsive-book-layout .leftColumn,
+  .responsive-book-layout .rightColumn {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 15px;
+  }
+
+  .responsive-book-layout .featureImage img {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .poetry-flex-grid .feature-link {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .poetry-flex-grid .poetry-box,
+  .poetry-flex-grid .poetry-box-grey {
+    width: 75vw;
+    /* 75% of the viewport width */
+    max-width: none;
+  }
+}
+
+/* Desktop view: poetry boxes expand up to 800px */
+@media (min-width:800px) {
+
+  .poetry-flex-grid .poetry-box,
+  .poetry-flex-grid .poetry-box-grey {
+    width: 100%;
+    max-width: 800px;
+  }
+}
+
+/* Desktop overrides — wider, more spacious widths (> 768px only) */
+@media (min-width: 769px) {
+  body.reading-page.rdr-width-narrow { --rdr-max-width: 680px; }
+  body.reading-page.rdr-width-normal { --rdr-max-width: 920px; }
+  body.reading-page.rdr-width-wide   { --rdr-max-width: min(1180px, calc(100vw - 40px)); }
+}
+
+/* --------------------------------------------------------------------------
+   20. Responsive — mobile (≤ 768px)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  /* Ensure text clears the fixed three-dots settings button */
+  body.reading-page .page-content {
+    padding-right: 36px;
+  }
+
+  /* Back-to-top moves to bottom-left to avoid overlap */
+  #rdr-back-top {
+    right:  auto;
+    left:   18px;
+    bottom: 16px;
+  }
+
+  /* Smaller drop cap on narrow screens */
+  body.reading-page.chapter-start .page-content .rdr-drop-cap-target::first-letter {
+    font-size:  3.8em;
+    text-shadow: 2px 2px 0 var(--rdr-black);
+  }
+
+  body.reading-page .dreamMemText {
+    padding: 18px 20px;
+  }
+
+  body.reading-page .page-content blockquote {
+    padding: 18px 18px;
+  }
+
+  body.reading-page #scroll-progress-container {
+    width: 5px;
+  }
+
+  .rdr-meta { gap: 8px; }
+
+  #rdr-kbd-hint { display: none; }   /* Arrow keys irrelevant on mobile */
+}
+
+/* --------------------------------------------------------------------------
+   21. Responsive — small phones (≤ 480px)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 480px) {
+
+  body.reading-page .page-content {
+    padding: 0 2px;
+  }
+
+  .rdr-btn-row {
+    gap: 4px;
+  }
+
+  .rdr-ctrl-btn {
+    padding:   8px 1px;
+    font-size: 11px;
+  }
+
+  body.reading-page .comingSoonButton {
+    padding:   11px 18px;
+    font-size: 13px;
+  }
+}
+
+ @media print {
+
+  #promo,
+  #topMenu,
+  #scroll-progress-container,
+  #rdr-toolbar-toggle,
+  #rdr-settings-panel,
+  #rdr-settings-overlay,
+  #rdr-kbd-hint,
+  #rdr-back-top,
+  #rdr-complete-toast,
+  .page-footer-action {
+    display: none !important;
+  }
+
+  body.reading-page {
+    background: #fff;
+  }
+
+  body.reading-page .page-content {
+    font-size:   12pt;
+    line-height: 1.65;
+    max-width:   100%;
+    color:       #000;
+    text-align:  left;
+    hyphens:     auto;
+  }
+
+  body.reading-page .page-content p {
+    margin-bottom: 14pt;
+  }
+
+  body.reading-page .page-header-container {
+    margin-top:    0;
+    margin-bottom: 24pt;
+    padding-bottom: 14pt;
+    border-bottom: 1.5pt solid #000;
+  }
+
+  body.reading-page .page-header-container::before {
+    background: #000;
+    box-shadow: none;
+  }
+
+  body.reading-page .page-title {
+    font-size:   32pt;
+    color:       #000;
+    text-shadow: none;
+  }
+
+  body.reading-page .page-subtitle {
+    font-size: 16pt;
+    color:     #000;
+  }
+
+  body.reading-page .dreamMemText {
+    border-left:  3pt solid #555;
+    box-shadow:   none;
+    background:   #f5f5f5;
+  }
+
+  body.reading-page .page-content blockquote {
+    border:     1.5pt solid #333;
+    box-shadow: none;
+    background: #f9f9f9;
+  }
+
+  body.reading-page .page-content blockquote::before {
+    display: none;
+  }
+
+  body.reading-page.chapter-start .page-content .rdr-drop-cap-target::first-letter {
+    text-shadow: none;
+    color:       #000;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Hide all nav links — hamburger replaces them */
+  #topLinks {
+    display: none !important;
+  }
+
+  #mnav-hamburger {
+    display: flex;
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #search-section {
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+
+  #search-input {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+
+  #results-box {
+    max-height: 60vh;
+    min-height: 120px;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  #search-placeholder {
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  .search-result-card {
+    padding: 12px 16px;
+  }
+
+  .search-result-card h3 {
+    font-size: 17px;
+  }
+
+  .search-result-card p {
+    font-size: 13px;
+  }
+}
+
+

@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+
+h1,
+h2 {
+  margin: 0;
+  padding: 0;
+  font-family: 'Anton', cursive;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: clamp(40px, 15vw, 110px);
+}
+
+h2 {
+  font-size: 30px;
+}
+
+.spacer.v10 {
+  height: 10px;
+}
+.spacer.v20 {
+  height: 20px;
+}
+
+.spacer.v40 {
+  height: 40px;
+}
+
+.spacer.v50 {
+  height: 50px;
+}
+
+.spacer.v100 {
+  height: 100px;
+}
+
+
+.clear {
+  clear: both;
+}

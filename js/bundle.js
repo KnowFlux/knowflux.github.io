@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
 // ── /workspaces/knowflux.github.io/js/reader.js ──
 // reader.js — part 1
 (function() {
@@ -390,6 +391,7 @@ hamburger.addEventListener('click', function() {
     showPanel(navTree, null);
 });
 }
+
 
 // ── /workspaces/knowflux.github.io/js/reading.js ──
 // ---------------------------------------------------------------------------
@@ -895,5 +897,6 @@ randomBookBtn.addEventListener('click', function(e) {
 document.addEventListener('DOMContentLoaded', function() {
   // Each module self-executes or exports functions called here
   // (Your split modules will just run when the bundle loads)
+});
 });
 

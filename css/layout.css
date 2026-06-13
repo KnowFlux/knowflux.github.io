@@ -1,0 +1,288 @@
+#promo,
+#subscribe,
+#footer {
+  text-align: center;
+  color: #fff;
+  width: 100%;
+}
+
+#promo {
+  background-color: #F46036;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001;
+  transition: transform 0.3s ease;
+}
+
+#promo>div {
+  padding: 15px;
+}
+
+.wrap {
+  margin: 0 auto;
+  padding: 0 15px;
+  width: 100%;
+  max-width: 1000px;
+  box-sizing: border-box;
+}
+
+
+#banner {
+  width: 100%;
+  text-align: center;
+  padding-top: 150px;
+  color: #333;
+}
+
+#banner .tagline {
+  padding-bottom: 20px;
+  margin-top: 0px;
+}
+
+#banner .logo {
+  margin-top: 0px;
+}
+
+#subscribe {
+  background-color: #4392F1;
+  padding: 60px 0;
+  width: 100%;
+}
+
+#subscribe .wrap {
+  padding: 0 20px;
+}
+
+.subscribe-wrapper {
+  display: block;
+  max-width: 700px;
+  margin: 0 auto;
+
+}
+
+#subscribe form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+#footer {
+  background-color: #F46036;
+  padding: 20px 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── Footer Reveal Animation ── */
+#footer,
+#copyright {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#footer[data-reveal="false"],
+#copyright[data-reveal="false"] {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+#footer[data-reveal="true"],
+#copyright[data-reveal="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#footer.revealed,
+#copyright.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#footer .wrap {
+  padding: 0 20px;
+}
+
+
+#footer ul {
+  list-style-type: none;
+  margin: 10px 0 0 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+
+
+#footer li a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  text-decoration: none;
+  -webkit-transition: all 250ms linear;
+  -ms-transition: all 250ms linear;
+  transition: all 250ms linear
+}
+
+
+#footer li a:hover {
+  color: #333;
+  transform: translateY(-2px);
+}
+
+#copyright {
+  text-align: center;
+  background-color: #345995;
+  color: white;
+  padding: 20px 0;
+  font-size: 16px;
+  width: 100%;
+}
+
+#copyright .wrap {
+  padding: 0 20px;
+}
+
+#copyright .logo {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+}
+
+#copyright .copyright-tagline {
+  font-style: italic;
+  opacity: 0.7;
+  font-size: 0.9em;
+}
+
+#copyright .back-to-top {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 20px;
+  transition: color 0.2s;
+}
+
+#copyright .back-to-top:hover {
+  color: #F46036;
+  transform: translateX(-3px);
+}
+
+.responsive-book-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.responsive-book-layout .leftColumn {
+  flex: 1 1 50%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.responsive-book-layout .rightColumn {
+  text-align: center;
+  font-size: 18px;
+  flex: 1 1 50%;
+  min-width: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.responsive-book-layout .featureImage img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.content-page {
+  padding-top: 0px;
+  text-align: center;
+}
+
+.content-page + .content-page h2 {
+  margin-top: 60px;
+}
+
+/* Page 1 Specific Styling */
+.page-header-container {
+  text-align: left;
+  margin-top: 120px;
+  margin-bottom: 40px;
+}
+
+.page-title {
+  font-family: 'Anton', cursive;
+  font-size: 60px;
+  color: #4392F1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.page-subtitle {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.page-content {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 60px;
+  text-align: justify;
+}
+
+.page-content p {
+  margin-bottom: 25px;
+}
+
+/* Poetry Content Styling (for pages like finalmoment.html) */
+.poetry-content {
+  font-family: 'Open Sans', sans-serif;
+  font-size: clamp(16px, 4vw, 22px);
+  line-height: 1.6;
+  color: #333;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.poetry-content p {
+  margin: 5px 0;
+}
+
+.stacked {
+  display: flex;
+  min-width: 300px;
+  max-width: 800px;
+  margin: 0 auto;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+#banner .tagline {
+  border: none;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+}

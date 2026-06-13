@@ -9,6 +9,7 @@ import json
 import re
 from pathlib import Path
 from datetime import datetime
+from config import ROOT_DIR
 
 BASE_DIR = Path(__file__).parent
 

@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
 // reader.js — part 1
 (function() {
   const params = new URLSearchParams(window.location.search);
@@ -112,3 +113,4 @@
       console.error(error);
     });
 })();
+});

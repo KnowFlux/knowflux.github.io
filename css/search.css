@@ -1,0 +1,105 @@
+#search-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 15px 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  border: 2px solid #4392F1;
+  border-radius: 50px;
+  outline: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  box-sizing: border-box;
+  margin-bottom: 0; /* ensure no extra space */
+}
+
+#search-input:focus {
+  border-color: #F46036;
+  box-shadow: 0 0 0 3px rgba(244, 96, 54, 0.2);
+}
+
+/* Results box – no flex, just a scrollable container with min-height */
+#results-box {
+  margin-top: 20px;
+  max-height: 500px;
+  min-height: 150px;
+  overflow-y: auto;
+  background: #fff;
+  border: 2px solid #4392F1;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+/* Placeholder text – shown when no query has been typed */
+#search-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #bbb;
+  font-size: 16px;
+  text-align: center;
+  padding: 20px;
+  pointer-events: none;
+}
+
+/* Hide placeholder once #search-results has content */
+#search-results:not(:empty) ~ #search-placeholder {
+  display: none;
+}
+
+.search-result-card {
+  display: block;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #F46036;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.search-result-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: #fafafa;
+}
+
+.search-result-card h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  margin: 0 0 6px 0;
+  color: #4392F1;
+}
+
+.search-result-card p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  color: #555;
+}
+
+.no-results, .search-error {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #999;
+  padding: 40px 0;
+}
+
+
+  .search-result-card p {
+    font-size: 13px;
+  }

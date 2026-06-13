@@ -6,13 +6,15 @@ import re
 import secrets
 from pathlib import Path
 import os
+from config import ROOT_DIR
 
-PORT = int(os.environ.get('PORT', 500))
-BASE_DIR = Path(__file__).parent
+PORT = int(os.environ.get('PORT', 5000))
+BASE_DIR = ROOT_DIR
 
 # Simple .env reader (no external package)
-if os.path.exists('.env'):
-    with open('.env') as f:
+env_file = ROOT_DIR / '.env'
+if env_file.exists():
+    with open(env_file) as f:
         for line in f:
             line = line.strip()
             if line and not line.startswith('#'):
@@ -86,8 +88,8 @@ COMMON_HEAD = """\
   <meta charset="utf-8" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
   <link rel="icon" type="image/png" href="Images/favicon.png">
-  <link rel="stylesheet" href="style.css?cachebust=13">
-  <script src="script.js?cachebust=13"></script>"""
+  <link rel="stylesheet" href = "css/main.css">
+  <script src = "js/bundle.js?cachebust=14"></script>"""
 
 COMMON_NAV = """\
   <div id="promo">
@@ -551,8 +553,8 @@ def generate_poem_html(title, section_name, raw_content):
   <title>{title} | KnowFlux</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
   <link rel="icon" type="image/png" href="Images/favicon.png">
-  <link rel="stylesheet" href="style.css?cachebust=13">
-  <script src="script.js?cachebust=13"></script>
+  <link rel="stylesheet" href = "css/main.css">
+  <script src = "js/bundle.js?cachebust=14"></script>
 </head>
 
 <body>
@@ -1033,3 +1035,5 @@ socketserver.TCPServer.allow_reuse_address = True
 with socketserver.TCPServer(("0.0.0.0", PORT), AdminHTTPRequestHandler) as httpd:
     print(f"Serving HTTP on 0.0.0.0 port {PORT}...")
     httpd.serve_forever()
+
+

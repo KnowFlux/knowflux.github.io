@@ -2,6 +2,7 @@ import urllib.request
 from html.parser import HTMLParser
 import json
 import xml.etree.ElementTree as ET
+from config import ROOT_DIR
 
 class MetadataParser(HTMLParser):
     def __init__(self):

@@ -1,0 +1,294 @@
+#topMenu {
+  height: 60px;
+  position: fixed;
+  top: 48px;
+  left: 0;
+  width: 100%;
+  background: white;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-hidden {
+  transform: translateY(-200px);
+}
+
+#topLinks {
+  float: right;
+  margin-top: 20px;
+}
+
+#topLinks ul,
+#footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Submenu Styling */
+#topLinks li {
+  float: left;
+  position: relative;
+  /* Essential for positioning the submenu relative to this item */
+}
+
+#topLinks li ul {
+  display: block;
+  position: absolute;
+  top: 100%;
+  /* Position it directly below the parent link */
+  left: 0;
+  background: white;
+  min-width: 150px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1002;
+  /* Higher than topMenu to stay on top */
+  padding: 10px 0;
+  border-top: 2px solid #4392F1;
+}
+
+/* Click-to-open menus: only show submenus when .submenu-active class is applied */
+#topLinks li.submenu-active>ul {
+  opacity: 1;
+  visibility: visible;
+  top: 100%;
+}
+
+#topLinks li ul li {
+  float: none;
+  /* Stack submenu items vertically */
+  width: 100%;
+}
+
+#topLinks li ul li a {
+  display: block;
+  padding: 10px 20px;
+  text-align: left;
+  font-size: 14px;
+}
+
+#topLinks li ul li a:hover {
+  background-color: #f9f9f9;
+  text-decoration: none;
+}
+
+#topLinks li a {
+  color: #333;
+  text-align: center;
+  padding: 16px 12px;
+  text-decoration: none;
+  -webkit-transition: all 250ms ease-out;
+  -ms-transition: all 250ms ease-out;
+  transition: all 250ms ease-out;
+}
+
+
+
+.search-icon {
+  font-size: 20px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+
+
+#topLinks li a:hover {
+  color: #4392F1;
+  -webkit-transition: all 250ms ease-out;
+  -ms-transition: all 250ms ease-out;
+  transition: all 250ms ease-out;
+  text-decoration: underline;
+}
+
+#topMenu .logo {
+  float: left;
+  height: 60px;
+  font-size: 24px;
+  color: #333;
+  text-decoration: underline;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+  .logo img {
+    height: 40px;
+    width: auto;
+  }
+
+#topMenu .logo:hover {
+  color: #4392F1;
+}
+
+.logo {
+  font-family: 'Anton', cursive;
+}
+
+/* ==========================================================================
+   MOBILE (≤768px): disable dropdown submenus; show indicator only
+   ========================================================================== */
+
+/* Hamburger button — hidden on desktop, shown on mobile */
+#mnav-hamburger {
+  display: none;
+  float: right;
+  margin-top: 14px;
+  padding: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#mnav-hamburger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+#mnav-hamburger:hover span {
+  background: #4392F1;
+}
+
+
+/* ==========================================================================
+   MOBILE NAV OVERLAY
+   ========================================================================== */
+
+#mnav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+#mnav-overlay.open {
+  display: block;
+}
+
+#mnav-panels {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 82vw;
+  max-width: 340px;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Individual sliding panel */
+.mnav-panel {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.mnav-panel.mnav-active {
+  transform: translateX(0);
+}
+
+/* Previous panel slides 30% to the left to give depth */
+.mnav-panel.mnav-out {
+  transform: translateX(-28%);
+}
+
+/* Exiting panel slides back to the right */
+.mnav-panel.mnav-exit {
+  transform: translateX(100%);
+}
+
+/* Panel header bar */
+.mnav-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: #333;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 3px solid #4392F1;
+}
+
+.mnav-action-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.mnav-action-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.mnav-title {
+  font-family: 'Anton', cursive;
+  font-size: 18px;
+  color: #4392F1;
+  letter-spacing: 0.5px;
+  flex: 1;
+}
+
+/* Items list inside a panel */
+.mnav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mnav-list li {
+  border-bottom: 1px solid #eee;
+}
+
+/* Shared style for both link and button items */
+.mnav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+  box-sizing: border-box;
+}
+
+.mnav-item:hover,
+.mnav-item:focus {
+  background: #f4f4f4;
+  color: #4392F1;
+  outline: none;
+}
+
+.mnav-arrow {
+  font-size: 22px;
+  font-weight: bold;
+  color: #4392F1;
+  line-height: 1;
+  flex-shrink: 0;
+}

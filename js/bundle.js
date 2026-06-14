@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
 // ── /workspaces/knowflux.github.io/js/reader.js ──
+document.addEventListener('DOMContentLoaded', function() {
 // reader.js — part 1
 (function() {
   const params = new URLSearchParams(window.location.search);
@@ -114,8 +114,10 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error(error);
     });
 })();
+});
 
 // ── /workspaces/knowflux.github.io/js/navigation.js ──
+document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------------------------------------
 // Promo message cycling
 // ---------------------------------------------------------------------------
@@ -391,9 +393,10 @@ hamburger.addEventListener('click', function() {
     showPanel(navTree, null);
 });
 }
-
+});
 
 // ── /workspaces/knowflux.github.io/js/reading.js ──
+document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------------------------------------
 // Scroll Progress Bar
 // ---------------------------------------------------------------------------
@@ -810,8 +813,10 @@ if (!isPoetryPage) {
 }
 
 })(); // end initReadingExperience
+});
 
 // ── /workspaces/knowflux.github.io/js/footer.js ──
+document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------------------------------------
 // Dynamic Copyright Year (CST)
 // ---------------------------------------------------------------------------
@@ -861,8 +866,10 @@ window.addEventListener('scroll', scrollHandler, { passive: true });
 // Also check immediately in case user loads mid-page
 attemptReveal();
 })();
+});
 
 // ── /workspaces/knowflux.github.io/js/random.js ──
+document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------------------------------------
 // Random Poem Redirect
 // ---------------------------------------------------------------------------
@@ -891,12 +898,12 @@ randomBookBtn.addEventListener('click', function(e) {
     window.location.href = books[Math.floor(Math.random() * books.length)];
 });
 }
+});
 
 // ── /workspaces/knowflux.github.io/js/main.js ──
 // KnowFlux — main JS entry point
 document.addEventListener('DOMContentLoaded', function() {
   // Each module self-executes or exports functions called here
   // (Your split modules will just run when the bundle loads)
-});
 });
 

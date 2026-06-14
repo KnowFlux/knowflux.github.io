@@ -835,89 +835,63 @@ def auto_commit(message):
         sys.stdout.flush()
         return
 
+    # Determine the repository URL (fallback to env var)
+    repo_url = os.environ.get('GIT_REPO_URL', '')
+    if not repo_url:
+        try:
+            repo_url = subprocess.check_output(
+                ['git', 'config', '--get', 'remote.origin.url'],
+                text=True
+            ).strip()
+        except:
+            print("Auto‑commit: No remote origin and no GIT_REPO_URL set. Aborting.")
+            sys.stdout.flush()
+            return
+
+    if 'github.com' not in repo_url:
+        print("Auto‑commit: Repository URL is not GitHub, skipping.")
+        sys.stdout.flush()
+        return
+
     try:
-        # Run git commands from the project root
         cwd = BASE_DIR
-
-        # Check if this is a git repo
-        result = subprocess.run(['git', 'rev-parse', '--git-dir'],
-                                capture_output=True, cwd=cwd)
-        if result.returncode != 0:
-            print("Auto‑commit: Not a git repository, skipping.")
-            sys.stdout.flush()
-            return
-
-        # Get remote URL
-        result = subprocess.run(['git', 'config', '--get', 'remote.origin.url'],
-                                capture_output=True, text=True, cwd=cwd)
-        if result.returncode != 0:
-            print("Auto‑commit: No remote 'origin' found.")
-            sys.stdout.flush()
-            return
-        repo_url = result.stdout.strip()
-        print(f"Auto‑commit: Remote URL = {repo_url}")
-        sys.stdout.flush()
-
-        if 'github.com' not in repo_url:
-            print("Auto‑commit: Remote is not GitHub, skipping.")
-            sys.stdout.flush()
-            return
-
-        # Determine branch
         branch = os.environ.get('RENDER_GIT_BRANCH') or 'main'
-        print(f"Auto‑commit: Branch = {branch}")
+
+        print(f"Auto‑commit: Repository URL = {repo_url}")
         sys.stdout.flush()
 
-        # Inject token into HTTPS URL
-        if not repo_url.startswith('https://'):
-            print("Auto‑commit: Remote URL is not HTTPS, cannot inject token. Skipping.")
-            sys.stdout.flush()
-            return
+        # Build authenticated URL
         authed_url = repo_url.replace('https://', f'https://{token}@')
-        print("Auto‑commit: Setting authenticated remote...")
-        sys.stdout.flush()
         subprocess.run(['git', 'remote', 'set-url', 'origin', authed_url], cwd=cwd)
 
-        # Stage all changes
         subprocess.run(['git', 'add', '-A'], cwd=cwd)
-        print("Auto‑commit: Staged all changes.")
+        print("Auto‑commit: Staged changes.")
         sys.stdout.flush()
 
-        # Check for changes
         result = subprocess.run(['git', 'diff-index', '--quiet', 'HEAD'],
                                 capture_output=True, cwd=cwd)
         if result.returncode == 0:
             print("Auto‑commit: No changes to commit.")
-            sys.stdout.flush()
-            # Restore original URL anyway
             subprocess.run(['git', 'remote', 'set-url', 'origin', repo_url], cwd=cwd)
             return
 
-        # Commit
         name = os.environ.get('GIT_NAME', 'KnowFlux Bot')
         email = os.environ.get('GIT_EMAIL', 'bot@knowflux.ink')
-        print(f"Auto‑commit: Committing as {name} <{email}>")
-        sys.stdout.flush()
-        commit_result = subprocess.run([
-            'git', '-c', f'user.name={name}',
-            '-c', f'user.email={email}',
-            'commit', '-m', message
-        ], capture_output=True, text=True, cwd=cwd)
-        print(f"Commit output: {commit_result.stdout}")
+        subprocess.run(['git', '-c', f'user.name={name}',
+                        '-c', f'user.email={email}',
+                        'commit', '-m', message], cwd=cwd)
+        print("Auto‑commit: Committed.")
         sys.stdout.flush()
 
-        # Push
-        print("Auto‑commit: Pushing...")
-        sys.stdout.flush()
         push_result = subprocess.run(
             ['git', 'push', 'origin', f'HEAD:{branch}'],
             capture_output=True, text=True, cwd=cwd
         )
-        print(f"Push output: {push_result.stdout}")
+        print(f"Push stdout: {push_result.stdout}")
         print(f"Push stderr: {push_result.stderr}")
         sys.stdout.flush()
 
-        # Restore original URL
+        # Restore original URL (without token)
         subprocess.run(['git', 'remote', 'set-url', 'origin', repo_url], cwd=cwd)
         print("Auto‑commit: Done.")
         sys.stdout.flush()
@@ -926,12 +900,10 @@ def auto_commit(message):
         print(f"Auto‑commit failed: {e}")
         sys.stdout.flush()
     finally:
-        # Ensure original URL is restored even on error
         try:
             subprocess.run(['git', 'remote', 'set-url', 'origin', repo_url], cwd=cwd)
         except:
             pass
-
 
 # ---------------------------------------------------------------------------
 # HTTP Handler

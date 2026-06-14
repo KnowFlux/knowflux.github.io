@@ -109,6 +109,17 @@ document.addEventListener('DOMContentLoaded', function() {
         ? (nextPg.chapter_title !== page.chapter_title)
         : true;            // no next page = end of book = end of chapter
       window.__chapterName = page.chapter_title;
+
+       // ── Recalculate word count after content injection ──
+      var contentEl = document.getElementById('reader-content');
+      if (contentEl) {
+        var wordCount = contentEl.innerText.trim().split(/\s+/).filter(Boolean).length;
+        var readTime  = Math.max(1, Math.round(wordCount / 200));
+        var timeBadge = document.querySelector('.rdr-time-badge');
+        var wordBadge = document.querySelector('.rdr-word-badge');
+        if (timeBadge) timeBadge.textContent = '\u23F1 ' + readTime + ' min read';
+        if (wordBadge) wordBadge.textContent = wordCount.toLocaleString() + ' words';
+      }
     })
     .catch(function(error) {
       console.error(error);

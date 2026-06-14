@@ -876,6 +876,56 @@ def save_books_json():
     books_json_file.write_text(json.dumps(books_data, indent=2, ensure_ascii=False), encoding="utf-8")
     return books_data
 
+# ---------------------------------------------------------------------------
+# Auto‑commit to GitHub (if GITHUB_TOKEN is set)
+# ---------------------------------------------------------------------------
+
+def auto_commit(message):
+    """Stage all changes, commit, and push to GitHub using a stored token."""
+    import subprocess
+    import os
+
+    token = os.environ.get('GITHUB_TOKEN', '')
+    if not token:
+        return  # silently skip if no token (e.g., local dev)
+
+    try:
+        # Get the current remote URL
+        repo_url = subprocess.check_output(
+            ['git', 'config', '--get', 'remote.origin.url']
+        ).decode().strip()
+
+        if 'github.com' not in repo_url:
+            return  # not a GitHub remote – skip
+
+        # Insert token into URL: https://token@github.com/user/repo.git
+        authed_url = repo_url.replace('https://', f'https://{token}@')
+        subprocess.run(['git', 'remote', 'set-url', 'origin', authed_url])
+
+        # Stage all changes (new files, modifications, deletions)
+        subprocess.run(['git', 'add', '-A'])
+
+        # Commit only if there are changes
+        result = subprocess.run(
+            ['git', 'diff-index', '--quiet', 'HEAD'],
+            capture_output=True
+        )
+        if result.returncode != 0:  # changes exist
+            name = os.environ.get('GIT_NAME', 'KnowFlux Bot')
+            email = os.environ.get('GIT_EMAIL', 'bot@knowflux.ink')
+            subprocess.run([
+                'git', '-c', f'user.name={name}',
+                '-c', f'user.email={email}',
+                'commit', '-m', message
+            ])
+            subprocess.run(['git', 'push'])
+
+        # Restore original URL (without token)
+        subprocess.run(['git', 'remote', 'set-url', 'origin', repo_url])
+
+    except Exception as e:
+        print(f"Auto‑commit failed: {e}")  # log but don't crash
+
 
 # ---------------------------------------------------------------------------
 # HTTP Handler

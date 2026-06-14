@@ -860,29 +860,49 @@ def auto_commit(message):
         print(f"Auto‑commit: Repository URL = {repo_url}")
         sys.stdout.flush()
 
-        # Build authenticated URL
+        # Check if remote 'origin' exists
+        origin_exists = subprocess.run(
+            ['git', 'remote', 'get-url', 'origin'],
+            capture_output=True, cwd=cwd
+        ).returncode == 0
+
+        if not origin_exists:
+            # Add the remote (this will create 'origin')
+            subprocess.run(['git', 'remote', 'add', 'origin', repo_url], cwd=cwd)
+            print("Auto‑commit: Added remote 'origin'.")
+            sys.stdout.flush()
+
+        # Now set authenticated URL (this overwrites if already exists)
         authed_url = repo_url.replace('https://', f'https://{token}@')
         subprocess.run(['git', 'remote', 'set-url', 'origin', authed_url], cwd=cwd)
+        print("Auto‑commit: Set authenticated remote.")
+        sys.stdout.flush()
 
+        # Stage all changes
         subprocess.run(['git', 'add', '-A'], cwd=cwd)
         print("Auto‑commit: Staged changes.")
         sys.stdout.flush()
 
+        # Check for changes
         result = subprocess.run(['git', 'diff-index', '--quiet', 'HEAD'],
                                 capture_output=True, cwd=cwd)
         if result.returncode == 0:
             print("Auto‑commit: No changes to commit.")
-            subprocess.run(['git', 'remote', 'set-url', 'origin', repo_url], cwd=cwd)
+            sys.stdout.flush()
             return
 
+        # Commit
         name = os.environ.get('GIT_NAME', 'KnowFlux Bot')
         email = os.environ.get('GIT_EMAIL', 'bot@knowflux.ink')
-        subprocess.run(['git', '-c', f'user.name={name}',
-                        '-c', f'user.email={email}',
-                        'commit', '-m', message], cwd=cwd)
+        subprocess.run([
+            'git', '-c', f'user.name={name}',
+            '-c', f'user.email={email}',
+            'commit', '-m', message
+        ], cwd=cwd)
         print("Auto‑commit: Committed.")
         sys.stdout.flush()
 
+        # Push
         push_result = subprocess.run(
             ['git', 'push', 'origin', f'HEAD:{branch}'],
             capture_output=True, text=True, cwd=cwd
@@ -891,15 +911,16 @@ def auto_commit(message):
         print(f"Push stderr: {push_result.stderr}")
         sys.stdout.flush()
 
-        # Restore original URL (without token)
+        # Restore original URL (remove authentication)
         subprocess.run(['git', 'remote', 'set-url', 'origin', repo_url], cwd=cwd)
-        print("Auto‑commit: Done.")
+        print("Auto‑commit: Restored remote URL.")
         sys.stdout.flush()
 
     except Exception as e:
         print(f"Auto‑commit failed: {e}")
         sys.stdout.flush()
     finally:
+        # Ensure remote URL is restored even on error
         try:
             subprocess.run(['git', 'remote', 'set-url', 'origin', repo_url], cwd=cwd)
         except:

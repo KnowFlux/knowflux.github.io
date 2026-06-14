@@ -284,63 +284,6 @@ SUBSCRIBE_FOOTER = """\
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def add_page_to_books_json(book_id, book_title, page_num, chapter_title, rendered_content):
     """
     Add a new page entry to books.json.
@@ -1012,6 +955,8 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 # and would overwrite the new entry we just added to books.json.
                 # add_page_to_books_json already persists the change.
                 update_sitemap()
+                auto_commit(f"Add Page {page_num} of {book_title}")
+
 
                 self._send_json(200, {
                     "success": True,
@@ -1055,6 +1000,7 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 # Regenerate books.json and sitemap
                 save_books_json()
                 update_sitemap()
+                auto_commit(f"Add poem {poem_title}")
 
                 self._send_json(200, {
                     "success": True,

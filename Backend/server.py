@@ -87,7 +87,7 @@ COMMON_HEAD = """\
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
-  <link rel="icon" type="image/png" href="Images/favicon.png">
+  <link rel="icon" type="image/png" href="Images/favicon.jpg">
   <link rel="stylesheet" href = "css/main.css">
   <script src = "js/bundle.js?cachebust=14"></script>"""
 
@@ -495,7 +495,7 @@ def generate_poem_html(title, section_name, raw_content):
   <meta charset="utf-8" />
   <title>{title} | KnowFlux</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
-  <link rel="icon" type="image/png" href="Images/favicon.png">
+  <link rel="icon" type="image/png" href="Images/favicon.jpg">
   <link rel="stylesheet" href = "css/main.css">
   <script src = "js/bundle.js?cachebust=14"></script>
 </head>

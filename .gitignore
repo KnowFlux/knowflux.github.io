@@ -1,4 +1,2 @@
 .env
 .continue
-__pycache__/
-*.pyc

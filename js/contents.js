@@ -89,3 +89,55 @@ window.applyBookmarks = function() {
 window.applyBookmarks();
 })();
 });
+
+// ── Dynamic contents: fetch books.json and build chapter lists ──
+document.addEventListener('DOMContentLoaded', function() {
+  (function initDynamicContents() {
+    // Only run on contents.html (has #book-content with .book-panel children)
+    var panels = document.querySelectorAll('#book-content > .book-panel');
+    if (!panels.length) return;
+
+    fetch('books.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        data.books.forEach(function(book) {
+          var panel = document.getElementById('panel-' + book.id);
+          if (!panel) return;
+
+          // Group pages by chapter (preserving order)
+          var chapters = {};
+          var chapterOrder = [];
+          book.pages.forEach(function(page) {
+            var title = page.chapter_title;
+            if (!chapters[title]) {
+              chapters[title] = [];
+              chapterOrder.push(title);
+            }
+            chapters[title].push(page);
+          });
+
+          // Build HTML matching the existing <details>/<summary>/<ul> pattern
+          var html = '';
+          chapterOrder.forEach(function(chapterTitle, i) {
+            var pages = chapters[chapterTitle];
+            html += '<details' + (i === 0 ? ' open' : '') + '>';
+            html += '<summary>' + chapterTitle + '</summary>';
+            html += '<ul>';
+            pages.forEach(function(page) {
+              html += '<li><a href="' + (page.url || page.file) + '">Page ' + page.page_number + '</a></li>';
+            });
+            html += '</ul>';
+            html += '</details>';
+          });
+
+          panel.innerHTML = html;
+        });
+
+        // Re-apply bookmarks now that links are freshly injected
+        if (window.applyBookmarks) window.applyBookmarks();
+      })
+      .catch(function(err) {
+        console.error('Dynamic contents: could not load books.json', err);
+      });
+  })();
+});

@@ -2,6 +2,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 // reader.js — part 1
 (function() {
+  // ── Guard: only run on pages with book structure ──
+  if (!document.querySelector('.page-title') || !document.getElementById('reader-content')) {
+    console.log('reader.js: Not a book page, skipping.');
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const book = params.get('book') || 'exploded';   // default to Exploded
   const pageNum = parseInt(params.get('page'), 10) || 1;
@@ -110,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         : true;            // no next page = end of book = end of chapter
       window.__chapterName = page.chapter_title;
 
-       // ── Recalculate word count after content injection ──
+      // ── Recalculate word count after content injection ──
       var contentEl = document.getElementById('reader-content');
       if (contentEl) {
         var wordCount = contentEl.innerText.trim().split(/\s+/).filter(Boolean).length;

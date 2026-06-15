@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 // reader.js — part 1
 (function() {
+  // ── Guard: only run on pages with book structure ──
+  if (!document.querySelector('.page-title') || !document.getElementById('reader-content')) {
+    console.log('reader.js: Not a book page, skipping.');
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const book = params.get('book') || 'exploded';   // default to Exploded
   const pageNum = parseInt(params.get('page'), 10) || 1;

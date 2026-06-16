@@ -1,0 +1,107 @@
+
+/* ==========================================================================
+   ABOUT BOOK PAGE (aboutbook.html)
+   KnowFlux-style book showcase — chunky, bold, Nintendo-inspired.
+   Scoped under body.about-page so nothing leaks to other pages.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. "Open Book" BUTTONS — identical to reading-page Nintendo buttons
+   -------------------------------------------------------------------------- */
+
+body.about-page .action .comingSoonButton,
+body.about-page .comingSoonButton {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             10px;
+  font-family:     'Open Sans', sans-serif;
+  font-size:       14px;
+  font-weight:     700;
+  text-transform:  uppercase;
+  letter-spacing:  0.08em;
+  padding:         13px 26px;
+  background:      #4392F1;
+  color:           #fff;
+  text-decoration: none;
+  border:          3px solid #000;
+  border-radius:   0;               /* flat edge — no pill shape */
+  box-shadow:      4px 4px 0 #000;
+  transition:      background 0.12s ease,
+                   transform  0.08s ease,
+                   box-shadow 0.08s ease;
+  cursor:          pointer;
+}
+
+body.about-page .action .comingSoonButton:hover,
+body.about-page .comingSoonButton:hover {
+  background:  #F46036;
+  transform:   translate(-2px, -2px);
+  box-shadow:  6px 6px 0 #000;
+}
+
+body.about-page .action .comingSoonButton:active,
+body.about-page .comingSoonButton:active {
+  transform:  translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. SECTION HEADERS — same visual language as reading page headers
+      (blue bar + blue Anton title + uppercase subtitle)
+      WITHOUT the reading meta badges (time/word count).
+      Page count is shown as a normal subtitle, not a badge.
+   -------------------------------------------------------------------------- */
+
+body.about-page .page-header-container {
+  margin-top:     64px;
+  margin-bottom:  36px;
+  padding-bottom: 24px;
+  border-bottom:  3px solid #000;
+  position:       relative;
+}
+
+/* Blue accent bar above the title */
+body.about-page .page-header-container::before {
+  content:       '';
+  display:       block;
+  width:         56px;
+  height:        6px;
+  background:    #4392F1;
+  margin-bottom: 18px;
+  box-shadow:    3px 3px 0 #000;
+}
+
+/* Big blue Anton title */
+body.about-page .page-title {
+  font-size:      clamp(40px, 8vw, 72px);
+  line-height:    1;
+  color:          #4392F1;
+  text-shadow:    3px 3px 0 #000;
+  letter-spacing: -1px;
+  margin:         0;
+}
+
+/* Subtitle "16 Pages" / "1 Page" — uppercase, bold, no badge */
+body.about-page .page-subtitle {
+  font-family:    'Open Sans', sans-serif;
+  font-size:      clamp(17px, 2.8vw, 26px);
+  font-weight:    700;
+  color:          #333;
+  margin:         8px 0 0;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+/* Ensure no reading-ui meta (word count / time) shows up */
+body.about-page .rdr-meta {
+  display: none !important;
+}
+
+body.about-page .book-description p {
+  font-size: 18px;
+  line-height: 2;
+}
+
+

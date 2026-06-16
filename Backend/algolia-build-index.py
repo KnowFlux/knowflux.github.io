@@ -2,6 +2,7 @@ import urllib.request
 from html.parser import HTMLParser
 import json
 import xml.etree.ElementTree as ET
+from urllib.parse import urlparse, parse_qs
 from config import ROOT_DIR
 
 class MetadataParser(HTMLParser):
@@ -32,9 +33,19 @@ def make_object_id(url):
     path = url.split('://', 1)[-1].split('/', 1)[-1] if '://' in url else url
     if not path or path == '':
         return 'home'
-    # Replace non-alphanumeric (except . and ? and =) with dash, but keep readability
     clean = ''.join(c if c.isalnum() or c in '.-_?=&' else '-' for c in path)
     return clean
+
+def extract_book_page_info(url):
+    """Return (book_name, page_number) if URL is a reader book page, else None."""
+    parsed = urlparse(url)
+    if parsed.path.rstrip('/') == '/reader.html':
+        params = parse_qs(parsed.query)
+        book = params.get('book', [None])[0]
+        page = params.get('page', [None])[0]
+        if book and page:
+            return (book, page)
+    return None
 
 # Parse sitemap
 tree = ET.parse('sitemap.xml')  # or use the live URL
@@ -69,9 +80,19 @@ for url_elem in root.findall('ns:url', ns):
     else:
         relative_url = page_url  # fallback
 
+    title = parser.title or 'KnowFlux'
+
+    # Override title for reader book pages
+    book_info = extract_book_page_info(page_url)
+    if book_info:
+        book, page = book_info
+        # Capitalize book name properly
+        readable_book = book.replace('-', ' ').title()
+        title = f"Page {page} | {readable_book}"
+
     records.append({
         "objectID": make_object_id(page_url),
-        "title": parser.title or 'KnowFlux',
+        "title": title,
         "description": parser.description or '',
         "url": relative_url
     })

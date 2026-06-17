@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <title>Omni‑Dex | KnowFlux</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/omni-dex.css">
+  <script src="js/bundle.js?cachebust=14"></script>
+  <script src="js/omni-dex.js" defer></script>
+</head>
+
+<body class="omni-dex">
+
+  <!-- Promo + Nav (copied from COMMON_NAV but will update later) -->
+  <div id="promo">
+    <div>Content Posted Weekly!</div>
+    <div style="display:none;">Subscribe For Updates!</div>
+    <div style="display:none;">Stay Tuned For Poetry And Prose!</div>
+    <div style="display:none;">Send Feedback And See Responses!</div>
+  </div>
+  <div id="topMenu">
+    <div class="wrap">
+      <div id="topLinks">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li class="has-submenu">
+            <a href="aboutbook.html" id="read-link">Read</a>
+            <ul>
+              <li><a href="aboutbook.html">About Book</a></li>
+              <li><a href="reader.html?book=exploded&page=1">Open Book</a></li>
+              <li><a href="exploded-pages.html">Pages</a></li>
+              <li><a href="exploded-chapters.html">Chapters</a></li>
+              <li><a href="omni-dex.html">Omni‑Dex</a></li> <!-- NEW -->
+            </ul>
+          </li>
+          <li><a href="poetry.html">Poetry</a></li>
+          <li><a href="search.html" title="Search"><span class="search-icon">🔍</span></a></li>
+        </ul>
+      </div>
+      <a class="logo" href="index.html">KnowFlux</a>
+    </div>
+  </div>
+
+  <div class="wrap content-page">
+    <div class="omni-dex-header">
+      <h1 class="omni-dex-title">Omni‑Dex</h1>
+      <p class="omni-dex-subtitle">A Compendium of Universes</p>
+    </div>
+
+    <!-- Universe Cartridge Tabs -->
+    <div class="omni-tabs">
+      <button class="omni-tab active" data-universe="all">🌐 All</button>
+      <button class="omni-tab" data-universe="exploded">💥 Exploded</button>
+      <button class="omni-tab" data-universe="pinnacle">🔮 Pinnacle</button>
+    </div>
+
+    <!-- Type Filter Pills -->
+    <div class="omni-type-filters">
+      <button class="type-pill active" data-type="all">All</button>
+      <button class="type-pill" data-type="creature">Creature</button>
+      <button class="type-pill" data-type="spell">Spell</button>
+      <button class="type-pill" data-type="character">Character</button>
+      <button class="type-pill" data-type="location">Location</button>
+      <button class="type-pill" data-type="artifact">Artifact</button>
+    </div>
+
+    <!-- Card Grid -->
+    <div id="omni-card-grid" class="omni-card-grid"></div>
+
+    <!-- Loading / Error messages -->
+    <div id="omni-status" class="omni-status hidden"></div>
+  </div>
+
+  <!-- Game Boy Modal -->
+  <div id="omni-modal" class="omni-modal">
+    <div class="omni-modal-content">
+      <div class="omni-modal-titlebar">
+        <span class="omni-modal-title">Title</span>
+        <div class="omni-modal-dpad">
+          <div class="dpad-cross">
+            <div class="dpad-up"></div>
+            <div class="dpad-left"></div>
+            <div class="dpad-center"></div>
+            <div class="dpad-right"></div>
+            <div class="dpad-down"></div>
+          </div>
+        </div>
+      </div>
+      <div class="omni-modal-body">
+        <div id="omni-modal-content"></div>
+      </div>
+      <div class="omni-modal-buttons">
+        <button id="omni-modal-close" class="omni-btn omni-btn-a">A</button>
+        <button id="omni-modal-random" class="omni-btn omni-btn-b">B</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="subscribe">
+    <div class="wrap">
+      <h3>Leave your email here if you want front-row seats to the disaster that is our writing process.</h3>
+      <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+      <center>
+      <form action="https://app.kit.com/forms/8975170/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="8975170" data-uid="f1aefa469b" data-format="inline" data-version="5"><div data-style="clean"><div data-element="fields" class="seva-fields formkit-fields"><div class="formkit-field"><input class="formkit-input" name="email_address" placeholder="Your email address" required type="email"></div><button data-element="submit" class="formkit-submit"><span>Subscribe</span></button></div></div></form>
+      </center>
+    </div>
+  </div>
+  <div id="footer" data-reveal="false">
+    <div class="wrap">
+      <ul>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="https://anonewsletter-0.kit.com/e0e5fab31c">Subscribe</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="copyright" data-reveal="false">
+    <div class="wrap">
+      <div>&copy; <span id="copyright-year">2026</span> <span class="logo">KnowFlux</span></div>
+    </div>
+  </div>
+
+</body>
+</html>

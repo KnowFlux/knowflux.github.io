@@ -112,6 +112,7 @@ COMMON_NAV = """\
               <li><a href="reader.html?book=exploded&page=1">Open Book</a></li>
               <li><a href="exploded-pages.html">Pages</a></li>
               <li><a href="exploded-chapters.html">Chapters</a></li>
+              <li><a href="omni-dex.html">Omni‑Dex</a></li>
             </ul>
           </li>
           <li>
@@ -933,8 +934,9 @@ def auto_commit(message):
 class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def end_headers(self):
-        # Allow aggressive caching for static assets (images, CSS, JS)
-        if self.path.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.css', '.js')):
+        # Guard against missing self.path (happens during parse_request errors)
+        path = getattr(self, 'path', '')
+        if path.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.css', '.js')):
             # Cache images and static assets for 30 days
             self.send_header("Cache-Control", "public, max-age=2592000")
         else:

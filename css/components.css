@@ -305,9 +305,22 @@
   box-shadow: inset 0 -3px 0 #000;
 }
 
-/* Panel enter animation */
-.book-panel {
-  animation: fadeUp 0.35s ease;
+/* ── Book content container (flex wrapper, no visual weight) ── */
+#book-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+/* ── Individual KnowFlux card for each details block ── */
+.book-panel details {
+  background: #fff;
+  border: 3px solid #4392F1;
+  padding: 16px 20px;
+  box-shadow: 6px 6px 0 #F46036;
+  margin: 20px 0;
 }
 
 @keyframes fadeUp {

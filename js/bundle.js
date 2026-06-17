@@ -854,24 +854,63 @@ updateYear();
 // Footer Reveal on Scroll — slides in when subscribe section is visible
 // ===============================================================
 (function() {
-const footer = document.getElementById('footer');
-const copyright = document.getElementById('copyright');
-const subscribe = document.getElementById('subscribe');
-if (!footer || !copyright || !subscribe) return;
+  const footer = document.getElementById('footer');
+  const copyright = document.getElementById('copyright');
+  const subscribe = document.getElementById('subscribe');
+  if (!footer || !copyright) return;
 
-let revealed = false;
+  const isReadingPage = !!document.querySelector('.page-content');
+  let revealed = false;
 
-function attemptReveal() {
+  function revealElement(el) {
+    if (!el) return;
+    el.setAttribute('data-reveal', 'true');
+  }
+
+  function revealCopyrightOnly() {
     if (revealed) return;
-    const subRect = subscribe.getBoundingClientRect();
-    // Reveal when the bottom of the subscribe section enters the viewport
-    if (subRect.bottom <= window.innerHeight + 20) {
     revealed = true;
     setTimeout(function() {
-        footer.setAttribute('data-reveal', 'true');
-        copyright.setAttribute('data-reveal', 'true');
-        window.removeEventListener('scroll', scrollHandler);
+      revealElement(copyright);
+      window.removeEventListener('scroll', scrollHandler);
     }, 500);
+}
+
+  function revealFooterAndCopyright() {
+    if (revealed) return;
+    revealed = true;
+    setTimeout(function() {
+      revealElement(footer);
+      revealElement(copyright);
+      window.removeEventListener('scroll', scrollHandler);
+    }, 500);
+  }
+
+  function attemptReveal() {
+    if (revealed) return;
+
+    if (isReadingPage) {
+      // On reading pages: reveal copyright ONLY when user reaches the bottom
+      const scrollBottom = window.pageYOffset || document.documentElement.scrollTop;
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0 && scrollBottom >= totalHeight - 50) {
+        revealCopyrightOnly();
+      }
+    } else {
+      // On other pages: reveal both footer and copyright after subscribe comes into view
+      if (subscribe) {
+        const subRect = subscribe.getBoundingClientRect();
+        if (subRect.bottom <= window.innerHeight + 20) {
+          revealFooterAndCopyright();
+        }
+      } else {
+        // No subscribe section: reveal both at bottom
+        const scrollBottom = window.pageYOffset || document.documentElement.scrollTop;
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (totalHeight > 0 && scrollBottom >= totalHeight - 50) {
+          revealFooterAndCopyright();
+        }
+      }
     }
 }
 
@@ -879,9 +918,8 @@ function scrollHandler() {
     attemptReveal();
 }
 
-window.addEventListener('scroll', scrollHandler, { passive: true });
-// Also check immediately in case user loads mid-page
-attemptReveal();
+  window.addEventListener('scroll', scrollHandler, { passive: true });
+  setTimeout(attemptReveal, 100);
 })();
 });
 

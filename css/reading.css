@@ -760,13 +760,6 @@ body.reading-page.rdr-focus .page-content {
 }
 
 
-
-body.reading-page #footer {
-  background: transparent !important;  /* kills the orange */
-  box-shadow: none;                    /* remove any potential shadow */
-  border: none;                        /* if borders exist */
-}
-
 /* ==========================================================================
    DESKTOP: Level-2+ nested submenus (fly out to the right of parent item)
    ========================================================================== */

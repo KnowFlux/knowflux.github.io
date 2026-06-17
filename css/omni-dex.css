@@ -1,0 +1,333 @@
+/* =========================================================
+   Omni‑Dex Styles – Scoped to body.omni-dex
+   Uses CSS custom properties for theming.
+   ========================================================= */
+
+body.omni-dex {
+  --omni-dex-accent: #4392F1;          /* default (Pinnacle) blue */
+  --omni-dex-accent-secondary: #F46036; /* orange */
+  --omni-dex-card-bg: #ffffff;
+  --omni-dex-card-border: var(--omni-dex-accent);
+  --omni-dex-card-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --omni-dex-text: #333333;
+  --omni-dex-text-light: #888888;
+  --omni-dex-stat-bg: #e0e0e0;
+  --omni-dex-stat-fill: var(--omni-dex-accent);
+  --omni-dex-modal-bg: #1a1a2e;
+  --omni-dex-modal-titlebar: #16213e;
+  --omni-dex-modal-text: #e0e0e0;
+  --omni-dex-modal-accent: var(--omni-dex-accent);
+  --omni-dex-tab-bg: #f0f0f0;
+  --omni-dex-tab-active-bg: var(--omni-dex-accent);
+  --omni-dex-tab-active-text: #ffffff;
+
+}
+
+/* Exploded theme override (applied via JS) */
+body.omni-dex[data-universe="exploded"] {
+  --omni-dex-accent: #D4A017;          /* gold/yellow */
+  --omni-dex-accent-secondary: #8B0000; /* dark red */
+  --omni-dex-card-bg: #2a2a2a;
+  --omni-dex-card-border: #D4A017;
+  --omni-dex-card-shadow: 0 2px 8px rgba(212,160,23,0.3);
+  --omni-dex-text: #f0f0f0;
+  --omni-dex-text-light: #aaaaaa;
+  --omni-dex-stat-bg: #444444;
+  --omni-dex-stat-fill: #D4A017;
+  --omni-dex-tab-bg: #333333;
+  --omni-dex-tab-active-bg: #D4A017;
+  --omni-dex-tab-active-text: #1a1a1a;
+}
+
+/* Header */
+.omni-dex-header {
+  text-align: center;
+  margin: 2rem 0;
+}
+.omni-dex-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--omni-dex-accent);
+  margin: 0;
+}
+.omni-dex-subtitle {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.1rem;
+  color: var(--omni-dex-text-light);
+  margin: 0.5rem 0 0;
+}
+
+/* Tabs (Universe Cartridges) */
+.omni-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 1.5rem 0 1rem;
+}
+.omni-tab {
+  padding: 0.6rem 1.5rem;
+  font-family: 'Anton', sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  border: 2px solid var(--omni-dex-accent);
+  background: var(--omni-dex-tab-bg);
+  color: var(--omni-dex-text);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.omni-tab:hover {
+  background: var(--omni-dex-accent);
+  color: var(--omni-dex-tab-active-text);
+}
+.omni-tab.active {
+  background: var(--omni-dex-tab-active-bg);
+  color: var(--omni-dex-tab-active-text);
+  border-color: var(--omni-dex-tab-active-bg);
+}
+
+/* Type Filter Pills */
+.omni-type-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0 2rem;
+}
+.type-pill {
+  padding: 0.4rem 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  border: 1px solid var(--omni-dex-text-light);
+  background: transparent;
+  color: var(--omni-dex-text-light);
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.type-pill:hover {
+  border-color: var(--omni-dex-accent);
+  color: var(--omni-dex-accent);
+}
+.type-pill.active {
+  background: var(--omni-dex-accent);
+  color: #ffffff;
+  border-color: var(--omni-dex-accent);
+}
+
+/* Card Grid */
+.omni-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0 0 2rem;
+}
+
+/* Individual Card */
+.omni-card {
+  background: var(--omni-dex-card-bg);
+  border: 2px solid var(--omni-dex-card-border);
+  border-radius: 8px;
+  box-shadow: var(--omni-dex-card-shadow);
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.omni-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.omni-card-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.5rem;
+  margin: 0 0 0.3rem;
+  color: var(--omni-dex-accent);
+}
+.omni-card-type {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--omni-dex-text-light);
+  margin-bottom: 0.5rem;
+}
+.omni-card-desc {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--omni-dex-text);
+  flex: 1;
+}
+
+/* Stat Bars */
+.omni-card-stats {
+  margin-top: 1rem;
+}
+.omni-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  font-family: 'Courier New', monospace;
+  color: var(--omni-dex-text-light);
+}
+.omni-stat-label {
+  width: 120px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.omni-stat-bar {
+  flex: 1;
+  height: 10px;
+  background: var(--omni-dex-stat-bg);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.omni-stat-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: var(--omni-dex-stat-fill);
+  width: 0%;
+  transition: width 0.6s ease-out;
+}
+.omni-stat-value {
+  width: 30px;
+  text-align: right;
+  font-weight: bold;
+}
+
+/* Game Boy Modal */
+.omni-modal {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.omni-modal.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.omni-modal-content {
+  background: var(--omni-dex-modal-bg);
+  border: 3px solid var(--omni-dex-modal-accent);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.omni-modal-titlebar {
+  background: var(--omni-dex-modal-titlebar);
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--omni-dex-modal-accent);
+}
+.omni-modal-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.4rem;
+  color: var(--omni-dex-modal-text);
+}
+
+/* D-Pad decorative */
+.omni-modal-dpad {
+  width: 50px;
+  height: 50px;
+}
+.dpad-cross {
+  display: grid;
+  grid-template-columns: 16px 16px 16px;
+  grid-template-rows: 16px 16px 16px;
+  gap: 1px;
+}
+.dpad-cross div {
+  width: 16px;
+  height: 16px;
+  background: #333;
+  border-radius: 2px;
+}
+.dpad-up { grid-column: 2; grid-row: 1; }
+.dpad-left { grid-column: 1; grid-row: 2; }
+.dpad-center { grid-column: 2; grid-row: 2; background: #222 !important; }
+.dpad-right { grid-column: 3; grid-row: 2; }
+.dpad-down { grid-column: 2; grid-row: 3; }
+
+.omni-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  color: var(--omni-dex-modal-text);
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.8;
+}
+.omni-modal-body p {
+  margin: 0 0 1rem;
+}
+
+.omni-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 0.8rem 1.2rem;
+  background: var(--omni-dex-modal-titlebar);
+  border-top: 2px solid var(--omni-dex-modal-accent);
+}
+.omni-btn {
+  padding: 0.5rem 1.5rem;
+  font-family: 'Anton', sans-serif;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.omni-btn-a {
+  background: #e74c3c;
+  color: white;
+}
+.omni-btn-a:hover { background: #c0392b; }
+.omni-btn-b {
+  background: #3498db;
+  color: white;
+}
+.omni-btn-b:hover { background: #2980b9; }
+
+/* Status messages */
+.omni-status {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: var(--omni-dex-text-light);
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 768px) {
+  .omni-dex-title { font-size: 2rem; }
+  .omni-tabs { flex-wrap: wrap; }
+  .omni-modal-content { width: 95%; }
+  .omni-modal-titlebar { flex-direction: column; gap: 0.5rem; }
+}
+@media (max-width: 600px) {
+  .omni-card-grid { grid-template-columns: 1fr; }
+  .omni-stat-label { width: 80px; }
+}

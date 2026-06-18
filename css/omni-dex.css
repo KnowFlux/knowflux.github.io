@@ -13,14 +13,9 @@ body.omni-dex {
   --omni-dex-text-light: #888888;
   --omni-dex-stat-bg: #e0e0e0;
   --omni-dex-stat-fill: var(--omni-dex-accent);
-  --omni-dex-modal-bg: #1a1a2e;
-  --omni-dex-modal-titlebar: #16213e;
-  --omni-dex-modal-text: #e0e0e0;
-  --omni-dex-modal-accent: var(--omni-dex-accent);
   --omni-dex-tab-bg: #f0f0f0;
   --omni-dex-tab-active-bg: var(--omni-dex-accent);
   --omni-dex-tab-active-text: #ffffff;
-
 }
 
 /* Exploded theme override (applied via JS) */
@@ -37,26 +32,6 @@ body.omni-dex[data-universe="exploded"] {
   --omni-dex-tab-bg: #333333;
   --omni-dex-tab-active-bg: #D4A017;
   --omni-dex-tab-active-text: #1a1a1a;
-}
-
-/* Header */
-.omni-dex-header {
-  text-align: center;
-  margin: 2rem 0;
-}
-.omni-dex-title {
-  font-family: 'Anton', sans-serif;
-  font-size: 3rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--omni-dex-accent);
-  margin: 0;
-}
-.omni-dex-subtitle {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1.1rem;
-  color: var(--omni-dex-text-light);
-  margin: 0.5rem 0 0;
 }
 
 /* Tabs (Universe Cartridges) */
@@ -181,6 +156,8 @@ body.omni-dex[data-universe="exploded"] {
   width: 120px;
   flex-shrink: 0;
   text-transform: uppercase;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .omni-stat-bar {
   flex: 1;
@@ -202,7 +179,35 @@ body.omni-dex[data-universe="exploded"] {
   font-weight: bold;
 }
 
-/* Game Boy Modal */
+/* Per-card universe theming (used when mixing universes on "All" tab) */
+.omni-card.card-exploded {
+  --omni-dex-accent: #D4A017;
+  --omni-dex-accent-secondary: #8B0000;
+  --omni-dex-card-bg: #2a2a2a;
+  --omni-dex-card-border: #D4A017;
+  --omni-dex-card-shadow: 0 2px 8px rgba(212,160,23,0.3);
+  --omni-dex-text: #f0f0f0;
+  --omni-dex-text-light: #aaaaaa;
+  --omni-dex-stat-bg: #444444;
+  --omni-dex-stat-fill: #D4A017;
+}
+.omni-card.card-pinnacle {
+  --omni-dex-accent: #4392F1;
+  --omni-dex-accent-secondary: #F46036;
+  --omni-dex-card-bg: #ffffff;
+  --omni-dex-card-border: #4392F1;
+  --omni-dex-card-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --omni-dex-text: #333333;
+  --omni-dex-text-light: #888888;
+  --omni-dex-stat-bg: #e0e0e0;
+  --omni-dex-stat-fill: #4392F1;
+}
+
+/* =========================================================
+   Omni‑Dex Modal – KnowFlux Codex Design
+   ========================================================= */
+
+/* Full-screen overlay */
 .omni-modal {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -220,95 +225,181 @@ body.omni-dex[data-universe="exploded"] {
   pointer-events: auto;
 }
 
-
+/* Modal body */
 .omni-modal-content {
-  background: var(--omni-dex-modal-bg);
-  border: 3px solid var(--omni-dex-modal-accent);
+  background: #1a1a2e;
+  border: 3px solid var(--omni-dex-accent);
   border-radius: 12px;
   width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
+  padding: 20px 16px 16px;
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
-  overflow: hidden;
+}
+
+/* Screen area */
+.omni-modal-screen {
+  display: flex;
+  flex-direction: column;
+  height: 350px;                  /* base fixed height — JS may override */
+  min-height: 200px;
+  max-height: 80vh;              /* never exceed the viewport */
+  overflow: hidden;              /* inner body handles its own scroll */
 }
 
 .omni-modal-titlebar {
-  background: var(--omni-dex-modal-titlebar);
-  padding: 0.8rem 1.2rem;
+  border-bottom: 2px solid var(--omni-dex-accent);
+  padding: 0 0 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--omni-dex-modal-accent);
 }
 .omni-modal-title {
-  font-family: 'Anton', sans-serif;
-  font-size: 1.4rem;
-  color: var(--omni-dex-modal-text);
+  font-family: 'Courier New', monospace;
+  font-weight: normal;
+  font-size: 1.2rem;
+  color: var(--omni-dex-accent);
+  letter-spacing: 0.5px;
 }
 
-/* D-Pad decorative */
-.omni-modal-dpad {
-  width: 50px;
-  height: 50px;
+/* Stats toggle button in titlebar */
+.omni-modal-stats-btn {
+  background: transparent;
+  border: 1px solid var(--omni-dex-accent);
+  color: var(--omni-dex-accent);
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
-.dpad-cross {
-  display: grid;
-  grid-template-columns: 16px 16px 16px;
-  grid-template-rows: 16px 16px 16px;
-  gap: 1px;
+.omni-modal-stats-btn:hover {
+  background: var(--omni-dex-accent);
+  color: #ffffff;
 }
-.dpad-cross div {
-  width: 16px;
-  height: 16px;
-  background: #333;
-  border-radius: 2px;
+
+/* Body wrapper: holds content and sidebar */
+.omni-modal-body-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
 }
-.dpad-up { grid-column: 2; grid-row: 1; }
-.dpad-left { grid-column: 1; grid-row: 2; }
-.dpad-center { grid-column: 2; grid-row: 2; background: #222 !important; }
-.dpad-right { grid-column: 3; grid-row: 2; }
-.dpad-down { grid-column: 2; grid-row: 3; }
 
 .omni-modal-body {
-  padding: 1.5rem;
+  padding: 12px 0;
   overflow-y: auto;
-  color: var(--omni-dex-modal-text);
+  color: #e0e0e0;
   font-family: 'Open Sans', sans-serif;
-  line-height: 1.8;
+  line-height: 1.7;
+  flex: 1;
+  font-size: 0.95rem;
 }
 .omni-modal-body p {
-  margin: 0 0 1rem;
+  margin: 0 0 0.8rem;
 }
 
-.omni-modal-buttons {
+/* Stats sidebar – slides in from right, overlays content */
+.omni-modal-stats-sidebar {
+  position: absolute;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100%;
+  background: #0f171e;
+  border-left: 2px solid var(--omni-dex-accent);
+  padding: 12px;
+  padding-top: 30px;  /* extra space so tooltips near top are fully visible */
+  overflow-y: auto;
+  transition: right 0.3s ease;
+  box-sizing: border-box;
+  z-index: 10;
+}
+.omni-modal-stats-sidebar.open {
+  right: 0;
+}
+.omni-modal-body-wrapper.sidebar-open .omni-modal-body {
+  margin-right: 0;
+}
+
+/* Stat items inside sidebar – reuse existing .omni-stat styles but adjust colors */
+.omni-modal-stats-sidebar .omni-stat-label {
+  color: #aaaaaa;
+  cursor: pointer;
+  width: 150px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.omni-modal-stats-sidebar .omni-stat-value {
+  color: #e0e0e0;
+}
+.omni-modal-stats-sidebar .omni-stat-bar {
+  background: #2a2a2a;
+}
+
+/* Tooltip that appears when a stat is clicked — positioned below the stat bar */
+.omni-stat-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #333;
+  color: #e0e0e0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--omni-dex-accent);
+  z-index: 20;
+  pointer-events: auto;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+/* Make stat label position relative so tooltip can be positioned absolutely */
+.omni-modal-stats-sidebar .omni-stat {
+  position: relative;
+}
+
+/* Controls row */
+.omni-modal-controls {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
-  padding: 0.8rem 1.2rem;
-  background: var(--omni-dex-modal-titlebar);
-  border-top: 2px solid var(--omni-dex-modal-accent);
+  gap: 10px;
+  margin-top: 14px;
+  padding: 0;
 }
-.omni-btn {
-  padding: 0.5rem 1.5rem;
-  font-family: 'Anton', sans-serif;
-  font-size: 1.1rem;
+
+/* Flat buttons */
+.omni-modal-btn {
+  padding: 8px 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.1s;
 }
-.omni-btn-a {
-  background: #e74c3c;
+.omni-modal-btn:active {
+  transform: scale(0.97);
+}
+.omni-modal-btn-close {
+  background: #555;
   color: white;
 }
-.omni-btn-a:hover { background: #c0392b; }
-.omni-btn-b {
-  background: #3498db;
+.omni-modal-btn-close:hover {
+  background: #777;
+}
+.omni-modal-btn-next {
+  background: var(--omni-dex-accent);
   color: white;
 }
-.omni-btn-b:hover { background: #2980b9; }
+.omni-modal-btn-next:hover {
+  filter: brightness(1.1);
+}
 
 /* Status messages */
 .omni-status {
@@ -322,12 +413,20 @@ body.omni-dex[data-universe="exploded"] {
    Responsive
    ========================================================= */
 @media (max-width: 768px) {
-  .omni-dex-title { font-size: 2rem; }
   .omni-tabs { flex-wrap: wrap; }
-  .omni-modal-content { width: 95%; }
-  .omni-modal-titlebar { flex-direction: column; gap: 0.5rem; }
+  .omni-modal-content { width: 95%; padding: 14px 10px; }
+  .omni-modal-screen { min-height: 150px; height: 280px; max-height: 70vh; }
+  .omni-modal-title { font-size: 1rem; }
+  .omni-modal-stats-sidebar { width: 260px; right: -280px; }
+  .omni-modal-stats-sidebar.open { right: 0; }
+  .omni-modal-body-wrapper.sidebar-open .omni-modal-body { margin-right: 0; }
 }
-@media (max-width: 600px) {
+  @media (max-width: 600px) {
   .omni-card-grid { grid-template-columns: 1fr; }
-  .omni-stat-label { width: 80px; }
+  .omni-stat-label { width: 140px; overflow-wrap: break-word; word-break: break-word; }
+  .omni-modal-controls { flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .omni-modal-screen { min-height: 150px; height: 240px; max-height: 70vh; }
+  .omni-modal-stats-sidebar { width: 200px; right: -220px; }
+  .omni-modal-stats-sidebar.open { right: 0; }
+  .omni-modal-body-wrapper.sidebar-open .omni-modal-body { margin-right: 0; }
 }

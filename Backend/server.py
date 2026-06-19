@@ -1,14 +1,48 @@
+
 import http.server
 import socketserver
+import sys
 import urllib.parse
 import json
 import re
 import secrets
 from pathlib import Path
+import subprocess
 import os
+import socket
 from config import ROOT_DIR
 
-PORT = int(os.environ.get('PORT', 5000))
+# ---------------------------------------------------------------------------
+# Start server
+# ---------------------------------------------------------------------------
+
+def free_port(port):
+    """Kill any process listening on the given port (macOS/Linux)."""
+    import subprocess, os, signal, time
+    try:
+        result = subprocess.run(
+            ['lsof', '-ti', f':{port}'],
+            capture_output=True, text=True, timeout=5
+        )
+        pids = result.stdout.strip().splitlines()
+        for pid in pids:
+            pid = pid.strip()
+            if pid and pid.isdigit():
+                os.kill(int(pid), signal.SIGKILL)
+                print(f"Killed process {pid} on port {port}")
+                time.sleep(0.5)
+    except Exception:
+        # lsof not available, or no process
+        pass
+
+class ReusableTCPServer(socketserver.TCPServer):
+    allow_reuse_address = True
+
+    def server_bind(self):
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        super().server_bind()
+
+PORT = int(os.environ.get('PORT', 5001))
 BASE_DIR = ROOT_DIR
 
 # Simple .env reader (no external package)
@@ -1085,9 +1119,22 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         pass
 
 
-socketserver.TCPServer.allow_reuse_address = True
-with socketserver.TCPServer(("0.0.0.0", PORT), AdminHTTPRequestHandler) as httpd:
-    print(f"Serving HTTP on 0.0.0.0 port {PORT}...")
-    httpd.serve_forever()
+if __name__ == '__main__':
+    import time
+    free_port(PORT)
+    for attempt in range(5):
+        try:
+            with ReusableTCPServer(("0.0.0.0", PORT), AdminHTTPRequestHandler) as httpd:
+                print(f"Serving HTTP on 0.0.0.0 port {PORT}...")
+                httpd.serve_forever()
+        except OSError as e:
+            if e.errno == 48:
+                print(f"Port {PORT} still in use ({attempt+1}/5). Waiting 2 seconds...")
+                time.sleep(2)
+            else:
+                raise
+    else:
+        print(f"Failed to bind to port {PORT} after 5 attempts.")
+        sys.exit(1)
 
 

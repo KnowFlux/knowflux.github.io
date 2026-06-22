@@ -1,872 +1,381 @@
--      <a class="logo" href="index.html"><img src = "Images/favicon.png">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src = "Images/favicon.jpeg">KnowFlux</a>
-     </div>
-   </div>
-   <div class="wrap">
-diff --git a/Poetry/unrestfulstillness.html b/Poetry/unrestfulstillness.html
-index 994f81c..52b4ac8 100644
---- a/Poetry/unrestfulstillness.html
-+++ b/Poetry/unrestfulstillness.html
-@@ -7,7 +7,7 @@
-   <meta name="description" content="Read Unrestful Stillness - a haiku exploring the paradox of peace and motion from KnowFlux poetry.">
-   <title>Unrestful Stillness | KnowFlux</title>
-   <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <link rel="stylesheet" href = "css/main.css">
-   <script src = "js/bundle.js?cachebust=14"></script>
- </head>
-@@ -45,7 +45,7 @@
-           </li>
-         </ul>
-       </div>
--      <a class="logo" href="index.html"><img src = "Images/favicon.png">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src = "Images/favicon.jpeg">KnowFlux</a>
-     </div>
-   </div>
-   <div class="wrap">
-diff --git a/aboutbook.html b/aboutbook.html
-index 99c86d3..d063e4b 100644
---- a/aboutbook.html
-+++ b/aboutbook.html
-@@ -7,7 +7,7 @@
-   <meta name="description" content="Discover The Pinnacle of Reality and Exploded - epic multi-page narratives from KnowFlux's collection of creative literature.">
-   <title>About Book | KnowFlux</title>
-   <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <link rel="stylesheet" href = "css/main.css">
-   <script src = "js/bundle.js?cachebust=14"></script>
- </head>
-@@ -45,7 +45,7 @@
-           </li>
-         </ul>
-       </div>
--      <a class="logo" href="index.html"><img src = "Images/favicon.png">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src = "Images/favicon.jpeg">KnowFlux</a>
-     </div>
-   </div>
-   <div class="wrap">
-diff --git a/admin.html b/admin.html
-index 0e4c5bb..92ed3a2 100644
---- a/admin.html
-+++ b/admin.html
-@@ -7,7 +7,7 @@
-   <meta name="description" content="KnowFlux admin content generator and management tool.">
-   <title>Content Generator | KnowFlux Admin</title>
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <style>
-     * { box-sizing: border-box; }
+diff --git a/Backend/__pycache__/config.cpython-314.pyc b/Backend/__pycache__/config.cpython-314.pyc
+new file mode 100644
+index 0000000..4acc2c6
+Binary files /dev/null and b/Backend/__pycache__/config.cpython-314.pyc differ
+diff --git a/Backend/server.py b/Backend/server.py
+index 0d6b03a..a4cf335 100644
+--- a/Backend/server.py
++++ b/Backend/server.py
+@@ -1,14 +1,48 @@
++
+ import http.server
+ import socketserver
++import sys
+ import urllib.parse
+ import json
+ import re
+ import secrets
+ from pathlib import Path
++import subprocess
+ import os
++import socket
+ from config import ROOT_DIR
  
-diff --git a/algolia_records.json b/algolia_records.json
-index 8a4f543..2dd85c8 100644
---- a/algolia_records.json
-+++ b/algolia_records.json
-@@ -5,6 +5,12 @@
-     "description": "KnowFlux - A bold, Nintendo-inspired literary haven for creative writing with sharp visuals and epic reading experiences.",
-     "url": "/"
-   },
-+  {
-+    "objectID": "index.html",
-+    "title": "Home | KnowFlux",
-+    "description": "KnowFlux - A bold, Nintendo-inspired literary haven for creative writing with sharp visuals and epic reading experiences.",
-+    "url": "/index.html"
-+  },
-   {
-     "objectID": "aboutbook.html",
-     "title": "About Book | KnowFlux",
-@@ -29,12 +35,6 @@
-     "description": "Share your thoughts and feedback about KnowFlux stories and poetry.",
-     "url": "/feedback.html"
-   },
--  {
--    "objectID": "Poetry/finalmoment.html",
--    "title": "KnowFlux",
--    "description": "Experience The Final Moment, a haiku about suspended time and falling raindrops from KnowFlux poetry collection.",
--    "url": "/Poetry/finalmoment.html"
--  },
-   {
-     "objectID": "poetry.html",
-     "title": "Poetry | KnowFlux",
-@@ -47,36 +47,12 @@
-     "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
-     "url": "/reader.html"
-   },
--  {
--    "objectID": "Poetry/rhythmoftheredriver.html",
--    "title": "Rhythm of the Red River | KnowFlux",
--    "description": "Read Rhythm of the Re-driver - a poem about finding rhythm and momentum in life from KnowFlux.",
--    "url": "/Poetry/rhythmoftheredriver.html"
--  },
-   {
-     "objectID": "search.html",
-     "title": "Search | KnowFlux",
-     "description": "Search our collection of stories and poetry from KnowFlux's library.",
-     "url": "/search.html"
-   },
--  {
--    "objectID": "Poetry/sowhisperedthewind.html",
--    "title": "So Whispered the Wind | KnowFlux",
--    "description": "Read So Whispered the Wind, a haiku celebrating the abundance and resonance of words from KnowFlux.",
--    "url": "/Poetry/sowhisperedthewind.html"
--  },
--  {
--    "objectID": "symbolsofnature.html",
--    "title": "Symbols of Nature | KnowFlux",
--    "description": "Read Symbols of Nature - a haiku capturing the essence of the natural world from KnowFlux poetry collection.",
--    "url": "/symbolsofnature.html"
--  },
--  {
--    "objectID": "Poetry/unrestfulstillness.html.html",
--    "title": "Unrestful Stillness | KnowFlux",
--    "description": "Read Unrestful Stillness - a haiku exploring the paradox of peace and motion from KnowFlux poetry.",
--    "url": "/Poetry/unrestfulstillness.html.html"
--  },
-   {
-     "objectID": "reader.html?book=exploded&page=1",
-     "title": "Read | KnowFlux",
-@@ -179,6 +155,12 @@
-     "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
-     "url": "/reader.html?book=exploded&page=17"
-   },
-+  {
-+    "objectID": "reader.html?book=exploded&page=18",
-+    "title": "Read | KnowFlux",
-+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
-+    "url": "/reader.html?book=exploded&page=18"
-+  },
-   {
-     "objectID": "reader.html?book=pinnacle&page=1",
-     "title": "Read | KnowFlux",
-diff --git a/books.json b/books.json
-index cfb4b6b..c5b9557 100644
---- a/books.json
-+++ b/books.json
-@@ -4,7 +4,7 @@
-       "id": "exploded",
-       "title": "Exploded",
-       "description": "Mysteries Unravel And Truth Is Revealed",
--      "totalPages": 17,
-+      "totalPages": 18,
-       "pagesUrl": "/exploded-pages.html",
-       "chaptersUrl": "/exploded-chapters.html",
-       "pages": [
-@@ -124,6 +124,11 @@
-           "page_number": 17,
-           "chapter_title": "A Calling",
-           "content": "      <p>The cavern walls didn't echo; they vibrated, almost roared, the reverberations sinking into his skin and rattling the delicate bones behind his ears. The shouts of a thousand throats slammed into his chest like a physical blow, a wall of sound that split into jagged spears - sharp clicks of teeth and the long rasps of hisses.</p>\n\n      <p>But the noise didn't fade; it curdled. The full weight of the commander's accusations settled over the crowd like waves of ice. Heads swung, eyes filled with malice tracked the movements of lifelong den-mates. In the space of a split second, a clan became a wave of snouts waiting to strike.</p>\n\n      <p>Around him, dragons bared their teeth, locking their front legs to tower over him, crests flared, wings unfurling slightly, turning on each other. Each other, and... him. Suddenly, he was surrounded by a hardened wall of clicking teeth and menacingly tapping claws.</p>\n\n      <p>He shivered instinctively, dropping his snout towards the ground, tucking his wings, and meekly curling his tail around his legs, making himself as small as possible. Still, the suspicious gaze of the dragons around bored into him, and he was completely at their mercy. Vulnerable.</p>\n\n      <p>The walls pressed down around him. His muscles were tense, waves of heat radiating off the dragons sucking the oxygen away. The acrid scent of fear filled his nostrils, the sulfurous scent twisting inside his lungs.</p>\n\n      <p>He shut his eyes, blocking out the snarling faces surrounding him. Instead, he reached inside, calling for his Lodesight, and... the brilliant blue lines snapped into his vision, slicing through the mass of scales and talons, running straight and next to each other, at last combining into a single, brilliant point. Steady. Still. He shifted his gaze towards the gleam, allowing it to anchor him. Slowly, his muscles relaxed. His shoulders settled, and the frantic twitching of his tail-tip calmed.</p>\n\n      <p>He closed his eyes again, not to shut the environment out, but to fully connect with his Lodesight. The currents still rippled in his mind, a breathtaking river whose warm flow blanketed him.</p>\n\n      <p>A thunderous roar ripped the air apart, shattering the blue currents.</p>\n\n      <p>His eyes snapped open. Pure ice shot through his veins.</p>\n\n      <p>The Horns of Warning had sounded.</p>\n\n      <p><span class = 'thoughtText'>Run.</span></p>\n\n      <p>That was the only thought in Exploded's mind as his Lodesight blurred and crackled around him.</p>\n\n      <p>But he was already moving. A desperate sprint towards the yawning opening, beckoning the way to escape.</p>\n\n      <p>Yet... he was still trapped. Suffocated. Crushed in a mass of talons, teeth, wings. Drowned. Drowned in movement. He needed... <span class = 'thoughtText'>a guide.</span></p>\n\n      <p><span class = 'thoughtText'>Focus.</span></p>\n\n      <p>How? His Lodesight was... there.</p>\n\n      <p>The blue lines snapped into reality. He couldn't see his surroundings, not anymore. He only saw a path forward. <span class = 'thoughtText'>The</span> path forward.</p>\n\n      <p>He pressed forward. Only forward. <span class = 'thoughtText'>Lodeward.</span></p>\n\n      <p>Then... a breath of air.</p>\n\n"
-+        },
-+        {
-+          "page_number": 18,
-+          "chapter_title": "A Calling",
-+          "content": "      <p>The coolness rushed into his lungs, and he collapsed, gasping for more.</p>\n\n      <p>He couldn't stay here for long. He had to reach his cave - how much time had he wasted already? The fatal echo of the horns still rung in his ears. The Fittus would entirely lock down, and he couldn't be caught. He wouldn't.</p>\n\n      <p>But... the air felt so fresh. So clean here. He'd stay... perhaps just a little.</p>\n\n      <p>He lay his head back, drained, and slowly breathed in, then out again, to slow his racing pulse. One breath. Then two. And...</p>\n\n      <p>His Lodesight stabilized. Fragmented, distorted currents snapped back cleanly, crisp and clear.</p>\n\n      <p>Safe.</p>\n\n      <p>Safe, he repeated to himself. The image - the sensations - were still fresh in his mind, the danger.</p>\n\n      <p>No. He was safe.</p>\n\n      <p>A burst of wind. A gleam of scales. He couldn't breathe.</p>\n\n      <p>A heavy pressure on his chest, forcing the air out of his body. Narrowed eyes stared into his own, a triangular snout enveloping his vision. A low, rasping hiss.</p>\n\n      <p>Exploded fought to look away. The brilliant red pupils gazed into him, holding his eyes open like a gateway into his soul. No sound. No movement.</p>\n\n      <p>Then... the red was gone. The darkness returned. He was.. himself again.</p>\n\n      <p>Air rushed into his lungs, his chest expanding with a painful gasp. His body trembled, his muscles tight.</p>\n\n      <p>The cool sweetness of the air coated his tongue, and his heart began to find a steady rhythm again.</p>\n\n      <p>Then ice cold shivers stabbed down his spine as a voice like grinding stones broke the silence, echoing hollowly with eerie distance, even as it sounded immediately above him.</p>\n\n      <p>\"The guards,\" the voice spoke, grating against a low, metallic ripple of shifting plates, \"turn inward.\"</p>\n\n      <p>A soft click of claws against stone punctuated the silence. \"Those caught...\" the steady shifts quickened, the sound rising with his words, \"... are tortured, killed.\"</p>\n\n      <p>\"Back to your cave, before you suffer the same fate.\" The noise was swallowed by the darkness, ceasing abruptly with a sharp, heavy snap.</p>\n\n      <p>Exploded fled.</p>\n\n      <p>Before the voice had even faded, he was sprinting—no, flying through the tunnels. Cutting through the darkness were the sharp blue field lines of his Lodesight, the planet's magnetic grid map overlaying the void. The wind roared past him, but he leaned into it, streamlining his body, extending his wings, brushing against the cold stone walls. Turning, flipping, accelerating—he tracked the shifting angles of the blue arcs, avoiding the unseen stone.</p>\n\n      <p>Then... he was in his cave.</p>\n\n      <p>He sunk into the absolute dark.</p>\n\n"
-         }
-       ],
-       "chapters": {
-@@ -244,12 +249,17 @@
-             "chapter_title": "A Calling",
-             "file": "reader.html?book=exploded&page=16",
-             "url": "/reader.html?book=exploded&page=16",
--            "content": "<p>Exploded rushed after Serpsight, flying through the winding passageways. Although he was familiar with the way, Serpsight chose a different route—perhaps a shorter path? The twists and turns seemed random, but before long, the passages opened up into a vast cavern. It stretched for thousands of tail-lengths in every direction, the ceiling hanging impossibly high above. Where were they? Exploded had never seen the cavern before, but it seemed to be for meetings with enormous audiences.</p>\n\n      <p>Then he noticed his surroundings, and Exploded's eyes widened in astonishment. How many dragons filled this cavern? Hundreds, maybe even thousands. The realization struck him: could every single dragon in the Fittus be here? The notion felt absurd, foreign to him. This had never - never - happened before.</p>\n\n      <p>An excited hum swelled from the gathered dragons, the tension palpable. The noise was insistent - a deafening, dull roar which echoed off the walls, sounds and noises repeating and bouncing, stabbing into Exploded's ears like so many spears, a relentless onslaught he almost couldn't bear. But he was saved from enduring the torment when the commander appeared.</p>\n\n      <p>Initially, Exploded didn’t notice; a sudden hush had fallen over the throng. It wasn’t until a sharp red light flickered across his vision that he looked up, locking eyes with the commander. A shiver ran down his spine, and he averted his gaze.</p>\n\n      <p>The commander took his position at the forefront of the cave, hovering above the sea of dragons, his imposing form washed in torchlight. The light danced across his scales, refracting in dazzling patterns, blurred slightly by the soft mist that drifted through the air.</p>\n\n      <p>The tension reached its climax as the commander surveyed the crowd, still and silent. Every eye focused intently on him, the air thick and heavy with suspense, a collective breath held in anticipation - then, at last, released as the commander began to speak.</p>\n\n      <p>\"I have gathered you here for a matter of great importance. No doubt, there are many among you who wonder what the purpose of a meeting of such a grand scale might be.\"</p>\n\n      <p>The crowd seemed to murmur their agreement, tones of curiosity whispering over the crowd.</p>\n\n      <p>\"It has come to my attention that a conspiracy bent on destroying the Fittus from the inside has infiltrated our stronghold.\"</p>\n\n      <p>This time, it was shock that rose from the gathered dragons. But Exploded was numb with realization: this was the test that the commander had mentioned.</p>\n\n      <p>\"Every able dragon in the Fittus is charged with their uprooting!\" The commander's voice was commanding, pressing down from his position, circling the highest reaches of the cave.</p>\n\n      <p>The words stilled the crowd to silence. Never had it occurred that anyone except for distinguished, noble-blooded warriors were given these tasks of espionage and battle.</p>\n\n      <p>But cutting through the silence, crashing through his thoughts, were the commander's words.</p>\n\n      <p><span class=\"thoughtText\">\n\"From this day forward, rank will be earned through trials — real deeds. Hunts, missions, and trials that reveal who a dragon is, not who tradition claims they should be.\"\n</span></p>\n\n      <p>A second, harsh flicker of red light and Exploded shook himself back to the present, looking for the second time directly into the commander's eyes as he disappeared into the mist.</p>\n\n      <p>It was then that the noise began anew.</p>"
-+            "content": "<p>Exploded rushed after Serpsight, flying through the winding passageways. Although he was familiar with the way, Serpsight chose a different route—perhaps a shorter path? The twists and turns seemed random, but before long, the passages opened up into a vast cavern. It stretched for thousands of tail-lengths in every direction, the ceiling hanging impossibly high above. Where were they?</p>\n\n      <p>Then he noticed his surroundings, and Exploded's eyes widened in astonishment. How many dragons filled this cavern? Hundreds, maybe even thousands. The realization struck him: could every single dragon in the Fittus be here? The notion felt absurd, foreign to him. This had never - never - happened before.</p>\n\n      <p>An excited hum swelled from the gathered dragons, the tension palpable. The noise was insistent - a deafening, dull roar which echoed off the walls, sounds and noises repeating and bouncing, stabbing into Exploded's ears like so many spears, a relentless onslaught he almost couldn't bear. But he was saved from enduring the torment when the commander appeared.</p>\n\n      <p>Initially, Exploded didn’t notice; a sudden hush had fallen over the throng. It wasn’t until a sharp red light flickered across his vision that he looked up, locking eyes with the commander. A shiver ran down his spine, and he averted his gaze.</p>\n\n      <p>The commander took his position at the forefront of the cave, hovering above the sea of dragons, his imposing form washed in torchlight. The light danced across his scales, refracting in dazzling patterns, blurred slightly by the soft mist that drifted through the air.</p>\n\n      <p>The tension reached its climax as the commander surveyed the crowd, still and silent. Every eye focused intently on him, the air thick and heavy with suspense, a collective breath held in anticipation - then, at last, released as the commander began to speak.</p>\n\n      <p>\"I have gathered you here for a matter of great importance. No doubt, there are many among you who wonder what the purpose of a meeting of such a grand scale might be.\"</p>\n\n      <p>The crowd seemed to murmur their agreement, tones of curiosity whispering over the crowd.</p>\n\n      <p>\"It has come to my attention that a conspiracy bent on destroying the Fittus from the inside has infiltrated our stronghold.\"</p>\n\n      <p>This time, it was shock that rose from the gathered dragons. But Exploded was numb with realization: this was the test that the commander had mentioned.</p>\n\n      <p>\"Every able dragon in the Fittus is charged with their uprooting!\" The commander's voice was commanding, pressing down from his position, circling the highest reaches of the cave.</p>\n\n      <p>The words stilled the crowd to silence. Never had it occurred that anyone except for distinguished, noble-blooded warriors were given these tasks of espionage and battle.</p>\n\n      <p>But cutting through the silence, crashing through his thoughts, were the commander's words.</p>\n\n      <p><span class=\"thoughtText\">\n\"From this day forward, rank will be earned through trials — real deeds. Hunts, missions, and trials that reveal who a dragon is, not who tradition claims they should be.\"\n</span></p>\n\n      <p>A second, harsh flicker of red light and Exploded shook himself back to the present, looking for the second time directly into the commander's eyes as he disappeared into the mist.</p>\n\n      <p>It was then that the noise began anew.</p>"
-           },
-           {
-             "page_number": 17,
-             "chapter_title": "A Calling",
-             "content": "      <p>The cavern walls didn't echo; they vibrated, almost roared, the reverberations sinking into his skin and rattling the delicate bones behind his ears. The shouts of a thousand throats slammed into his chest like a physical blow, a wall of sound that split into jagged spears - sharp clicks of teeth and the long rasps of hisses.</p>\n\n      <p>But the noise didn't fade; it curdled. The full weight of the commander's accusations settled over the crowd like waves of ice. Heads swung, eyes filled with malice tracked the movements of lifelong den-mates. In the space of a split second, a clan became a wave of snouts waiting to strike.</p>\n\n      <p>Around him, dragons bared their teeth, locking their front legs to tower over him, crests flared, wings unfurling slightly, turning on each other. Each other, and... him. Suddenly, he was surrounded by a hardened wall of clicking teeth and menacingly tapping claws.</p>\n\n      <p>He shivered instinctively, dropping his snout towards the ground, tucking his wings, and meekly curling his tail around his legs, making himself as small as possible. Still, the suspicious gaze of the dragons around bored into him, and he was completely at their mercy. Vulnerable.</p>\n\n      <p>The walls pressed down around him. His muscles were tense, waves of heat radiating off the dragons sucking the oxygen away. The acrid scent of fear filled his nostrils, the sulfurous scent twisting inside his lungs.</p>\n\n      <p>He shut his eyes, blocking out the snarling faces surrounding him. Instead, he reached inside, calling for his Lodesight, and... the brilliant blue lines snapped into his vision, slicing through the mass of scales and talons, running straight and next to each other, at last combining into a single, brilliant point. Steady. Still. He shifted his gaze towards the gleam, allowing it to anchor him. Slowly, his muscles relaxed. His shoulders settled, and the frantic twitching of his tail-tip calmed.</p>\n\n      <p>He closed his eyes again, not to shut the environment out, but to fully connect with his Lodesight. The currents still rippled in his mind, a breathtaking river whose warm flow blanketed him.</p>\n\n      <p>A thunderous roar ripped the air apart, shattering the blue currents.</p>\n\n      <p>His eyes snapped open. Pure ice shot through his veins.</p>\n\n      <p>The Horns of Warning had sounded.</p>\n\n      <p><span class = 'thoughtText'>Run.</span></p>\n\n      <p>That was the only thought in Exploded's mind as his Lodesight blurred and crackled around him.</p>\n\n      <p>But he was already moving. A desperate sprint towards the yawning opening, beckoning the way to escape.</p>\n\n      <p>Yet... he was still trapped. Suffocated. Crushed in a mass of talons, teeth, wings. Drowned. Drowned in movement. He needed... <span class = 'thoughtText'>a guide.</span></p>\n\n      <p><span class = 'thoughtText'>Focus.</span></p>\n\n      <p>How? His Lodesight was... there.</p>\n\n      <p>The blue lines snapped into reality. He couldn't see his surroundings, not anymore. He only saw a path forward. <span class = 'thoughtText'>The</span> path forward.</p>\n\n      <p>He pressed forward. Only forward. <span class = 'thoughtText'>Lodeward.</span></p>\n\n      <p>Then... a breath of air.</p>\n\n"
-+          },
-+          {
-+            "page_number": 18,
-+            "chapter_title": "A Calling",
-+            "content": "      <p>The coolness rushed into his lungs, and he collapsed, gasping for more.</p>\n\n      <p>He couldn't stay here for long. He had to reach his cave - how much time had he wasted already? The fatal echo of the horns still rung in his ears. The Fittus would entirely lock down, and he couldn't be caught. He wouldn't.</p>\n\n      <p>But... the air felt so fresh. So clean here. He'd stay... perhaps just a little.</p>\n\n      <p>He lay his head back, drained, and slowly breathed in, then out again, to slow his racing pulse. One breath. Then two. And...</p>\n\n      <p>His Lodesight stabilized. Fragmented, distorted currents snapped back cleanly, crisp and clear.</p>\n\n      <p>Safe.</p>\n\n      <p>Safe, he repeated to himself. The image - the sensations - were still fresh in his mind, the danger.</p>\n\n      <p>No. He was safe.</p>\n\n      <p>A burst of wind. A gleam of scales. He couldn't breathe.</p>\n\n      <p>A heavy pressure on his chest, forcing the air out of his body. Narrowed eyes stared into his own, a triangular snout enveloping his vision. A low, rasping hiss.</p>\n\n      <p>Exploded fought to look away. The brilliant red pupils gazed into him, holding his eyes open like a gateway into his soul. No sound. No movement.</p>\n\n      <p>Then... the red was gone. The darkness returned. He was.. himself again.</p>\n\n      <p>Air rushed into his lungs, his chest expanding with a painful gasp. His body trembled, his muscles tight.</p>\n\n      <p>The cool sweetness of the air coated his tongue, and his heart began to find a steady rhythm again.</p>\n\n      <p>Then ice cold shivers stabbed down his spine as a voice like grinding stones broke the silence, echoing hollowly with eerie distance, even as it sounded immediately above him.</p>\n\n      <p>\"The guards,\" the voice spoke, grating against a low, metallic ripple of shifting plates, \"turn inward.\"</p>\n\n      <p>A soft click of claws against stone punctuated the silence. \"Those caught...\" the steady shifts quickened, the sound rising with his words, \"... are tortured, killed.\"</p>\n\n      <p>\"Back to your cave, before you suffer the same fate.\" The noise was swallowed by the darkness, ceasing abruptly with a sharp, heavy snap.</p>\n\n      <p>Exploded fled.</p>\n\n      <p>Before the voice had even faded, he was sprinting—no, flying through the tunnels. Cutting through the darkness were the sharp blue field lines of his Lodesight, the planet's magnetic grid map overlaying the void. The wind roared past him, but he leaned into it, streamlining his body, extending his wings, brushing against the cold stone walls. Turning, flipping, accelerating—he tracked the shifting angles of the blue arcs, avoiding the unseen stone.</p>\n\n      <p>Then... he was in his cave.</p>\n\n      <p>He sunk into the absolute dark.</p>\n\n"
-           }
-         ]
-       }
-@@ -317,5 +327,5 @@
-       ]
-     }
-   },
--  "lastUpdated": "2026-06-11T15:22:05.159085"
-+  "lastUpdated": "2026-06-14T16:45:43.964421"
+-PORT = int(os.environ.get('PORT', 5000))
++# ---------------------------------------------------------------------------
++# Start server
++# ---------------------------------------------------------------------------
++
++def free_port(port):
++    """Kill any process listening on the given port (macOS/Linux)."""
++    import subprocess, os, signal, time
++    try:
++        result = subprocess.run(
++            ['lsof', '-ti', f':{port}'],
++            capture_output=True, text=True, timeout=5
++        )
++        pids = result.stdout.strip().splitlines()
++        for pid in pids:
++            pid = pid.strip()
++            if pid and pid.isdigit():
++                os.kill(int(pid), signal.SIGKILL)
++                print(f"Killed process {pid} on port {port}")
++                time.sleep(0.5)
++    except Exception:
++        # lsof not available, or no process
++        pass
++
++class ReusableTCPServer(socketserver.TCPServer):
++    allow_reuse_address = True
++
++    def server_bind(self):
++        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
++        super().server_bind()
++
++PORT = int(os.environ.get('PORT', 5001))
+ BASE_DIR = ROOT_DIR
+ 
+ # Simple .env reader (no external package)
+@@ -1085,9 +1119,22 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
+         pass
+ 
+ 
+-socketserver.TCPServer.allow_reuse_address = True
+-with socketserver.TCPServer(("0.0.0.0", PORT), AdminHTTPRequestHandler) as httpd:
+-    print(f"Serving HTTP on 0.0.0.0 port {PORT}...")
+-    httpd.serve_forever()
++if __name__ == '__main__':
++    import time
++    free_port(PORT)
++    for attempt in range(5):
++        try:
++            with ReusableTCPServer(("0.0.0.0", PORT), AdminHTTPRequestHandler) as httpd:
++                print(f"Serving HTTP on 0.0.0.0 port {PORT}...")
++                httpd.serve_forever()
++        except OSError as e:
++            if e.errno == 48:
++                print(f"Port {PORT} still in use ({attempt+1}/5). Waiting 2 seconds...")
++                time.sleep(2)
++            else:
++                raise
++    else:
++        print(f"Failed to bind to port {PORT} after 5 attempts.")
++        sys.exit(1)
+ 
+ 
+diff --git a/KnowFlux Summer Updates/Week 3/day14notes.md b/KnowFlux Summer Updates/Week 3/day14notes.md
+new file mode 100644
+index 0000000..e69de29
+diff --git a/css/base.css b/css/base.css
+index f0581e8..6c59007 100644
+--- a/css/base.css
++++ b/css/base.css
+@@ -26,6 +26,7 @@ h2 {
+   font-size: 30px;
  }
+ 
++
+ .spacer.v10 {
+   height: 10px;
+ }
+diff --git a/css/omni-dex.css b/css/omni-dex.css
+index 7e4e59e..114b78f 100644
+--- a/css/omni-dex.css
++++ b/css/omni-dex.css
+@@ -204,14 +204,14 @@ body.omni-dex[data-universe="exploded"] {
+ }
+ 
+ /* =========================================================
+-   Omni‑Dex Modal – KnowFlux Codex Design
++   Omni‑Dex Modal – Nintendo KnowFlux Style
+    ========================================================= */
+ 
+-/* Full-screen overlay */
++/* Full-screen overlay – saturated blue instead of dark grey */
+ .omni-modal {
+   position: fixed;
+   top: 0; left: 0; width: 100%; height: 100%;
+-  background: rgba(0,0,0,0.7);
++  background: rgba(67, 146, 241, 0.55);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+@@ -225,17 +225,30 @@ body.omni-dex[data-universe="exploded"] {
+   pointer-events: auto;
+ }
+ 
+-/* Modal body */
++/* Modal body – white background, thick black border, chunky coloured shadow */
+ .omni-modal-content {
+-  background: #1a1a2e;
+-  border: 3px solid var(--omni-dex-accent);
+-  border-radius: 12px;
++  background: #ffffff;
++  border: 4px solid #000;
++  border-radius: 0;
+   width: 90%;
+   max-width: 560px;
+   display: flex;
+   flex-direction: column;
+   padding: 20px 16px 16px;
+-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
++  box-shadow: 8px 8px 0 var(--omni-dex-accent);
++  transform: scale(0.92);
++  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
++}
++.omni-modal.visible .omni-modal-content {
++  transform: scale(1);
++}
++
++/* Per-universe shadow colouring */
++.omni-modal-content[data-universe="exploded"] {
++  box-shadow: 8px 8px 0 #D4A017;
++}
++.omni-modal-content[data-universe="pinnacle"] {
++  box-shadow: 8px 8px 0 #4392F1;
+ }
+ 
+ /* Screen area */
+@@ -249,35 +262,42 @@ body.omni-dex[data-universe="exploded"] {
+ }
+ 
+ .omni-modal-titlebar {
+-  border-bottom: 2px solid var(--omni-dex-accent);
+-  padding: 0 0 8px;
++  border-bottom: 4px solid #F46036;
++  padding: 0 8px 8px 0;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+ }
+ .omni-modal-title {
+-  font-family: 'Courier New', monospace;
++  font-family: 'Anton', cursive;
+   font-weight: normal;
+-  font-size: 1.2rem;
+-  color: var(--omni-dex-accent);
+-  letter-spacing: 0.5px;
++  font-size: 1.5rem;
++  color: #333;
++  text-transform: uppercase;
++  letter-spacing: 1px;
+ }
+ 
+-/* Stats toggle button in titlebar */
++/* Stats toggle button – chunky Nintendo-style */
+ .omni-modal-stats-btn {
+-  background: transparent;
+-  border: 1px solid var(--omni-dex-accent);
+-  color: var(--omni-dex-accent);
+-  font-family: 'Courier New', monospace;
+-  font-size: 0.8rem;
+-  padding: 4px 10px;
+-  border-radius: 4px;
++  background: #4392F1;
++  color: #fff;
++  border: 3px solid #000;
++  font-family: 'Anton', cursive;
++  font-size: 0.9rem;
++  padding: 6px 14px;
++  box-shadow: 4px 4px 0 #000;
++  text-transform: uppercase;
++  letter-spacing: 1px;
+   cursor: pointer;
+-  transition: background 0.2s, color 0.2s;
++  transition: transform 0.1s, box-shadow 0.1s;
+ }
+ .omni-modal-stats-btn:hover {
+-  background: var(--omni-dex-accent);
+-  color: #ffffff;
++  transform: translate(2px, 2px);
++  box-shadow: 2px 2px 0 #000;
++}
++.omni-modal-stats-btn:active {
++  transform: translate(4px, 4px);
++  box-shadow: 0 0 0 #000;
+ }
+ 
+ /* Body wrapper: holds content and sidebar */
+@@ -291,7 +311,7 @@ body.omni-dex[data-universe="exploded"] {
+ .omni-modal-body {
+   padding: 12px 0;
+   overflow-y: auto;
+-  color: #e0e0e0;
++  color: #333;
+   font-family: 'Open Sans', sans-serif;
+   line-height: 1.7;
+   flex: 1;
+@@ -301,17 +321,18 @@ body.omni-dex[data-universe="exploded"] {
+   margin: 0 0 0.8rem;
+ }
+ 
+-/* Stats sidebar – slides in from right, overlays content */
++/* Stats sidebar – white with chunky black border and orange accent */
+ .omni-modal-stats-sidebar {
+   position: absolute;
+   top: 0;
+   right: -320px;
+   width: 300px;
+   height: 100%;
+-  background: #0f171e;
+-  border-left: 2px solid var(--omni-dex-accent);
++  background: #fff;
++  border-left: 4px solid #000;
++  box-shadow: -4px 0 0 #F46036;
+   padding: 12px;
+-  padding-top: 30px;  /* extra space so tooltips near top are fully visible */
++  padding-top: 30px;
+   overflow-y: auto;
+   transition: right 0.3s ease;
+   box-sizing: border-box;
+@@ -324,34 +345,37 @@ body.omni-dex[data-universe="exploded"] {
+   margin-right: 0;
+ }
+ 
+-/* Stat items inside sidebar – reuse existing .omni-stat styles but adjust colors */
++/* Stat items inside sidebar – dark text on white */
+ .omni-modal-stats-sidebar .omni-stat-label {
+-  color: #aaaaaa;
++  color: #333;
+   cursor: pointer;
+   width: 150px;
+   overflow-wrap: break-word;
+   word-break: break-word;
+ }
+ .omni-modal-stats-sidebar .omni-stat-value {
+-  color: #e0e0e0;
++  color: #333;
+ }
+ .omni-modal-stats-sidebar .omni-stat-bar {
+-  background: #2a2a2a;
++  background: #e0e0e0;
++}
++.omni-modal-stats-sidebar .omni-stat-fill {
++  background: var(--omni-dex-accent);
+ }
+ 
+-/* Tooltip that appears when a stat is clicked — positioned below the stat bar */
++/* Tooltip that appears when a stat is clicked */
+ .omni-stat-tooltip {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   right: 0;
+-  background: #333;
+-  color: #e0e0e0;
++  background: #fff;
++  color: #333;
+   font-family: 'Open Sans', sans-serif;
+   font-size: 0.75rem;
+   padding: 4px 8px;
+-  border-radius: 4px;
+-  border: 1px solid var(--omni-dex-accent);
++  border: 3px solid #000;
++  box-shadow: 4px 4px 0 #F46036;
+   z-index: 20;
+   pointer-events: auto;
+   word-wrap: break-word;
+@@ -372,33 +396,38 @@ body.omni-dex[data-universe="exploded"] {
+   padding: 0;
+ }
+ 
+-/* Flat buttons */
++/* Chunky square buttons */
+ .omni-modal-btn {
+-  padding: 8px 18px;
+-  font-family: 'Open Sans', sans-serif;
++  padding: 10px 22px;
++  font-family: 'Anton', cursive;
+   font-size: 0.9rem;
+-  font-weight: 600;
+-  border: none;
+-  border-radius: 6px;
++  text-transform: uppercase;
++  letter-spacing: 1px;
++  border: 3px solid #000;
++  border-radius: 0;
+   cursor: pointer;
+-  transition: background 0.2s, transform 0.1s;
++  transition: transform 0.1s, box-shadow 0.1s;
++  box-shadow: 4px 4px 0 #000;
+ }
+ .omni-modal-btn:active {
+-  transform: scale(0.97);
++  transform: translate(2px, 2px);
++  box-shadow: 2px 2px 0 #000;
+ }
+ .omni-modal-btn-close {
+-  background: #555;
+-  color: white;
++  background: #F46036;
++  color: #fff;
+ }
+ .omni-modal-btn-close:hover {
+-  background: #777;
++  transform: translate(2px, 2px);
++  box-shadow: 2px 2px 0 #000;
+ }
+ .omni-modal-btn-next {
+-  background: var(--omni-dex-accent);
+-  color: white;
++  background: #4392F1;
++  color: #fff;
+ }
+ .omni-modal-btn-next:hover {
+-  filter: brightness(1.1);
++  transform: translate(2px, 2px);
++  box-shadow: 2px 2px 0 #000;
+ }
+ 
+ /* Status messages */
+diff --git a/js/omni-dex.js b/js/omni-dex.js
+index 89f0fb0..cc2a6fd 100644
+--- a/js/omni-dex.js
++++ b/js/omni-dex.js
+@@ -19,6 +19,7 @@
+   const modalBodyWrapper = modal.querySelector('.omni-modal-body-wrapper');
+   const body = document.body;
+   const modalScreen = modal.querySelector('.omni-modal-screen');
++  const modalContentOuter = modal.querySelector('.omni-modal-content');
+ 
+   // ── State ──
+   let allEntries = [];
+@@ -187,6 +188,9 @@
+     modalTitle.textContent = entry.title;
+     modalContent.innerHTML = entry.content || '<p>No further details available.</p>';
+ 
++    // Set data-universe on outer modal content for per-universe theming
++    modalContentOuter.dataset.universe = entry.universe || 'pinnacle';
++
+     // Populate stats sidebar
+     if (entry.stats) {
+       modalStatsContent.innerHTML = renderStats(entry.stats);
+diff --git a/requirements.txt b/requirements.txt
+index 20781e7..eac0850 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-# None needed.
 \ No newline at end of file
-diff --git a/comingsoon.html b/comingsoon.html
-index 5c22baa..1ab5fc6 100644
---- a/comingsoon.html
-+++ b/comingsoon.html
-@@ -7,7 +7,7 @@
-   <meta name="description" content="Coming soon - new stories and poetry from KnowFlux.">
-   <title>Coming Soon | KnowFlux</title>
-   <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <link rel="stylesheet" href = "css/main.css">
-   <script src = "js/bundle.js?cachebust=14"></script>
-   <style>
-@@ -81,7 +81,7 @@
-           </li>
-         </ul>
-       </div>
--      <a class="logo" href="index.html"><img src = "Images/favicon.png">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src = "Images/favicon.jpeg">KnowFlux</a>
-     </div>
-   </div>
- 
-diff --git a/contents.html b/contents.html
-index c819552..6d5fd8e 100644
---- a/contents.html
-+++ b/contents.html
-@@ -7,9 +7,10 @@
-   <meta name="description" content="Browse all chapters and pages of KnowFlux books.">
-   <title>Contents | KnowFlux</title>
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <link rel="stylesheet" href = "css/main.css">
-   <script src = "js/bundle.js?cachebust=14"></script>
-+  <script src = "js/contents.js?cachebust=14"></script></script>
-   <style>
-     .content-type-tabs {
-       display: flex;
-@@ -81,7 +82,7 @@
-           </li>
-         </ul>
-       </div>
--      <a class="logo" href="index.html"><img src = "Images/favicon.png">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src = "Images/favicon.jpeg">KnowFlux</a>
-     </div>
-   </div>
- 
-diff --git a/feedback.html b/feedback.html
-index 56ef320..332618d 100644
---- a/feedback.html
-+++ b/feedback.html
-@@ -7,7 +7,7 @@
-   <meta name="description" content="Share your thoughts and feedback about KnowFlux stories and poetry.">
-   <title>Feedback | KnowFlux</title>
-   <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <link rel="stylesheet" href = "css/main.css">
-   <script src = "js/bundle.js?cachebust=14"></script>
- </head>
-@@ -45,7 +45,7 @@
-           </li>
-         </ul>
-       </div>
--      <a class="logo" href="index.html"><img src = "Images/favicon.png">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src = "Images/favicon.jpeg">KnowFlux</a>
-     </div>
-   </div>
- 
-diff --git a/index.html b/index.html
-index 6f74fbf..08876d1 100644
---- a/index.html
-+++ b/index.html
-@@ -7,7 +7,7 @@
-   <meta name="description" content="KnowFlux - A bold, Nintendo-inspired literary haven for creative writing with sharp visuals and epic reading experiences.">
-   <title>Home | KnowFlux</title>
-   <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <link rel="stylesheet" href = "css/main.css">
-   <script src = "js/bundle.js?cachebust=14"></script>
- </head>
-@@ -45,7 +45,7 @@
-           </li>
-         </ul>
-       </div>
--      <a class="logo" href="index.html"><img src = "Images/favicon.png" alt = "KnowFlux logo">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src = "Images/favicon.jpeg" alt = "KnowFlux logo">KnowFlux</a>
-     </div>
-   </div>
-   <div class="wrap">
-diff --git a/js/bundle.js b/js/bundle.js
-index 5cf7872..b75a90c 100644
---- a/js/bundle.js
-+++ b/js/bundle.js
-@@ -1,7 +1,13 @@
--document.addEventListener('DOMContentLoaded', function() {
- // ── /workspaces/knowflux.github.io/js/reader.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // reader.js — part 1
- (function() {
-+  // ── Guard: only run on pages with book structure ──
-+  if (!document.querySelector('.page-title') || !document.getElementById('reader-content')) {
-+    console.log('reader.js: Not a book page, skipping.');
-+    return;
-+  }
-+
-   const params = new URLSearchParams(window.location.search);
-   const book = params.get('book') || 'exploded';   // default to Exploded
-   const pageNum = parseInt(params.get('page'), 10) || 1;
-@@ -109,13 +115,26 @@ document.addEventListener('DOMContentLoaded', function() {
-         ? (nextPg.chapter_title !== page.chapter_title)
-         : true;            // no next page = end of book = end of chapter
-       window.__chapterName = page.chapter_title;
-+
-+      // ── Recalculate word count after content injection ──
-+      var contentEl = document.getElementById('reader-content');
-+      if (contentEl) {
-+        var wordCount = contentEl.innerText.trim().split(/\s+/).filter(Boolean).length;
-+        var readTime  = Math.max(1, Math.round(wordCount / 200));
-+        var timeBadge = document.querySelector('.rdr-time-badge');
-+        var wordBadge = document.querySelector('.rdr-word-badge');
-+        if (timeBadge) timeBadge.textContent = '\u23F1 ' + readTime + ' min read';
-+        if (wordBadge) wordBadge.textContent = wordCount.toLocaleString() + ' words';
-+      }
-     })
-     .catch(function(error) {
-       console.error(error);
-     });
- })();
-+});
- 
- // ── /workspaces/knowflux.github.io/js/navigation.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // ---------------------------------------------------------------------------
- // Promo message cycling
- // ---------------------------------------------------------------------------
-@@ -391,9 +410,10 @@ hamburger.addEventListener('click', function() {
-     showPanel(navTree, null);
- });
- }
--
-+});
- 
- // ── /workspaces/knowflux.github.io/js/reading.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // ---------------------------------------------------------------------------
- // Scroll Progress Bar
- // ---------------------------------------------------------------------------
-@@ -810,8 +830,10 @@ if (!isPoetryPage) {
- }
- 
- })(); // end initReadingExperience
-+});
- 
- // ── /workspaces/knowflux.github.io/js/footer.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // ---------------------------------------------------------------------------
- // Dynamic Copyright Year (CST)
- // ---------------------------------------------------------------------------
-@@ -861,8 +883,10 @@ window.addEventListener('scroll', scrollHandler, { passive: true });
- // Also check immediately in case user loads mid-page
- attemptReveal();
- })();
-+});
- 
- // ── /workspaces/knowflux.github.io/js/random.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // ---------------------------------------------------------------------------
- // Random Poem Redirect
- // ---------------------------------------------------------------------------
-@@ -891,6 +915,7 @@ randomBookBtn.addEventListener('click', function(e) {
-     window.location.href = books[Math.floor(Math.random() * books.length)];
- });
- }
-+});
- 
- // ── /workspaces/knowflux.github.io/js/main.js ──
- // KnowFlux — main JS entry point
-@@ -898,5 +923,4 @@ document.addEventListener('DOMContentLoaded', function() {
-   // Each module self-executes or exports functions called here
-   // (Your split modules will just run when the bundle loads)
- });
--});
- 
-diff --git a/js/contents.js b/js/contents.js
-index 954bd4e..b7139e8 100644
---- a/js/contents.js
-+++ b/js/contents.js
-@@ -88,4 +88,56 @@ window.applyBookmarks = function() {
- // Run immediately on page load
- window.applyBookmarks();
- })();
-+});
-+
-+// ── Dynamic contents: fetch books.json and build chapter lists ──
-+document.addEventListener('DOMContentLoaded', function() {
-+  (function initDynamicContents() {
-+    // Only run on contents.html (has #book-content with .book-panel children)
-+    var panels = document.querySelectorAll('#book-content > .book-panel');
-+    if (!panels.length) return;
-+
-+    fetch('books.json')
-+      .then(function(r) { return r.json(); })
-+      .then(function(data) {
-+        data.books.forEach(function(book) {
-+          var panel = document.getElementById('panel-' + book.id);
-+          if (!panel) return;
-+
-+          // Group pages by chapter (preserving order)
-+          var chapters = {};
-+          var chapterOrder = [];
-+          book.pages.forEach(function(page) {
-+            var title = page.chapter_title;
-+            if (!chapters[title]) {
-+              chapters[title] = [];
-+              chapterOrder.push(title);
-+            }
-+            chapters[title].push(page);
-+          });
-+
-+          // Build HTML matching the existing <details>/<summary>/<ul> pattern
-+          var html = '';
-+          chapterOrder.forEach(function(chapterTitle, i) {
-+            var pages = chapters[chapterTitle];
-+            html += '<details' + (i === 0 ? ' open' : '') + '>';
-+            html += '<summary>' + chapterTitle + '</summary>';
-+            html += '<ul>';
-+            pages.forEach(function(page) {
-+              html += '<li><a href="' + (page.url || page.file) + '">Page ' + page.page_number + '</a></li>';
-+            });
-+            html += '</ul>';
-+            html += '</details>';
-+          });
-+
-+          panel.innerHTML = html;
-+        });
-+
-+        // Re-apply bookmarks now that links are freshly injected
-+        if (window.applyBookmarks) window.applyBookmarks();
-+      })
-+      .catch(function(err) {
-+        console.error('Dynamic contents: could not load books.json', err);
-+      });
-+  })();
- });
++# No external Python packages required – all dependencies are in the standard library.
 \ No newline at end of file
-diff --git a/js/reader.js b/js/reader.js
-index 64a0089..f5efa36 100644
---- a/js/reader.js
-+++ b/js/reader.js
-@@ -1,6 +1,12 @@
- document.addEventListener('DOMContentLoaded', function() {
- // reader.js — part 1
- (function() {
-+  // ── Guard: only run on pages with book structure ──
-+  if (!document.querySelector('.page-title') || !document.getElementById('reader-content')) {
-+    console.log('reader.js: Not a book page, skipping.');
-+    return;
-+  }
-+
-   const params = new URLSearchParams(window.location.search);
-   const book = params.get('book') || 'exploded';   // default to Exploded
-   const pageNum = parseInt(params.get('page'), 10) || 1;
-@@ -108,6 +114,17 @@ document.addEventListener('DOMContentLoaded', function() {
-         ? (nextPg.chapter_title !== page.chapter_title)
-         : true;            // no next page = end of book = end of chapter
-       window.__chapterName = page.chapter_title;
-+
-+      // ── Recalculate word count after content injection ──
-+      var contentEl = document.getElementById('reader-content');
-+      if (contentEl) {
-+        var wordCount = contentEl.innerText.trim().split(/\s+/).filter(Boolean).length;
-+        var readTime  = Math.max(1, Math.round(wordCount / 200));
-+        var timeBadge = document.querySelector('.rdr-time-badge');
-+        var wordBadge = document.querySelector('.rdr-word-badge');
-+        if (timeBadge) timeBadge.textContent = '\u23F1 ' + readTime + ' min read';
-+        if (wordBadge) wordBadge.textContent = wordCount.toLocaleString() + ' words';
-+      }
-     })
-     .catch(function(error) {
-       console.error(error);
-diff --git a/poetry.html b/poetry.html
-index 6bcafa4..f5abe61 100644
---- a/poetry.html
-+++ b/poetry.html
-@@ -7,7 +7,7 @@
-   <meta name="description" content="Explore beautiful haikus and poetic works celebrating the rhythm of words at KnowFlux.">
-   <title>Poetry | KnowFlux</title>
-   <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <link rel="stylesheet" href = "css/main.css">
-   <script src = "js/bundle.js?cachebust=14"></script>
- </head>
-@@ -45,7 +45,7 @@
-           </li>
-         </ul>
-       </div>
--      <a class="logo" href="index.html"><img src = "Images/favicon.png">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src = "Images/favicon.jpeg">KnowFlux</a>
-     </div>
-   </div>
-   <div class="wrap" id="poetry-content">
-diff --git a/reader.html b/reader.html
-index de7ec28..e71ee74 100644
---- a/reader.html
-+++ b/reader.html
-@@ -7,7 +7,7 @@
-   <meta name="description" content="Read KnowFlux books — immersive sci-fi and fantasy fiction.">
-   <title>Read | KnowFlux</title>
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <link rel="stylesheet" href = "css/main.css">
-   <script src = "js/bundle.js?cachebust=14"></script>
- </head>
-@@ -45,7 +45,7 @@
-           </li>
-         </ul>
-       </div>
--      <a class="logo" href="index.html"><img src = "Images/favicon.png">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src = "Images/favicon.jpeg">KnowFlux</a>
-     </div>
-   </div>
-   <div class="wrap">
-diff --git a/script.js b/script.js
-index 3125ee4..b75a90c 100644
---- a/script.js
-+++ b/script.js
-@@ -1,6 +1,13 @@
- // ── /workspaces/knowflux.github.io/js/reader.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // reader.js — part 1
- (function() {
-+  // ── Guard: only run on pages with book structure ──
-+  if (!document.querySelector('.page-title') || !document.getElementById('reader-content')) {
-+    console.log('reader.js: Not a book page, skipping.');
-+    return;
-+  }
-+
-   const params = new URLSearchParams(window.location.search);
-   const book = params.get('book') || 'exploded';   // default to Exploded
-   const pageNum = parseInt(params.get('page'), 10) || 1;
-@@ -108,13 +115,26 @@
-         ? (nextPg.chapter_title !== page.chapter_title)
-         : true;            // no next page = end of book = end of chapter
-       window.__chapterName = page.chapter_title;
-+
-+      // ── Recalculate word count after content injection ──
-+      var contentEl = document.getElementById('reader-content');
-+      if (contentEl) {
-+        var wordCount = contentEl.innerText.trim().split(/\s+/).filter(Boolean).length;
-+        var readTime  = Math.max(1, Math.round(wordCount / 200));
-+        var timeBadge = document.querySelector('.rdr-time-badge');
-+        var wordBadge = document.querySelector('.rdr-word-badge');
-+        if (timeBadge) timeBadge.textContent = '\u23F1 ' + readTime + ' min read';
-+        if (wordBadge) wordBadge.textContent = wordCount.toLocaleString() + ' words';
-+      }
-     })
-     .catch(function(error) {
-       console.error(error);
-     });
- })();
-+});
- 
- // ── /workspaces/knowflux.github.io/js/navigation.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // ---------------------------------------------------------------------------
- // Promo message cycling
- // ---------------------------------------------------------------------------
-@@ -390,8 +410,10 @@ hamburger.addEventListener('click', function() {
-     showPanel(navTree, null);
- });
- }
-+});
- 
- // ── /workspaces/knowflux.github.io/js/reading.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // ---------------------------------------------------------------------------
- // Scroll Progress Bar
- // ---------------------------------------------------------------------------
-@@ -808,8 +830,10 @@ if (!isPoetryPage) {
- }
- 
- })(); // end initReadingExperience
-+});
- 
- // ── /workspaces/knowflux.github.io/js/footer.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // ---------------------------------------------------------------------------
- // Dynamic Copyright Year (CST)
- // ---------------------------------------------------------------------------
-@@ -859,8 +883,10 @@ window.addEventListener('scroll', scrollHandler, { passive: true });
- // Also check immediately in case user loads mid-page
- attemptReveal();
- })();
-+});
- 
- // ── /workspaces/knowflux.github.io/js/random.js ──
-+document.addEventListener('DOMContentLoaded', function() {
- // ---------------------------------------------------------------------------
- // Random Poem Redirect
- // ---------------------------------------------------------------------------
-@@ -889,6 +915,7 @@ randomBookBtn.addEventListener('click', function(e) {
-     window.location.href = books[Math.floor(Math.random() * books.length)];
- });
- }
-+});
- 
- // ── /workspaces/knowflux.github.io/js/main.js ──
- // KnowFlux — main JS entry point
-diff --git a/search.html b/search.html
-index 717767d..5b6b3bf 100644
---- a/search.html
-+++ b/search.html
-@@ -7,7 +7,7 @@
-   <meta name="description" content="Search our collection of stories and poetry from KnowFlux's library.">
-   <title>Search | KnowFlux</title>
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
--  <link rel="icon" type="image/png" href="Images/favicon.png">
-+  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-   <link rel="stylesheet" href = "css/main.css">
-   <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.24.0/dist/algoliasearch-lite.umd.js"></script>
-   <script src = "js/bundle.js?cachebust=14"></script>
-@@ -47,7 +47,7 @@
-           </li>
-         </ul>
-       </div>
--      <a class="logo" href="index.html"><img src="Images/favicon.png">KnowFlux</a>
-+      <a class="logo" href="index.html"><img src="Images/favicon.jpeg">KnowFlux</a>
-     </div>
-   </div>
-   <div id="banner">
-diff --git a/sitemap.xml b/sitemap.xml
-index dcd5c8f..708df3e 100644
---- a/sitemap.xml
-+++ b/sitemap.xml
-@@ -2,187 +2,169 @@
- <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-     <loc>https://knowflux.ink/</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <lastmod>2026-06-14</lastmod>
-+    <changefreq>weekly</changefreq>
-+    <priority>1.0</priority>
-+  </url>
-+  <url>
-+    <loc>https://knowflux.ink/index.html</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>1.0</priority>
-   </url>
-   <url>
-     <loc>https://knowflux.ink/aboutbook.html</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.9</priority>
-   </url>
-   <url>
-     <loc>https://knowflux.ink/comingsoon.html</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>monthly</changefreq>
-     <priority>0.5</priority>
-   </url>
-   <url>
-     <loc>https://knowflux.ink/contents.html</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.9</priority>
-   </url>
-   <url>
-     <loc>https://knowflux.ink/feedback.html</loc>
--    <lastmod>2026-06-11</lastmod>
--    <changefreq>weekly</changefreq>
--    <priority>0.8</priority>
--  </url>
--  <url>
--    <loc>https://knowflux.ink/Poetry/finalmoment.html</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
-     <loc>https://knowflux.ink/poetry.html</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.9</priority>
-   </url>
-   <url>
-     <loc>https://knowflux.ink/reader.html</loc>
--    <lastmod>2026-06-11</lastmod>
--    <changefreq>weekly</changefreq>
--    <priority>0.8</priority>
--  </url>
--  <url>
--    <loc>https://knowflux.ink/Poetry/rhythmoftheredriver.html</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
-     <loc>https://knowflux.ink/search.html</loc>
--    <lastmod>2026-06-11</lastmod>
--    <changefreq>weekly</changefreq>
--    <priority>0.8</priority>
--  </url>
--  <url>
--    <loc>https://knowflux.ink/Poetry/sowhisperedthewind.html</loc>
--    <lastmod>2026-06-11</lastmod>
--    <changefreq>weekly</changefreq>
--    <priority>0.8</priority>
--  </url>
--  <url>
--    <loc>https://knowflux.ink/symbolsofnature.html</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/Poetry/unrestfulstillness.html.html</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=1</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=1</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=2</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=2</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=3</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=3</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=4</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=4</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=5</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=5</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=6</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=6</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=7</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=7</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=8</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=8</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=9</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=9</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=10</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=10</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=11</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=11</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=12</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=12</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=13</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=13</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=14</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=14</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=15</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=15</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=16</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=16</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=17</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=exploded&page=17</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=exploded&amp;page=18</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   <url>
--    <loc>https://knowflux.ink/reader.html?book=pinnacle&page=1</loc>
--    <lastmod>2026-06-11</lastmod>
-+    <loc>https://knowflux.ink/reader.html?book=pinnacle&amp;page=1</loc>
-+    <lastmod>2026-06-14</lastmod>
-     <changefreq>weekly</changefreq>
-     <priority>0.8</priority>
-   </url>

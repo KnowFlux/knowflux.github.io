@@ -19,6 +19,7 @@
   const modalBodyWrapper = modal.querySelector('.omni-modal-body-wrapper');
   const body = document.body;
   const modalScreen = modal.querySelector('.omni-modal-screen');
+  const modalContentOuter = modal.querySelector('.omni-modal-content');
 
   // ── State ──
   let allEntries = [];
@@ -186,6 +187,9 @@
   function openModal(entry) {
     modalTitle.textContent = entry.title;
     modalContent.innerHTML = entry.content || '<p>No further details available.</p>';
+
+    // Set data-universe on outer modal content for per-universe theming
+    modalContentOuter.dataset.universe = entry.universe || 'pinnacle';
 
     // Populate stats sidebar
     if (entry.stats) {

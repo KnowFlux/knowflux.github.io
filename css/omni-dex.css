@@ -204,14 +204,14 @@ body.omni-dex[data-universe="exploded"] {
 }
 
 /* =========================================================
-   Omni‑Dex Modal – KnowFlux Codex Design
+   Omni‑Dex Modal – Nintendo KnowFlux Style
    ========================================================= */
 
-/* Full-screen overlay */
+/* Full-screen overlay – saturated blue instead of dark grey */
 .omni-modal {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
+  background: rgba(67, 146, 241, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,17 +225,30 @@ body.omni-dex[data-universe="exploded"] {
   pointer-events: auto;
 }
 
-/* Modal body */
+/* Modal body – white background, thick black border, chunky coloured shadow */
 .omni-modal-content {
-  background: #1a1a2e;
-  border: 3px solid var(--omni-dex-accent);
-  border-radius: 12px;
+  background: #ffffff;
+  border: 4px solid #000;
+  border-radius: 0;
   width: 90%;
   max-width: 560px;
   display: flex;
   flex-direction: column;
   padding: 20px 16px 16px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  box-shadow: 8px 8px 0 var(--omni-dex-accent);
+  transform: scale(0.92);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.omni-modal.visible .omni-modal-content {
+  transform: scale(1);
+}
+
+/* Per-universe shadow colouring */
+.omni-modal-content[data-universe="exploded"] {
+  box-shadow: 8px 8px 0 #D4A017;
+}
+.omni-modal-content[data-universe="pinnacle"] {
+  box-shadow: 8px 8px 0 #4392F1;
 }
 
 /* Screen area */
@@ -249,35 +262,42 @@ body.omni-dex[data-universe="exploded"] {
 }
 
 .omni-modal-titlebar {
-  border-bottom: 2px solid var(--omni-dex-accent);
-  padding: 0 0 8px;
+  border-bottom: 4px solid #F46036;
+  padding: 0 8px 8px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .omni-modal-title {
-  font-family: 'Courier New', monospace;
+  font-family: 'Anton', cursive;
   font-weight: normal;
-  font-size: 1.2rem;
-  color: var(--omni-dex-accent);
-  letter-spacing: 0.5px;
+  font-size: 1.5rem;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* Stats toggle button in titlebar */
+/* Stats toggle button – chunky Nintendo-style */
 .omni-modal-stats-btn {
-  background: transparent;
-  border: 1px solid var(--omni-dex-accent);
-  color: var(--omni-dex-accent);
-  font-family: 'Courier New', monospace;
-  font-size: 0.8rem;
-  padding: 4px 10px;
-  border-radius: 4px;
+  background: #4392F1;
+  color: #fff;
+  border: 3px solid #000;
+  font-family: 'Anton', cursive;
+  font-size: 0.9rem;
+  padding: 6px 14px;
+  box-shadow: 4px 4px 0 #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 .omni-modal-stats-btn:hover {
-  background: var(--omni-dex-accent);
-  color: #ffffff;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+.omni-modal-stats-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 #000;
 }
 
 /* Body wrapper: holds content and sidebar */
@@ -291,7 +311,7 @@ body.omni-dex[data-universe="exploded"] {
 .omni-modal-body {
   padding: 12px 0;
   overflow-y: auto;
-  color: #e0e0e0;
+  color: #333;
   font-family: 'Open Sans', sans-serif;
   line-height: 1.7;
   flex: 1;
@@ -301,17 +321,18 @@ body.omni-dex[data-universe="exploded"] {
   margin: 0 0 0.8rem;
 }
 
-/* Stats sidebar – slides in from right, overlays content */
+/* Stats sidebar – white with chunky black border and orange accent */
 .omni-modal-stats-sidebar {
   position: absolute;
   top: 0;
   right: -320px;
   width: 300px;
   height: 100%;
-  background: #0f171e;
-  border-left: 2px solid var(--omni-dex-accent);
+  background: #fff;
+  border-left: 4px solid #000;
+  box-shadow: -4px 0 0 #F46036;
   padding: 12px;
-  padding-top: 30px;  /* extra space so tooltips near top are fully visible */
+  padding-top: 30px;
   overflow-y: auto;
   transition: right 0.3s ease;
   box-sizing: border-box;
@@ -324,34 +345,37 @@ body.omni-dex[data-universe="exploded"] {
   margin-right: 0;
 }
 
-/* Stat items inside sidebar – reuse existing .omni-stat styles but adjust colors */
+/* Stat items inside sidebar – dark text on white */
 .omni-modal-stats-sidebar .omni-stat-label {
-  color: #aaaaaa;
+  color: #333;
   cursor: pointer;
   width: 150px;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 .omni-modal-stats-sidebar .omni-stat-value {
-  color: #e0e0e0;
+  color: #333;
 }
 .omni-modal-stats-sidebar .omni-stat-bar {
-  background: #2a2a2a;
+  background: #e0e0e0;
+}
+.omni-modal-stats-sidebar .omni-stat-fill {
+  background: var(--omni-dex-accent);
 }
 
-/* Tooltip that appears when a stat is clicked — positioned below the stat bar */
+/* Tooltip that appears when a stat is clicked */
 .omni-stat-tooltip {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  background: #333;
-  color: #e0e0e0;
+  background: #fff;
+  color: #333;
   font-family: 'Open Sans', sans-serif;
   font-size: 0.75rem;
   padding: 4px 8px;
-  border-radius: 4px;
-  border: 1px solid var(--omni-dex-accent);
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0 #F46036;
   z-index: 20;
   pointer-events: auto;
   word-wrap: break-word;
@@ -372,33 +396,38 @@ body.omni-dex[data-universe="exploded"] {
   padding: 0;
 }
 
-/* Flat buttons */
+/* Chunky square buttons */
 .omni-modal-btn {
-  padding: 8px 18px;
-  font-family: 'Open Sans', sans-serif;
+  padding: 10px 22px;
+  font-family: 'Anton', cursive;
   font-size: 0.9rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 3px solid #000;
+  border-radius: 0;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 4px 4px 0 #000;
 }
 .omni-modal-btn:active {
-  transform: scale(0.97);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
 }
 .omni-modal-btn-close {
-  background: #555;
-  color: white;
+  background: #F46036;
+  color: #fff;
 }
 .omni-modal-btn-close:hover {
-  background: #777;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
 }
 .omni-modal-btn-next {
-  background: var(--omni-dex-accent);
-  color: white;
+  background: #4392F1;
+  color: #fff;
 }
 .omni-modal-btn-next:hover {
-  filter: brightness(1.1);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
 }
 
 /* Status messages */

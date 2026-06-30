@@ -117,6 +117,7 @@ body.omni-dex.modal-active .omni-status {
   font-family: 'Courier New', monospace;
   font-size: 0.85rem;
   text-transform: uppercase;
+  background: #ffffff;
   border: 1px solid var(--omni-dex-text-light);
   color: var(--omni-dex-text-light);
   cursor: pointer;
@@ -158,6 +159,15 @@ body.omni-dex.modal-active .omni-status {
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 
+.omni-card-header {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--omni-dex-text-light);
+  text-align: center;
+  margin-bottom: 0.4rem;
+  letter-spacing: 1px;
+}
 .omni-card-title {
   font-family: 'Anton', sans-serif;
   font-size: 1.5rem;
@@ -206,12 +216,17 @@ body.omni-dex.modal-active .omni-status {
   border-radius: 5px;
   overflow: hidden;
 }
+
+@keyframes fillBar {
+  from { width: 0%; }
+  to   { width: var(--target-width); }
+}
 .omni-stat-fill {
   height: 100%;
   border-radius: 5px;
   background: var(--omni-dex-stat-fill);
   width: 0%;
-  transition: width 0.6s ease-out;
+  animation: fillBar 0.6s ease-out forwards;
 }
 .omni-stat-value {
   width: 30px;
@@ -251,7 +266,7 @@ body.omni-dex.modal-active .omni-status {
 .omni-modal {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: var(--modal-overlay);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -263,14 +278,6 @@ body.omni-dex.modal-active .omni-status {
 .omni-modal.visible {
   opacity: 1;
   pointer-events: auto;
-}
-
-/* Per-universe overlay colours (data-universe set by JS on the modal) */
-.omni-modal[data-universe="exploded"] {
-  --modal-overlay: rgba(139, 0, 0, 0.7);
-}
-.omni-modal[data-universe="pinnacle"] {
-  --modal-overlay: rgba(67, 146, 241, 0.7);
 }
 
 /* Modal body - themable background, border, shadow */

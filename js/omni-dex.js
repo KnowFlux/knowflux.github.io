@@ -98,6 +98,7 @@
     let html = '';
     filteredEntries.forEach((entry, index) => {
       const universeClass = entry.universe === 'exploded' ? 'card-exploded' : 'card-pinnacle';
+      const universeLabel = entry.universe === 'exploded' ? 'Exploded' : 'Pinnacle';
       const typeLabel = entry.type ? entry.type.charAt(0).toUpperCase() + entry.type.slice(1) : 'Unknown';
 
       // Stat bars
@@ -110,7 +111,7 @@
             <div class="omni-stat">
               <span class="omni-stat-label">${statName}</span>
               <div class="omni-stat-bar">
-                <div class="omni-stat-fill" style="width:${value}%"></div>
+                <div class="omni-stat-fill" style="--target-width:${value}%"></div>
               </div>
               <span class="omni-stat-value">${value}</span>
             </div>
@@ -121,8 +122,8 @@
 
       html += `
         <div class="omni-card ${universeClass}" data-index="${index}" onclick="openModalByIndex(${index})">
+          <div class="omni-card-header">${universeLabel} | ${typeLabel}</div>
           <h3 class="omni-card-title">${entry.name || 'Untitled'}</h3>
-          <span class="omni-card-type">${typeLabel}</span>
           <p class="omni-card-desc">${entry.description || entry.shortDesc || ''}</p>
           ${statsHtml}
         </div>
@@ -186,7 +187,7 @@
           <div class="omni-stat">
             <span class="omni-stat-label" onclick="showStatTooltip(this, '${statName}')">${statName}</span>
             <div class="omni-stat-bar">
-              <div class="omni-stat-fill" style="width:${value}%"></div>
+              <div class="omni-stat-fill" style="--target-width:${value}%"></div>
             </div>
             <span class="omni-stat-value">${value}</span>
           </div>

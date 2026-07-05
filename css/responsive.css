@@ -206,6 +206,21 @@
   }
 }
 
+@media (max-width: 768px) {
+  #banner {
+    padding-top: 150px;
+  }
+
+  .home-book-card,
+  .feature {
+    padding: 20px;
+  }
+
+  #banner .tagline {
+    font-size: 0.95rem;
+  }
+}
+
  @media print {
 
   #promo,

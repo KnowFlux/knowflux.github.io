@@ -378,3 +378,112 @@
   display: block;
 }
 
+.feature,
+.home-book-card,
+.book-panel details,
+.dreamMemText,
+.content-type-tabs,
+.poetry-box,
+.poetry-box-grey {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.feature {
+  border-radius: 28px;
+  padding: 28px;
+}
+
+.home-book-card {
+  border-radius: 28px;
+  padding: 24px;
+  margin-top: 72px;
+}
+
+.feature .subheading {
+  color: var(--accent);
+  letter-spacing: 0.22em;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.feature hr {
+  background: linear-gradient(90deg, var(--accent), transparent);
+  height: 2px;
+  border: 0;
+  width: 120px;
+  margin: 14px auto 0;
+}
+
+.feature-link {
+  color: var(--text) !important;
+}
+
+.feature-link:hover {
+  color: var(--accent) !important;
+}
+
+#banner #action a,
+.action a,
+.comingSoonButton,
+#pagesLink a,
+#chaptersLink a,
+.formkit-submit {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #120c06;
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+#banner #action a:hover,
+.action a:hover,
+.comingSoonButton:hover,
+#pagesLink a:hover,
+#chaptersLink a:hover {
+  background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+  color: #fff;
+}
+
+.feature .badge {
+  background: linear-gradient(135deg, var(--accent), #c99246);
+  color: #120c06;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+}
+
+.dreamMemText {
+  border-radius: 18px;
+  padding: 22px 24px;
+  border-color: rgba(255,255,255,0.1);
+}
+
+.content-type-tabs {
+  border-radius: 999px;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.type-tab.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #120c06;
+}
+
+.book-panel li {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.book-panel li:hover {
+  background: rgba(212,168,92,0.16);
+  border-color: var(--accent);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.book-panel li a {
+  color: var(--accent);
+}
+

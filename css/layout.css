@@ -7,38 +7,45 @@
 }
 
 #promo {
-  background-color: #F46036;
+  background: linear-gradient(90deg, #111720, #17253a 50%, #7d4a2b);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1001;
   transition: transform 0.3s ease;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.22);
 }
 
 #promo>div {
   padding: 15px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
 }
 
 .wrap {
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 20px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1120px;
   box-sizing: border-box;
 }
-
 
 #banner {
   width: 100%;
   text-align: center;
-  padding-top: 150px;
-  color: #333;
+  padding-top: 180px;
+  color: var(--text);
 }
 
 #banner .tagline {
   padding-bottom: 20px;
-  margin-top: 0px;
+  margin: 10px auto 0;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-style: italic;
 }
 
 #banner .logo {
@@ -46,9 +53,10 @@
 }
 
 #subscribe {
-  background-color: #4392F1;
-  padding: 60px 0;
+  background: linear-gradient(135deg, #0f1622, #111720 45%, #0b0f16);
+  padding: 70px 0;
   width: 100%;
+  border-top: 1px solid var(--line);
 }
 
 #subscribe .wrap {
@@ -57,9 +65,8 @@
 
 .subscribe-wrapper {
   display: block;
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto;
-
 }
 
 #subscribe form {
@@ -69,15 +76,14 @@
   justify-content: center;
 }
 
-
 #footer {
-  background-color: #F46036;
-  padding: 20px 0;
+  background: #090d12;
+  padding: 24px 0;
   width: 100%;
   text-align: center;
+  border-top: 1px solid var(--line);
 }
 
-/* ── Footer Reveal Animation ── */
 #footer,
 #copyright {
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
@@ -106,7 +112,6 @@
   padding: 0 20px;
 }
 
-
 #footer ul {
   list-style-type: none;
   margin: 10px 0 0 0;
@@ -117,32 +122,28 @@
   flex-wrap: wrap;
 }
 
-
-
 #footer li a {
   display: inline-block;
-  color: white;
+  color: rgba(255, 255, 255, 0.85);
   text-align: center;
   padding: 20px;
   text-decoration: none;
-  -webkit-transition: all 250ms linear;
-  -ms-transition: all 250ms linear;
-  transition: all 250ms linear
+  transition: all 250ms linear;
 }
 
-
 #footer li a:hover {
-  color: #333;
+  color: var(--accent);
   transform: translateY(-2px);
 }
 
 #copyright {
   text-align: center;
-  background-color: #345995;
-  color: white;
-  padding: 20px 0;
+  background-color: #06080c;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 24px 0;
   font-size: 16px;
   width: 100%;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 #copyright .wrap {
@@ -172,7 +173,7 @@
 }
 
 #copyright .back-to-top:hover {
-  color: #F46036;
+  color: var(--accent);
   transform: translateX(-3px);
 }
 
@@ -215,7 +216,6 @@
   margin-top: 60px;
 }
 
-/* Page 1 Specific Styling */
 .page-header-container {
   text-align: left;
   margin-top: 120px;
@@ -223,18 +223,20 @@
 }
 
 .page-title {
-  font-family: 'Anton', cursive;
+  font-family: 'EB Garamond', 'Lora', serif;
   font-size: 60px;
-  color: #4392F1;
+  color: var(--accent);
   margin: 0;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .page-subtitle {
   font-family: 'Open Sans', sans-serif;
-  font-size: 32px;
-  font-weight: bold;
-  color: #333;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
   margin: 0;
 }
 
@@ -242,7 +244,7 @@
   font-family: 'Open Sans', sans-serif;
   font-size: 20px;
   line-height: 1.8;
-  color: #333;
+  color: var(--text);
   margin-bottom: 60px;
   text-align: justify;
 }
@@ -251,12 +253,11 @@
   margin-bottom: 25px;
 }
 
-/* Poetry Content Styling (for pages like Poetry/finalmoment.html) */
 .poetry-content {
   font-family: 'Open Sans', sans-serif;
   font-size: clamp(16px, 4vw, 22px);
   line-height: 1.6;
-  color: #333;
+  color: var(--text);
   text-align: center;
   max-width: 800px;
   margin: 0 auto 40px;

@@ -292,3 +292,68 @@
   line-height: 1;
   flex-shrink: 0;
 }
+
+#topMenu {
+  background: rgba(6, 8, 12, 0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
+}
+
+#topMenu .logo {
+  color: var(--text);
+  text-decoration: none;
+}
+
+#topMenu .logo:hover {
+  color: var(--accent);
+}
+
+.logo img {
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.14);
+}
+
+#topLinks li a {
+  color: rgba(255,255,255,0.88);
+}
+
+#topLinks li a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+#topLinks li ul {
+  background: rgba(8, 11, 17, 0.96);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top: 2px solid var(--accent);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.24);
+}
+
+#topLinks li ul li a {
+  color: rgba(255,255,255,0.9);
+}
+
+#topLinks li ul li a:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--accent);
+}
+
+#mnav-header {
+  background: rgba(8, 11, 17, 0.96);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.mnav-panel {
+  background: rgba(6, 8, 12, 0.98);
+}
+
+.mnav-item {
+  color: rgba(255,255,255,0.86);
+}
+
+.mnav-item:hover,
+.mnav-item:focus {
+  background: rgba(255,255,255,0.05);
+  color: var(--accent);
+}

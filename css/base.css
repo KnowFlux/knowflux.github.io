@@ -1,31 +1,80 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
 
+:root {
+  --bg: #06080c;
+  --surface: rgba(17, 23, 32, 0.9);
+  --surface-strong: rgba(8, 11, 17, 0.96);
+  --text: #f4ebdc;
+  --muted: #b7ac93;
+  --accent: #d4a85c;
+  --accent-strong: #8b5a2b;
+  --accent-blue: #6a8ea6;
+  --line: rgba(255, 255, 255, 0.12);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
   font-size: 15px;
-  background-color: #f4f4f4;
-  color: #333;
+  line-height: 1.7;
+  background: radial-gradient(circle at top left, rgba(212, 168, 92, 0.16), transparent 24%), linear-gradient(135deg, #06080c, #0f1622 58%, #070b10);
+  color: var(--text);
+  min-height: 100vh;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 82% 10%, rgba(212, 168, 92, 0.12), transparent 24%), radial-gradient(circle at 18% 100%, rgba(106, 142, 166, 0.13), transparent 22%);
+  pointer-events: none;
+  z-index: -1;
+}
 
 h1,
-h2 {
+h2,
+h3,
+h4 {
   margin: 0;
   padding: 0;
-  font-family: 'Anton', cursive;
-  font-weight: normal;
+  font-family: 'EB Garamond', 'Lora', serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   font-size: clamp(40px, 15vw, 110px);
+  line-height: 0.95;
+}
+
+.logo {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 h2 {
-  font-size: 30px;
+  font-size: clamp(28px, 3.2vw, 38px);
 }
 
+h3 {
+  font-size: clamp(20px, 2vw, 26px);
+}
+
+a {
+  color: inherit;
+}
 
 .spacer.v10 {
   height: 10px;
@@ -45,7 +94,6 @@ h2 {
 .spacer.v100 {
   height: 100px;
 }
-
 
 .clear {
   clear: both;

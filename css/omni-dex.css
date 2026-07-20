@@ -1,219 +1,302 @@
 /* =========================================================
-   Omni-Dex Styles - Scoped to body.omni-dex
-   Uses CSS custom properties for theming.
+   Omni-Dex Styles — Cosmic KnowFlux Theme
+   Scoped to body.omni-dex. Uses site-wide custom properties
+   from base.css for a cohesive dark-cosmic feel.
    ========================================================= */
 
+/* ---------- Default (Pinnacle) cosmic palette ---------- */
 body.omni-dex {
-  --omni-dex-accent: #4392F1;
-  --omni-dex-accent-secondary: #F46036;
-  --omni-dex-card-bg: #ffffff;
-  --omni-dex-card-border: var(--omni-dex-accent);
-  --omni-dex-card-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  --omni-dex-text: #333333;
-  --omni-dex-text-light: #888888;
-  --omni-dex-stat-bg: #e0e0e0;
-  --omni-dex-stat-fill: var(--omni-dex-accent);
-  --omni-dex-tab-bg: #f0f0f0;
-  --omni-dex-tab-active-bg: var(--omni-dex-accent);
-  --omni-dex-tab-active-text: #ffffff;
+  --omni-dex-accent:            var(--accent, #d4a85c);
+  --omni-dex-accent-secondary:  var(--accent-strong, #8b5a2b);
+  --omni-dex-card-bg:           var(--surface, rgba(17, 23, 32, 0.9));
+  --omni-dex-card-border:       var(--line, rgba(255,255,255,0.12));
+  --omni-dex-card-shadow:       var(--shadow, 0 24px 80px rgba(0,0,0,0.28));
+  --omni-dex-text:              var(--text, #f4ebdc);
+  --omni-dex-text-light:        var(--muted, #b7ac93);
+  --omni-dex-stat-bg:           rgba(255,255,255,0.08);
+  --omni-dex-stat-fill:         var(--accent, #d4a85c);
+  --omni-dex-tab-bg:            transparent;
+  --omni-dex-tab-active-bg:     var(--accent, #d4a85c);
+  --omni-dex-tab-active-text:   #120c06;
+  --omni-dex-glow:              rgba(212, 168, 92, 0.18);
 
-  /* -- Modal variables - Pinnacle defaults -- */
-  --modal-overlay: rgba(67, 146, 241, 0.7);
-  --modal-bg: #ffffff;
-  --modal-border: #000000;
-  --modal-shadow: 8px 8px 0 var(--omni-dex-accent);
-  --modal-titlebar-accent: #F46036;
-  --modal-text: #333333;
-  --modal-btn-stats-bg: #4392F1;
-  --modal-btn-close-bg: #F46036;
-  --modal-btn-next-bg: #4392F1;
-  --modal-sidebar-bg: #ffffff;
-  --modal-sidebar-accent-shadow: #F46036;
-  --modal-tooltip-shadow: #F46036;
-  --modal-stat-fill: var(--omni-dex-accent);
+  /* Modal defaults */
+  --modal-overlay:              rgba(0, 0, 0, 0.78);
+  --modal-bg:                   var(--surface-strong, rgba(8, 11, 17, 0.96));
+  --modal-border:               rgba(255,255,255,0.1);
+  --modal-shadow:               0 32px 96px rgba(0, 0, 0, 0.55);
+  --modal-titlebar-accent:      var(--accent, #d4a85c);
+  --modal-text:                 var(--text, #f4ebdc);
+  --modal-btn-stats-bg:         var(--accent, #d4a85c);
+  --modal-btn-close-bg:         var(--accent-strong, #8b5a2b);
+  --modal-btn-next-bg:          var(--accent, #d4a85c);
+  --modal-sidebar-bg:           var(--surface-strong, rgba(8, 11, 17, 0.96));
+  --modal-sidebar-accent-shadow: rgba(212, 168, 92, 0.4);
+  --modal-tooltip-shadow:       rgba(212, 168, 92, 0.35);
+  --modal-stat-fill:            var(--accent, #d4a85c);
 }
 
-/* Exploded theme override (applied via JS) */
+/* ---------- Exploded universe override (warm / fiery gold) ---------- */
 body.omni-dex[data-universe="exploded"] {
-  --omni-dex-accent: #D4A017;
-  --omni-dex-accent-secondary: #8B0000;
-  --omni-dex-card-bg: #2a2a2a;
-  --omni-dex-card-border: #D4A017;
-  --omni-dex-card-shadow: 0 2px 8px rgba(212,160,23,0.3);
-  --omni-dex-text: #f0f0f0;
-  --omni-dex-text-light: #aaaaaa;
-  --omni-dex-stat-bg: #444444;
-  --omni-dex-stat-fill: #D4A017;
-  --omni-dex-tab-bg: #333333;
-  --omni-dex-tab-active-bg: #D4A017;
-  --omni-dex-tab-active-text: #1a1a1a;
+  --omni-dex-accent:            #d4a85c;
+  --omni-dex-accent-secondary:  #a0522d;
+  --omni-dex-card-bg:           rgba(22, 18, 12, 0.92);
+  --omni-dex-card-border:       rgba(212, 168, 92, 0.25);
+  --omni-dex-card-shadow:       0 24px 80px rgba(180, 130, 40, 0.12);
+  --omni-dex-text:              #f4ebdc;
+  --omni-dex-text-light:        #b7ac93;
+  --omni-dex-stat-bg:           rgba(255,255,255,0.06);
+  --omni-dex-stat-fill:         linear-gradient(90deg, #d4a85c, #e6c97a);
+  --omni-dex-tab-active-bg:     #d4a85c;
+  --omni-dex-tab-active-text:   #120c06;
+  --omni-dex-glow:              rgba(212, 168, 92, 0.25);
 
-  /* -- Modal variables - Exploded palette -- */
-  --modal-overlay: rgba(139, 0, 0, 0.7);
-  --modal-bg: #2a1b0e;
-  --modal-border: #1a1a1a;
-  --modal-shadow: 8px 8px 0 #8B0000;
-  --modal-titlebar-accent: #D4A017;
-  --modal-text: #f0e6d0;
-  --modal-btn-stats-bg: #8B0000;
-  --modal-btn-close-bg: #8B0000;
-  --modal-btn-next-bg: #D4A017;
-  --modal-sidebar-bg: #2a1b0e;
-  --modal-sidebar-accent-shadow: #8B0000;
-  --modal-tooltip-shadow: #8B0000;
-  --modal-stat-fill: #D4A017;
+  --modal-overlay:              rgba(0, 0, 0, 0.8);
+  --modal-bg:                   rgba(18, 14, 8, 0.97);
+  --modal-border:               rgba(212, 168, 92, 0.2);
+  --modal-titlebar-accent:      #d4a85c;
+  --modal-text:                 #f4ebdc;
+  --modal-btn-stats-bg:         #a0522d;
+  --modal-btn-close-bg:         #a0522d;
+  --modal-btn-next-bg:          #d4a85c;
+  --modal-sidebar-bg:           rgba(18, 14, 8, 0.97);
+  --modal-sidebar-accent-shadow: rgba(212, 168, 92, 0.4);
+  --modal-tooltip-shadow:       rgba(212, 168, 92, 0.35);
+  --modal-stat-fill:            #d4a85c;
 }
 
-/* When modal is active, blur the page content behind the overlay */
+/* ---------- Pinnacle universe override (cool / ethereal blue) ---------- */
+/* Applied via JS when the Pinnacle tab is active by not having [data-universe="exploded"].
+   The body defaults above already serve as Pinnacle. */
+
+
+/* =========================================================
+   Blur page behind modal
+   ========================================================= */
 body.omni-dex.modal-active .omni-tabs,
 body.omni-dex.modal-active .omni-type-filters,
 body.omni-dex.modal-active .omni-card-grid,
 body.omni-dex.modal-active .omni-status {
-  filter: blur(6px);
-  -webkit-filter: blur(6px);
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
   pointer-events: none;
-  transition: filter 0.3s;
+  transition: filter 0.35s ease;
 }
 
-/* Tabs (Universe Cartridges) */
+
+/* =========================================================
+   Tabs — Universe Cartridges
+   ========================================================= */
 .omni-tabs {
   display: flex;
   justify-content: center;
-  gap: 0.8rem;
-  margin: 1.5rem 0 1rem;
-}
-.omni-tab {
-  padding: 0.6rem 1.5rem;
-  font-family: 'Anton', sans-serif;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  border: 2px solid var(--omni-dex-accent);
-  background: var(--omni-dex-tab-bg);
-  color: var(--omni-dex-text);
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-.omni-tab:hover {
-  background: var(--omni-dex-accent);
-  color: var(--omni-dex-tab-active-text);
-}
-.omni-tab.active {
-  background: var(--omni-dex-tab-active-bg);
-  color: var(--omni-dex-tab-active-text);
-  border-color: var(--omni-dex-tab-active-bg);
+  gap: 0.6rem;
+  margin: 2rem 0 1.2rem;
+  flex-wrap: wrap;
 }
 
-/* Type Filter Pills */
+.omni-tab {
+  padding: 0.55rem 1.6rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  border: 1px solid var(--line, rgba(255,255,255,0.12));
+  background: var(--surface, rgba(17, 23, 32, 0.9));
+  color: var(--muted, #b7ac93);
+  cursor: pointer;
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.15s;
+}
+
+.omni-tab:hover {
+  color: var(--accent, #d4a85c);
+  border-color: var(--accent, #d4a85c);
+  box-shadow: 0 0 24px var(--omni-dex-glow);
+  transform: translateY(-1px);
+}
+
+.omni-tab.active {
+  background: linear-gradient(135deg, var(--accent, #d4a85c), var(--accent-strong, #8b5a2b));
+  color: #120c06;
+  border-color: transparent;
+  box-shadow: 0 8px 32px var(--omni-dex-glow);
+}
+
+
+/* =========================================================
+   Type Filter Pills
+   ========================================================= */
 .omni-type-filters {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0.5rem 0 2rem;
-}
-.type-pill {
-  padding: 0.4rem 1rem;
-  font-family: 'Courier New', monospace;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  background: #ffffff;
-  border: 1px solid var(--omni-dex-text-light);
-  color: var(--omni-dex-text-light);
-  cursor: pointer;
-  border-radius: 20px;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-.type-pill:hover {
-  border-color: var(--omni-dex-accent);
-  color: var(--omni-dex-accent);
-}
-.type-pill.active {
-  background: var(--omni-dex-accent);
-  color: #ffffff;
-  border-color: var(--omni-dex-accent);
+  gap: 0.45rem;
+  margin: 0.5rem 0 2.2rem;
 }
 
-/* Card Grid */
+.type-pill {
+  padding: 0.35rem 1.1rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: transparent;
+  border: 1px solid var(--line, rgba(255,255,255,0.12));
+  color: var(--muted, #b7ac93);
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.22s, color 0.22s, border-color 0.22s, box-shadow 0.22s;
+}
+
+.type-pill:hover {
+  border-color: var(--accent, #d4a85c);
+  color: var(--accent, #d4a85c);
+  box-shadow: 0 0 16px var(--omni-dex-glow);
+}
+
+.type-pill.active {
+  background: var(--accent, #d4a85c);
+  color: #120c06;
+  border-color: var(--accent, #d4a85c);
+  box-shadow: 0 4px 20px var(--omni-dex-glow);
+}
+
+
+/* =========================================================
+   Card Grid
+   ========================================================= */
 .omni-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  padding: 0 0 2rem;
+  gap: 1.6rem;
+  padding: 0 0 3rem;
 }
 
-/* Individual Card */
+
+/* =========================================================
+   Individual Card — frosted glass cosmic panel
+   ========================================================= */
 .omni-card {
   background: var(--omni-dex-card-bg);
-  border: 2px solid var(--omni-dex-card-border);
-  border-radius: 8px;
+  border: 1px solid var(--omni-dex-card-border);
+  border-radius: 20px;
   box-shadow: var(--omni-dex-card-shadow);
-  padding: 1.2rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 1.4rem 1.3rem 1.2rem;
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.25s;
+  position: relative;
+  overflow: hidden;
 }
+
+/* Subtle top-edge accent glow */
+.omni-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--omni-dex-accent), transparent);
+  opacity: 0.5;
+  transition: opacity 0.3s, left 0.3s, right 0.3s;
+}
+
 .omni-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35), 0 0 40px var(--omni-dex-glow);
+  border-color: var(--omni-dex-accent);
+}
+
+.omni-card:hover::before {
+  opacity: 1;
+  left: 10%;
+  right: 10%;
 }
 
 .omni-card-header {
-  font-family: 'Courier New', monospace;
-  font-size: 0.75rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--omni-dex-text-light);
   text-align: center;
-  margin-bottom: 0.4rem;
-  letter-spacing: 1px;
-}
-.omni-card-title {
-  font-family: 'Anton', sans-serif;
-  font-size: 1.5rem;
-  margin: 0 0 0.3rem;
-  color: var(--omni-dex-accent);
-}
-.omni-card-type {
-  font-family: 'Courier New', monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: var(--omni-dex-text-light);
   margin-bottom: 0.5rem;
 }
+
+.omni-card-title {
+  font-family: 'EB Garamond', 'Lora', serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  color: var(--omni-dex-accent);
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+.omni-card-type {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--omni-dex-text-light);
+  margin-bottom: 0.6rem;
+}
+
 .omni-card-desc {
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.92rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.6;
   color: var(--omni-dex-text);
   flex: 1;
 }
 
-/* Stat Bars */
+
+/* =========================================================
+   Stat Bars (on cards)
+   ========================================================= */
 .omni-card-stats {
   margin-top: 1rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
+
 .omni-stat {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.4rem;
-  font-size: 0.8rem;
-  font-family: 'Courier New', monospace;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.75rem;
+  font-family: 'Open Sans', sans-serif;
   color: var(--omni-dex-text-light);
 }
+
 .omni-stat-label {
-  width: 120px;
+  width: 115px;
   flex-shrink: 0;
   text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 0.7rem;
   overflow-wrap: break-word;
   word-break: break-word;
 }
+
 .omni-stat-bar {
   flex: 1;
-  height: 10px;
+  height: 8px;
   background: var(--omni-dex-stat-bg);
-  border-radius: 5px;
+  border-radius: 999px;
   overflow: hidden;
 }
 
@@ -221,48 +304,58 @@ body.omni-dex.modal-active .omni-status {
   from { width: 0%; }
   to   { width: var(--target-width); }
 }
+
 .omni-stat-fill {
   height: 100%;
-  border-radius: 5px;
-  background: var(--omni-dex-stat-fill);
+  border-radius: 999px;
+  background: var(--omni-dex-stat-fill, var(--accent, #d4a85c));
   width: 0%;
-  animation: fillBar 0.6s ease-out forwards;
-}
-.omni-stat-value {
-  width: 30px;
-  text-align: right;
-  font-weight: bold;
+  animation: fillBar 0.55s ease-out forwards;
+  box-shadow: 0 0 8px var(--omni-dex-glow);
 }
 
-/* Per-card universe theming (used when mixing universes on "All" tab) */
-.omni-card.card-exploded {
-  --omni-dex-accent: #D4A017;
-  --omni-dex-accent-secondary: #8B0000;
-  --omni-dex-card-bg: #2a2a2a;
-  --omni-dex-card-border: #D4A017;
-  --omni-dex-card-shadow: 0 2px 8px rgba(212,160,23,0.3);
-  --omni-dex-text: #f0f0f0;
-  --omni-dex-text-light: #aaaaaa;
-  --omni-dex-stat-bg: #444444;
-  --omni-dex-stat-fill: #D4A017;
+.omni-stat-value {
+  width: 28px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: var(--omni-dex-text);
 }
-.omni-card.card-pinnacle {
-  --omni-dex-accent: #4392F1;
-  --omni-dex-accent-secondary: #F46036;
-  --omni-dex-card-bg: #ffffff;
-  --omni-dex-card-border: #4392F1;
-  --omni-dex-card-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  --omni-dex-text: #333333;
-  --omni-dex-text-light: #888888;
-  --omni-dex-stat-bg: #e0e0e0;
-  --omni-dex-stat-fill: #4392F1;
-}
+
 
 /* =========================================================
-   Omni-Dex Modal - Nintendo KnowFlux Style (fully themable)
+   Per-card universe theming (used when mixing on "All" tab)
    ========================================================= */
+.omni-card.card-exploded {
+  --omni-dex-accent:            #d4a85c;
+  --omni-dex-accent-secondary:  #a0522d;
+  --omni-dex-card-bg:           rgba(22, 18, 12, 0.92);
+  --omni-dex-card-border:       rgba(212, 168, 92, 0.2);
+  --omni-dex-card-shadow:       0 24px 80px rgba(160, 110, 30, 0.1);
+  --omni-dex-text:              #f4ebdc;
+  --omni-dex-text-light:        #b7ac93;
+  --omni-dex-stat-bg:           rgba(255,255,255,0.06);
+  --omni-dex-stat-fill:         #d4a85c;
+  --omni-dex-glow:              rgba(212, 168, 92, 0.22);
+}
 
-/* Full-screen overlay - uses variable for colour & opacity */
+.omni-card.card-pinnacle {
+  --omni-dex-accent:            #6a8ea6;
+  --omni-dex-accent-secondary:  #4a6a82;
+  --omni-dex-card-bg:           rgba(17, 23, 32, 0.9);
+  --omni-dex-card-border:       rgba(106, 142, 166, 0.2);
+  --omni-dex-card-shadow:       0 24px 80px rgba(0, 0, 0, 0.25);
+  --omni-dex-text:              #f4ebdc;
+  --omni-dex-text-light:        #b7ac93;
+  --omni-dex-stat-bg:           rgba(255,255,255,0.07);
+  --omni-dex-stat-fill:         #6a8ea6;
+  --omni-dex-glow:              rgba(106, 142, 166, 0.2);
+}
+
+
+/* =========================================================
+   Omni-Dex Modal — Cosmic Viewport
+   ========================================================= */
 .omni-modal {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -273,101 +366,97 @@ body.omni-dex.modal-active .omni-status {
   z-index: 9999;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s;
+  transition: opacity 0.35s ease;
 }
+
 .omni-modal.visible {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* Modal body - themable background, border, shadow */
+/* Backdrop appears on visible */
+.omni-modal.visible {
+  background: var(--modal-overlay);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
 .omni-modal-content {
   background: var(--modal-bg);
-  border: 4px solid var(--modal-border);
-  border-radius: 0;
+  border: 1px solid var(--modal-border);
+  border-radius: 24px;
   width: 90%;
-  max-width: 560px;
+  max-width: 580px;
   display: flex;
   flex-direction: column;
-  padding: 20px 16px 16px;
+  padding: 24px 20px 20px;
   box-shadow: var(--modal-shadow);
-  transform: scale(0.92);
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
 
 .omni-modal.visible .omni-modal-content {
-  transform: scale(1);
-}
-
-/* Per-entry modal theming - overrides when an entry's modal opens */
-.omni-modal[data-universe="exploded"] .omni-modal-content {
-  --modal-bg: #2a1b0e;
-  --modal-border: #1a1a1a;
-  --modal-shadow: 8px 8px 0 #8B0000;
-  --modal-titlebar-accent: #D4A017;
-  --modal-text: #f0e6d0;
-  --modal-btn-stats-bg: #8B0000;
-  --modal-btn-close-bg: #8B0000;
-  --modal-btn-next-bg: #D4A017;
-  --modal-sidebar-bg: #2a1b0e;
-  --modal-sidebar-accent-shadow: #8B0000;
-  --modal-tooltip-shadow: #8B0000;
-  --modal-stat-fill: #D4A017;
+  transform: scale(1) translateY(0);
 }
 
 
-
-/* Screen area */
+/* =========================================================
+   Modal Screen Area
+   ========================================================= */
 .omni-modal-screen {
   display: flex;
   flex-direction: column;
-  height: 350px;
-  min-height: 200px;
-  max-height: 80vh;
+  height: 370px;
+  min-height: 220px;
+  max-height: 78vh;
   overflow: hidden;
 }
 
 .omni-modal-titlebar {
-  border-bottom: 4px solid var(--modal-titlebar-accent);
-  padding: 0 8px 8px 0;
+  border-bottom: 2px solid var(--modal-titlebar-accent);
+  padding: 0 4px 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .omni-modal-title {
-  font-family: 'Anton', cursive;
-  font-weight: normal;
-  font-size: 1.5rem;
+  font-family: 'EB Garamond', 'Lora', serif;
+  font-weight: 600;
+  font-size: 1.6rem;
   color: var(--modal-text);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
 }
 
-/* Stats toggle button - chunky Nintendo-style */
+/* Stats toggle button */
 .omni-modal-stats-btn {
   background: var(--modal-btn-stats-bg);
-  color: #fff;
-  border: 3px solid var(--modal-border);
-  font-family: 'Anton', cursive;
-  font-size: 0.9rem;
-  padding: 6px 14px;
-  box-shadow: 4px 4px 0 var(--modal-border);
+  color: #120c06;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: 999px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.06em;
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
-}
-.omni-modal-stats-btn:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--modal-border);
-}
-.omni-modal-stats-btn:active {
-  transform: translate(4px, 4px);
-  box-shadow: 0 0 0 var(--modal-border);
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
 }
 
-/* Body wrapper: holds content and sidebar */
+.omni-modal-stats-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+
+/* =========================================================
+   Modal Body + Sidebar Wrapper
+   ========================================================= */
 .omni-modal-body-wrapper {
   display: flex;
   flex: 1;
@@ -376,61 +465,79 @@ body.omni-dex.modal-active .omni-status {
 }
 
 .omni-modal-body {
-  padding: 12px 0;
+  padding: 14px 0;
   overflow-y: auto;
   color: var(--modal-text);
   font-family: 'Open Sans', sans-serif;
-  line-height: 1.7;
+  line-height: 1.75;
   flex: 1;
-  font-size: 0.95rem;
+  font-size: 0.93rem;
 }
+
 .omni-modal-body p {
   margin: 0 0 0.8rem;
 }
 
-/* Stats sidebar - themable */
+
+/* =========================================================
+   Stats Sidebar
+   ========================================================= */
 .omni-modal-stats-sidebar {
   position: absolute;
   top: 0;
-  right: -320px;
-  width: 300px;
+  right: -340px;
+  width: 310px;
   height: 100%;
   background: var(--modal-sidebar-bg);
-  border-left: 4px solid var(--modal-border);
-  box-shadow: -4px 0 0 var(--modal-sidebar-accent-shadow);
-  padding: 12px;
-  padding-top: 30px;
+  border-left: 1px solid var(--modal-border);
+  box-shadow: -8px 0 32px var(--modal-sidebar-accent-shadow);
+  border-radius: 0 16px 16px 0;
+  padding: 16px 14px;
+  padding-top: 36px;
   overflow-y: auto;
-  transition: right 0.3s ease;
+  transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
   z-index: 10;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
+
 .omni-modal-stats-sidebar.open {
   right: 0;
 }
-.omni-modal-body-wrapper.sidebar-open .omni-modal-body {
-  margin-right: 0;
-}
+
 
 /* Stat items inside sidebar */
+.omni-modal-stats-sidebar .omni-stat {
+  position: relative;
+}
+
 .omni-modal-stats-sidebar .omni-stat-label {
   color: var(--modal-text);
   cursor: pointer;
-  width: 150px;
+  width: 140px;
+  font-size: 0.7rem;
   overflow-wrap: break-word;
   word-break: break-word;
 }
+
 .omni-modal-stats-sidebar .omni-stat-value {
   color: var(--modal-text);
+  font-size: 0.72rem;
 }
+
 .omni-modal-stats-sidebar .omni-stat-bar {
-  background: var(--omni-dex-stat-bg);
+  background: rgba(255,255,255,0.07);
 }
+
 .omni-modal-stats-sidebar .omni-stat-fill {
   background: var(--modal-stat-fill);
 }
 
-/* Tooltip that appears when a stat is clicked */
+
+/* =========================================================
+   Stat Tooltip
+   ========================================================= */
 .omni-stat-tooltip {
   position: absolute;
   top: 100%;
@@ -439,90 +546,139 @@ body.omni-dex.modal-active .omni-status {
   background: var(--modal-sidebar-bg);
   color: var(--modal-text);
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  border: 3px solid var(--modal-border);
-  box-shadow: 4px 4px 0 var(--modal-tooltip-shadow);
+  font-size: 0.73rem;
+  line-height: 1.5;
+  padding: 6px 10px;
+  border: 1px solid var(--modal-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px var(--modal-tooltip-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 20;
   pointer-events: auto;
   word-wrap: break-word;
   white-space: normal;
+  margin-top: 4px;
 }
 
-/* Make stat label position relative so tooltip can be positioned absolutely */
-.omni-modal-stats-sidebar .omni-stat {
-  position: relative;
-}
 
-/* Controls row */
+/* =========================================================
+   Modal Controls
+   ========================================================= */
 .omni-modal-controls {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 14px;
+  margin-top: 16px;
   padding: 0;
 }
 
-/* Chunky square buttons */
 .omni-modal-btn {
-  padding: 10px 22px;
-  font-family: 'Anton', cursive;
-  font-size: 0.9rem;
+  padding: 10px 24px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 3px solid var(--modal-border);
-  border-radius: 0;
+  letter-spacing: 0.06em;
+  border: none;
+  border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
-  box-shadow: 4px 4px 0 var(--modal-border);
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
 }
+
+.omni-modal-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+}
+
 .omni-modal-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--modal-border);
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
+
 .omni-modal-btn-close {
   background: var(--modal-btn-close-bg);
   color: #fff;
 }
-.omni-modal-btn-close:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--modal-border);
-}
+
 .omni-modal-btn-next {
   background: var(--modal-btn-next-bg);
-  color: #fff;
-}
-.omni-modal-btn-next:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--modal-border);
+  color: #120c06;
 }
 
-/* Status messages */
+
+/* =========================================================
+   Status Messages
+   ========================================================= */
 .omni-status {
   text-align: center;
-  padding: 2rem;
-  font-size: 1.1rem;
-  color: var(--omni-dex-text-light);
+  padding: 2.5rem;
+  font-size: 1rem;
+  color: var(--muted, #b7ac93);
+  font-family: 'Open Sans', sans-serif;
 }
+
+.omni-status.hidden {
+  display: none;
+}
+
 
 /* =========================================================
    Responsive
    ========================================================= */
 @media (max-width: 768px) {
-  .omni-tabs { flex-wrap: wrap; }
-  .omni-modal-content { width: 95%; padding: 14px 10px; }
-  .omni-modal-screen { min-height: 150px; height: 280px; max-height: 70vh; }
-  .omni-modal-title { font-size: 1rem; }
-  .omni-modal-stats-sidebar { width: 260px; right: -280px; }
-  .omni-modal-stats-sidebar.open { right: 0; }
-  .omni-modal-body-wrapper.sidebar-open .omni-modal-body { margin-right: 0; }
+  .omni-tabs {
+    gap: 0.4rem;
+  }
+  .omni-tab {
+    padding: 0.45rem 1.2rem;
+    font-size: 0.8rem;
+  }
+  .omni-modal-content {
+    width: 95%;
+    padding: 18px 14px;
+    border-radius: 20px;
+  }
+  .omni-modal-screen {
+    min-height: 180px;
+    height: 290px;
+    max-height: 68vh;
+  }
+  .omni-modal-title {
+    font-size: 1.2rem;
+  }
+  .omni-modal-stats-sidebar {
+    width: 270px;
+    right: -290px;
+  }
+  .omni-modal-stats-sidebar.open {
+    right: 0;
+  }
 }
+
 @media (max-width: 600px) {
-  .omni-card-grid { grid-template-columns: 1fr; }
-  .omni-stat-label { width: 140px; overflow-wrap: break-word; word-break: break-word; }
-  .omni-modal-controls { flex-wrap: wrap; gap: 8px; justify-content: center; }
-  .omni-modal-screen { min-height: 150px; height: 240px; max-height: 70vh; }
-  .omni-modal-stats-sidebar { width: 200px; right: -220px; }
-  .omni-modal-stats-sidebar.open { right: 0; }
-  .omni-modal-body-wrapper.sidebar-open .omni-modal-body { margin-right: 0; }
+  .omni-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .omni-stat-label {
+    width: 120px;
+  }
+  .omni-modal-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .omni-modal-screen {
+    min-height: 160px;
+    height: 250px;
+    max-height: 66vh;
+  }
+  .omni-modal-stats-sidebar {
+    width: 220px;
+    right: -240px;
+  }
+  .omni-modal-stats-sidebar.open {
+    right: 0;
+  }
 }

@@ -1,0 +1,100 @@
+/* ── Feedback Page ── */
+
+/* Center the form container */
+.feedback-wrapper {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* The form itself uses the cosmic surface style */
+.feedback-form {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+/* Form labels */
+.feedback-label {
+  display: block;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+}
+
+/* Input fields */
+.feedback-input,
+.feedback-textarea {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  box-sizing: border-box;
+}
+
+.feedback-input::placeholder,
+.feedback-textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.feedback-input:focus,
+.feedback-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212, 168, 92, 0.15);
+}
+
+/* Textarea */
+.feedback-textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+/* Submit button */
+.feedback-submit {
+  width: 100%;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #120c06;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-submit:hover {
+  background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.feedback-submit:active {
+  transform: translateY(0);
+}
+
+/* Form field group spacing */
+.feedback-field {
+  margin-bottom: 24px;
+}

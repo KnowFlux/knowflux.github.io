@@ -26,16 +26,16 @@
       padding: 12px 14px;
       border: none;
       background: transparent;
-      font-family: 'Open Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--muted);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all var(--ease-out);
       text-align: center;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
     }
 
     .type-tab:hover {
@@ -95,25 +95,30 @@
 
     .book-panel li {
       margin: 6px 0;
-      padding: 10px 16px;
+      padding: 12px 18px;
       background: var(--surface);
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       border: 1px solid var(--line);
-      transition: background 0.2s, transform 0.1s, box-shadow 0.15s;
+      transition: background var(--ease-out), transform 0.15s var(--ease-out), box-shadow var(--ease-out), border-color var(--ease-out);
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     .book-panel li:hover {
-      background: rgba(212, 168, 92, 0.08);
-      transform: translateX(5px);
-      box-shadow: 2px 2px 0 var(--accent);
-      border-color: var(--accent);
+      background: rgba(201, 160, 76, 0.08);
+      transform: translateX(6px);
+      box-shadow: inset 4px 0 0 var(--accent);
+      border-color: rgba(201, 160, 76, 0.25);
     }
 
     .book-panel li a {
       text-decoration: none;
       color: var(--accent);
       font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
       display: block;
+      line-height: 1.5;
     }
   </style>
 </head>

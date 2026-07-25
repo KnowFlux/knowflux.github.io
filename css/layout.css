@@ -11,6 +11,10 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1001;
   transition: transform 0.3s ease;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -18,12 +22,12 @@
 }
 
 #promo > div {
-  padding: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--muted);
+  text-align: center;
 }
 
 /* ── Content wrapper ── */
@@ -43,12 +47,18 @@
   color: var(--text);
 }
 
+#banner h1 {
+  font-family: 'Cinzel Decorative', 'EB Garamond', serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 #banner .tagline {
   padding-bottom: 20px;
   margin: 10px auto 0;
   max-width: 640px;
   color: var(--muted);
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-style: italic;
   font-weight: 400;
   border: none;

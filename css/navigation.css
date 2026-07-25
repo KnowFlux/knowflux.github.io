@@ -25,6 +25,11 @@
   transform: translateY(-100%);
 }
 
+/* Nav bar sits 48px below the promo — must translate further to clear both */
+#topMenu.nav-hidden {
+  transform: translateY(calc(-100% - 48px));
+}
+
 /* --- Logo --- */
 #topMenu .logo {
   float: left;
@@ -62,7 +67,7 @@
 
 #topLinks {
   float: right;
-  margin-top: 20px;
+  margin-top: 4px;
 }
 
 #topLinks ul,

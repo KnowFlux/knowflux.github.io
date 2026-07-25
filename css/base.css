@@ -1,16 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg: #06080c;
-  --surface: rgba(17, 23, 32, 0.9);
-  --surface-strong: rgba(8, 11, 17, 0.96);
-  --text: #f4ebdc;
-  --muted: #b7ac93;
-  --accent: #d4a85c;
+  /* ── Core palette ── */
+  --bg: #080b10;
+  --surface: rgba(14, 19, 28, 0.82);
+  --surface-strong: rgba(8, 11, 17, 0.94);
+  --text: #ede6d9;
+  --muted: #9d9583;
+  --accent: #c9a04c;
   --accent-strong: #8b5a2b;
-  --accent-blue: #6a8ea6;
-  --line: rgba(255, 255, 255, 0.12);
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  --accent-blue: #7d9cb0;
+  --line: rgba(255, 255, 255, 0.08);
+
+  /* ── Depth & radius ── */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.24);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.32);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  /* ── Transitions ── */
+  --ease-out: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 html {
@@ -20,81 +33,84 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Inter', 'Open Sans', sans-serif;
   font-size: 15px;
   line-height: 1.7;
-  background: radial-gradient(circle at top left, rgba(212, 168, 92, 0.16), transparent 24%), linear-gradient(135deg, #06080c, #0f1622 58%, #070b10);
+  background:
+    radial-gradient(ellipse at 70% 0%, rgba(201, 160, 76, 0.06), transparent 55%),
+    radial-gradient(ellipse at 20% 100%, rgba(125, 156, 176, 0.05), transparent 50%),
+    #080b10;
   color: var(--text);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Subtle grain-like noise overlay (static, no animation) */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at 82% 10%, rgba(212, 168, 92, 0.12), transparent 24%), radial-gradient(circle at 18% 100%, rgba(106, 142, 166, 0.13), transparent 22%);
+  background:
+    radial-gradient(circle at 82% 10%, rgba(201, 160, 76, 0.08), transparent 30%),
+    radial-gradient(circle at 18% 90%, rgba(125, 156, 176, 0.08), transparent 28%);
   pointer-events: none;
   z-index: -1;
 }
 
-h1,
-h2,
-h3,
-h4 {
+/* ── Typography ── */
+h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
   font-family: 'EB Garamond', 'Lora', serif;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 h1 {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-size: clamp(40px, 15vw, 110px);
-  line-height: 0.95;
+  font-family: 'EB Garamond', 'Lora', serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-size: clamp(44px, 10vw, 96px);
+  line-height: 1.05;
+  color: var(--text);
 }
 
 .logo {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 
 h2 {
-  font-size: clamp(28px, 3.2vw, 38px);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 500;
 }
 
 h3 {
-  font-size: clamp(20px, 2vw, 26px);
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 500;
 }
 
 a {
   color: inherit;
 }
 
-.spacer.v10 {
-  height: 10px;
-}
-.spacer.v20 {
-  height: 20px;
-}
-
-.spacer.v40 {
-  height: 40px;
-}
-
-.spacer.v50 {
-  height: 50px;
-}
-
-.spacer.v100 {
-  height: 100px;
-}
+/* ── Spacers ── */
+.spacer.v10  { height: 10px; }
+.spacer.v20  { height: 20px; }
+.spacer.v40  { height: 40px; }
+.spacer.v50  { height: 50px; }
+.spacer.v100 { height: 100px; }
 
 .clear {
   clear: both;
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(201, 160, 76, 0.25);
+  color: var(--text);
 }

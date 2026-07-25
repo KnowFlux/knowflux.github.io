@@ -1,96 +1,91 @@
-/* ==========================================================================
-   READING EXPERIENCE ENHANCEMENTS
-   Targets all book pages (any page containing .page-content).
-   Activated via body.reading-page class added by JavaScript.
-   Covers: Exploded, The Pinnacle of Reality, and any future book pages.
-   ========================================================================== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   READING EXPERIENCE — smooth, clean, distraction-free
+   Targets all book pages via body.reading-page (JS-applied class).
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-
-/* --------------------------------------------------------------------------
-   1.  CSS Custom Properties — reading defaults
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   1. CSS Custom Properties — reading defaults
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page {
-  --rdr-font-size:     19px;
-  --rdr-line-height:   1.92;
-  --rdr-para-gap:      28px;
+  --rdr-font-size:     18px;
+  --rdr-line-height:   1.88;
+  --rdr-para-gap:      26px;
   --rdr-max-width:     680px;
   --rdr-text-color:    var(--text);
-  --rdr-bg:            var(--bg);
-  --rdr-blue:          var(--accent);
-  --rdr-orange:        var(--accent-strong);
-  --rdr-black:         var(--line);
-  --rdr-transition:    font-size 0.22s ease, max-width 0.28s ease,
-                       line-height 0.22s ease;
+  --rdr-accent:        var(--accent);
+  --rdr-accent-blue:   var(--accent-blue);
+  --rdr-muted:         var(--muted);
+  --rdr-transition:    font-size 0.25s ease, max-width 0.3s ease,
+                       line-height 0.25s ease;
 }
 
 
-/* --------------------------------------------------------------------------
-   2.  Font-size variants  (set via reader toolbar, persisted in localStorage)
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   2. Font-size variants
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page.rdr-text-sm {
-  --rdr-font-size:   16px;
-  --rdr-line-height: 1.85;
-  --rdr-para-gap:    22px;
+  --rdr-font-size:   15px;
+  --rdr-line-height: 1.8;
+  --rdr-para-gap:    20px;
 }
 
 body.reading-page.rdr-text-md {
-  --rdr-font-size:   19px;
-  --rdr-line-height: 1.92;
-  --rdr-para-gap:    28px;
+  --rdr-font-size:   18px;
+  --rdr-line-height: 1.88;
+  --rdr-para-gap:    26px;
 }
 
 body.reading-page.rdr-text-lg {
-  --rdr-font-size:   22px;
-  --rdr-line-height: 1.96;
-  --rdr-para-gap:    32px;
+  --rdr-font-size:   21px;
+  --rdr-line-height: 1.92;
+  --rdr-para-gap:    30px;
 }
 
 body.reading-page.rdr-text-xl {
-  --rdr-font-size:   26px;
-  --rdr-line-height: 2.02;
-  --rdr-para-gap:    38px;
+  --rdr-font-size:   25px;
+  --rdr-line-height: 1.98;
+  --rdr-para-gap:    36px;
 }
 
 
-/* --------------------------------------------------------------------------
-   3.  Line-width variants  (set via reader toolbar)
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   3. Line-width variants
+   ────────────────────────────────────────────────────────────────────────── */
 
-body.reading-page.rdr-width-narrow { --rdr-max-width: 500px; }
+body.reading-page.rdr-width-narrow { --rdr-max-width: 520px; }
 body.reading-page.rdr-width-normal { --rdr-max-width: 680px; }
-body.reading-page.rdr-width-wide   { --rdr-max-width: 860px; }
+body.reading-page.rdr-width-wide   { --rdr-max-width: 840px; }
 
 
-
-/* --------------------------------------------------------------------------
-   3b. Font-family variants  (set via reader toolbar)
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   4. Font-family variants
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page.rdr-font-garamond .page-content,
 body.reading-page.rdr-font-garamond .page-content p {
   font-family: 'EB Garamond', Georgia, serif;
-  letter-spacing: 0.008em;
+  letter-spacing: 0.006em;
   word-spacing:   0.02em;
 }
 
 body.reading-page.rdr-font-lora .page-content,
 body.reading-page.rdr-font-lora .page-content p {
   font-family: 'Lora', Georgia, serif;
-  letter-spacing: 0.006em;
+  letter-spacing: 0.005em;
 }
 
-/* Normal font restores the reading-page default (Open Sans) */
+/* Normal = Inter (the new body default) */
 body.reading-page.rdr-font-normal .page-content,
 body.reading-page.rdr-font-normal .page-content p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 
-/* --------------------------------------------------------------------------
-   4.  Core page-content typography override
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   5. Core page-content typography
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page .page-content {
   font-size:          var(--rdr-font-size);
@@ -98,13 +93,13 @@ body.reading-page .page-content {
   color:              var(--rdr-text-color);
   max-width:          var(--rdr-max-width);
   margin:             0 auto 60px;
-  text-align:         left;          /* left > justify — no rivers on screen */
+  text-align:         left;
   -webkit-font-smoothing:  antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering:     optimizeLegibility;
   font-kerning:       normal;
   word-spacing:       0.01em;
-  letter-spacing:     0.012em;
+  letter-spacing:     0.01em;
   transition:         var(--rdr-transition);
   hyphens:            auto;
   -webkit-hyphens:    auto;
@@ -117,79 +112,79 @@ body.reading-page .page-content p {
 }
 
 
-/* --------------------------------------------------------------------------
-   5.  Drop Cap — decorative opening letter of chapter-start pages only
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   6. Drop Cap — refined opening letter
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page.chapter-start .page-content .rdr-drop-cap-target::first-letter {
-  font-family:    'Anton', cursive;
-  font-size:      5em;
-  line-height:    0.76;
+  font-family:    'EB Garamond', 'Lora', serif;
+  font-size:      4.2em;
+  line-height:    0.78;
   float:          left;
-  margin-right:   0.1em;
-  margin-top:     0.09em;
-  margin-bottom:  0;
-  color:          var(--rdr-blue);
+  margin-right:   0.08em;
+  margin-top:     0.06em;
+  margin-bottom:  -0.05em;
+  color:          var(--rdr-accent);
   text-transform: uppercase;
-  padding:        0 5px 2px 0;
-  text-shadow:    3px 3px 0 var(--rdr-black);
+  font-weight:    500;
 }
 
 
-/* --------------------------------------------------------------------------
-   6.  Chapter / Page Header redesign
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   7. Chapter / Page Header — clean, understated
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page .page-header-container {
-  margin-top:     116px;
-  margin-bottom:  44px;
-  padding-bottom: 28px;
+  margin-top:     112px;
+  margin-bottom:  40px;
+  padding-bottom: 24px;
   border-bottom:  1px solid var(--line);
   position:       relative;
 }
 
-/* Blue accent bar above the page number */
+/* Subtle accent line above the title */
 body.reading-page .page-header-container::before {
   content:       '';
   display:       block;
-  width:         56px;
-  height:        6px;
-  background:    var(--accent);
+  width:         48px;
+  height:        3px;
+  background:    var(--rdr-accent);
   margin-bottom: 18px;
-  box-shadow:    0 8px 24px rgba(212, 168, 92, 0.15);
+  border-radius: 2px;
+  opacity:       0.7;
 }
 
 body.reading-page .page-title {
-  font-size:      clamp(40px, 8vw, 72px);
-  line-height:    1;
-  color:          var(--accent);
-  text-shadow:    none;
-  letter-spacing: -1px;
+  font-size:      clamp(38px, 7vw, 64px);
+  line-height:    1.08;
+  color:          var(--text);
+  letter-spacing: -0.5px;
   margin:         0;
   font-family:    'EB Garamond', 'Lora', serif;
+  font-weight:    500;
+  text-shadow:    none;
 }
 
 body.reading-page .page-subtitle {
-  font-family:    'Open Sans', sans-serif;
-  font-size:      clamp(17px, 2.8vw, 26px);
-  font-weight:    700;
-  color:          var(--muted);
-  margin:         8px 0 0;
-  letter-spacing: 0.025em;
+  font-family:    'Inter', sans-serif;
+  font-size:      clamp(15px, 2.2vw, 20px);
+  font-weight:    600;
+  color:          var(--rdr-muted);
+  margin:         6px 0 0;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 
-/* --------------------------------------------------------------------------
-   7.  Reading meta row — word count + estimated reading time badges
-       (DOM elements injected by JavaScript)
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   8. Reading meta badges — word count + estimated time
+   ────────────────────────────────────────────────────────────────────────── */
 
 .rdr-meta {
   display:     flex;
   align-items: center;
-  gap:         12px;
-  margin-top:  16px;
+  gap:         10px;
+  margin-top:  14px;
   flex-wrap:   wrap;
 }
 
@@ -197,139 +192,140 @@ body.reading-page .page-subtitle {
 .rdr-word-badge {
   display:        inline-flex;
   align-items:    center;
-  gap:            6px;
-  font-family:    'Open Sans', sans-serif;
-  font-size:      12px;
-  font-weight:    700;
+  gap:            5px;
+  font-family:    'Inter', sans-serif;
+  font-size:      11px;
+  font-weight:    600;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
-  padding:        5px 12px;
-  border:         1px solid var(--line);
+  letter-spacing: 0.07em;
+  padding:        4px 12px;
+  border-radius:  var(--radius-sm, 10px);
   white-space:    nowrap;
   line-height:    1;
-  background:     var(--surface);
-  color:          var(--text);
-  box-shadow:     0 8px 24px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(12px);
-  border-radius:  8px;
+  background:     rgba(255, 255, 255, 0.03);
+  color:          var(--rdr-muted);
+  border:         1px solid var(--line);
 }
 
 .rdr-time-badge {
-  border-color: var(--accent-blue);
+  border-color: rgba(125, 156, 176, 0.3);
+  color:        var(--rdr-accent-blue);
 }
 
 .rdr-word-badge {
-  border-color: var(--accent);
+  border-color: rgba(201, 160, 76, 0.25);
+  color:        var(--rdr-accent);
 }
 
 
-/* --------------------------------------------------------------------------
-   8.  Page navigation buttons redesign
-       Nintendo-style: hard black border + offset shadow, press animation
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   9. Page navigation buttons — clean pill style
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page .page-footer-action {
-  display:        flex;
-  align-items:    center;
+  display:         flex;
+  align-items:     center;
   justify-content: space-between;
-  margin-bottom:  80px;
-  padding-top:    36px;
-  border-top:     1px solid var(--line);
-  gap:            12px;
+  margin-bottom:   80px;
+  padding-top:     32px;
+  border-top:      1px solid var(--line);
+  gap:             12px;
 }
 
-/* Override the global pill-shape button on reading pages */
 body.reading-page .comingSoonButton {
   display:         inline-flex;
   align-items:     center;
-  gap:             10px;
-  font-family:     'Open Sans', sans-serif;
-  font-size:       14px;
-  font-weight:     700;
+  gap:             8px;
+  font-family:     'Inter', sans-serif;
+  font-size:       13px;
+  font-weight:     600;
   text-transform:  uppercase;
-  letter-spacing:  0.08em;
-  padding:         13px 26px;
-  background:      linear-gradient(135deg, var(--accent), var(--accent-strong));
+  letter-spacing:  0.06em;
+  padding:         12px 28px;
+  background:      linear-gradient(135deg, var(--rdr-accent), #b89240);
   color:           #120c06;
   text-decoration: none;
-  border:          1px solid var(--line);
-  border-radius:   8px;
-  box-shadow:      0 8px 24px rgba(212, 168, 92, 0.15);
-  transition:      background 0.12s ease,
-                   transform  0.08s ease,
-                   box-shadow 0.08s ease;
+  border:          none;
+  border-radius:   var(--radius-full, 999px);
+  box-shadow:      0 4px 18px rgba(180, 140, 50, 0.25);
+  transition:
+    transform  0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
   cursor:          pointer;
 }
 
 body.reading-page .comingSoonButton:hover {
-  box-shadow:  0 16px 48px rgba(212, 168, 92, 0.25);
-  transform:   translate(-2px, -2px);
+  transform:   translateY(-2px);
+  box-shadow:  0 8px 28px rgba(180, 140, 50, 0.35);
+  background:  linear-gradient(135deg, #d4ab54, #c49a42);
 }
 
 body.reading-page .comingSoonButton:active {
-  transform:  translate(2px, 2px);
-  box-shadow: 0 4px 12px rgba(212, 168, 92, 0.15);
+  transform:   translateY(0);
+  box-shadow:  0 2px 10px rgba(180, 140, 50, 0.2);
 }
 
 
-/* --------------------------------------------------------------------------
-   9.  dreamMemText enhancement  (italic dream / memory passages)
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   10. Dream / memory passages — subtle side accent
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page .dreamMemText {
   font-style:    italic;
-  color:         #3a3a3a;
-  padding:       22px 26px 22px 32px;
-  margin:        36px 0;
-  background:    #f7f9ff;
-  border-left:   5px solid var(--rdr-blue);
+  color:         var(--rdr-muted);
+  padding:       20px 24px 20px 28px;
+  margin:        32px 0;
+  background:    rgba(125, 156, 176, 0.04);
+  border-left:   3px solid var(--rdr-accent-blue);
   border-right:  none;
   border-top:    none;
   border-bottom: none;
-  box-shadow:    4px 4px 0 var(--rdr-blue);
-  border-radius: 0;
-  position:      relative;
-  font-size:     0.96em;
-  line-height:   1.88;
-  overflow:      visible;
+  border-radius: 0 var(--radius-sm, 10px) var(--radius-sm, 10px) 0;
+  box-shadow:    none;
+  font-size:     0.95em;
+  line-height:   1.85;
 }
 
 
-
-/* --------------------------------------------------------------------------
-   10. thoughtText — simple italic, no extra decoration
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   11. Thought text — simple italic
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page .thoughtText {
   font-style: italic;
+  color:      var(--rdr-muted);
 }
 
 
-/* --------------------------------------------------------------------------
-   11. Blockquote / pull-quote  (any <blockquote> inside page-content)
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   12. Blockquote — refined pull-quote
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page .page-content blockquote {
-  margin:     38px 0;
-  padding:    22px 28px 22px 28px;
-  background: #fff;
-  border:     3px solid var(--rdr-black);
-  box-shadow: 5px 5px 0 var(--rdr-orange);
-  font-size:  1.12em;
-  font-style: italic;
-  line-height: 1.72;
-  color:      #333;
-  position:   relative;
+  margin:      36px 0;
+  padding:     22px 28px;
+  background:  rgba(255, 255, 255, 0.02);
+  border:      1px solid var(--line);
+  border-left: 3px solid var(--rdr-accent);
+  border-radius: 0 var(--radius-sm, 10px) var(--radius-sm, 10px) 0;
+  box-shadow:  none;
+  font-size:   1.06em;
+  font-style:  italic;
+  line-height: 1.7;
+  color:       var(--text);
+  position:    relative;
 }
 
 body.reading-page .page-content blockquote::before {
-  content:        '\275D';          /* heavy double turned comma */
-  font-family:    Georgia, serif;
-  font-size:      52px;
-  color:          var(--rdr-orange);
+  content:        '\201C';
+  font-family:    'EB Garamond', Georgia, serif;
+  font-size:      56px;
+  color:          var(--rdr-accent);
+  opacity:        0.35;
   font-style:     normal;
   position:       absolute;
-  top:           -16px;
+  top:           -8px;
   left:           14px;
   line-height:    1;
   pointer-events: none;
@@ -345,108 +341,108 @@ body.reading-page .page-content blockquote p:last-child {
 
 body.reading-page .page-content blockquote cite {
   display:        block;
-  margin-top:     14px;
-  font-size:      0.82em;
+  margin-top:     12px;
+  font-size:      0.8em;
   font-style:     normal;
-  font-weight:    700;
+  font-weight:    600;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color:          #777;
+  letter-spacing: 0.06em;
+  color:          var(--rdr-muted);
 }
 
 
-/* --------------------------------------------------------------------------
-   12. Text selection colour
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   13. Text selection
+   ────────────────────────────────────────────────────────────────────────── */
 
-body.reading-page ::selection      { background: rgba(67,146,241,0.22); color: #000; }
-body.reading-page ::-moz-selection { background: rgba(67,146,241,0.22); color: #000; }
+body.reading-page ::selection      { background: rgba(201, 160, 76, 0.22); color: var(--text); }
+body.reading-page ::-moz-selection { background: rgba(201, 160, 76, 0.22); color: var(--text); }
 
 
-/* --------------------------------------------------------------------------
-   13. Scroll progress bar — sharper, more polished look on reading pages
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   14. Vertical scroll progress bar — slim, refined
+   ────────────────────────────────────────────────────────────────────────── */
 
-body.reading-page #scroll-progress-container {
-  width:        8px;
+#scroll-progress-container {
+  position:     fixed;
+  left:         0;
+  top:          calc(60px + 48px);  /* below promo + nav */
+  width:        4px;
+  height:       calc(100vh - 108px);
+  height:       calc(100svh - 108px);
+  background:   rgba(255, 255, 255, 0.04);
+  z-index:      999;
+  box-sizing:   border-box;
+  overflow:     hidden;
   border-radius: 0;
-  border:       2px solid rgba(0,0,0,0.5);
-  background:   #ebebeb;
-  box-shadow:   2px 2px 0 rgba(67,146,241,0.35);
-  overflow:     visible;
-}
-
-body.reading-page #scroll-progress-bar {
-  background:    linear-gradient(to bottom, #4392F1 0%, #2c6fd4 100%);
+  border:        none;
   box-shadow:    none;
-  border-radius: 0;
-  transition:    height 0.07s linear;
+  transition:    opacity 0.4s ease;
 }
 
-/* Orange tick mark at the bottom of the container (always visible) */
-body.reading-page #scroll-progress-container::after {
-  content:    '';
-  display:    block;
-  position:   absolute;
-  bottom:     -3px;
-  left:       -3px;
-  right:      -3px;
-  height:     5px;
-  background: var(--rdr-orange);
-  border:     1px solid var(--rdr-black);
+#scroll-progress-bar {
+  width:          100%;
+  height:         0%;
+  background:     linear-gradient(to bottom, var(--rdr-accent), rgba(201, 160, 76, 0.5));
+  border-radius:  0;
+  box-shadow:     none;
+  transition:     height 0.08s linear;
 }
 
-
-
-/* --------------------------------------------------------------------------
-   14. Reader Toolbar — three-dots toggle button (fixed, right edge)
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   15. Reader toolbar toggle — slim edge tab
+   ────────────────────────────────────────────────────────────────────────── */
 
 #rdr-toolbar-toggle {
   position:        fixed;
-  right:           -1px;
+  right:           0;
   top:             50%;
   transform:       translateY(-50%);
   z-index:         1500;
-  width:           20px;
-  height:          54px;
-  background:      #fff;
-  border:          2px solid var(--rdr-black);
+  width:           24px;
+  height:          48px;
+  background:      rgba(14, 19, 28, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border:          1px solid var(--line);
   border-right:    none;
-  border-radius:   5px 0 0 5px;
-  box-shadow:      -2px 2px 0 var(--rdr-blue);
+  border-radius:   6px 0 0 6px;
   cursor:          pointer;
   display:         flex;
   align-items:     center;
   justify-content: center;
-  font-size:       16px;
+  font-size:       14px;
   line-height:     1;
-  color:           #333;
-  transition:      background 0.14s, color 0.14s;
+  color:           var(--rdr-muted);
+  transition:
+    background 0.2s ease,
+    color      0.2s ease;
   user-select:     none;
 }
 
 #rdr-toolbar-toggle:hover {
-  background: var(--rdr-blue);
-  color:      #fff;
+  background: rgba(201, 160, 76, 0.15);
+  color:      var(--rdr-accent);
 }
 
 #rdr-toolbar-toggle[aria-expanded="true"] {
-  background: var(--rdr-blue);
-  color:      #fff;
+  background: rgba(201, 160, 76, 0.2);
+  color:      var(--rdr-accent);
 }
 
 
-/* --------------------------------------------------------------------------
-   15. Reader Settings — slide-over overlay backdrop + panel
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   16. Reader settings panel — slide-over overlay
+   ────────────────────────────────────────────────────────────────────────── */
 
 #rdr-settings-overlay {
   display:    none;
   position:   fixed;
   inset:      0;
   z-index:    1498;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 #rdr-settings-overlay.rdr-open {
@@ -454,19 +450,21 @@ body.reading-page #scroll-progress-container::after {
 }
 
 #rdr-settings-panel {
-  position:   fixed;
-  top:        0;
-  right:      0;
-  height:     100%;
-  width:      270px;
-  max-width:  85vw;
-  z-index:    1499;
-  background: #fff;
-  border-left: 3px solid var(--rdr-black);
-  box-shadow: -5px 0 0 rgba(67, 146, 241, 0.35);
-  overflow-y: auto;
-  transform:  translateX(100%);
-  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  position:     fixed;
+  top:          0;
+  right:        0;
+  height:       100%;
+  width:        280px;
+  max-width:    85vw;
+  z-index:      1499;
+  background:   var(--surface-strong, rgba(8, 11, 17, 0.96));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left:  1px solid var(--line);
+  box-shadow:   -8px 0 32px rgba(0, 0, 0, 0.3);
+  overflow-y:   auto;
+  transform:    translateX(100%);
+  transition:   transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #rdr-settings-panel.rdr-open {
@@ -477,36 +475,38 @@ body.reading-page #scroll-progress-container::after {
   display:         flex;
   align-items:     center;
   justify-content: space-between;
-  padding:         14px 18px;
-  background:      #333;
-  border-bottom:   3px solid var(--rdr-blue);
+  padding:         16px 20px;
+  background:      rgba(255, 255, 255, 0.03);
+  border-bottom:   1px solid var(--line);
   position:        sticky;
   top:             0;
   z-index:         1;
 }
 
 #rdr-settings-title {
-  font-family:    'Anton', cursive;
-  font-size:      16px;
-  color:          #fff;
-  letter-spacing: 0.06em;
+  font-family:    'Inter', sans-serif;
+  font-size:      12px;
+  font-weight:    600;
+  color:          var(--rdr-muted);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 #rdr-settings-close {
-  background:  none;
-  border:      none;
-  color:       #fff;
-  font-size:   18px;
-  cursor:      pointer;
-  padding:     4px 8px;
-  border-radius: 4px;
-  line-height: 1;
-  transition:  background 0.15s;
+  background:    none;
+  border:        none;
+  color:         var(--rdr-muted);
+  font-size:     18px;
+  cursor:        pointer;
+  padding:       4px 8px;
+  border-radius: 6px;
+  line-height:   1;
+  transition:    background 0.15s, color 0.15s;
 }
 
 #rdr-settings-close:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color:      var(--text);
 }
 
 #rdr-settings-body {
@@ -514,7 +514,7 @@ body.reading-page #scroll-progress-container::after {
 }
 
 .rdr-tb-section {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .rdr-tb-section:last-child {
@@ -522,13 +522,13 @@ body.reading-page #scroll-progress-container::after {
 }
 
 .rdr-tb-label {
-  font-family:    'Open Sans', sans-serif;
+  font-family:    'Inter', sans-serif;
   font-size:      10px;
-  font-weight:    700;
+  font-weight:    600;
   text-transform: uppercase;
-  letter-spacing: 0.13em;
-  color:          #aaa;
-  margin-bottom:  7px;
+  letter-spacing: 0.1em;
+  color:          var(--rdr-muted);
+  margin-bottom:  8px;
 }
 
 .rdr-btn-row {
@@ -536,94 +536,99 @@ body.reading-page #scroll-progress-container::after {
   gap:     6px;
 }
 
-/* Individual control buttons inside the toolbar */
+/* ── Control buttons ── */
 .rdr-ctrl-btn {
   flex:            1;
-  padding:         8px 3px;
-  background:      #fff;
-  border:          2px solid var(--rdr-black);
-  box-shadow:      2px 2px 0 var(--rdr-black);
+  padding:         9px 4px;
+  background:      rgba(255, 255, 255, 0.03);
+  border:          1px solid var(--line);
+  border-radius:   var(--radius-sm, 10px);
   cursor:          pointer;
-  font-family:     'Open Sans', sans-serif;
-  font-size:       13px;
-  font-weight:     700;
-  color:           #333;
+  font-family:     'Inter', sans-serif;
+  font-size:       12px;
+  font-weight:     600;
+  color:           var(--rdr-muted);
   text-align:      center;
   line-height:     1;
   white-space:     nowrap;
-  transition:      background 0.1s, transform 0.07s, box-shadow 0.07s, color 0.1s;
+  transition:
+    background 0.15s ease,
+    color      0.15s ease,
+    border-color 0.15s ease,
+    transform  0.1s ease;
 }
 
 .rdr-ctrl-btn:hover {
-  background: #f0f0f0;
+  background:   rgba(255, 255, 255, 0.06);
+  color:        var(--text);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .rdr-ctrl-btn.rdr-active {
-  background: var(--rdr-blue);
-  color:      #fff;
-  box-shadow: 2px 2px 0 var(--rdr-black);
+  background:   rgba(201, 160, 76, 0.18);
+  color:        var(--rdr-accent);
+  border-color: rgba(201, 160, 76, 0.35);
 }
 
 .rdr-ctrl-btn:active {
-  transform:  translate(1px, 1px);
-  box-shadow: 1px 1px 0 var(--rdr-black);
+  transform: scale(0.96);
 }
 
-/* Font-type buttons use a slightly smaller size so 3 fit comfortably */
+/* Font-type row — tighter */
 .rdr-font-row .rdr-ctrl-btn {
-  font-size:  11px;
-  padding:    8px 2px;
+  font-size: 11px;
+  padding:   9px 2px;
 }
 
-/* Full-width button (focus mode toggle) */
+/* ── Full-width toggle button ── */
 .rdr-full-btn {
   width:          100%;
-  padding:        9px 12px;
-  background:     #fff;
-  border:         2px solid var(--rdr-black);
-  box-shadow:     2px 2px 0 var(--rdr-black);
+  padding:        10px 14px;
+  background:     rgba(255, 255, 255, 0.03);
+  border:         1px solid var(--line);
+  border-radius:  var(--radius-sm, 10px);
   cursor:         pointer;
-  font-family:    'Open Sans', sans-serif;
+  font-family:    'Inter', sans-serif;
   font-size:      12px;
-  font-weight:    700;
+  font-weight:    600;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color:          #333;
+  letter-spacing: 0.06em;
+  color:          var(--rdr-muted);
   text-align:     center;
-  transition:     background 0.14s, color 0.14s;
+  transition:
+    background 0.15s ease,
+    color      0.15s ease;
 }
 
 .rdr-full-btn:hover {
-  background: #333;
-  color:      #fff;
+  background: rgba(255, 255, 255, 0.06);
+  color:      var(--text);
 }
 
 .rdr-full-btn.rdr-active {
-  background: #333;
-  color:      #fff;
+  background: rgba(201, 160, 76, 0.15);
+  color:      var(--rdr-accent);
 }
 
-/* When in a button row, full buttons become flex halves */
 .rdr-btn-row .rdr-full-btn {
   flex: 1;
 }
 
 
-/* --------------------------------------------------------------------------
-   16. Focus mode — everything outside the text recedes
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   17. Focus mode — everything recedes around the text
+   ────────────────────────────────────────────────────────────────────────── */
 
 body.reading-page.rdr-focus #promo,
 body.reading-page.rdr-focus #topMenu,
 body.reading-page.rdr-focus #scroll-progress-container,
 body.reading-page.rdr-focus #copyright,
 body.reading-page.rdr-focus .page-footer-action {
-  opacity:         0.07;
-  transition:      opacity 0.4s ease;
+  opacity:         0.06;
+  transition:      opacity 0.5s ease;
   pointer-events:  none;
 }
 
-/* Keep the toolbar accessible in focus mode */
 body.reading-page.rdr-focus #rdr-toolbar-toggle,
 body.reading-page.rdr-focus #rdr-settings-panel,
 body.reading-page.rdr-focus #rdr-settings-overlay,
@@ -633,33 +638,35 @@ body.reading-page.rdr-focus #rdr-back-top {
 }
 
 body.reading-page.rdr-focus .page-content {
-  color: #111;
+  color: var(--text);
 }
 
 
-/* --------------------------------------------------------------------------
-   17. Keyboard navigation hint (shown briefly on first visit to a book page)
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   18. Keyboard navigation hint
+   ────────────────────────────────────────────────────────────────────────── */
 
 #rdr-kbd-hint {
-  position:    fixed;
-  bottom:      22px;
-  left:        50%;
-  transform:   translateX(-50%) translateY(56px);
-  background:  #222;
-  color:       #fff;
-  border:      2px solid var(--rdr-black);
-  box-shadow:  3px 3px 0 var(--rdr-blue);
-  padding:     10px 22px;
-  font-family: 'Open Sans', sans-serif;
-  font-size:   13px;
-  font-weight: 700;
-  white-space: nowrap;
-  z-index:     1600;
-  opacity:     0;
-  transition:  transform 0.3s ease, opacity 0.3s ease;
+  position:      fixed;
+  bottom:        22px;
+  left:          50%;
+  transform:     translateX(-50%) translateY(56px);
+  background:    rgba(8, 11, 17, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color:         var(--text);
+  border:        1px solid var(--line);
+  border-radius: var(--radius-full, 999px);
+  padding:       10px 22px;
+  font-family:   'Inter', sans-serif;
+  font-size:     13px;
+  font-weight:   500;
+  white-space:   nowrap;
+  z-index:       1600;
+  opacity:       0;
+  transition:    transform 0.3s ease, opacity 0.3s ease;
   pointer-events: none;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
 #rdr-kbd-hint.rdr-visible {
@@ -668,44 +675,48 @@ body.reading-page.rdr-focus .page-content {
 }
 
 #rdr-kbd-hint kbd {
-  background:    var(--rdr-blue);
-  color:         #fff;
+  background:    rgba(255, 255, 255, 0.08);
+  color:         var(--text);
   padding:       2px 8px;
   font-size:     12px;
-  margin:        0 3px;
-  border-radius: 2px;
-  font-family:   'Open Sans', sans-serif;
+  margin:        0 2px;
+  border-radius: 4px;
+  font-family:   'Inter', sans-serif;
+  border:        1px solid var(--line);
 }
 
 
-/* --------------------------------------------------------------------------
-   18. Back-to-top button
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   19. Back-to-top button
+   ────────────────────────────────────────────────────────────────────────── */
 
 #rdr-back-top {
-  position:    fixed;
-  bottom:      22px;
-  right:       18px;
-  z-index:     1400;
-  width:       42px;
-  height:      42px;
-  background:  #fff;
-  border:      3px solid var(--rdr-black);
-  box-shadow:  3px 3px 0 var(--rdr-black);
-  cursor:      pointer;
-  display:     flex;
-  align-items: center;
+  position:       fixed;
+  bottom:         22px;
+  right:          18px;
+  z-index:        1400;
+  width:          40px;
+  height:         40px;
+  background:     rgba(14, 19, 28, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border:         1px solid var(--line);
+  border-radius:  var(--radius-sm, 10px);
+  cursor:         pointer;
+  display:        flex;
+  align-items:    center;
   justify-content: center;
-  font-size:   18px;
-  color:       #333;
-  opacity:     0;
-  visibility:  hidden;
-  transform:   translateY(12px);
-  transition:  opacity   0.22s ease,
-               visibility 0.22s,
-               transform  0.22s ease,
-               background 0.14s,
-               box-shadow 0.1s;
+  font-size:      16px;
+  color:          var(--rdr-muted);
+  opacity:        0;
+  visibility:     hidden;
+  transform:      translateY(12px);
+  transition:
+    opacity    0.25s ease,
+    visibility 0.25s,
+    transform  0.25s ease,
+    background 0.15s,
+    color      0.15s;
 }
 
 #rdr-back-top.rdr-visible {
@@ -715,42 +726,44 @@ body.reading-page.rdr-focus .page-content {
 }
 
 #rdr-back-top:hover {
-  background: var(--rdr-blue);
-  color:      #fff;
-  box-shadow: 4px 4px 0 var(--rdr-black);
+  background: rgba(201, 160, 76, 0.15);
+  color:      var(--rdr-accent);
 }
 
 #rdr-back-top:active {
   transform:  translateY(2px);
-  box-shadow: 1px 1px 0 var(--rdr-black);
 }
 
 
-/* --------------------------------------------------------------------------
-   19. Chapter completion toast (shown when scroll reaches 100%)
-   -------------------------------------------------------------------------- */
+/* ──────────────────────────────────────────────────────────────────────────
+   20. Chapter completion toast
+   ────────────────────────────────────────────────────────────────────────── */
 
 #rdr-complete-toast {
-  position:    fixed;
-  top:         110px;
-  left:        50%;
-  transform:   translateX(-50%) translateY(-24px);
-  background:  #fff;
-  border:      3px solid var(--rdr-black);
-  box-shadow:  5px 5px 0 var(--rdr-orange);
-  padding:     14px 28px;
-  font-family: 'Anton', cursive;
-  font-size:   18px;
-  color:       var(--rdr-orange);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  z-index:     1700;
-  opacity:     0;
-  visibility:  hidden;
-  transition:  opacity   0.3s ease,
-               transform 0.3s ease,
-               visibility 0.3s;
+  position:      fixed;
+  top:           110px;
+  left:          50%;
+  transform:     translateX(-50%) translateY(-20px);
+  background:    rgba(8, 11, 17, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border:        1px solid rgba(201, 160, 76, 0.3);
+  border-radius: var(--radius-full, 999px);
+  padding:       12px 28px;
+  font-family:   'EB Garamond', 'Lora', serif;
+  font-size:     17px;
+  font-weight:   500;
+  font-style:    italic;
+  color:         var(--rdr-accent);
+  letter-spacing: 0.02em;
+  white-space:   nowrap;
+  z-index:       1700;
+  opacity:       0;
+  visibility:    hidden;
+  transition:
+    opacity    0.35s ease,
+    transform  0.35s ease,
+    visibility 0.35s;
   pointer-events: none;
 }
 
@@ -761,68 +774,190 @@ body.reading-page.rdr-focus .page-content {
 }
 
 
-/* ==========================================================================
-   DESKTOP: Level-2+ nested submenus (fly out to the right of parent item)
-   ========================================================================== */
+/* ──────────────────────────────────────────────────────────────────────────
+   21. Poetry content on reading pages
+   ────────────────────────────────────────────────────────────────────────── */
 
-/* Mark any li that contains a submenu so it has relative positioning */
-#topLinks li ul li {
-  position: relative;
+body.reading-page .poetry-content {
+  font-size:          var(--rdr-font-size);
+  line-height:        var(--rdr-line-height);
+  color:              var(--rdr-text-color);
+  max-width:          var(--rdr-max-width);
+  margin:             0 auto 40px;
+  text-align:         center;
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering:     optimizeLegibility;
+  font-kerning:       normal;
+  word-spacing:       0.01em;
+  letter-spacing:     0.01em;
+  transition:         var(--rdr-transition);
+  hyphens:            auto;
+  -webkit-hyphens:    auto;
 }
 
-/* Level 2+ submenus open to the RIGHT of their parent li */
-#topLinks li ul li ul {
-  top: 0;
-  left: 100%;
-  border-top: none;
-  border-left: 2px solid #4392F1;
+body.reading-page .poetry-content p {
+  margin-bottom: 0;
+  orphans: 3;
+  widows: 3;
 }
 
-/* If JS detects right-edge overflow, flip to the LEFT instead */
-#topLinks li ul li ul.flip-left {
-  left: auto;
-  right: 100%;
-  border-left: none;
-  border-right: 2px solid #4392F1;
+body.reading-page.rdr-font-garamond .poetry-content,
+body.reading-page.rdr-font-garamond .poetry-content p {
+  font-family: 'EB Garamond', Georgia, serif;
+  letter-spacing: 0.006em;
+  word-spacing:   0.02em;
 }
 
-/* Show indicator arrow on desktop items that have nested submenus */
-#topLinks li ul li.has-submenu > a::after {
-  content: ' ›';
-  font-size: 14px;
-  float: right;
-  margin-left: 8px;
-  color: #4392F1;
+body.reading-page.rdr-font-lora .poetry-content,
+body.reading-page.rdr-font-lora .poetry-content p {
+  font-family: 'Lora', Georgia, serif;
+  letter-spacing: 0.005em;
 }
 
-/* Vertical Scroll Progress Bar for Page 1 */
-#scroll-progress-container {
-  position: fixed;
-  left: 5px;
-  top: 115px; /* Slightly adjusted for better spacing */
-  width: 10px;
-  height: calc(100vh - 130px);
-  height: calc(100svh - 130px); /* Use svh for mobile stability */
-  background: rgba(238, 238, 238, 0.5);
-  border: 2px solid rgba(67, 146, 241, 0.5);
-  border-radius: 10px; /* Soften edges */
-  z-index: 999;
-  box-sizing: border-box;
-  overflow: hidden; /* Ensures progress bar follows radius */
-  box-shadow: 0 0 10px rgba(67, 146, 241, 0.3); /* Soft glow around container */
-}
-
-#scroll-progress-bar {
-  width: 100%;
-  height: 0%;
-  background: #4392F1; /* KnowFlux Blue */
-  transition: height 0.1s ease-out;
-  box-shadow: 0 0 8px rgba(67, 146, 241, 0.6); /* Soft glow for the progress bar itself */
-}
-
-/* Page1 specific content padding to accommodate progress bar */
-#page1-content {
-  padding-left: 5px; /* Adjusted to balance the 5px left position + width + 5px gap */
+body.reading-page.rdr-font-normal .poetry-content,
+body.reading-page.rdr-font-normal .poetry-content p {
+  font-family: 'Inter', sans-serif;
 }
 
 
+/* ──────────────────────────────────────────────────────────────────────────
+   22. Responsive — mobile (≤ 768px)
+   ────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+
+  body.reading-page .page-content {
+    padding-right: 32px;
+  }
+
+  #rdr-back-top {
+    right:  auto;
+    left:   16px;
+    bottom: 16px;
+  }
+
+  body.reading-page.chapter-start .page-content .rdr-drop-cap-target::first-letter {
+    font-size: 3.4em;
+  }
+
+  body.reading-page .dreamMemText {
+    padding: 16px 18px;
+  }
+
+  body.reading-page .page-content blockquote {
+    padding: 18px 20px;
+  }
+
+  #scroll-progress-container {
+    width: 3px;
+  }
+
+  .rdr-meta { gap: 6px; }
+
+  #rdr-kbd-hint { display: none; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────────────
+   23. Responsive — small phones (≤ 480px)
+   ────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+
+  body.reading-page .page-content {
+    padding: 0 2px;
+  }
+
+  .rdr-btn-row {
+    gap: 4px;
+  }
+
+  .rdr-ctrl-btn {
+    padding:   8px 2px;
+    font-size: 11px;
+  }
+
+  body.reading-page .comingSoonButton {
+    padding:   10px 20px;
+    font-size: 12px;
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────────────
+   24. Print styles
+   ────────────────────────────────────────────────────────────────────────── */
+
+@media print {
+
+  #promo,
+  #topMenu,
+  #scroll-progress-container,
+  #rdr-toolbar-toggle,
+  #rdr-settings-panel,
+  #rdr-settings-overlay,
+  #rdr-kbd-hint,
+  #rdr-back-top,
+  #rdr-complete-toast,
+  .page-footer-action {
+    display: none !important;
+  }
+
+  body.reading-page {
+    background: #fff;
+  }
+
+  body.reading-page .page-content {
+    font-size:   12pt;
+    line-height: 1.65;
+    max-width:   100%;
+    color:       #000;
+    text-align:  left;
+    hyphens:     auto;
+  }
+
+  body.reading-page .page-content p {
+    margin-bottom: 14pt;
+  }
+
+  body.reading-page .page-header-container {
+    margin-top:     0;
+    margin-bottom:  24pt;
+    padding-bottom: 14pt;
+    border-bottom:  1.5pt solid #000;
+  }
+
+  body.reading-page .page-header-container::before {
+    background: #000;
+    opacity:    1;
+  }
+
+  body.reading-page .page-title {
+    font-size: 32pt;
+    color:     #000;
+  }
+
+  body.reading-page .page-subtitle {
+    font-size: 16pt;
+    color:     #000;
+  }
+
+  body.reading-page .dreamMemText {
+    border-left:  3pt solid #555;
+    background:   #f5f5f5;
+  }
+
+  body.reading-page .page-content blockquote {
+    border:     1.5pt solid #333;
+    background: #f9f9f9;
+  }
+
+  body.reading-page .page-content blockquote::before {
+    display: none;
+  }
+
+  body.reading-page.chapter-start .page-content .rdr-drop-cap-target::first-letter {
+    color: #000;
+  }
+}

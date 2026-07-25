@@ -1,18 +1,64 @@
+/* ==========================================================================
+   NAVIGATION — Desktop top bar, submenus, hamburger, mobile overlay
+   ========================================================================== */
+
+/* ==========================================================================
+   DESKTOP TOP BAR
+   ========================================================================== */
+
 #topMenu {
   height: 60px;
   position: fixed;
   top: 48px;
   left: 0;
   width: 100%;
-  background: white;
   z-index: 1000;
-  transition: transform 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(6, 8, 12, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
+  transition: transform 0.35s var(--ease-out);
 }
 
 .nav-hidden {
-  transform: translateY(-200px);
+  transform: translateY(-100%);
 }
+
+/* --- Logo --- */
+#topMenu .logo {
+  float: left;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'EB Garamond', 'Lora', serif;
+  font-size: 22px;
+  letter-spacing: 0.3px;
+  color: var(--text);
+  text-decoration: none;
+  transition: color var(--ease-out);
+}
+
+#topMenu .logo:hover {
+  color: var(--accent);
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+  transition: box-shadow var(--ease-out);
+}
+
+#topMenu .logo:hover img {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* ==========================================================================
+   TOP LINKS & SUBMENUS
+   ========================================================================== */
 
 #topLinks {
   float: right;
@@ -26,41 +72,72 @@
   padding: 0;
 }
 
-/* Submenu Styling */
 #topLinks li {
   float: left;
   position: relative;
-  /* Essential for positioning the submenu relative to this item */
 }
 
+#topLinks li a {
+  display: block;
+  padding: 16px 14px;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.82);
+  border-radius: var(--radius-sm);
+  transition: color var(--ease-out);
+}
+
+#topLinks li a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* --- Dropdown Submenus --- */
 #topLinks li ul {
   display: block;
   position: absolute;
-  top: 100%;
-  /* Position it directly below the parent link */
+  top: calc(100% + 4px);
   left: 0;
-  background: white;
-  min-width: 150px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  min-width: 170px;
+  background: rgba(8, 11, 17, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 8px 0;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transform: translateY(6px);
+  transition: opacity 0.25s var(--ease-out),
+              visibility 0.25s var(--ease-out),
+              transform 0.25s var(--ease-out);
   z-index: 1002;
-  /* Higher than topMenu to stay on top */
-  padding: 10px 0;
-  border-top: 2px solid #4392F1;
 }
 
-/* Click-to-open menus: only show submenus when .submenu-active class is applied */
-#topLinks li.submenu-active>ul {
+/* Gold accent bar at top of dropdown */
+#topLinks li ul::before {
+  content: '';
+  display: block;
+  height: 3px;
+  margin: 0 12px 6px;
+  background: linear-gradient(90deg, var(--accent), #e0bd6a);
+  border-radius: 2px;
+  width: 40px;
+}
+
+#topLinks li.submenu-active > ul {
   opacity: 1;
   visibility: visible;
-  top: 100%;
+  transform: translateY(0);
 }
 
 #topLinks li ul li {
   float: none;
-  /* Stack submenu items vertically */
   width: 100%;
 }
 
@@ -68,96 +145,75 @@
   display: block;
   padding: 10px 20px;
   text-align: left;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.82);
+  border-radius: 0;
+  transition: background 0.15s var(--ease-out), color 0.15s var(--ease-out);
 }
 
 #topLinks li ul li a:hover {
-  background-color: #f9f9f9;
-  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent);
 }
 
-#topLinks li a {
-  color: #333;
-  text-align: center;
-  padding: 16px 12px;
-  text-decoration: none;
-  -webkit-transition: all 250ms ease-out;
-  -ms-transition: all 250ms ease-out;
-  transition: all 250ms ease-out;
+/* --- Nested Submenus (Level 2+) --- */
+#topLinks li ul li ul {
+  top: 0;
+  left: 100%;
+  margin-left: 2px;
 }
 
+/* Flip left when submenu would overflow the viewport on the right */
+#topLinks li ul li ul.flip-left {
+  left: auto;
+  right: 100%;
+  margin-left: 0;
+  margin-right: 2px;
+}
 
-
+/* --- Search Icon --- */
 .search-icon {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1;
   vertical-align: middle;
 }
 
-
-
-#topLinks li a:hover {
-  color: #4392F1;
-  -webkit-transition: all 250ms ease-out;
-  -ms-transition: all 250ms ease-out;
-  transition: all 250ms ease-out;
-  text-decoration: underline;
-}
-
-#topMenu .logo {
-  float: left;
-  height: 60px;
-  font-size: 24px;
-  color: #333;
-  text-decoration: underline;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-  .logo img {
-    height: 40px;
-    width: auto;
-  }
-
-#topMenu .logo:hover {
-  color: #4392F1;
-}
-
-.logo {
-  font-family: 'Anton', cursive;
-}
-
 /* ==========================================================================
-   MOBILE (≤768px): disable dropdown submenus; show indicator only
+   MOBILE HAMBURGER BUTTON — hidden on desktop
    ========================================================================== */
 
-/* Hamburger button — hidden on desktop, shown on mobile */
 #mnav-hamburger {
   display: none;
   float: right;
   margin-top: 14px;
-  padding: 6px;
+  padding: 8px;
   background: none;
   border: none;
   cursor: pointer;
   flex-direction: column;
   gap: 5px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s var(--ease-out);
+}
+
+#mnav-hamburger:hover {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 #mnav-hamburger span {
   display: block;
-  width: 26px;
-  height: 3px;
-  background: #333;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
   border-radius: 2px;
-  transition: background 0.2s;
+  transition: background 0.2s var(--ease-out),
+              transform 0.2s var(--ease-out);
 }
 
 #mnav-hamburger:hover span {
-  background: #4392F1;
+  background: var(--accent);
 }
-
 
 /* ==========================================================================
    MOBILE NAV OVERLAY
@@ -168,7 +224,9 @@
   position: fixed;
   inset: 0;
   z-index: 3000;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 #mnav-overlay.open {
@@ -185,11 +243,14 @@
   overflow: hidden;
 }
 
-/* Individual sliding panel */
+/* --- Sliding Panels --- */
 .mnav-panel {
   position: absolute;
   inset: 0;
-  background: #fff;
+  background: rgba(6, 8, 12, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid var(--line);
   overflow-y: auto;
   transform: translateX(100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -200,55 +261,69 @@
   transform: translateX(0);
 }
 
-/* Previous panel slides 30% to the left to give depth */
 .mnav-panel.mnav-out {
   transform: translateX(-28%);
 }
 
-/* Exiting panel slides back to the right */
 .mnav-panel.mnav-exit {
   transform: translateX(100%);
 }
 
-/* Panel header bar */
+/* --- Panel Header --- */
 .mnav-header {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 14px 18px;
-  background: #333;
   position: sticky;
   top: 0;
   z-index: 1;
-  border-bottom: 3px solid #4392F1;
+  background: rgba(8, 11, 17, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Gold accent bar at bottom edge of header */
+.mnav-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 18px;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #e0bd6a);
+  border-radius: 2px;
 }
 
 .mnav-action-btn {
   background: none;
   border: none;
-  color: #fff;
-  font-size: 15px;
-  font-family: 'Open Sans', sans-serif;
+  padding: 4px 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
   cursor: pointer;
-  padding: 4px 6px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   white-space: nowrap;
-  transition: background 0.15s;
+  transition: background 0.15s var(--ease-out), color 0.15s var(--ease-out);
 }
 
 .mnav-action-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
 }
 
 .mnav-title {
-  font-family: 'Anton', cursive;
-  font-size: 18px;
-  color: #4392F1;
-  letter-spacing: 0.5px;
   flex: 1;
+  font-family: 'EB Garamond', 'Lora', serif;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  color: var(--accent);
 }
 
-/* Items list inside a panel */
+/* --- Panel Item List --- */
 .mnav-list {
   list-style: none;
   margin: 0;
@@ -256,104 +331,39 @@
 }
 
 .mnav-list li {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--line);
 }
 
-/* Shared style for both link and button items */
 .mnav-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   padding: 16px 20px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  color: #333;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
   text-decoration: none;
+  text-align: left;
   background: none;
   border: none;
   cursor: pointer;
-  text-align: left;
-  transition: background 0.15s, color 0.15s;
-  box-sizing: border-box;
+  transition: background 0.15s var(--ease-out), color 0.15s var(--ease-out);
 }
 
 .mnav-item:hover,
 .mnav-item:focus {
-  background: #f4f4f4;
-  color: #4392F1;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent);
   outline: none;
 }
 
 .mnav-arrow {
-  font-size: 22px;
-  font-weight: bold;
-  color: #4392F1;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
   line-height: 1;
   flex-shrink: 0;
-}
-
-#topMenu {
-  background: rgba(6, 8, 12, 0.88);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
-}
-
-#topMenu .logo {
-  color: var(--text);
-  text-decoration: none;
-}
-
-#topMenu .logo:hover {
-  color: var(--accent);
-}
-
-.logo img {
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.14);
-}
-
-#topLinks li a {
-  color: rgba(255,255,255,0.88);
-}
-
-#topLinks li a:hover {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-#topLinks li ul {
-  background: rgba(8, 11, 17, 0.96);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-top: 2px solid var(--accent);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.24);
-}
-
-#topLinks li ul li a {
-  color: rgba(255,255,255,0.9);
-}
-
-#topLinks li ul li a:hover {
-  background: rgba(255,255,255,0.04);
-  color: var(--accent);
-}
-
-#mnav-header {
-  background: rgba(8, 11, 17, 0.96);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.mnav-panel {
-  background: rgba(6, 8, 12, 0.98);
-}
-
-.mnav-item {
-  color: rgba(255,255,255,0.86);
-}
-
-.mnav-item:hover,
-.mnav-item:focus {
-  background: rgba(255,255,255,0.05);
-  color: var(--accent);
 }

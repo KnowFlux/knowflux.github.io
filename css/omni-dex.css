@@ -1,78 +1,74 @@
 /* =========================================================
-   Omni-Dex Styles — Cosmic KnowFlux Theme
-   Scoped to body.omni-dex. Uses site-wide custom properties
+   Omni-Dex — Cosmic Compendium
+   Scoped to body.omni-dex. Uses site-wide design tokens
    from base.css for a cohesive dark-cosmic feel.
    ========================================================= */
 
-/* ---------- Default (Pinnacle) cosmic palette ---------- */
+/* ==========================================================================
+   1. CUSTOM PROPERTIES — per-universe palettes
+   ========================================================================== */
+
+/* --- Pinnacle (default) — cool ethereal blue-gold --- */
 body.omni-dex {
-  --omni-dex-accent:            var(--accent, #d4a85c);
-  --omni-dex-accent-secondary:  var(--accent-strong, #8b5a2b);
-  --omni-dex-card-bg:           var(--surface, rgba(17, 23, 32, 0.9));
-  --omni-dex-card-border:       var(--line, rgba(255,255,255,0.12));
-  --omni-dex-card-shadow:       var(--shadow, 0 24px 80px rgba(0,0,0,0.28));
-  --omni-dex-text:              var(--text, #f4ebdc);
-  --omni-dex-text-light:        var(--muted, #b7ac93);
-  --omni-dex-stat-bg:           rgba(255,255,255,0.08);
-  --omni-dex-stat-fill:         var(--accent, #d4a85c);
-  --omni-dex-tab-bg:            transparent;
-  --omni-dex-tab-active-bg:     var(--accent, #d4a85c);
-  --omni-dex-tab-active-text:   #120c06;
-  --omni-dex-glow:              rgba(212, 168, 92, 0.18);
+  --omni-accent:             var(--accent, #c9a04c);
+  --omni-accent-strong:      #8b5a2b;
+  --omni-card-bg:            var(--surface, rgba(17, 23, 32, 0.9));
+  --omni-card-border:        var(--line, rgba(255,255,255,0.08));
+  --omni-card-shadow:        var(--shadow-lg, 0 24px 80px rgba(0,0,0,0.28));
+  --omni-text:               var(--text, #ede6d9);
+  --omni-text-muted:         var(--muted, #9d9583);
+  --omni-stat-bg:            rgba(255,255,255,0.07);
+  --omni-stat-fill:          var(--accent, #c9a04c);
+  --omni-glow:               rgba(201, 160, 76, 0.15);
+  --omni-tab-active-bg:      var(--accent, #c9a04c);
+  --omni-tab-active-text:    #0d0b07;
 
-  /* Modal defaults */
-  --modal-overlay:              rgba(0, 0, 0, 0.78);
-  --modal-bg:                   var(--surface-strong, rgba(8, 11, 17, 0.96));
-  --modal-border:               rgba(255,255,255,0.1);
-  --modal-shadow:               0 32px 96px rgba(0, 0, 0, 0.55);
-  --modal-titlebar-accent:      var(--accent, #d4a85c);
-  --modal-text:                 var(--text, #f4ebdc);
-  --modal-btn-stats-bg:         var(--accent, #d4a85c);
-  --modal-btn-close-bg:         var(--accent-strong, #8b5a2b);
-  --modal-btn-next-bg:          var(--accent, #d4a85c);
-  --modal-sidebar-bg:           var(--surface-strong, rgba(8, 11, 17, 0.96));
-  --modal-sidebar-accent-shadow: rgba(212, 168, 92, 0.4);
-  --modal-tooltip-shadow:       rgba(212, 168, 92, 0.35);
-  --modal-stat-fill:            var(--accent, #d4a85c);
+  /* Modal tokens */
+  --omni-modal-overlay:      rgba(0, 0, 0, 0.75);
+  --omni-modal-bg:           rgba(8, 11, 17, 0.97);
+  --omni-modal-border:       var(--line, rgba(255,255,255,0.08));
+  --omni-modal-shadow:       0 32px 96px rgba(0, 0, 0, 0.5);
+  --omni-modal-accent:       var(--accent, #c9a04c);
+  --omni-modal-text:         var(--text, #ede6d9);
+  --omni-modal-btn-primary:  var(--accent, #c9a04c);
+  --omni-modal-btn-secondary: #6b4226;
+  --omni-modal-sidebar-bg:   rgba(8, 11, 17, 0.97);
+  --omni-modal-sidebar-glow: rgba(201, 160, 76, 0.35);
+  --omni-modal-tooltip-glow: rgba(201, 160, 76, 0.3);
 }
 
-/* ---------- Exploded universe override (warm / fiery gold) ---------- */
+/* --- Exploded universe override (warm fiery gold) --- */
 body.omni-dex[data-universe="exploded"] {
-  --omni-dex-accent:            #d4a85c;
-  --omni-dex-accent-secondary:  #a0522d;
-  --omni-dex-card-bg:           rgba(22, 18, 12, 0.92);
-  --omni-dex-card-border:       rgba(212, 168, 92, 0.25);
-  --omni-dex-card-shadow:       0 24px 80px rgba(180, 130, 40, 0.12);
-  --omni-dex-text:              #f4ebdc;
-  --omni-dex-text-light:        #b7ac93;
-  --omni-dex-stat-bg:           rgba(255,255,255,0.06);
-  --omni-dex-stat-fill:         linear-gradient(90deg, #d4a85c, #e6c97a);
-  --omni-dex-tab-active-bg:     #d4a85c;
-  --omni-dex-tab-active-text:   #120c06;
-  --omni-dex-glow:              rgba(212, 168, 92, 0.25);
+  --omni-accent:             #d4a85c;
+  --omni-accent-strong:      #a0522d;
+  --omni-card-bg:            rgba(22, 18, 12, 0.92);
+  --omni-card-border:        rgba(212, 168, 92, 0.18);
+  --omni-card-shadow:        0 24px 80px rgba(160, 110, 30, 0.1);
+  --omni-text:               #f4ebdc;
+  --omni-text-muted:         #b7ac93;
+  --omni-stat-bg:            rgba(255,255,255,0.05);
+  --omni-stat-fill:          linear-gradient(90deg, #d4a85c, #e6c97a);
+  --omni-glow:               rgba(212, 168, 92, 0.22);
+  --omni-tab-active-bg:      #d4a85c;
+  --omni-tab-active-text:    #120c06;
 
-  --modal-overlay:              rgba(0, 0, 0, 0.8);
-  --modal-bg:                   rgba(18, 14, 8, 0.97);
-  --modal-border:               rgba(212, 168, 92, 0.2);
-  --modal-titlebar-accent:      #d4a85c;
-  --modal-text:                 #f4ebdc;
-  --modal-btn-stats-bg:         #a0522d;
-  --modal-btn-close-bg:         #a0522d;
-  --modal-btn-next-bg:          #d4a85c;
-  --modal-sidebar-bg:           rgba(18, 14, 8, 0.97);
-  --modal-sidebar-accent-shadow: rgba(212, 168, 92, 0.4);
-  --modal-tooltip-shadow:       rgba(212, 168, 92, 0.35);
-  --modal-stat-fill:            #d4a85c;
+  --omni-modal-overlay:      rgba(0, 0, 0, 0.8);
+  --omni-modal-bg:           rgba(18, 14, 8, 0.97);
+  --omni-modal-border:       rgba(212, 168, 92, 0.15);
+  --omni-modal-accent:       #d4a85c;
+  --omni-modal-text:         #f4ebdc;
+  --omni-modal-btn-primary:  #d4a85c;
+  --omni-modal-btn-secondary: #a0522d;
+  --omni-modal-sidebar-bg:   rgba(18, 14, 8, 0.97);
+  --omni-modal-sidebar-glow: rgba(212, 168, 92, 0.35);
+  --omni-modal-tooltip-glow: rgba(212, 168, 92, 0.3);
 }
 
-/* ---------- Pinnacle universe override (cool / ethereal blue) ---------- */
-/* Applied via JS when the Pinnacle tab is active by not having [data-universe="exploded"].
-   The body defaults above already serve as Pinnacle. */
 
+/* ==========================================================================
+   2. MODAL BACKGROUND BLUR — when a card is open, soften the page
+   ========================================================================== */
 
-/* =========================================================
-   Blur page behind modal
-   ========================================================= */
 body.omni-dex.modal-active .omni-tabs,
 body.omni-dex.modal-active .omni-type-filters,
 body.omni-dex.modal-active .omni-card-grid,
@@ -80,121 +76,133 @@ body.omni-dex.modal-active .omni-status {
   filter: blur(8px);
   -webkit-filter: blur(8px);
   pointer-events: none;
-  transition: filter 0.35s ease;
+  transition: filter 0.35s var(--ease-out);
 }
 
 
-/* =========================================================
-   Tabs — Universe Cartridges
-   ========================================================= */
+/* ==========================================================================
+   3. TABS — Universe Cartridges
+   ========================================================================== */
+
 .omni-tabs {
   display: flex;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   margin: 2rem 0 1.2rem;
   flex-wrap: wrap;
 }
 
 .omni-tab {
-  padding: 0.55rem 1.6rem;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
+  padding: 0.5rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  border: 1px solid var(--line, rgba(255,255,255,0.12));
-  background: var(--surface, rgba(17, 23, 32, 0.9));
-  color: var(--muted, #b7ac93);
+  letter-spacing: 0.06em;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
   cursor: pointer;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  transition: background 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.15s;
+  transition: background var(--ease-out),
+              color var(--ease-out),
+              border-color var(--ease-out),
+              box-shadow var(--ease-out),
+              transform 0.15s var(--ease-out);
 }
 
 .omni-tab:hover {
-  color: var(--accent, #d4a85c);
-  border-color: var(--accent, #d4a85c);
-  box-shadow: 0 0 24px var(--omni-dex-glow);
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 28px var(--omni-glow);
   transform: translateY(-1px);
 }
 
 .omni-tab.active {
-  background: linear-gradient(135deg, var(--accent, #d4a85c), var(--accent-strong, #8b5a2b));
-  color: #120c06;
+  background: linear-gradient(135deg, var(--omni-accent), var(--omni-accent-strong));
+  color: var(--omni-tab-active-text);
   border-color: transparent;
-  box-shadow: 0 8px 32px var(--omni-dex-glow);
+  box-shadow: 0 6px 28px var(--omni-glow);
 }
 
 
-/* =========================================================
-   Type Filter Pills
-   ========================================================= */
+/* ==========================================================================
+   4. TYPE FILTER PILLS
+   ========================================================================== */
+
 .omni-type-filters {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.45rem;
+  gap: 0.4rem;
   margin: 0.5rem 0 2.2rem;
 }
 
 .type-pill {
-  padding: 0.35rem 1.1rem;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
+  padding: 0.35rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   background: transparent;
-  border: 1px solid var(--line, rgba(255,255,255,0.12));
-  color: var(--muted, #b7ac93);
+  border: 1px solid var(--line);
+  color: var(--muted);
   cursor: pointer;
-  border-radius: 999px;
-  transition: background 0.22s, color 0.22s, border-color 0.22s, box-shadow 0.22s;
+  border-radius: var(--radius-full);
+  transition: background var(--ease-out),
+              color var(--ease-out),
+              border-color var(--ease-out),
+              box-shadow var(--ease-out);
 }
 
 .type-pill:hover {
-  border-color: var(--accent, #d4a85c);
-  color: var(--accent, #d4a85c);
-  box-shadow: 0 0 16px var(--omni-dex-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 18px var(--omni-glow);
 }
 
 .type-pill.active {
-  background: var(--accent, #d4a85c);
-  color: #120c06;
-  border-color: var(--accent, #d4a85c);
-  box-shadow: 0 4px 20px var(--omni-dex-glow);
+  background: var(--accent);
+  color: #0d0b07;
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px var(--omni-glow);
 }
 
+/* ==========================================================================
+   5. CARD GRID
+   ========================================================================== */
 
-/* =========================================================
-   Card Grid
-   ========================================================= */
 .omni-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.6rem;
+  gap: 1.5rem;
   padding: 0 0 3rem;
 }
 
 
-/* =========================================================
-   Individual Card — frosted glass cosmic panel
-   ========================================================= */
+/* ==========================================================================
+   6. INDIVIDUAL CARD — frosted glass cosmic panel
+   ========================================================================== */
+
 .omni-card {
-  background: var(--omni-dex-card-bg);
-  border: 1px solid var(--omni-dex-card-border);
-  border-radius: 20px;
-  box-shadow: var(--omni-dex-card-shadow);
+  background: var(--omni-card-bg);
+  border: 1px solid var(--omni-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--omni-card-shadow);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 1.4rem 1.3rem 1.2rem;
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.25s;
   position: relative;
   overflow: hidden;
+  transition: transform 0.25s var(--ease-out),
+              box-shadow 0.3s var(--ease-out),
+              border-color 0.25s var(--ease-out);
 }
 
 /* Subtle top-edge accent glow */
@@ -205,15 +213,18 @@ body.omni-dex.modal-active .omni-status {
   left: 20%;
   right: 20%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--omni-dex-accent), transparent);
-  opacity: 0.5;
-  transition: opacity 0.3s, left 0.3s, right 0.3s;
+  background: linear-gradient(90deg, transparent, var(--omni-accent), transparent);
+  opacity: 0.45;
+  border-radius: 0 0 2px 2px;
+  transition: opacity 0.35s var(--ease-out),
+              left 0.35s var(--ease-out),
+              right 0.35s var(--ease-out);
 }
 
 .omni-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35), 0 0 40px var(--omni-dex-glow);
-  border-color: var(--omni-dex-accent);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.35), 0 0 40px var(--omni-glow);
+  border-color: var(--omni-accent);
 }
 
 .omni-card:hover::before {
@@ -222,13 +233,15 @@ body.omni-dex.modal-active .omni-status {
   right: 10%;
 }
 
+/* --- Card inner elements --- */
+
 .omni-card-header {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--omni-dex-text-light);
+  color: var(--omni-text-muted);
   text-align: center;
   margin-bottom: 0.5rem;
 }
@@ -237,34 +250,35 @@ body.omni-dex.modal-active .omni-status {
   font-family: 'EB Garamond', 'Lora', serif;
   font-size: 1.55rem;
   font-weight: 600;
-  margin: 0 0 0.25rem;
-  color: var(--omni-dex-accent);
-  letter-spacing: 0.02em;
   line-height: 1.15;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.25rem;
+  color: var(--omni-accent);
 }
 
 .omni-card-type {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--omni-dex-text-light);
+  letter-spacing: 0.07em;
+  color: var(--omni-text-muted);
   margin-bottom: 0.6rem;
 }
 
 .omni-card-desc {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--omni-dex-text);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--omni-text);
   flex: 1;
 }
 
 
-/* =========================================================
-   Stat Bars (on cards)
-   ========================================================= */
+/* ==========================================================================
+   7. STAT BARS (on cards)
+   ========================================================================== */
+
 .omni-card-stats {
   margin-top: 1rem;
   padding-top: 0.7rem;
@@ -277,123 +291,119 @@ body.omni-dex.modal-active .omni-status {
   gap: 0.45rem;
   margin-bottom: 0.35rem;
   font-size: 0.75rem;
-  font-family: 'Open Sans', sans-serif;
-  color: var(--omni-dex-text-light);
+  font-family: 'Inter', sans-serif;
+  color: var(--omni-text-muted);
 }
 
 .omni-stat-label {
-  width: 115px;
+  width: 110px;
   flex-shrink: 0;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.04em;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
 .omni-stat-bar {
   flex: 1;
-  height: 8px;
-  background: var(--omni-dex-stat-bg);
-  border-radius: 999px;
+  height: 7px;
+  background: var(--omni-stat-bg);
+  border-radius: var(--radius-full);
   overflow: hidden;
-}
-
-@keyframes fillBar {
-  from { width: 0%; }
-  to   { width: var(--target-width); }
 }
 
 .omni-stat-fill {
   height: 100%;
-  border-radius: 999px;
-  background: var(--omni-dex-stat-fill, var(--accent, #d4a85c));
+  border-radius: var(--radius-full);
+  background: var(--omni-stat-fill, var(--accent));
   width: 0%;
-  animation: fillBar 0.55s ease-out forwards;
-  box-shadow: 0 0 8px var(--omni-dex-glow);
+  animation: omniFillBar 0.55s var(--ease-out) forwards;
+  box-shadow: 0 0 10px var(--omni-glow);
+}
+
+@keyframes omniFillBar {
+  from { width: 0%; }
+  to   { width: var(--target-width); }
 }
 
 .omni-stat-value {
   width: 28px;
   text-align: right;
-  font-weight: 700;
-  font-size: 0.72rem;
-  color: var(--omni-dex-text);
+  font-weight: 600;
+  font-size: 0.7rem;
+  color: var(--omni-text);
 }
 
 
-/* =========================================================
-   Per-card universe theming (used when mixing on "All" tab)
-   ========================================================= */
+/* ==========================================================================
+   8. PER-CARD UNIVERSE THEMING (All tab mixing)
+   ========================================================================== */
+
 .omni-card.card-exploded {
-  --omni-dex-accent:            #d4a85c;
-  --omni-dex-accent-secondary:  #a0522d;
-  --omni-dex-card-bg:           rgba(22, 18, 12, 0.92);
-  --omni-dex-card-border:       rgba(212, 168, 92, 0.2);
-  --omni-dex-card-shadow:       0 24px 80px rgba(160, 110, 30, 0.1);
-  --omni-dex-text:              #f4ebdc;
-  --omni-dex-text-light:        #b7ac93;
-  --omni-dex-stat-bg:           rgba(255,255,255,0.06);
-  --omni-dex-stat-fill:         #d4a85c;
-  --omni-dex-glow:              rgba(212, 168, 92, 0.22);
+  --omni-accent:             #d4a85c;
+  --omni-accent-strong:      #a0522d;
+  --omni-card-bg:            rgba(22, 18, 12, 0.92);
+  --omni-card-border:        rgba(212, 168, 92, 0.18);
+  --omni-card-shadow:        0 24px 80px rgba(160, 110, 30, 0.1);
+  --omni-text:               #f4ebdc;
+  --omni-text-muted:         #b7ac93;
+  --omni-stat-bg:            rgba(255,255,255,0.05);
+  --omni-stat-fill:          #d4a85c;
+  --omni-glow:               rgba(212, 168, 92, 0.2);
 }
 
 .omni-card.card-pinnacle {
-  --omni-dex-accent:            #6a8ea6;
-  --omni-dex-accent-secondary:  #4a6a82;
-  --omni-dex-card-bg:           rgba(17, 23, 32, 0.9);
-  --omni-dex-card-border:       rgba(106, 142, 166, 0.2);
-  --omni-dex-card-shadow:       0 24px 80px rgba(0, 0, 0, 0.25);
-  --omni-dex-text:              #f4ebdc;
-  --omni-dex-text-light:        #b7ac93;
-  --omni-dex-stat-bg:           rgba(255,255,255,0.07);
-  --omni-dex-stat-fill:         #6a8ea6;
-  --omni-dex-glow:              rgba(106, 142, 166, 0.2);
+  --omni-accent:             #7d9cb0;
+  --omni-accent-strong:      #4a6a82;
+  --omni-card-bg:            rgba(11, 16, 23, 0.92);
+  --omni-card-border:        rgba(125, 156, 176, 0.18);
+  --omni-card-shadow:        0 24px 80px rgba(0, 0, 0, 0.22);
+  --omni-text:               #ede6d9;
+  --omni-text-muted:         #9d9583;
+  --omni-stat-bg:            rgba(255,255,255,0.06);
+  --omni-stat-fill:          #7d9cb0;
+  --omni-glow:               rgba(125, 156, 176, 0.18);
 }
 
+/* ==========================================================================
+   9. MODAL — Cosmic Viewport
+   ========================================================================== */
 
-/* =========================================================
-   Omni-Dex Modal — Cosmic Viewport
-   ========================================================= */
 .omni-modal {
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: transparent;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.35s var(--ease-out);
 }
 
 .omni-modal.visible {
   opacity: 1;
   pointer-events: auto;
-}
-
-/* Backdrop appears on visible */
-.omni-modal.visible {
-  background: var(--modal-overlay);
+  background: var(--omni-modal-overlay);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
 
 .omni-modal-content {
-  background: var(--modal-bg);
-  border: 1px solid var(--modal-border);
-  border-radius: 24px;
+  background: var(--omni-modal-bg);
+  border: 1px solid var(--omni-modal-border);
+  border-radius: var(--radius-lg);
   width: 90%;
-  max-width: 580px;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
-  padding: 24px 20px 20px;
-  box-shadow: var(--modal-shadow);
+  padding: 24px 22px 20px;
+  box-shadow: var(--omni-modal-shadow);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  transform: scale(0.9) translateY(20px);
+  transform: scale(0.92) translateY(20px);
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -402,50 +412,53 @@ body.omni-dex.modal-active .omni-status {
 }
 
 
-/* =========================================================
-   Modal Screen Area
-   ========================================================= */
+/* ==========================================================================
+   10. MODAL SCREEN AREA
+   ========================================================================== */
+
 .omni-modal-screen {
   display: flex;
   flex-direction: column;
   height: 370px;
-  min-height: 220px;
+  min-height: 200px;
   max-height: 78vh;
   overflow: hidden;
 }
 
+/* --- Title bar --- */
 .omni-modal-titlebar {
-  border-bottom: 2px solid var(--modal-titlebar-accent);
-  padding: 0 4px 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 0 12px;
+  border-bottom: 2px solid var(--omni-modal-accent);
 }
 
 .omni-modal-title {
   font-family: 'EB Garamond', 'Lora', serif;
   font-weight: 600;
-  font-size: 1.6rem;
-  color: var(--modal-text);
+  font-size: 1.5rem;
   letter-spacing: 0.03em;
   line-height: 1.1;
+  color: var(--omni-modal-text);
 }
 
-/* Stats toggle button */
 .omni-modal-stats-btn {
-  background: var(--modal-btn-stats-bg);
-  color: #120c06;
+  background: var(--omni-modal-btn-primary);
+  color: #0d0b07;
   border: none;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
   padding: 7px 16px;
-  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-full);
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
   box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  transition: transform 0.15s var(--ease-out),
+              box-shadow 0.2s var(--ease-out),
+              opacity 0.2s var(--ease-out);
 }
 
 .omni-modal-stats-btn:hover {
@@ -453,10 +466,16 @@ body.omni-dex.modal-active .omni-status {
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
 }
 
+.omni-modal-stats-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
 
-/* =========================================================
-   Modal Body + Sidebar Wrapper
-   ========================================================= */
+
+/* ==========================================================================
+   11. MODAL BODY + SIDEBAR WRAPPER
+   ========================================================================== */
+
 .omni-modal-body-wrapper {
   display: flex;
   flex: 1;
@@ -465,13 +484,13 @@ body.omni-dex.modal-active .omni-status {
 }
 
 .omni-modal-body {
+  flex: 1;
   padding: 14px 0;
   overflow-y: auto;
-  color: var(--modal-text);
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
   line-height: 1.75;
-  flex: 1;
-  font-size: 0.93rem;
+  color: var(--omni-modal-text);
 }
 
 .omni-modal-body p {
@@ -479,33 +498,32 @@ body.omni-dex.modal-active .omni-status {
 }
 
 
-/* =========================================================
-   Stats Sidebar
-   ========================================================= */
+/* ==========================================================================
+   12. STATS SIDEBAR
+   ========================================================================== */
+
 .omni-modal-stats-sidebar {
   position: absolute;
   top: 0;
-  right: -340px;
-  width: 310px;
+  right: -320px;
+  width: 290px;
   height: 100%;
-  background: var(--modal-sidebar-bg);
-  border-left: 1px solid var(--modal-border);
-  box-shadow: -8px 0 32px var(--modal-sidebar-accent-shadow);
-  border-radius: 0 16px 16px 0;
-  padding: 16px 14px;
-  padding-top: 36px;
+  background: var(--omni-modal-sidebar-bg);
+  border-left: 1px solid var(--omni-modal-border);
+  box-shadow: -8px 0 32px var(--omni-modal-sidebar-glow);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 36px 14px 16px;
   overflow-y: auto;
-  transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
   z-index: 10;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .omni-modal-stats-sidebar.open {
   right: 0;
 }
-
 
 /* Stat items inside sidebar */
 .omni-modal-stats-sidebar .omni-stat {
@@ -513,58 +531,60 @@ body.omni-dex.modal-active .omni-status {
 }
 
 .omni-modal-stats-sidebar .omni-stat-label {
-  color: var(--modal-text);
+  width: 130px;
+  color: var(--omni-modal-text);
   cursor: pointer;
-  width: 140px;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
 .omni-modal-stats-sidebar .omni-stat-value {
-  color: var(--modal-text);
-  font-size: 0.72rem;
+  color: var(--omni-modal-text);
+  font-size: 0.7rem;
 }
 
 .omni-modal-stats-sidebar .omni-stat-bar {
-  background: rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.06);
 }
 
 .omni-modal-stats-sidebar .omni-stat-fill {
-  background: var(--modal-stat-fill);
+  background: var(--omni-modal-accent);
 }
 
 
-/* =========================================================
-   Stat Tooltip
-   ========================================================= */
+/* ==========================================================================
+   13. STAT TOOLTIP
+   ========================================================================== */
+
 .omni-stat-tooltip {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  background: var(--modal-sidebar-bg);
-  color: var(--modal-text);
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.73rem;
-  line-height: 1.5;
+  margin-top: 4px;
   padding: 6px 10px;
-  border: 1px solid var(--modal-border);
-  border-radius: 8px;
-  box-shadow: 0 8px 24px var(--modal-tooltip-shadow);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--omni-modal-text);
+  background: var(--omni-modal-sidebar-bg);
+  border: 1px solid var(--omni-modal-border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px var(--omni-modal-tooltip-glow);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 20;
   pointer-events: auto;
   word-wrap: break-word;
   white-space: normal;
-  margin-top: 4px;
 }
 
 
-/* =========================================================
-   Modal Controls
-   ========================================================= */
+/* ==========================================================================
+   14. MODAL CONTROLS
+   ========================================================================== */
+
 .omni-modal-controls {
   display: flex;
   justify-content: flex-end;
@@ -575,16 +595,18 @@ body.omni-dex.modal-active .omni-status {
 
 .omni-modal-btn {
   padding: 10px 24px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
   box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  transition: transform 0.15s var(--ease-out),
+              box-shadow 0.2s var(--ease-out),
+              opacity 0.2s var(--ease-out);
 }
 
 .omni-modal-btn:hover {
@@ -598,25 +620,26 @@ body.omni-dex.modal-active .omni-status {
 }
 
 .omni-modal-btn-close {
-  background: var(--modal-btn-close-bg);
-  color: #fff;
+  background: var(--omni-modal-btn-secondary);
+  color: #eee;
 }
 
 .omni-modal-btn-next {
-  background: var(--modal-btn-next-bg);
-  color: #120c06;
+  background: var(--omni-modal-btn-primary);
+  color: #0d0b07;
 }
 
 
-/* =========================================================
-   Status Messages
-   ========================================================= */
+/* ==========================================================================
+   15. STATUS MESSAGES
+   ========================================================================== */
+
 .omni-status {
   text-align: center;
   padding: 2.5rem;
-  font-size: 1rem;
-  color: var(--muted, #b7ac93);
-  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--muted);
 }
 
 .omni-status.hidden {
@@ -624,36 +647,39 @@ body.omni-dex.modal-active .omni-status {
 }
 
 
-/* =========================================================
-   Responsive
-   ========================================================= */
+/* ==========================================================================
+   16. RESPONSIVE
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .omni-tabs {
-    gap: 0.4rem;
+    gap: 0.35rem;
   }
+
   .omni-tab {
-    padding: 0.45rem 1.2rem;
-    font-size: 0.8rem;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.78rem;
   }
+
   .omni-modal-content {
     width: 95%;
-    padding: 18px 14px;
-    border-radius: 20px;
+    padding: 18px 16px;
+    border-radius: var(--radius-md);
   }
+
   .omni-modal-screen {
     min-height: 180px;
-    height: 290px;
+    height: 270px;
     max-height: 68vh;
   }
+
   .omni-modal-title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
   }
+
   .omni-modal-stats-sidebar {
-    width: 270px;
-    right: -290px;
-  }
-  .omni-modal-stats-sidebar.open {
-    right: 0;
+    width: 260px;
+    right: -280px;
   }
 }
 
@@ -661,24 +687,24 @@ body.omni-dex.modal-active .omni-status {
   .omni-card-grid {
     grid-template-columns: 1fr;
   }
+
   .omni-stat-label {
-    width: 120px;
+    width: 105px;
   }
+
   .omni-modal-controls {
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
   }
+
   .omni-modal-screen {
     min-height: 160px;
-    height: 250px;
-    max-height: 66vh;
+    height: 240px;
   }
+
   .omni-modal-stats-sidebar {
-    width: 220px;
-    right: -240px;
-  }
-  .omni-modal-stats-sidebar.open {
-    right: 0;
+    width: 210px;
+    right: -230px;
   }
 }

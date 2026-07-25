@@ -1,80 +1,44 @@
-/* ── Reading experience on poetry pages ── */
-body.reading-page .poetry-content {
-  font-size:          var(--rdr-font-size);
-  line-height:        var(--rdr-line-height);
-  color:              var(--rdr-text-color);
-  max-width:          var(--rdr-max-width);
-  margin:             0 auto 40px;
-  text-align:         center;
-  -webkit-font-smoothing:  antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering:     optimizeLegibility;
-  font-kerning:       normal;
-  word-spacing:       0.01em;
-  letter-spacing:     0.012em;
-  transition:         var(--rdr-transition);
-  hyphens:            auto;
-  -webkit-hyphens:    auto;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   POETRY — refined cards and typography
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-body.reading-page .poetry-content p {
-  margin-bottom: 0;
-  orphans: 3;
-  widows: 3;
-}
-
-body.reading-page.rdr-font-garamond .poetry-content,
-body.reading-page.rdr-font-garamond .poetry-content p {
-  font-family: 'EB Garamond', Georgia, serif;
-  letter-spacing: 0.008em;
-  word-spacing:   0.02em;
-}
-
-body.reading-page.rdr-font-lora .poetry-content,
-body.reading-page.rdr-font-lora .poetry-content p {
-  font-family: 'Lora', Georgia, serif;
-  letter-spacing: 0.006em;
-}
-
-body.reading-page.rdr-font-normal .poetry-content,
-body.reading-page.rdr-font-normal .poetry-content p {
-  font-family: 'Open Sans', sans-serif;
-}
-
-/* Poetry Page Content Styling */
+/* ── Poetry page heading ── */
 #poetry-content h2 {
-  color: var(--accent);
+  color: var(--text);
   text-align: center;
   margin-top: 40px;
-  margin-bottom: 5px;
-  text-transform: uppercase;
+  margin-bottom: 4px;
+  text-transform: none;
   font-family: 'EB Garamond', 'Lora', serif;
-  letter-spacing: 0.03em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
-
 
 #poetry-content h3 {
   text-align: center;
   font-family: 'EB Garamond', 'Lora', serif;
   color: var(--text);
-  font-weight: 600;
-  margin: 5px 0;
-  padding: 15px;
+  font-weight: 500;
+  margin: 4px 0;
+  padding: 12px 24px;
   background: var(--surface);
   border: 1px solid var(--line);
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-full, 999px);
+  box-shadow: var(--shadow-sm);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: inline-block;
   width: auto;
-  min-width: 200px;
+  min-width: 180px;
 }
 
 #poetry-content .blue-box {
   color: #120c06;
-  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  box-shadow: var(--shadow);
+  background: linear-gradient(135deg, var(--accent), #b89240);
+  box-shadow: 0 4px 18px rgba(180, 140, 50, 0.25);
 }
 
+/* ── Flex grid ── */
 .poetry-flex-grid {
   display: flex;
   flex-wrap: wrap;
@@ -89,75 +53,117 @@ body.reading-page.rdr-font-normal .poetry-content p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* horizontal centering */
   align-items: center;
-  /* vertical centering if needed */
   text-align: center;
 }
 
-
+/* ── Poetry card (gold accent) ── */
 .poetry-box {
   display: block;
-  /* or remove display entirely */
-  /* now works correctly */
   font-family: 'EB Garamond', 'Lora', serif;
   color: var(--text);
-  font-weight: 600;
-  margin: 10px 0;
-  padding: 20px;
+  font-weight: 500;
+  margin: 8px 0;
+  padding: 22px 24px;
   background: var(--surface);
   border: 1px solid var(--line);
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-lg, 24px);
+  box-shadow: var(--shadow-sm);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   width: 100%;
   max-width: 800px;
-  transition: all 0.2s ease;
-  border-radius: 20px;
+  transition:
+    transform  0.25s ease,
+    box-shadow 0.3s ease,
+    border-color 0.25s ease;
 }
 
 .poetry-box:hover {
-  box-shadow: 0 32px 96px rgba(212, 168, 92, 0.2);
-  transform: translate(-2px, -2px);
+  transform:  translateY(-2px);
+  box-shadow: var(--shadow-md), 0 0 28px rgba(201, 160, 76, 0.12);
+  border-color: rgba(201, 160, 76, 0.3);
 }
 
 .poetry-box h3 {
   margin: 0;
   font-family: 'EB Garamond', 'Lora', serif;
-  font-size: 24px;
+  font-size: 22px;
+  font-weight: 500;
   color: var(--accent);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  background: none;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  padding: 0;
+  min-width: 0;
+  display: block;
+  text-align: center;
 }
 
 .poetry-box .subheading {
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--muted);
-  margin-top: 5px;
+  margin-top: 4px;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
 }
 
+/* ── Poetry card (grey/muted variant) ── */
 .poetry-box-grey {
   display: block;
-  /* or remove display entirely */
-  /* now works correctly */
   font-family: 'EB Garamond', 'Lora', serif;
   color: var(--text);
-  font-weight: 600;
-  margin: 10px 0;
-  padding: 20px;
+  font-weight: 500;
+  margin: 8px 0;
+  padding: 22px 24px;
   background: var(--surface);
   border: 1px solid var(--line);
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-lg, 24px);
+  box-shadow: var(--shadow-sm);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   width: 100%;
   max-width: 800px;
-  transition: all 0.2s ease;
-  border-radius: 20px;
+  transition:
+    transform  0.25s ease,
+    box-shadow 0.3s ease,
+    border-color 0.25s ease;
 }
 
 .poetry-box-grey h3 {
   margin: 0;
   font-family: 'EB Garamond', 'Lora', serif;
-  font-size: 24px;
+  font-size: 22px;
+  font-weight: 500;
   color: var(--accent);
+  background: none;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  padding: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .poetry-flex-grid .feature-link {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .poetry-flex-grid .poetry-box,
+  .poetry-flex-grid .poetry-box-grey {
+    width: 80vw;
+    max-width: none;
+  }
+}
+
+@media (min-width: 800px) {
+  .poetry-flex-grid .poetry-box,
+  .poetry-flex-grid .poetry-box-grey {
+    width: 100%;
+    max-width: 800px;
+  }
 }

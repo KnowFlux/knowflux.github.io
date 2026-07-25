@@ -257,3 +257,20 @@ html[data-dark-mode="true"] ::selection {
 html[data-dark-mode="true"] hr {
   border-color: var(--line);
 }
+
+/* ── Light mode: toolbar toggle (opens settings panel) ── */
+#rdr-toolbar-toggle {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* ── Light mode: back-to-top button ── */
+#rdr-back-top {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Light mode: chapter completion toast ── */
+#rdr-complete-toast {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(201, 160, 76, 0.35);
+}

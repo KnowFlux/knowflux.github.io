@@ -151,7 +151,7 @@ toolbar.innerHTML =
     '</div>') +
     '<div class="rdr-tb-section">' +
     '<button class="rdr-full-btn" id="rdr-dark-btn">' +
-        '\ud83c\udf19 Dark Mode' +
+        '\ud83c\udf19 Light Mode' +
     '</button>' +
     '</div>' +
     '<div class="rdr-tb-section rdr-save-section">' +
@@ -245,7 +245,7 @@ if (focusBtn) {
     });
 }
 
-// ── Dark mode ──
+// ── Light Mode ──
 const READING_DARK_MODE_KEY = 'knowflux-reading-dark-mode';
 const darkBtn = document.getElementById('rdr-dark-btn');
 const isDarkEnabled = preferencesSaved && localStorage.getItem(READING_DARK_MODE_KEY) === 'true';

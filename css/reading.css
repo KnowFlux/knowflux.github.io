@@ -454,7 +454,7 @@ body.reading-page ::-moz-selection { background: rgba(201, 160, 76, 0.22); color
   top:          0;
   right:        0;
   height:       100%;
-  width:        280px;
+  width:        290px;
   max-width:    85vw;
   z-index:      1499;
   background:   var(--surface-strong, rgba(8, 11, 17, 0.96));
@@ -510,7 +510,7 @@ body.reading-page ::-moz-selection { background: rgba(201, 160, 76, 0.22); color
 }
 
 #rdr-settings-body {
-  padding: 22px 18px;
+  padding: 22px 40px 22px 18px;
 }
 
 .rdr-tb-section {

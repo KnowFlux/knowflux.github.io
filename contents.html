@@ -9,14 +9,16 @@
 
   <script src = "js/contents.js?cachebust=14"></script>
   <style>
+    /* ── Tab bar ── */
     .content-type-tabs {
       display: flex;
       gap: 0;
       margin-bottom: 28px;
-      background: white;
-      border-radius: 10px;
-      padding: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 5px;
+      box-shadow: var(--shadow);
     }
 
     .type-tab {
@@ -25,28 +27,29 @@
       border: none;
       background: transparent;
       font-family: 'Open Sans', sans-serif;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: #888;
+      color: var(--muted);
       cursor: pointer;
       transition: all 0.2s;
       text-align: center;
+      border-radius: 10px;
     }
 
     .type-tab:hover {
-      color: #4392F1;
-      background: #f0f6ff;
+      color: var(--accent);
+      background: rgba(255,255,255,0.04);
     }
 
     .type-tab.active {
-      background: #F46036;
-      color: white;
-      box-shadow: inset 0 -3px 0 #000;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #120c06;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.28);
     }
 
-    /* Panel enter animation */
+    /* ── Panel enter animation ── */
     .book-panel {
       animation: fadeUp 0.35s ease;
     }
@@ -56,27 +59,34 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Chapter summary headers - more punch */
+    /* ── Chapter summary headers ── */
     #book-content details summary {
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 19px;
-      padding: 2px 0;
+      color: var(--text);
+      padding: 4px 0;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    #book-content details summary::-webkit-details-marker {
+      display: none;
     }
 
     #book-content details summary::after {
       content: '\25BC';
-      font-size: 13px;
+      font-size: 12px;
       transition: transform 0.25s;
-      color: #F46036;
+      color: var(--accent);
     }
 
     #book-content details[open] summary::after {
       transform: rotate(180deg);
     }
 
-    /* Page links - more breathing room */
+    /* ── Page links ── */
     .book-panel ul {
       list-style: none;
       padding-left: 0;
@@ -86,22 +96,22 @@
     .book-panel li {
       margin: 6px 0;
       padding: 10px 16px;
-      background: #f5f8fa;
-      border-radius: 8px;
-      border: 1px solid #e8eef3;
+      background: var(--surface);
+      border-radius: 10px;
+      border: 1px solid var(--line);
       transition: background 0.2s, transform 0.1s, box-shadow 0.15s;
     }
 
     .book-panel li:hover {
-      background: #e0edff;
+      background: rgba(212, 168, 92, 0.08);
       transform: translateX(5px);
-      box-shadow: 2px 2px 0 #4392F1;
-      border-color: #4392F1;
+      box-shadow: 2px 2px 0 var(--accent);
+      border-color: var(--accent);
     }
 
     .book-panel li a {
       text-decoration: none;
-      color: #4392F1;
+      color: var(--accent);
       font-weight: 600;
       display: block;
     }

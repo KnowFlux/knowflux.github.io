@@ -165,6 +165,10 @@
    HOME BOOK CARD — side-by-side, clean
    ────────────────────────────────────────────────────────────────────────── */
 
+/* ──────────────────────────────────────────────────────────────────────────
+   HOME BOOK CARD — True Apple Liquid Glass
+   ────────────────────────────────────────────────────────────────────────── */
+
 .home-book-card {
   display: flex;
   flex-direction: row;
@@ -177,17 +181,34 @@
   position: relative;
   overflow: hidden;
   
-  /* Pure Apple Canvas: Neutral translucent dark tint with deep blurring */
-  background: rgba(30, 30, 30, 0.4);
-  backdrop-filter: blur(24px) saturate(140%); /* Heavy blur + color saturation boost */
-  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  /* Base State: Neutral, deeply blurred, tinted glass backing */
+  background: rgba(28, 28, 30, 0.45);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   
-  /* Microscopic sharp bezel edge */
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+  /* Smooth transitions for the core container material changes */
+  transition: 
+    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Base feature card left untouched as per layout structure */
+/* ──────────────────────────────────────────────────────────────────────────
+   THE CORE FIX: Universal Surface Activation on Hover
+   ────────────────────────────────────────────────────────────────────────── */
+.home-book-card:hover {
+  /* The whole glass panel changes character to pop off the canvas */
+  background-color: rgba(44, 44, 46, 0.35); /* Translucent lift */
+  border-color: rgba(255, 255, 255, 0.16);   /* Bezel brightens globally */
+  backdrop-filter: blur(25px) saturate(160%); /* Content underneath becomes deeper & more vivid */
+  -webkit-backdrop-filter: blur(25px) saturate(160%);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Feature card left completely stock as per layout structure */
 .feature::before {
   content: '';
   position: absolute;
@@ -209,31 +230,30 @@
   opacity: 1;
 }
 
-/* Liquid Glass Overlay — Spreading Ambient Brightness Engine */
+/* Interactive Positional Focus Bloom overlay */
 .home-book-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 1; /* Sits underneath text, directly over background graphics */
+  z-index: 1;
   pointer-events: none;
   opacity: 0;
   
-  /* Mix Blend Mode: Lifts exposure, contrast, and brightness natively */
+  /* Lifts brightness & exposure cleanly where the mouse is tracking */
   mix-blend-mode: overlay; 
   
-  /* Ultra-wide, smooth radial glow that bleeds outwards softly */
+  /* Giant, soft bloom gradient spreading outward from the coordinates */
   background: radial-gradient(
-    circle 450px at var(--glare-x, 50%) var(--glare-y, 50%),
-    rgba(255, 255, 255, 0.35) 0%,
-    rgba(255, 255, 255, 0.12) 30%,
-    rgba(255, 255, 255, 0.02) 65%,
-    transparent 100%
+    circle 500px at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.08) 45%,
+    transparent 80%
   );
   
-  /* Liquid smooth fade transition */
-  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Triggers the dynamic mouse glow overlay simultaneously with the panel lift */
 .home-book-card:hover::before {
   opacity: 1;
 }
@@ -244,7 +264,7 @@
   max-width: 100%;
   box-sizing: border-box;
   position: relative;
-  z-index: 2; /* Keeps UI elements cleanly on top */
+  z-index: 2;
 }
 
 .home-book-card .featureImage img {
@@ -260,8 +280,9 @@
   text-align: center;
   font-size: 17px;
   position: relative;
-  z-index: 2; /* Keeps text legible and interactive */
+  z-index: 2;
 }
+
 
 
 /* ──────────────────────────────────────────────────────────────────────────

@@ -177,15 +177,17 @@
   position: relative;
   overflow: hidden;
   
-  /* Frosted glass core properties */
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  /* Pure Apple Canvas: Neutral translucent dark tint with deep blurring */
+  background: rgba(30, 30, 30, 0.4);
+  backdrop-filter: blur(24px) saturate(140%); /* Heavy blur + color saturation boost */
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  
+  /* Microscopic sharp bezel edge */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* Glare overlay for feature cards — tight soft glow behind glass */
+/* Base feature card left untouched as per layout structure */
 .feature::before {
   content: '';
   position: absolute;
@@ -207,32 +209,29 @@
   opacity: 1;
 }
 
-/* Glare overlay for home book cards — premium glass light reflection */
+/* Liquid Glass Overlay — Spreading Ambient Brightness Engine */
 .home-book-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 1; /* Pull light in front of frosted backing */
+  z-index: 1; /* Sits underneath text, directly over background graphics */
   pointer-events: none;
   opacity: 0;
   
-  /* Layered sharp glare: static ambient angle + dynamic mouse spotlight */
-  background: 
-    radial-gradient(
-      circle 180px at var(--glare-x, 50%) var(--glare-y, 50%),
-      rgba(255, 255, 255, 0.25) 0%,
-      rgba(255, 255, 255, 0.08) 40%,
-      transparent 80%
-    ),
-    linear-gradient(
-      135deg, 
-      rgba(255, 255, 255, 0.06) 0%,   /* Smoother, reduced intensity start */
-      rgba(255, 255, 255, 0.02) 25%,  /* Midtone transition anchor */
-      transparent 60%                 /* Extended, softer fade distance */
-    );
-    
-  /* Premium ease-out expo transition for cinematic fade-in */
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Mix Blend Mode: Lifts exposure, contrast, and brightness natively */
+  mix-blend-mode: overlay; 
+  
+  /* Ultra-wide, smooth radial glow that bleeds outwards softly */
+  background: radial-gradient(
+    circle 450px at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.12) 30%,
+    rgba(255, 255, 255, 0.02) 65%,
+    transparent 100%
+  );
+  
+  /* Liquid smooth fade transition */
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .home-book-card:hover::before {
@@ -245,7 +244,7 @@
   max-width: 100%;
   box-sizing: border-box;
   position: relative;
-  z-index: 2; /* Ensures content stays above glass glare */
+  z-index: 2; /* Keeps UI elements cleanly on top */
 }
 
 .home-book-card .featureImage img {
@@ -261,7 +260,7 @@
   text-align: center;
   font-size: 17px;
   position: relative;
-  z-index: 2; /* Ensures text stays above glass glare */
+  z-index: 2; /* Keeps text legible and interactive */
 }
 
 

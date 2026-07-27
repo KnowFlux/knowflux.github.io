@@ -258,6 +258,16 @@
   width: 360px;
   max-width: 100%;
   box-sizing: border-box;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.home-book-card .featureImage {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  overflow: hidden;
 }
 
 .home-book-card .featureImage img {
@@ -265,6 +275,10 @@
   height: auto;
   object-fit: contain;
   border-radius: var(--radius-md);
+  border: none;
+  outline: none;
+  box-shadow: none;
+  display: block;
 }
 
 .home-book-card .rightColumn {

@@ -179,83 +179,73 @@
   border-radius: var(--radius-lg);
   padding: 28px;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* Clips the wave to the card boundaries */
   
-  /* Base State: Neutral, deeply blurred, tinted glass backing */
+  /* Base State: Neutral glass backing */
   background: rgba(28, 28, 30, 0.45);
   backdrop-filter: blur(20px) saturate(120%);
   -webkit-backdrop-filter: blur(20px) saturate(120%);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   
-  /* Smooth transitions for the core container material changes */
+  /* Smoothly transition background properties back when mouse leaves */
   transition: 
-    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   THE CORE FIX: Universal Surface Activation on Hover
-   ────────────────────────────────────────────────────────────────────────── */
-.home-book-card:hover {
-  /* The whole glass panel changes character to pop off the canvas */
-  background-color: rgba(44, 44, 46, 0.35); /* Translucent lift */
-  border-color: rgba(255, 255, 255, 0.16);   /* Bezel brightens globally */
-  backdrop-filter: blur(25px) saturate(160%); /* Content underneath becomes deeper & more vivid */
-  -webkit-backdrop-filter: blur(25px) saturate(160%);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-}
-
-/* Feature card left completely stock as per layout structure */
-.feature::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    circle 250px at var(--glare-x, 50%) var(--glare-y, 50%),
-    rgba(255, 255, 255, 0.18) 0%,
-    rgba(255, 255, 255, 0.06) 30%,
-    transparent 60%
-  );
-  filter: blur(4px);
-  transition: opacity 0.4s ease;
-}
-
-.feature:hover::before {
-  opacity: 1;
-}
-
-/* Interactive Positional Focus Bloom overlay */
+/* Base style for the hidden entry wave */
 .home-book-card::before {
   content: '';
   position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
+  /* Centers the pseudoelement on the JS coordinates */
+  left: var(--enter-x, 50%);
+  top: var(--enter-y, 50%);
+  width: 900px;  /* Large enough to cover the card when scaled */
+  height: 900px;
+  margin-left: -450px;
+  margin-top: -450px;
+  border-radius: 50%;
   
-  /* Lifts brightness & exposure cleanly where the mouse is tracking */
-  mix-blend-mode: overlay; 
-  
-  /* Giant, soft bloom gradient spreading outward from the coordinates */
+  /* Libby-inspired high-contrast glass overlay tint */
   background: radial-gradient(
-    circle 500px at var(--glare-x, 50%) var(--glare-y, 50%),
-    rgba(255, 255, 255, 0.28) 0%,
-    rgba(255, 255, 255, 0.08) 45%,
-    transparent 80%
+    circle, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.02) 70%, 
+    transparent 100%
   );
   
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+  
+  /* Initial state: Shrunk to zero */
+  transform: scale(0);
+  opacity: 0;
 }
 
-/* Triggers the dynamic mouse glow overlay simultaneously with the panel lift */
-.home-book-card:hover::before {
+/* Triggered instantly when the JS appends the class on hover entry */
+.home-book-card.mouse-entered::before {
+  transform: scale(1);
   opacity: 1;
+  /* Rapid start that finishes with a buttery smooth deceleration */
+  transition: 
+    transform 0.65s cubic-bezier(0.1, 0.8, 0.25, 1),
+    opacity 0.65s cubic-bezier(0.1, 0.8, 0.25, 1);
+}
+
+/* Persistent hover state enhancement once the wave finishes expanding */
+.home-book-card:hover {
+  background-color: rgba(44, 44, 46, 0.55);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Keep structural content safely above the expanding animation layer */
+.home-book-card .leftColumn,
+.home-book-card .rightColumn {
+  position: relative;
+  z-index: 2;
 }
 
 .home-book-card .leftColumn {
@@ -263,8 +253,6 @@
   width: 360px;
   max-width: 100%;
   box-sizing: border-box;
-  position: relative;
-  z-index: 2;
 }
 
 .home-book-card .featureImage img {
@@ -279,8 +267,6 @@
   min-width: 0;
   text-align: center;
   font-size: 17px;
-  position: relative;
-  z-index: 2;
 }
 
 

@@ -925,33 +925,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ── /Users/muhammadnoor/Desktop/Code/Summer 2026 KnowFlux/knowflux.github.io/js/glare.js ──
-/**
- * Glass card glare effect
- * On mousemove, a soft radial highlight follows the cursor.
- * On mouseleave, the highlight fades out.
- */
+document.querySelectorAll('.home-book-card').forEach(card => {
+  card.addEventListener('mouseenter', function(e) {
+    const rect = this.getBoundingClientRect();
+    
+    // Calculate exact entry position relative to the card's box
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Pass coordinates smoothly to CSS variables
+    this.style.setProperty('--enter-x', `${x}px`);
+    this.style.setProperty('--enter-y', `${y}px`);
+    
+    // Trigger the scale animation
+    this.classList.add('mouse-entered');
+  });
 
-document.addEventListener('DOMContentLoaded', function() {
-  var cards = document.querySelectorAll('.feature, .home-book-card');
-
-  cards.forEach(function(card) {
-    card.addEventListener('mousemove', function(e) {
-      var rect = card.getBoundingClientRect();
-      var x = e.clientX - rect.left;   // mouse X relative to card
-      var y = e.clientY - rect.top;    // mouse Y relative to card
-
-      var percentX = (x / rect.width) * 100;
-      var percentY = (y / rect.height) * 100;
-
-      card.style.setProperty('--glare-x', percentX + '%');
-      card.style.setProperty('--glare-y', percentY + '%');
-    });
-
-    card.addEventListener('mouseleave', function() {
-      // Reset to center so the fade-out looks smooth
-      card.style.setProperty('--glare-x', '50%');
-      card.style.setProperty('--glare-y', '50%');
-    });
+  card.addEventListener('mouseleave', function() {
+    // Reset state cleanly so it can re-trigger on the next entry point
+    this.classList.remove('mouse-entered');
   });
 });
 

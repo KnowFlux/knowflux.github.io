@@ -168,7 +168,6 @@
 /* ──────────────────────────────────────────────────────────────────────────
    HOME BOOK CARD — True Apple Liquid Glass
    ────────────────────────────────────────────────────────────────────────── */
-
 .home-book-card {
   display: flex;
   flex-direction: row;
@@ -179,69 +178,75 @@
   border-radius: var(--radius-lg);
   padding: 28px;
   position: relative;
-  overflow: hidden; /* Clips the wave to the card boundaries */
+  overflow: hidden; /* Clips the gel-wave inside the card boundaries */
   
-  /* Base State: Neutral glass backing */
-  background: rgba(28, 28, 30, 0.45);
-  backdrop-filter: blur(20px) saturate(120%);
-  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  /* Apple Liquid Glass Resting State: Highly saturated, deeply blurred translucent backing */
+  background: rgba(28, 28, 30, 0.4);
+  backdrop-filter: blur(20px) saturate(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  
+  /* Crisp 1px glass perimeter bezel border */
   border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   
-  /* Smoothly transition background properties back when mouse leaves */
+  /* Native-feeling UI transition recovery when mouse leaves */
   transition: 
-    background-color 0.4s ease,
-    border-color 0.4s ease,
-    box-shadow 0.4s ease;
+    background-color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Base style for the hidden entry wave */
+/* The Liquid Lensing Wave (The Meta-Material Layer) */
 .home-book-card::before {
   content: '';
   position: absolute;
-  /* Centers the pseudoelement on the JS coordinates */
+  /* Centered exactly on the dynamic JS pointer entrance coordinates */
   left: var(--enter-x, 50%);
   top: var(--enter-y, 50%);
-  width: 900px;  /* Large enough to cover the card when scaled */
-  height: 900px;
-  margin-left: -450px;
-  margin-top: -450px;
-  border-radius: 50%;
   
-  /* Libby-inspired high-contrast glass overlay tint */
+  /* Massive dimensions distorted asymmetrically to create a "liquid gel" look rather than a circle */
+  width: 1200px;
+  height: 900px;
+  margin-left: -600px;
+  margin-top: -450px;
+  border-radius: 45%; /* Slightly irregular shape causes a shifting fluid wavefront during scaling */
+  
+  /* Apple-inspired translucent light concentration (lensing highlight) */
   background: radial-gradient(
-    circle, 
-    rgba(255, 255, 255, 0.15) 0%, 
-    rgba(255, 255, 255, 0.02) 70%, 
-    transparent 100%
+    circle closest-side,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    transparent 80%
   );
   
   pointer-events: none;
   z-index: 1;
   
-  /* Initial state: Shrunk to zero */
-  transform: scale(0);
+  /* Completely collapsed and hidden at rest */
+  transform: scale(0) rotate(0deg);
   opacity: 0;
 }
 
-/* Triggered instantly when the JS appends the class on hover entry */
-.home-book-card.mouse-entered::before {
-  transform: scale(1);
+/* Fired instantly by JS when the cursor breaks the frame perimeter */
+.home-book-card.liquid-activated::before {
   opacity: 1;
-  /* Rapid start that finishes with a buttery smooth deceleration */
+  /* Massive organic fluid expansion with a slight internal warp twist */
+  transform: scale(1) rotate(15deg);
+  
+  /* Apple's signature highly responsive ease-out curve (fast explosion, silky deceleration) */
   transition: 
-    transform 0.65s cubic-bezier(0.1, 0.8, 0.25, 1),
-    opacity 0.65s cubic-bezier(0.1, 0.8, 0.25, 1);
+    transform 0.8s cubic-bezier(0.1, 0.9, 0.2, 1),
+    opacity 0.5s ease-out;
 }
 
-/* Persistent hover state enhancement once the wave finishes expanding */
+/* Persistent Liquid Glass activation state changes */
 .home-book-card:hover {
-  background-color: rgba(44, 44, 46, 0.55);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  background-color: rgba(44, 44, 46, 0.5); /* Material thickens on active focus */
+  border-color: rgba(255, 255, 255, 0.15);  /* Perimeter bezel brightens */
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
 }
 
-/* Keep structural content safely above the expanding animation layer */
+/* Structural layers pinned safely above the liquid light plane */
 .home-book-card .leftColumn,
 .home-book-card .rightColumn {
   position: relative;

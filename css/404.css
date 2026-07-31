@@ -1,0 +1,37 @@
+/* 404-only tweaks — self-contained, doesn't touch main.css */
+.error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+.error-page .haiku {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.9;
+    color: #333;
+    margin: 30px auto;
+    max-width: 420px;
+}
+.error-page .haiku p {
+    margin: 0;
+}
+.error-quicklinks {
+    margin-top: 50px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #888;
+}
+.error-quicklinks a {
+    color: #4392F1;
+    text-decoration: none;
+    font-weight: bold;
+}
+.error-quicklinks a:hover {
+    color: #F46036;
+    text-decoration: underline;
+}

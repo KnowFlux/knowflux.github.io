@@ -1,2 +1,6 @@
 .env
 .continue
+__pycache__/
+bookeditinghistory.txt
+gitdiff.txt
+

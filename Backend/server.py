@@ -6,6 +6,7 @@ import urllib.parse
 import json
 import re
 import secrets
+import html
 from pathlib import Path
 import subprocess
 import os
@@ -367,12 +368,13 @@ def add_page_to_books_json(book_id, book_title, page_num, chapter_title, rendere
         if p["page_number"] == page_num:
             return False, f"Page {page_num} already exists in {book_title}."
     
-    # Build the new page entry – note: no 'file' field since no HTML file exists
+    # Build the new page entry – pages are served dynamically via reader.html
     new_page = {
         "page_number": page_num,
         "chapter_title": chapter_title,
         "content": rendered_content,
-        # 'file' and 'url' are omitted because pages are served dynamically
+        "file": "",
+        "url": f"reader.html?book={book_id}&page={page_num}"
     }
     
     # Insert in sorted order
@@ -836,7 +838,7 @@ def update_sitemap():
         else:
             loc = f"{base_url}/{page_path}"
         xml_lines.append('  <url>')
-        xml_lines.append(f'    <loc>{loc}</loc>')
+        xml_lines.append(f'    <loc>{html.escape(loc)}</loc>')
         xml_lines.append(f'    <lastmod>{lastmod}</lastmod>')
         xml_lines.append(f'    <changefreq>{changefreq}</changefreq>')
         xml_lines.append(f'    <priority>{priority:.1f}</priority>')

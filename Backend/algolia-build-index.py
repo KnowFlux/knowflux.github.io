@@ -1,4 +1,6 @@
 import urllib.request
+import ssl
+import certifi
 from html.parser import HTMLParser
 import json
 import xml.etree.ElementTree as ET
@@ -47,8 +49,13 @@ def extract_book_page_info(url):
             return (book, page)
     return None
 
+# Create a secure SSL context using certifi's CA bundle
+ssl_context = ssl.create_default_context(cafile=certifi.where())
+
 # Parse sitemap
-tree = ET.parse('sitemap.xml')  # or use the live URL
+
+sitemap_path = ROOT_DIR / 'sitemap.xml'
+tree = ET.parse(sitemap_path)  # or use the live URL
 root = tree.getroot()
 ns = {'ns': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
 
@@ -61,7 +68,7 @@ for url_elem in root.findall('ns:url', ns):
 
     # Fetch the page content
     try:
-        response = urllib.request.urlopen(page_url, timeout=5)
+        response = urllib.request.urlopen(page_url, timeout=5, context=ssl_context)
         html = response.read().decode('utf-8')
     except Exception as e:
         print(f"Could not fetch {page_url}: {e}")
@@ -98,7 +105,7 @@ for url_elem in root.findall('ns:url', ns):
     })
 
 # Write JSON
-with open('algolia_records.json', 'w') as f:
+with open(ROOT_DIR / 'algolia_records.json', 'w') as f:
     json.dump(records, f, indent=2)
 
 print(f"Created {len(records)} records in algolia_records.json")

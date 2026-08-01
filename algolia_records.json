@@ -12,6 +12,12 @@
     "url": "/index.html"
   },
   {
+    "objectID": "404.html",
+    "title": "404 | KnowFlux",
+    "description": "Lost in the KnowFlux library? This page wandered off to write a poem.",
+    "url": "/404.html"
+  },
+  {
     "objectID": "aboutbook.html",
     "title": "About Book | KnowFlux",
     "description": "Discover The Pinnacle of Reality and Exploded - epic multi-page narratives from KnowFlux's collection of creative literature.",
@@ -34,6 +40,12 @@
     "title": "Feedback | KnowFlux",
     "description": "Share your thoughts and feedback about KnowFlux stories and poetry.",
     "url": "/feedback.html"
+  },
+  {
+    "objectID": "omni-dex.html",
+    "title": "Omni\u2011Dex | KnowFlux",
+    "description": "",
+    "url": "/omni-dex.html"
   },
   {
     "objectID": "poetry.html",
@@ -160,6 +172,12 @@
     "title": "Page 18 | Exploded",
     "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
     "url": "/reader.html?book=exploded&page=18"
+  },
+  {
+    "objectID": "reader.html?book=exploded&page=19",
+    "title": "Page 19 | Exploded",
+    "description": "Read KnowFlux books \u2014 immersive sci-fi and fantasy fiction.",
+    "url": "/reader.html?book=exploded&page=19"
   },
   {
     "objectID": "reader.html?book=pinnacle&page=1",

@@ -7,10 +7,10 @@ JS_MODULES = [
     ROOT_DIR / 'js/reader.js',
     ROOT_DIR / 'js/navigation.js',
     ROOT_DIR / 'js/reading.js',
-    ROOT_DIR / 'js/bookmarks.js',
     ROOT_DIR / 'js/footer.js',
     ROOT_DIR / 'js/random.js',
     ROOT_DIR / 'js/main.js',
+    ROOT_DIR / 'js/contents.js'
 ]
 
 BUNDLE = ROOT_DIR / 'js/bundle.js'

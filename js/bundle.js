@@ -1,4 +1,4 @@
-// ── /workspaces/knowflux.github.io/js/reader.js ──
+// ── /Users/muhammadnoor/Desktop/Code/Summer 2026 KnowFlux/knowflux.github.io/js/reader.js ──
 document.addEventListener('DOMContentLoaded', function() {
 // reader.js — part 1
 (function() {
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 });
 
-// ── /workspaces/knowflux.github.io/js/navigation.js ──
+// ── /Users/muhammadnoor/Desktop/Code/Summer 2026 KnowFlux/knowflux.github.io/js/navigation.js ──
 document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------------------------------------
 // Promo message cycling
@@ -412,7 +412,7 @@ hamburger.addEventListener('click', function() {
 }
 });
 
-// ── /workspaces/knowflux.github.io/js/reading.js ──
+// ── /Users/muhammadnoor/Desktop/Code/Summer 2026 KnowFlux/knowflux.github.io/js/reading.js ──
 document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------------------------------------
 // Scroll Progress Bar
@@ -832,7 +832,7 @@ if (!isPoetryPage) {
 })(); // end initReadingExperience
 });
 
-// ── /workspaces/knowflux.github.io/js/footer.js ──
+// ── /Users/muhammadnoor/Desktop/Code/Summer 2026 KnowFlux/knowflux.github.io/js/footer.js ──
 document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------------------------------------
 // Dynamic Copyright Year (CST)
@@ -854,63 +854,24 @@ updateYear();
 // Footer Reveal on Scroll — slides in when subscribe section is visible
 // ===============================================================
 (function() {
-  const footer = document.getElementById('footer');
-  const copyright = document.getElementById('copyright');
-  const subscribe = document.getElementById('subscribe');
-  if (!footer || !copyright) return;
+const footer = document.getElementById('footer');
+const copyright = document.getElementById('copyright');
+const subscribe = document.getElementById('subscribe');
+if (!footer || !copyright || !subscribe) return;
 
-  const isReadingPage = !!document.querySelector('.page-content');
-  let revealed = false;
+let revealed = false;
 
-  function revealElement(el) {
-    if (!el) return;
-    el.setAttribute('data-reveal', 'true');
-  }
-
-  function revealCopyrightOnly() {
+function attemptReveal() {
     if (revealed) return;
+    const subRect = subscribe.getBoundingClientRect();
+    // Reveal when the bottom of the subscribe section enters the viewport
+    if (subRect.bottom <= window.innerHeight + 20) {
     revealed = true;
     setTimeout(function() {
-      revealElement(copyright);
-      window.removeEventListener('scroll', scrollHandler);
+        footer.setAttribute('data-reveal', 'true');
+        copyright.setAttribute('data-reveal', 'true');
+        window.removeEventListener('scroll', scrollHandler);
     }, 500);
-}
-
-  function revealFooterAndCopyright() {
-    if (revealed) return;
-    revealed = true;
-    setTimeout(function() {
-      revealElement(footer);
-      revealElement(copyright);
-      window.removeEventListener('scroll', scrollHandler);
-    }, 500);
-  }
-
-  function attemptReveal() {
-    if (revealed) return;
-
-    if (isReadingPage) {
-      // On reading pages: reveal copyright ONLY when user reaches the bottom
-      const scrollBottom = window.pageYOffset || document.documentElement.scrollTop;
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0 && scrollBottom >= totalHeight - 50) {
-        revealCopyrightOnly();
-      }
-    } else {
-      // On other pages: reveal both footer and copyright after subscribe comes into view
-      if (subscribe) {
-        const subRect = subscribe.getBoundingClientRect();
-        if (subRect.bottom <= window.innerHeight + 20) {
-          revealFooterAndCopyright();
-        }
-      } else {
-        // No subscribe section: reveal both at bottom
-        const scrollBottom = window.pageYOffset || document.documentElement.scrollTop;
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (totalHeight > 0 && scrollBottom >= totalHeight - 50) {
-          revealFooterAndCopyright();
-        }
-      }
     }
 }
 
@@ -918,12 +879,13 @@ function scrollHandler() {
     attemptReveal();
 }
 
-  window.addEventListener('scroll', scrollHandler, { passive: true });
-  setTimeout(attemptReveal, 100);
+window.addEventListener('scroll', scrollHandler, { passive: true });
+// Also check immediately in case user loads mid-page
+attemptReveal();
 })();
 });
 
-// ── /workspaces/knowflux.github.io/js/random.js ──
+// ── /Users/muhammadnoor/Desktop/Code/Summer 2026 KnowFlux/knowflux.github.io/js/random.js ──
 document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------------------------------------
 // Random Poem Redirect
@@ -955,10 +917,155 @@ randomBookBtn.addEventListener('click', function(e) {
 }
 });
 
-// ── /workspaces/knowflux.github.io/js/main.js ──
+// ── /Users/muhammadnoor/Desktop/Code/Summer 2026 KnowFlux/knowflux.github.io/js/main.js ──
 // KnowFlux — main JS entry point
 document.addEventListener('DOMContentLoaded', function() {
   // Each module self-executes or exports functions called here
   // (Your split modules will just run when the bundle loads)
+});
+
+// ── /Users/muhammadnoor/Desktop/Code/Summer 2026 KnowFlux/knowflux.github.io/js/contents.js ──
+// ── Bookmark button (only for books) ──
+if (!isPoetryPage) {
+    (function initBookmark() {
+    var bookmarkBtn = document.getElementById('rdr-bookmark-btn');
+    if (!bookmarkBtn) return;
+    var params = new URLSearchParams(window.location.search);
+    var bookName = params.get('book') || '';
+    var pageNum  = params.get('page') || '';
+    if (!bookName || !pageNum) { bookmarkBtn.style.display = 'none'; return; }
+    var pageUrl = 'reader.html?book=' + bookName + '&page=' + pageNum;
+    var storageKey = 'knowflux-bookmark-' + bookName;
+    var currentBookmark = localStorage.getItem(storageKey);
+    function updateBookmarkBtn() {
+        if (currentBookmark === pageUrl) {
+        bookmarkBtn.textContent = '\u2705 Bookmarked';
+        bookmarkBtn.classList.add('rdr-active');
+        } else {
+        bookmarkBtn.textContent = '\ud83d\udccd Bookmark';
+        bookmarkBtn.classList.remove('rdr-active');
+        }
+    }
+    updateBookmarkBtn();
+    bookmarkBtn.addEventListener('click', function() {
+        if (currentBookmark === pageUrl) {
+        localStorage.removeItem(storageKey);
+        currentBookmark = null;
+        } else {
+        localStorage.setItem(storageKey, pageUrl);
+        currentBookmark = pageUrl;
+        }
+        updateBookmarkBtn();
+        if (window.applyBookmarks) window.applyBookmarks();
+    });
+    })();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+// ---------------------------------------------------------------------------
+// Book Contents Tab System (for contents.html and similar)
+// ---------------------------------------------------------------------------
+(function initBookTabs() {
+const tabContainer = document.getElementById('book-tabs');
+if (!tabContainer) return; // not on contents page
+
+const tabs = tabContainer.querySelectorAll('.book-tab');
+const panels = document.querySelectorAll('#book-content > .book-panel');
+
+tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+    // Remove .active from all tabs
+    tabs.forEach(function(t) { t.classList.remove('active'); });
+    // Add .active to clicked tab
+    this.classList.add('active');
+
+    // Show matching panel, hide others
+    const bookId = this.getAttribute('data-book');
+    panels.forEach(function(panel) {
+        panel.style.display = (panel.id === 'panel-' + bookId) ? 'block' : 'none';
+    });
+    });
+});
+
+// ── Apply Bookmarks: rewrite first-page links to bookmarked page ─────────
+window.applyBookmarks = function() {
+    var bookmarks = {
+    exploded: localStorage.getItem('knowflux-bookmark-exploded'),
+    pinnacle: localStorage.getItem('knowflux-bookmark-pinnacle')
+    };
+
+    var explodedFirstPage = 'reader.html?book=exploded&page=1'
+    var pinnacleFirstPage = 'reader.html?book=pinnacle&page=1'
+
+    // Find all links that point to the first page of either book
+    document.querySelectorAll('a[href="' + explodedFirstPage + '"]').forEach(function(link) {
+        if (bookmarks.exploded && bookmarks.exploded !== explodedFirstPage) {
+        link.setAttribute('data-original-href', explodedFirstPage);
+        link.href = bookmarks.exploded;
+        }
+    });
+    document.querySelectorAll('a[href="' + pinnacleFirstPage + '"]').forEach(function(link) {
+        if (bookmarks.pinnacle && bookmarks.pinnacle !== pinnacleFirstPage) {
+        link.setAttribute('data-original-href', pinnacleFirstPage);
+        link.href = bookmarks.pinnacle;
+        }
+    });
+    };
+
+// Run immediately on page load
+window.applyBookmarks();
+})();
+});
+
+// ── Dynamic contents: fetch books.json and build chapter lists ──
+document.addEventListener('DOMContentLoaded', function() {
+  (function initDynamicContents() {
+    // Only run on contents.html (has #book-content with .book-panel children)
+    var panels = document.querySelectorAll('#book-content > .book-panel');
+    if (!panels.length) return;
+
+    fetch('books.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        data.books.forEach(function(book) {
+          var panel = document.getElementById('panel-' + book.id);
+          if (!panel) return;
+
+          // Group pages by chapter (preserving order)
+          var chapters = {};
+          var chapterOrder = [];
+          book.pages.forEach(function(page) {
+            var title = page.chapter_title;
+            if (!chapters[title]) {
+              chapters[title] = [];
+              chapterOrder.push(title);
+            }
+            chapters[title].push(page);
+          });
+
+          // Build HTML matching the existing <details>/<summary>/<ul> pattern
+          var html = '';
+          chapterOrder.forEach(function(chapterTitle, i) {
+            var pages = chapters[chapterTitle];
+            html += '<details' + (i === 0 ? ' open' : '') + '>';
+            html += '<summary>' + chapterTitle + '</summary>';
+            html += '<ul>';
+            pages.forEach(function(page) {
+              html += '<li><a href="' + (page.url || page.file) + '">Page ' + page.page_number + '</a></li>';
+            });
+            html += '</ul>';
+            html += '</details>';
+          });
+
+          panel.innerHTML = html;
+        });
+
+        // Re-apply bookmarks now that links are freshly injected
+        if (window.applyBookmarks) window.applyBookmarks();
+      })
+      .catch(function(err) {
+        console.error('Dynamic contents: could not load books.json', err);
+      });
+  })();
 });
 

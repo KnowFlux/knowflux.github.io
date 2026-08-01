@@ -3,7 +3,6 @@
 __pycache__/
 bookeditinghistory.txt
 gitdiff.txt
-node_modules/
 .venv/
 .DS_Store
 .pytest_cache/

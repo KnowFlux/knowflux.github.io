@@ -94,7 +94,7 @@
 
       .scroll-shell {
         position: relative;
-        height: 760vh;
+        height: 6200px;
         z-index: 5;
       }
 
@@ -495,6 +495,11 @@
       ];
 
       const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+      const lineAnimation = {
+        fadeInRatio: 0.36,
+        holdRatio: 0.28,
+        fadeOutRatio: 0.36,
+      };
 
       lines.forEach((line) => {
         line.dataset.fadedOut = 'false';
@@ -513,19 +518,20 @@
         return clamp(Math.floor(stanzaProgress), 0, 2);
       }
 
+      function updateScrollShellHeight() {
+        const minimumHeight = Math.max(window.innerHeight * 6, 6200);
+        scrollShell.style.height = `${minimumHeight}px`;
+      }
+
       function updatePoem() {
         const maxScroll = Math.max(scrollShell.scrollHeight - window.innerHeight, 1);
         const progress = clamp(window.scrollY / maxScroll, 0, 1);
 
         const titleFadeStart = 0;
-        const titleFadeEnd = 0.12;
-        const poemStart = 0.18;
-        const poemRange = 0.66;
-        const lineStep = 0.075;
-        const riseWindow = 0.045;
-        const holdWindow = 0.09;
-        const fadeWindow = 0.06;
-        const gapWindow = 0.045;
+        const titleFadeEnd = 0.05;
+        const poemStart = 0.07;
+        const poemEnd = 0.92;
+        const poemRange = clamp(poemEnd - poemStart, 0.05, 1);
 
         const scrollForTitle = clamp((progress - titleFadeStart) / (titleFadeEnd - titleFadeStart || 1), 0, 1);
         const titleOpacity = 1 - scrollForTitle;
@@ -542,47 +548,59 @@
           poemFrame.style.opacity = Math.max(poemProgress * 1.18, 0).toFixed(3);
         }
 
+        const animationStart = poemStart * maxScroll;
+        const animationEnd = poemEnd * maxScroll;
+        const totalAnimationScroll = Math.max(animationEnd - animationStart, 1);
+        const lineDuration = totalAnimationScroll / lines.length;
+        const fadeInPx = lineDuration * lineAnimation.fadeInRatio;
+        const holdPx = lineDuration * lineAnimation.holdRatio;
+        const fadeOutPx = lineDuration * lineAnimation.fadeOutRatio;
+
         lines.forEach((line, index) => {
-          const previousLine = lines[index - 1];
-          const previousLineFinished = !previousLine || previousLine.dataset.fadedOut === 'true';
-          const revealStart = poemStart + index * lineStep;
-          const revealEnd = revealStart + riseWindow;
-          const holdEnd = revealEnd + holdWindow;
-          const fadeEnd = holdEnd + fadeWindow;
-          const fadeComplete = fadeEnd + gapWindow;
+          const segmentStart = animationStart + index * lineDuration;
+          const localPx = window.scrollY - segmentStart;
+          const fadeInEnd = fadeInPx;
+          const holdEnd = fadeInEnd + holdPx;
+          const fadeOutEnd = holdEnd + fadeOutPx;
 
           let opacity = 0;
-          let translateY = 26;
+          let translateY = 36;
           let blur = 7;
+          let scale = 0.75;
           let lineColor = 'rgba(255, 255, 255, 0.78)';
 
-          if (index > 0 && !previousLineFinished && progress < revealStart) {
+          if (localPx < 0) {
             opacity = 0;
-            translateY = 26;
+            translateY = 30;
             blur = 7;
-          } else if (progress >= revealStart && progress < revealEnd) {
-            const t = clamp((progress - revealStart) / (revealEnd - revealStart || 1), 0, 1);
+            scale = 0.72;
+          } else if (localPx < fadeInEnd) {
+            const t = clamp(localPx / fadeInEnd, 0, 1);
             opacity = t;
-            translateY = (1 - opacity) * 22;
-            blur = (1 - opacity) * 7;
-          } else if (progress >= revealEnd && progress < holdEnd) {
+            scale = 0.72 + (t * 0.7);
+            translateY = (1 - t) * 30;
+            blur = (1 - t) * 7;
+          } else if (localPx < holdEnd) {
             opacity = 1;
+            scale = 1.42;
             translateY = 0;
-            blur = 0.2;
-          } else if (progress >= holdEnd && progress < fadeEnd) {
-            const t = clamp((progress - holdEnd) / (fadeEnd - holdEnd || 1), 0, 1);
+            blur = 0.15;
+          } else if (localPx < fadeOutEnd) {
+            const t = clamp((localPx - holdEnd) / (fadeOutEnd - holdEnd), 0, 1);
             opacity = 1 - t;
-            translateY = t * 20;
-            blur = 0.2 + t * 5;
+            scale = 1.42 - (t * 0.74);
+            translateY = t * 28;
+            blur = 0.15 + (t * 7.2);
             lineColor = `rgba(${line.dataset.stanza ? {
               1: '125, 211, 252',
               2: '196, 181, 253',
               3: '251, 146, 60'
             }[Number(line.dataset.stanza)] : '56, 189, 248'}, 0.92)`;
-          } else if (progress >= fadeEnd && progress < fadeComplete) {
+          } else {
             opacity = 0;
-            translateY = 20;
-            blur = 5;
+            scale = 0.74;
+            translateY = 24;
+            blur = 7;
             lineColor = `rgba(${line.dataset.stanza ? {
               1: '125, 211, 252',
               2: '196, 181, 253',
@@ -591,7 +609,6 @@
           }
 
           const active = opacity >= 0.98;
-          const scale = active ? 1.02 : 0.99;
 
           line.classList.toggle('active', active);
           line.style.color = lineColor;
@@ -607,7 +624,7 @@
             }[Number(line.dataset.stanza)] : '56, 189, 248'}, 0.18)`;
         });
 
-        const showButton = progress > 0.88;
+        const showButton = progress > 0.95;
         revealButton.classList.toggle('visible', showButton);
       }
 
@@ -628,7 +645,10 @@
       }
 
       window.addEventListener('scroll', updatePoem, { passive: true });
-      window.addEventListener('resize', updatePoem);
+      window.addEventListener('resize', () => {
+        updateScrollShellHeight();
+        updatePoem();
+      });
 
       revealButton.addEventListener('click', openModal);
       closeModalButton.addEventListener('click', closeModal);
@@ -650,6 +670,7 @@
         }
       });
 
+      updateScrollShellHeight();
       updatePoem();
     </script>
   </body>

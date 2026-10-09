@@ -7,9 +7,10 @@ const randomPoemBtn = document.getElementById('random-poem-btn');
 if (randomPoemBtn) {
 const poems = [
     'Poetry/finalmoment.html',
-    'symbolsofnature.html',
-    'Poetry/unrestfulstillness.html.html',
-    'rhythmofthereriver.html'
+    'Poetry/rhythmoftheredriver.html',
+    'Poetry/sowhisperedthewind.html',
+    'Poetry/symbolsofnature.html',
+    'Poetry/unrestfulstillness.html'
 ];
 randomPoemBtn.addEventListener('click', function(e) {
     e.preventDefault();

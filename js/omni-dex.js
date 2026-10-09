@@ -11,9 +11,8 @@
   const tabs          = document.querySelectorAll('.omni-tab');
   const pills         = document.querySelectorAll('.type-pill');
   const modal         = document.getElementById('omni-modal');
-  const modalContent  = document.getElementById('omni-modal-content');
-  const modalBody     = document.getElementById('omni-modal-content');
-  const modalTitle    = document.querySelector('.omni-modal-title');
+  const modalContent    = document.getElementById('omni-modal-content');
+  const modalTitle      = document.querySelector('.omni-modal-title');
   const modalContentDiv = document.getElementById('omni-modal-content');
   const modalStatsSidebar = document.getElementById('omni-modal-stats-sidebar');
   const modalStatsContent = document.getElementById('omni-modal-stats-content');
@@ -28,6 +27,16 @@
   let currentType = 'all';
   let currentIndex = 0;
   let filteredEntries = [];
+
+  // ---------- Formatting Helpers ----------
+  // Display-only: turns "historical_significance" into "Historical Significance".
+  // The real key keeps its underscores so statDescriptions lookups still work.
+  function formatStatName(statName) {
+    return statName
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
 
   // ---------- Load Data ----------
   function loadData() {
@@ -45,7 +54,8 @@
         description: e.short_description,
         longDesc: e.content,
         stats: e.stats,
-        statDescriptions: {}
+        statDescriptions: e.statDescriptions || {}
+
       }));
         hideStatus();
         applyFilters();
@@ -109,7 +119,7 @@
           const value = entry.stats[statName];
           statsHtml += `
             <div class="omni-stat">
-              <span class="omni-stat-label">${statName}</span>
+              <span class="omni-stat-label">${formatStatName(statName)}</span>
               <div class="omni-stat-bar">
                 <div class="omni-stat-fill" style="--target-width:${value}%"></div>
               </div>
@@ -185,7 +195,7 @@
         const value = entry.stats[statName];
         statsHtml += `
           <div class="omni-stat">
-            <span class="omni-stat-label" onclick="showStatTooltip(this, '${statName}')">${statName}</span>
+            <span class="omni-stat-label" onclick="showStatTooltip(this, '${statName}')">${formatStatName(statName)}</span>
             <div class="omni-stat-bar">
               <div class="omni-stat-fill" style="--target-width:${value}%"></div>
             </div>

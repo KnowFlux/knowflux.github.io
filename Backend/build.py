@@ -10,7 +10,8 @@ JS_MODULES = [
     ROOT_DIR / 'js/footer.js',
     ROOT_DIR / 'js/random.js',
     ROOT_DIR / 'js/main.js',
-    ROOT_DIR / 'js/contents.js'
+    ROOT_DIR / 'js/contents.js',
+    ROOT_DIR / 'js/lore-lens.js'
 ]
 
 BUNDLE = ROOT_DIR / 'js/bundle.js'
@@ -29,7 +30,6 @@ def build():
 
     output = ''.join(combined)
 
-    # Write to both locations during transition
     with open(BUNDLE, 'w') as f:
         f.write(output)
     with open(FALLBACK, 'w') as f:

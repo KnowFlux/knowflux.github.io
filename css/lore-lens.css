@@ -1,0 +1,169 @@
+/* =========================================================
+   Lore Lens — inline lore links + popover card
+   ========================================================= */
+
+/* ---------- Inline link in reading text ---------- */
+.lore-link {
+  color: inherit;
+  cursor: pointer;
+  border-bottom: 2px dotted #ff5a1f;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.lore-link:hover,
+.lore-link:focus {
+  background-color: rgba(255, 90, 31, 0.16);
+  outline: none;
+}
+
+.lore-link.active {
+  background-color: rgba(255, 90, 31, 0.28);
+}
+
+/* ---------- Popover card ---------- */
+.lore-popover {
+  position: absolute;
+  z-index: 4000;
+  width: min(340px, calc(100vw - 24px));
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fffdf7;
+  border: 3px solid #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 6px 6px 0 #1a1a1a;
+  padding: 16px 18px 14px;
+  font-family: 'Open Sans', sans-serif;
+  color: #1a1a1a;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.lore-popover.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lore-popover-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  line-height: 1;
+  font-size: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+  border-radius: 6px;
+}
+
+.lore-popover-close:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.lore-popover-tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #1a1a1a;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.lore-popover[data-universe="exploded"] .lore-popover-tag {
+  background: #d33b1f;
+}
+
+.lore-popover[data-universe="pinnacle"] .lore-popover-tag {
+  background: #1f6dd3;
+}
+
+.lore-popover-title {
+  margin: 0 28px 8px 0;
+  font-size: 20px;
+  font-family: 'Anton', 'Open Sans', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.lore-popover-body {
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.lore-popover-body p {
+  margin: 0 0 8px;
+}
+
+.lore-popover-stats {
+  margin-bottom: 12px;
+}
+
+.lore-stat {
+  margin-bottom: 8px;
+}
+
+.lore-stat-label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.lore-stat-value {
+  float: right;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lore-stat-bar {
+  clear: both;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.lore-stat-fill {
+  height: 100%;
+  background: #ff5a1f;
+  border-radius: 999px;
+}
+
+.lore-popover-link {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ff5a1f;
+  text-decoration: none;
+}
+
+.lore-popover-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Dark mode ---------- */
+html[data-dark-mode="true"] .lore-popover {
+  background: #1c1c1c;
+  color: #f0f0f0;
+  border-color: #f0f0f0;
+  box-shadow: 6px 6px 0 #000;
+}
+
+html[data-dark-mode="true"] .lore-popover-close {
+  color: #f0f0f0;
+}
+
+html[data-dark-mode="true"] .lore-stat-bar {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+html[data-dark-mode="true"] .lore-link {
+  border-bottom-color: #ff8c5a;
+}

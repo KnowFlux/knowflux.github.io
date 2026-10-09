@@ -1,39 +1,3 @@
-// ── Bookmark button (only for books) ──
-if (!isPoetryPage) {
-    (function initBookmark() {
-    var bookmarkBtn = document.getElementById('rdr-bookmark-btn');
-    if (!bookmarkBtn) return;
-    var params = new URLSearchParams(window.location.search);
-    var bookName = params.get('book') || '';
-    var pageNum  = params.get('page') || '';
-    if (!bookName || !pageNum) { bookmarkBtn.style.display = 'none'; return; }
-    var pageUrl = 'reader.html?book=' + bookName + '&page=' + pageNum;
-    var storageKey = 'knowflux-bookmark-' + bookName;
-    var currentBookmark = localStorage.getItem(storageKey);
-    function updateBookmarkBtn() {
-        if (currentBookmark === pageUrl) {
-        bookmarkBtn.textContent = '\u2705 Bookmarked';
-        bookmarkBtn.classList.add('rdr-active');
-        } else {
-        bookmarkBtn.textContent = '\ud83d\udccd Bookmark';
-        bookmarkBtn.classList.remove('rdr-active');
-        }
-    }
-    updateBookmarkBtn();
-    bookmarkBtn.addEventListener('click', function() {
-        if (currentBookmark === pageUrl) {
-        localStorage.removeItem(storageKey);
-        currentBookmark = null;
-        } else {
-        localStorage.setItem(storageKey, pageUrl);
-        currentBookmark = pageUrl;
-        }
-        updateBookmarkBtn();
-        if (window.applyBookmarks) window.applyBookmarks();
-    });
-    })();
-}
-
 document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------------------------------------
 // Book Contents Tab System (for contents.html and similar)

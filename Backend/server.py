@@ -850,11 +850,41 @@ def update_sitemap():
 
 
 def save_books_json():
-    """Generate and save books.json to disk."""
-    books_data = generate_books_json()
+    """Update the poetry section in books.json WITHOUT deleting book pages.
+
+    The old implementation called generate_books_json(), which scans static
+    HTML files (exploded-page*.html, pinnacle-page*.html) on disk. Those files
+    no longer exist because books are now served dynamically from books.json,
+    so that scan returned zero pages and overwrote the book list with [].
+
+    Instead, load the current file, rebuild ONLY the poetry section from
+    poetry.html, and write it back leaving the books untouched.
+    """
     books_json_file = BASE_DIR / "books.json"
-    books_json_file.write_text(json.dumps(books_data, indent=2, ensure_ascii=False), encoding="utf-8")
-    return books_data
+
+    # Preserve books by loading what's already on disk
+    if books_json_file.exists():
+        with open(books_json_file, "r", encoding="utf-8") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = {"books": [], "poetry": {}, "lastUpdated": None}
+    else:
+        data = {"books": [], "poetry": {}, "lastUpdated": None}
+
+    # Rebuild only poetry (poems still live as standalone .html files)
+    poetry_data = extract_poetry_data()
+    if poetry_data:
+        data["poetry"] = {
+            "url": "/poetry.html",
+            "sections": poetry_data
+        }
+
+    from datetime import datetime
+    data["lastUpdated"] = datetime.now().isoformat()
+
+    books_json_file.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    return data
 
 # ---------------------------------------------------------------------------
 # Auto‑commit to GitHub (if GITHUB_TOKEN is set)

@@ -193,13 +193,18 @@
     if (entry.stats) {
       Object.keys(entry.stats).forEach(statName => {
         const value = entry.stats[statName];
+        const hasDescription = entry.statDescriptions && entry.statDescriptions[statName];
+        const descriptionHtml = hasDescription ? `<div class="omni-stat-description">${entry.statDescriptions[statName]}</div>` : '';
         statsHtml += `
-          <div class="omni-stat">
-            <span class="omni-stat-label" onclick="showStatTooltip(this, '${statName}')">${formatStatName(statName)}</span>
+          <div class="omni-stat ${hasDescription ? 'has-description' : ''}">
+            <button class="omni-stat-trigger" type="button" data-stat-name="${statName}" aria-expanded="false">
+              <span class="omni-stat-label">${formatStatName(statName)}</span>
+              <span class="omni-stat-value">${value}</span>
+            </button>
             <div class="omni-stat-bar">
               <div class="omni-stat-fill" style="--target-width:${value}%"></div>
             </div>
-            <span class="omni-stat-value">${value}</span>
+            ${descriptionHtml}
           </div>
         `;
       });
@@ -267,10 +272,36 @@
     element.appendChild(tooltip);
   };
 
-  // Click anywhere else to remove tooltip
   document.addEventListener('click', function(e) {
-    if (!e.target.closest('.omni-stat-tooltip') && !e.target.closest('.omni-stat-label')) {
+    const statTrigger = e.target.closest('.omni-stat-trigger');
+    if (statTrigger) {
+      const stat = statTrigger.closest('.omni-stat');
+      const statName = statTrigger.dataset.statName;
+
+      if (window.innerWidth <= 768) {
+        const isOpen = stat.classList.toggle('open');
+        statTrigger.setAttribute('aria-expanded', String(isOpen));
+        document.querySelectorAll('.omni-stat.open').forEach(item => {
+          if (item !== stat) {
+            item.classList.remove('open');
+            item.querySelector('.omni-stat-trigger')?.setAttribute('aria-expanded', 'false');
+          }
+        });
+        return;
+      }
+
+      showStatTooltip(statTrigger, statName);
+      return;
+    }
+
+    if (!e.target.closest('.omni-stat-tooltip') && !e.target.closest('.omni-stat-description')) {
       document.querySelectorAll('.omni-stat-tooltip').forEach(t => t.remove());
+      if (window.innerWidth <= 768) {
+        document.querySelectorAll('.omni-stat.open').forEach(item => {
+          item.classList.remove('open');
+          item.querySelector('.omni-stat-trigger')?.setAttribute('aria-expanded', 'false');
+        });
+      }
     }
   });
 

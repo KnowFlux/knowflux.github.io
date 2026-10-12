@@ -35,33 +35,33 @@ body.omni-dex {
 
 /* Exploded theme override (applied via JS) */
 body.omni-dex[data-universe="exploded"] {
-  --omni-dex-accent: #D4A017;
-  --omni-dex-accent-secondary: #8B0000;
-  --omni-dex-card-bg: #2a2a2a;
-  --omni-dex-card-border: #D4A017;
-  --omni-dex-card-shadow: 0 2px 8px rgba(212,160,23,0.3);
-  --omni-dex-text: #f0f0f0;
-  --omni-dex-text-light: #aaaaaa;
-  --omni-dex-stat-bg: #444444;
-  --omni-dex-stat-fill: #D4A017;
-  --omni-dex-tab-bg: #333333;
-  --omni-dex-tab-active-bg: #D4A017;
-  --omni-dex-tab-active-text: #1a1a1a;
+  --omni-dex-accent: #F2C14E;
+  --omni-dex-accent-secondary: #B22222;
+  --omni-dex-card-bg: #26170f;
+  --omni-dex-card-border: #F2C14E;
+  --omni-dex-card-shadow: 0 2px 8px rgba(242,193,78,0.25);
+  --omni-dex-text: #fff0d6;
+  --omni-dex-text-light: #d1b98d;
+  --omni-dex-stat-bg: #4a3123;
+  --omni-dex-stat-fill: #F2C14E;
+  --omni-dex-tab-bg: #38261b;
+  --omni-dex-tab-active-bg: #F2C14E;
+  --omni-dex-tab-active-text: #1b120d;
 
   /* -- Modal variables - Exploded palette -- */
-  --modal-overlay: rgba(139, 0, 0, 0.7);
-  --modal-bg: #2a1b0e;
-  --modal-border: #1a1a1a;
-  --modal-shadow: 8px 8px 0 #8B0000;
-  --modal-titlebar-accent: #D4A017;
-  --modal-text: #f0e6d0;
-  --modal-btn-stats-bg: #8B0000;
-  --modal-btn-close-bg: #8B0000;
-  --modal-btn-next-bg: #D4A017;
-  --modal-sidebar-bg: #2a1b0e;
-  --modal-sidebar-accent-shadow: #8B0000;
-  --modal-tooltip-shadow: #8B0000;
-  --modal-stat-fill: #D4A017;
+  --modal-overlay: rgba(77, 20, 20, 0.74);
+  --modal-bg: #2d1a10;
+  --modal-border: #f6d08a;
+  --modal-shadow: 8px 8px 0 #B22222;
+  --modal-titlebar-accent: #F2C14E;
+  --modal-text: #fff4dc;
+  --modal-btn-stats-bg: #B22222;
+  --modal-btn-close-bg: #B22222;
+  --modal-btn-next-bg: #F2C14E;
+  --modal-sidebar-bg: #2d1a10;
+  --modal-sidebar-accent-shadow: #B22222;
+  --modal-tooltip-shadow: #B22222;
+  --modal-stat-fill: #F2C14E;
 }
 
 /* When modal is active, blur the page content behind the overlay */
@@ -413,6 +413,26 @@ body.omni-dex.modal-active .omni-status {
 }
 
 /* Stat items inside sidebar */
+.omni-modal-stats-sidebar .omni-stat {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.omni-modal-stats-sidebar .omni-stat-trigger {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--modal-text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
 .omni-modal-stats-sidebar .omni-stat-label {
   color: var(--modal-text);
   cursor: pointer;
@@ -422,12 +442,30 @@ body.omni-dex.modal-active .omni-status {
 }
 .omni-modal-stats-sidebar .omni-stat-value {
   color: var(--modal-text);
+  font-weight: 700;
 }
 .omni-modal-stats-sidebar .omni-stat-bar {
   background: var(--omni-dex-stat-bg);
+  margin-top: 8px;
 }
 .omni-modal-stats-sidebar .omni-stat-fill {
   background: var(--modal-stat-fill);
+}
+.omni-modal-stats-sidebar .omni-stat-description {
+  display: block;
+  color: var(--modal-text);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.04);
+  border-left: 3px solid var(--modal-titlebar-accent);
+}
+.omni-modal-stats-sidebar .omni-stat:not(.open) .omni-stat-description {
+  display: none;
+}
+.omni-modal-stats-sidebar .omni-stat.open .omni-stat-description {
+  display: block;
 }
 
 /* Tooltip that appears when a stat is clicked */
@@ -510,19 +548,134 @@ body.omni-dex.modal-active .omni-status {
    ========================================================= */
 @media (max-width: 768px) {
   .omni-tabs { flex-wrap: wrap; }
-  .omni-modal-content { width: 95%; padding: 14px 10px; }
-  .omni-modal-screen { min-height: 150px; height: 280px; max-height: 70vh; }
-  .omni-modal-title { font-size: 1rem; }
-  .omni-modal-stats-sidebar { width: 260px; right: -280px; }
-  .omni-modal-stats-sidebar.open { right: 0; }
-  .omni-modal-body-wrapper.sidebar-open .omni-modal-body { margin-right: 0; }
+  .omni-modal {
+    align-items: flex-end;
+    justify-content: stretch;
+    padding: 0;
+    background: rgba(15, 23, 42, 0.68);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+  .omni-modal-content {
+    width: 100%;
+    max-width: none;
+    height: min(92vh, 92dvh);
+    max-height: 92vh;
+    padding: 18px 16px 14px;
+    border-radius: 28px 28px 0 0;
+    transform: translateY(14%);
+    box-shadow: 0 -12px 28px rgba(0, 0, 0, 0.24);
+  }
+  .omni-modal.visible .omni-modal-content {
+    transform: translateY(0);
+  }
+  .omni-modal-screen {
+    min-height: 0;
+    height: calc(100% - 70px);
+    max-height: none;
+  }
+  .omni-modal-titlebar {
+    padding: 0 2px 12px;
+  }
+  .omni-modal-title {
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
+  .omni-modal-body {
+    padding: 14px 6px 6px;
+    font-size: 1.02rem;
+    line-height: 1.75;
+  }
+  .omni-modal-stats-sidebar {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    left: 100%;
+    border-left: none;
+    border-top: 4px solid var(--modal-border);
+    border-radius: 28px 28px 0 0;
+    box-shadow: none;
+    padding: 18px 16px 24px;
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: 20;
+  }
+  .omni-modal-stats-sidebar.open {
+    right: 0;
+    left: 0;
+    transform: translateX(0);
+  }
+  .omni-modal-body-wrapper.sidebar-open .omni-modal-body {
+    opacity: 0.28;
+    filter: blur(1px);
+    transition: opacity 0.2s ease, filter 0.2s ease;
+  }
+  .omni-modal-stats-sidebar .omni-stat {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0 0 10px;
+    margin-bottom: 12px;
+  }
+  .omni-modal-stats-sidebar .omni-stat-trigger {
+    padding: 8px 4px;
+    border-radius: 12px;
+    font-size: 1.02rem;
+  }
+  .omni-modal-stats-sidebar .omni-stat-label {
+    width: auto;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .omni-modal-stats-sidebar .omni-stat-value {
+    font-size: 1rem;
+  }
+  .omni-modal-stats-sidebar .omni-stat-bar {
+    margin-top: 8px;
+    height: 12px;
+  }
+  .omni-modal-stats-sidebar .omni-stat-description {
+    display: none;
+    padding: 10px 12px;
+    margin-top: 6px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .omni-modal-stats-sidebar .omni-stat.open .omni-stat-description {
+    display: block;
+  }
+  .omni-modal-stats-sidebar .omni-stat:not(.open) .omni-stat-description {
+    display: none;
+  }
+  .omni-modal-controls {
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .omni-modal-btn {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    font-size: 0.82rem;
+  }
 }
 @media (max-width: 600px) {
   .omni-card-grid { grid-template-columns: 1fr; }
-  .omni-stat-label { width: 140px; overflow-wrap: break-word; word-break: break-word; }
-  .omni-modal-controls { flex-wrap: wrap; gap: 8px; justify-content: center; }
-  .omni-modal-screen { min-height: 150px; height: 240px; max-height: 70vh; }
-  .omni-modal-stats-sidebar { width: 200px; right: -220px; }
-  .omni-modal-stats-sidebar.open { right: 0; }
-  .omni-modal-body-wrapper.sidebar-open .omni-modal-body { margin-right: 0; }
+  .omni-modal-content {
+    height: 96vh;
+    max-height: 96vh;
+    padding: 14px 12px 12px;
+  }
+  .omni-modal-screen {
+    height: calc(100% - 56px);
+  }
+  .omni-modal-body {
+    font-size: 1.05rem;
+  }
+  .omni-modal-stats-sidebar {
+    padding: 12px 12px 20px;
+  }
+  .omni-modal-btn {
+    padding: 11px 12px;
+    font-size: 0.78rem;
+  }
 }

@@ -392,6 +392,24 @@
       }
 
       @media (max-width: 640px) {
+        .modal-backdrop {
+          align-items: flex-end;
+          justify-content: stretch;
+          background: rgba(15, 23, 42, 0.72);
+        }
+
+        .modal-card {
+          width: 100%;
+          max-width: none;
+          border-radius: 24px 24px 0 0;
+          padding: 1.5rem 1rem 1.1rem;
+          transform: translateY(100%) scale(1);
+        }
+
+        .modal-backdrop.visible .modal-card {
+          transform: translateY(0) scale(1);
+        }
+
         .poem-frame {
           width: min(88vw, 720px);
           height: min(70vh, 540px);

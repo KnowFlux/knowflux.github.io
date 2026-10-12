@@ -1054,6 +1054,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var entriesById = {};     // id -> entry
   var matcher = null;       // compiled RegExp
   var popover = null;
+  var modal = null;         // expanded full-screen card
   var activeId = null;
   var scanTimer = null;
 
@@ -1109,7 +1110,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ---------- Linkify ----------
-  function linkTextNode(node) {
+  function linkTextNode(node, seen) {
     var text = node.nodeValue;
     if (!text || !matcher) return;
 
@@ -1121,6 +1122,7 @@ document.addEventListener('DOMContentLoaded', function () {
     while ((m = matcher.exec(text)) !== null) {
       var entry = entryForMatch(m[0]);
       if (!entry) continue;
+      if (seen[entry.id]) continue;   // already linked once on this page
 
       if (m.index > emitFrom) {
         frag.appendChild(document.createTextNode(text.slice(emitFrom, m.index)));
@@ -1132,6 +1134,7 @@ document.addEventListener('DOMContentLoaded', function () {
       span.setAttribute('tabindex', '0');
       span.textContent = m[0];
       frag.appendChild(span);
+      seen[entry.id] = true;
       emitFrom = matcher.lastIndex;
     }
 
@@ -1142,7 +1145,7 @@ document.addEventListener('DOMContentLoaded', function () {
     node.parentNode.replaceChild(frag, node);
   }
 
-  function scanRoot(root) {
+  function scanRoot(root, seen) {
     if (!root || !matcher) return;
 
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
@@ -1166,11 +1169,18 @@ document.addEventListener('DOMContentLoaded', function () {
     var nodes = [];
     var n;
     while ((n = walker.nextNode())) nodes.push(n);
-    nodes.forEach(linkTextNode);
+    nodes.forEach(function (n) { linkTextNode(n, seen); });
   }
 
   function scanAll() {
-    document.querySelectorAll(CONTENT_SELECTOR).forEach(scanRoot);
+    var seen = {};
+    // Seed with entries already linked so re-scans don't add duplicates.
+    document.querySelectorAll('.lore-link').forEach(function (el) {
+      seen[el.getAttribute('data-lore-id')] = true;
+    });
+    document.querySelectorAll(CONTENT_SELECTOR).forEach(function (root) {
+      scanRoot(root, seen);
+    });
   }
 
   // ---------- Popover ----------
@@ -1184,38 +1194,44 @@ document.addEventListener('DOMContentLoaded', function () {
       '<button class="lore-popover-close" aria-label="Close">&times;</button>' +
       '<div class="lore-popover-tag"></div>' +
       '<h3 class="lore-popover-title"></h3>' +
-      '<div class="lore-popover-body"></div>' +
-      '<div class="lore-popover-stats"></div>' +
-      '<a class="lore-popover-link" href="omni-dex.html">View in Omni-Dex &rarr;</a>';
+      '<p class="lore-popover-desc"></p>' +
+      '<div class="lore-popover-footer">' +
+        '<button class="lore-popover-expand" type="button" aria-label="Expand entry">' +
+          '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" ' +
+            'stroke="currentColor" stroke-width="2" stroke-linecap="round" ' +
+            'stroke-linejoin="round" aria-hidden="true">' +
+            '<polyline points="15 3 21 3 21 9"></polyline>' +
+            '<polyline points="9 21 3 21 3 15"></polyline>' +
+            '<line x1="21" y1="3" x2="14" y2="10"></line>' +
+            '<line x1="3" y1="21" x2="10" y2="14"></line>' +
+          '</svg>' +
+        '</button>' +
+        '<a class="lore-popover-link" href="omni-dex.html">View in Omni-Dex &rarr;</a>' +
+      '</div>';
     document.body.appendChild(popover);
     popover.querySelector('.lore-popover-close').addEventListener('click', hidePopover);
+    popover.querySelector('.lore-popover-expand').addEventListener('click', function () {
+      if (activeId) openModal(activeId);
+    });
     return popover;
+  }
+
+  function typeLabelOf(entry) {
+    return entry.type
+      ? entry.type.charAt(0).toUpperCase() + entry.type.slice(1) : 'Entry';
+  }
+
+  function universeLabelOf(entry) {
+    return entry.universe === 'exploded' ? 'Exploded'
+      : (entry.universe ? entry.universe.charAt(0).toUpperCase() + entry.universe.slice(1) : 'KnowFlux');
   }
 
   function renderPopover(entry) {
     var pop = ensurePopover();
-    var typeLabel = entry.type
-      ? entry.type.charAt(0).toUpperCase() + entry.type.slice(1) : 'Entry';
-    var universeLabel = entry.universe === 'exploded' ? 'Exploded'
-      : (entry.universe ? entry.universe.charAt(0).toUpperCase() + entry.universe.slice(1) : 'KnowFlux');
-
-    pop.querySelector('.lore-popover-tag').textContent = universeLabel + ' | ' + typeLabel;
+    pop.querySelector('.lore-popover-tag').textContent =
+      universeLabelOf(entry) + ' | ' + typeLabelOf(entry);
     pop.querySelector('.lore-popover-title').textContent = entry.name || 'Untitled';
-    pop.querySelector('.lore-popover-body').innerHTML = entry.content || entry.description || '';
-
-    var statsHtml = '';
-    if (entry.stats) {
-      Object.keys(entry.stats).forEach(function (statName) {
-        var value = entry.stats[statName];
-        statsHtml +=
-          '<div class="lore-stat">' +
-            '<span class="lore-stat-label">' + formatStatName(statName) + '</span>' +
-            '<span class="lore-stat-value">' + value + '</span>' +
-            '<div class="lore-stat-bar"><div class="lore-stat-fill" style="width:' + value + '%"></div></div>' +
-          '</div>';
-      });
-    }
-    pop.querySelector('.lore-popover-stats').innerHTML = statsHtml;
+    pop.querySelector('.lore-popover-desc').textContent = entry.description || '';
     pop.setAttribute('data-universe', entry.universe || 'pinnacle');
   }
 
@@ -1261,21 +1277,152 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // ---------- Expanded modal (mirrors the Omni-Dex modal) ----------
+  function ensureModal() {
+    if (modal) return modal;
+    modal = document.createElement('div');
+    modal.className = 'lore-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Omni-Dex entry');
+    modal.innerHTML =
+      '<div class="lore-modal-content">' +
+        '<div class="lore-modal-screen">' +
+          '<div class="lore-modal-titlebar">' +
+            '<span class="lore-modal-title">Title</span>' +
+            '<button class="lore-modal-stats-btn" type="button">Stats</button>' +
+          '</div>' +
+          '<div class="lore-modal-body-wrapper">' +
+            '<div class="lore-modal-body"></div>' +
+            '<div class="lore-modal-stats-sidebar"><div class="lore-modal-stats-content"></div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="lore-modal-controls">' +
+          '<button class="lore-modal-btn lore-modal-btn-close" type="button">Close</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    var sidebar = modal.querySelector('.lore-modal-stats-sidebar');
+    var wrapper = modal.querySelector('.lore-modal-body-wrapper');
+
+    modal.querySelector('.lore-modal-stats-btn').addEventListener('click', function () {
+      sidebar.classList.toggle('open');
+      wrapper.classList.toggle('sidebar-open');
+    });
+    modal.querySelector('.lore-modal-btn-close').addEventListener('click', hideModal);
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) hideModal();
+    });
+    // Stat tooltips (same behavior as Omni-Dex)
+    modal.querySelector('.lore-modal-stats-content').addEventListener('click', function (e) {
+      var trigger = e.target.closest ? e.target.closest('.omni-stat-trigger') : null;
+      var label = e.target.closest ? e.target.closest('.omni-stat-label') : null;
+      modal.querySelectorAll('.lore-stat-tooltip').forEach(function (t) { t.remove(); });
+
+      if (trigger) {
+        var statItem = trigger.closest('.omni-stat');
+        if (statItem) statItem.classList.toggle('open');
+        return;
+      }
+
+      if (!label) return;
+      var entry = entriesById[activeId];
+      var statName = label.getAttribute('data-stat');
+      if (!entry || !entry.statDescriptions || !entry.statDescriptions[statName]) return;
+      var tip = document.createElement('div');
+      tip.className = 'lore-stat-tooltip';
+      tip.textContent = entry.statDescriptions[statName];
+      label.appendChild(tip);
+    });
+    return modal;
+  }
+
+  function buildStatsHtml(entry) {
+    if (!entry.stats) return '<p>No stats available.</p>';
+    var html = '';
+    Object.keys(entry.stats).forEach(function (statName) {
+      var value = entry.stats[statName];
+      var description = entry.statDescriptions && entry.statDescriptions[statName]
+        ? entry.statDescriptions[statName]
+        : 'No description available.';
+      html +=
+        '<div class="omni-stat">' +
+          '<button class="omni-stat-trigger" type="button" data-stat="' + statName + '">' +
+            '<span class="omni-stat-label" data-stat="' + statName + '">' +
+              formatStatName(statName) +
+            '</span>' +
+            '<span class="omni-stat-value">' + value + '</span>' +
+          '</button>' +
+          '<div class="omni-stat-bar">' +
+            '<div class="omni-stat-fill" style="--target-width:' + value + '%"></div>' +
+          '</div>' +
+          '<div class="omni-stat-description">' + description + '</div>' +
+        '</div>';
+    });
+    return html;
+  }
+
+  function openModal(id) {
+    var entry = entriesById[id];
+    if (!entry) return;
+    hidePopover();
+    activeId = id;
+
+    var m = ensureModal();
+    var universe = entry.universe || 'pinnacle';
+    m.setAttribute('data-universe', universe);
+    m.querySelector('.lore-modal-content').setAttribute('data-universe', universe);
+    m.querySelector('.lore-modal-title').textContent = entry.name || 'Untitled';
+    m.querySelector('.lore-modal-body').innerHTML = entry.content || entry.description || '';
+    m.querySelector('.lore-modal-stats-content').innerHTML = buildStatsHtml(entry);
+
+    m.querySelector('.lore-modal-stats-sidebar').classList.remove('open');
+    m.querySelector('.lore-modal-body-wrapper').classList.remove('sidebar-open');
+
+    document.body.classList.add('lore-modal-active');
+    m.classList.add('visible');
+  }
+
+  function hideModal() {
+    if (!modal) return;
+    modal.classList.remove('visible');
+    document.body.classList.remove('lore-modal-active');
+    modal.querySelectorAll('.lore-stat-tooltip').forEach(function (t) { t.remove(); });
+    activeId = null;
+    document.querySelectorAll('.lore-link.active').forEach(function (el) {
+      el.classList.remove('active');
+    });
+  }
+
   // ---------- Events ----------
   document.addEventListener('click', function (e) {
-    var link = e.target.closest ? e.target.closest('.lore-link') : null;
+    var t = e.target;
+    // While the modal is open, keep clicks inside it away from popover logic.
+    if (modal && modal.classList.contains('visible')) {
+      if (modal.contains(t)) {
+        if (!(t.closest && t.closest('.omni-stat-label'))) {
+          modal.querySelectorAll('.lore-stat-tooltip').forEach(function (x) { x.remove(); });
+        }
+        return;
+      }
+    }
+    var link = t.closest ? t.closest('.lore-link') : null;
     if (link) {
       e.preventDefault();
       if (activeId === link.getAttribute('data-lore-id')) hidePopover();
       else showPopover(link);
       return;
     }
-    if (popover && popover.contains(e.target)) return;
+    if (popover && popover.contains(t)) return;
     hidePopover();
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') hidePopover();
+    if (e.key === 'Escape') {
+      if (modal && modal.classList.contains('visible')) hideModal();
+      else hidePopover();
+    }
     if ((e.key === 'Enter' || e.key === ' ') &&
         e.target.classList && e.target.classList.contains('lore-link')) {
       e.preventDefault();
@@ -1283,8 +1430,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  window.addEventListener('scroll', function () { if (activeId) hidePopover(); }, { passive: true });
-  window.addEventListener('resize', function () { if (activeId) hidePopover(); });
+  window.addEventListener('scroll', function () {
+    if (modal && modal.classList.contains('visible')) return;
+    if (activeId) hidePopover();
+  }, { passive: true });
+  window.addEventListener('resize', function () {
+    if (modal && modal.classList.contains('visible')) return;
+    if (activeId) hidePopover();
+  });
 
   // ---------- Observe async-injected content ----------
   function debouncedScan() {

@@ -1314,7 +1314,7 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.addEventListener('click', function (e) {
       if (e.target === modal) hideModal();
     });
-    // Stat tooltips (same behavior as Omni-Dex)
+    // Stat tooltips (same behavior as Omni-Dex on desktop; mobile keeps accordion behavior)
     modal.querySelector('.lore-modal-stats-content').addEventListener('click', function (e) {
       var trigger = e.target.closest ? e.target.closest('.omni-stat-trigger') : null;
       var label = e.target.closest ? e.target.closest('.omni-stat-label') : null;
@@ -1322,11 +1322,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (trigger) {
         var statItem = trigger.closest('.omni-stat');
-        if (statItem) statItem.classList.toggle('open');
+
+        if (window.innerWidth <= 768) {
+          if (statItem) statItem.classList.toggle('open');
+          return;
+        }
+
+        var entry = entriesById[activeId];
+        var statName = trigger.getAttribute('data-stat');
+        if (!entry || !entry.statDescriptions || !entry.statDescriptions[statName]) return;
+        var tip = document.createElement('div');
+        tip.className = 'lore-stat-tooltip';
+        tip.textContent = entry.statDescriptions[statName];
+        trigger.appendChild(tip);
         return;
       }
 
       if (!label) return;
+      if (window.innerWidth <= 768) return;
       var entry = entriesById[activeId];
       var statName = label.getAttribute('data-stat');
       if (!entry || !entry.statDescriptions || !entry.statDescriptions[statName]) return;

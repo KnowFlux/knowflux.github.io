@@ -383,7 +383,7 @@ html[data-dark-mode="true"] .lore-link {
   background: var(--lm-stat-fill);
 }
 .lore-modal-stats-sidebar .omni-stat-description {
-  display: block;
+  display: none;
   color: var(--lm-text);
   font-size: 0.78rem;
   line-height: 1.55;
@@ -396,7 +396,7 @@ html[data-dark-mode="true"] .lore-link {
   display: none;
 }
 .lore-modal-stats-sidebar .omni-stat.open .omni-stat-description {
-  display: block;
+  display: none;
 }
 
 .lore-stat-tooltip {

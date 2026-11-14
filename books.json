@@ -32,7 +32,7 @@
       "id": "exploded",
       "title": "Exploded",
       "description": "",
-      "totalPages": 7,
+      "totalPages": 8,
       "pagesUrl": "/exploded-pages.html",
       "chaptersUrl": "/exploded-chapters.html",
       "pages": [
@@ -84,6 +84,13 @@
           "content": "      <hr class=\"underline\"/>\n\n      <div class=\"dreamMemText\">\n\n        <p>Exploded felt jagged rocks underneath his talons. Bright light stabbed into his eyes, harsh red and slate grey refracting across his vision.\nWas all a dream, and this the reality?\nCraters. All around him. Deep gouges in the ground.\nHeat. Fire. Blazing red and orange.\nHe didn't want this. He wanted the dream. The safe, stone caverns. Not this.\nHe had to escape. He had to fly. He had to move.\nHis wings wouldn't lift. His eyes wouldn't close. And the screams... agony echoing in his ears. Burrowing. Pain.\nA command. A noise. A flash. Brilliance. The world an inferno.\nToo much.\nHis wings lifted — slowly, sluggishly, heavy.\nHis surroundings blurred. Brightened. Disappeared.</p>\n\n      </div>\n\n      <p>Soft glowslug light danced around him.</p>\n\n",
           "file": "",
           "url": "reader.html?book=exploded&page=7"
+        },
+        {
+          "page_number": 8,
+          "chapter_title": "Ch. 2 | Scarlet",
+          "content": "      <p>A cold wind searched hungrily through the forest, swaying branches and shoving leaves aside. It bit into the rough bark of an oak, curling around the roots, then funneled underground. It blasted through the tiny opening, hissing through the crevices which pockmarked the hollow.</p>\n\n      <p>At last, the wind scraped along the rough, scarred scales of the dragon inside. A slight growl built in the back of his throat, a deep rumble which filled the hollow. A hesitant sliver of light crept through the opening, falling onto his eyes. A flash of scales - a metallic gleam - and the drag was upright, wings spread threateningly, ears swiveling.</p>\n\n      <p>Only the low groan of a tree bending against the wind, the crunch of dirt under a raccoon’s paw reached him. Slowly, his wings lowered, curving protectively around his body, and his jaw untensed. Tentatively, he lifted his wings, beating them gently until his talons no longer touched the ground. Tilting his snout upwards, he narrowed his eyes, angled his wings sharply, and shot upwards, the air hissing softly around him.</p>\n\n      <p>His claws locked into the groove of a stone inches above his snout, wings beating furiously to keep him aloft. He shoved his shoulders against the slab, heaving it upwards. With a final burst of effort, he lunged out of the hollow, his talons sinking into the damp forest undergrowth. With a slight shove he pushed the rock back into the opening, then turned to face skyward. Bending his forelegs, he launched off the ground, easily clearing the treetops, soaring as high as he could.</p>\n\n      <p>The winds played around him, their soft touch wrapping around him, relaxing his muscles. But he forced himself to tense. Even here, where not many dragons flew, he was never truly safe.</p>\n\n      <p>The air sharpened, cold, now stabbing into his lungs like claws as he gasped breath after breath. The muscles at the base of his wings vibrated with stress, keeping his wings aloft to slice through the currents. He angled his head downwards, scanning for movement below.</p>\n\n      <p>A brief moment—a flash of red quills cutting through deep green—and he folded his wings, streamlining his body, angling downwards, feeling the air screaming past his snout. Green leaves filled his vision, scratching, tearing at his scales as he cut through the forest canopy. Then the warm taste of blood, and the feel of the dirt beneath his claws, as he stood with the quill varg’s neck clamped between his jaws.</p>\n\n",
+          "file": "",
+          "url": "reader.html?book=exploded&page=8"
         }
       ],
       "chapters": {
@@ -139,6 +146,15 @@
             "file": "",
             "url": "reader.html?book=exploded&page=7"
           }
+        ],
+        "Ch. 2 | Scarlet": [
+          {
+            "page_number": 8,
+            "chapter_title": "Ch. 2 | Scarlet",
+            "content": "      <p>A cold wind searched hungrily through the forest, swaying branches and shoving leaves aside. It bit into the rough bark of an oak, curling around the roots, then funneled underground. It blasted through the tiny opening, hissing through the crevices which pockmarked the hollow.</p>\n\n      <p>At last, the wind scraped along the rough, scarred scales of the dragon inside. A slight growl built in the back of his throat, a deep rumble which filled the hollow. A hesitant sliver of light crept through the opening, falling onto his eyes. A flash of scales - a metallic gleam - and the drag was upright, wings spread threateningly, ears swiveling.</p>\n\n      <p>Only the low groan of a tree bending against the wind, the crunch of dirt under a raccoon’s paw reached him. Slowly, his wings lowered, curving protectively around his body, and his jaw untensed. Tentatively, he lifted his wings, beating them gently until his talons no longer touched the ground. Tilting his snout upwards, he narrowed his eyes, angled his wings sharply, and shot upwards, the air hissing softly around him.</p>\n\n      <p>His claws locked into the groove of a stone inches above his snout, wings beating furiously to keep him aloft. He shoved his shoulders against the slab, heaving it upwards. With a final burst of effort, he lunged out of the hollow, his talons sinking into the damp forest undergrowth. With a slight shove he pushed the rock back into the opening, then turned to face skyward. Bending his forelegs, he launched off the ground, easily clearing the treetops, soaring as high as he could.</p>\n\n      <p>The winds played around him, their soft touch wrapping around him, relaxing his muscles. But he forced himself to tense. Even here, where not many dragons flew, he was never truly safe.</p>\n\n      <p>The air sharpened, cold, now stabbing into his lungs like claws as he gasped breath after breath. The muscles at the base of his wings vibrated with stress, keeping his wings aloft to slice through the currents. He angled his head downwards, scanning for movement below.</p>\n\n      <p>A brief moment—a flash of red quills cutting through deep green—and he folded his wings, streamlining his body, angling downwards, feeling the air screaming past his snout. Green leaves filled his vision, scratching, tearing at his scales as he cut through the forest canopy. Then the warm taste of blood, and the feel of the dirt beneath his claws, as he stood with the quill varg’s neck clamped between his jaws.</p>\n\n",
+            "file": "",
+            "url": "reader.html?book=exploded&page=8"
+          }
         ]
       }
     }
@@ -177,5 +193,5 @@
       ]
     }
   },
-  "lastUpdated": "2026-11-14T20:37:59.417123"
+  "lastUpdated": "2026-11-14T20:41:17.701837"
 }

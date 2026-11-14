@@ -32,7 +32,7 @@
       "id": "exploded",
       "title": "Exploded",
       "description": "",
-      "totalPages": 15,
+      "totalPages": 16,
       "pagesUrl": "/exploded-pages.html",
       "chaptersUrl": "/exploded-chapters.html",
       "pages": [
@@ -140,6 +140,13 @@
           "content": "      <p>Exploded exhaled sharply as he leapt, wings extending to hug the wind, angling his body, claws pointed. A second of thrill - sunlight dancing across his scales - then his back claws gripped earth, front claws clutching fur. His teeth speared into the creature's flesh, warm blood coating his tongue.</p>\n\n      <p>And this time, he could enjoy it.</p>\n\n",
           "file": "",
           "url": "reader.html?book=exploded&page=15"
+        },
+        {
+          "page_number": 16,
+          "chapter_title": "Ch. 3 | Infiltrate",
+          "content": "      <p>“Why was he chosen? Others have more potential.” The second-in-command’s voice was strained, repressing bitterness that threatened to edge his voice.</p>\n\n      <p>The Commander, back turned to him, didn’t move. Not even a twitch of his ears to show he’d heard.</p>\n\n      <p>The second-in-command shifted uncomfortably, a slight rustle of scales that at least was not the oppressive silence that pressed down on him.</p>\n\n      <p>“Chosen? No one has been chosen.”</p>\n\n      <p>The Commander’s voice cut suddenly through the quiet. Words froze on the second-in-command’s tongue, breath inhaled to speak released sharply. <span class=\"thoughtText\">No one?</span></p>\n\n      <p>“The test remains.”</p>\n\n      <p>The second-in-command’s eyes widened in understanding. Yet - “If they fail?” He knew what the Commander’s test meant only too well.</p>\n\n      <p>“They will not fail.”</p>\n\n      <p>The words were spoken flatly. As if it was a fact.</p>\n\n      <p>The second-in-command bowed his snout, turning to leave. There were preparations ahead.</p>\n\n      <div class=\"underline\"></div>\n\n",
+          "file": "",
+          "url": "reader.html?book=exploded&page=16"
         }
       ],
       "chapters": {
@@ -253,6 +260,15 @@
             "file": "",
             "url": "reader.html?book=exploded&page=15"
           }
+        ],
+        "Ch. 3 | Infiltrate": [
+          {
+            "page_number": 16,
+            "chapter_title": "Ch. 3 | Infiltrate",
+            "content": "      <p>“Why was he chosen? Others have more potential.” The second-in-command’s voice was strained, repressing bitterness that threatened to edge his voice.</p>\n\n      <p>The Commander, back turned to him, didn’t move. Not even a twitch of his ears to show he’d heard.</p>\n\n      <p>The second-in-command shifted uncomfortably, a slight rustle of scales that at least was not the oppressive silence that pressed down on him.</p>\n\n      <p>“Chosen? No one has been chosen.”</p>\n\n      <p>The Commander’s voice cut suddenly through the quiet. Words froze on the second-in-command’s tongue, breath inhaled to speak released sharply. <span class=\"thoughtText\">No one?</span></p>\n\n      <p>“The test remains.”</p>\n\n      <p>The second-in-command’s eyes widened in understanding. Yet - “If they fail?” He knew what the Commander’s test meant only too well.</p>\n\n      <p>“They will not fail.”</p>\n\n      <p>The words were spoken flatly. As if it was a fact.</p>\n\n      <p>The second-in-command bowed his snout, turning to leave. There were preparations ahead.</p>\n\n      <div class=\"underline\"></div>\n\n",
+            "file": "",
+            "url": "reader.html?book=exploded&page=16"
+          }
         ]
       }
     }
@@ -291,5 +307,5 @@
       ]
     }
   },
-  "lastUpdated": "2026-11-14T22:16:45.750939"
+  "lastUpdated": "2026-11-14T22:20:24.150125"
 }

@@ -32,7 +32,7 @@
       "id": "exploded",
       "title": "Exploded",
       "description": "",
-      "totalPages": 2,
+      "totalPages": 3,
       "pagesUrl": "/exploded-pages.html",
       "chaptersUrl": "/exploded-chapters.html",
       "pages": [
@@ -49,6 +49,13 @@
           "content": "      <p>A fleeting glimpse of black blazing past. Then a heavy thud, thick and wet. She glimpsed scales behind her - but the dragon would be fine. An arrow alone could not kill a dragon.  \nThen the arrow exploded.</p>\n\n      <p>Instantly the dragon was gone, vaporized.</p>\n\n      <p>She thought of the arrow which had hit her; if she hadn't removed it, she would be dead. Even as she looked back, the arrow detonated, creating another crater.</p>\n\n      <p>She began moving again, everything around her a mesh of dull grey, her wing dragging, scraping on the stones, just... moving.</p>\n\n      <p>She stumbled. The ground gave way beneath her - a flash of the sky - red, rushing towards her - a splash - and she was still. A cold liquid - blood, she realized,  sloshed against her scales and her eyes cleared, taking in the grey walls of the crater around her. She brought her talons under her, pushing against the soft, murky ground, ignoring the searing stabs around her wing. She turned in a full circle, noting the steep, jagged walls, and realized she couldn't get out till she could fly.</p>\n\n      <p>Then, in the very center of the crater, she saw her egg. Her heart lifted, biting agony soothed, an energy thrumming through her as she reached for it, not noticing the arrow which slid into the water with barely a ripple, inches from her egg.</p>\n\n      <p>Then, the world <span class=\"thoughtText\">exploded.</span></p>\n\n",
           "file": "",
           "url": "reader.html?book=exploded&page=2"
+        },
+        {
+          "page_number": 3,
+          "chapter_title": "Ch. 1 | Command",
+          "content": "      <p>Commander-in-chief of the Royal Empire of the Fittus was fuming.</p>\n\n      <p>\"Why were you worthless guards altering the formation? I clearly mentioned that you were not to change your formation, not even in the most dire of situations till I give the command!\"</p>\n\n      <p>\"But-\"</p>\n\n      <p>The guard was not allowed to finish, because the commander-in-chief struck his chest. He did this with such force that the guard flew several feet before he fell to the ground, unconscious.</p>\n\n      <p>\"Now,\" said the commander, \"remove your unworthy selves from my presence. All of you.\"\nHe spat on the ground and spread his wings, flying back to the underground cave system that was the home of all Fittus members.</p>\n\n      <div class=\"underline\"></div>\n\n",
+          "file": "",
+          "url": "reader.html?book=exploded&page=3"
         }
       ],
       "chapters": {
@@ -66,6 +73,15 @@
             "content": "      <p>A fleeting glimpse of black blazing past. Then a heavy thud, thick and wet. She glimpsed scales behind her - but the dragon would be fine. An arrow alone could not kill a dragon.  \nThen the arrow exploded.</p>\n\n      <p>Instantly the dragon was gone, vaporized.</p>\n\n      <p>She thought of the arrow which had hit her; if she hadn't removed it, she would be dead. Even as she looked back, the arrow detonated, creating another crater.</p>\n\n      <p>She began moving again, everything around her a mesh of dull grey, her wing dragging, scraping on the stones, just... moving.</p>\n\n      <p>She stumbled. The ground gave way beneath her - a flash of the sky - red, rushing towards her - a splash - and she was still. A cold liquid - blood, she realized,  sloshed against her scales and her eyes cleared, taking in the grey walls of the crater around her. She brought her talons under her, pushing against the soft, murky ground, ignoring the searing stabs around her wing. She turned in a full circle, noting the steep, jagged walls, and realized she couldn't get out till she could fly.</p>\n\n      <p>Then, in the very center of the crater, she saw her egg. Her heart lifted, biting agony soothed, an energy thrumming through her as she reached for it, not noticing the arrow which slid into the water with barely a ripple, inches from her egg.</p>\n\n      <p>Then, the world <span class=\"thoughtText\">exploded.</span></p>\n\n",
             "file": "",
             "url": "reader.html?book=exploded&page=2"
+          }
+        ],
+        "Ch. 1 | Command": [
+          {
+            "page_number": 3,
+            "chapter_title": "Ch. 1 | Command",
+            "content": "      <p>Commander-in-chief of the Royal Empire of the Fittus was fuming.</p>\n\n      <p>\"Why were you worthless guards altering the formation? I clearly mentioned that you were not to change your formation, not even in the most dire of situations till I give the command!\"</p>\n\n      <p>\"But-\"</p>\n\n      <p>The guard was not allowed to finish, because the commander-in-chief struck his chest. He did this with such force that the guard flew several feet before he fell to the ground, unconscious.</p>\n\n      <p>\"Now,\" said the commander, \"remove your unworthy selves from my presence. All of you.\"\nHe spat on the ground and spread his wings, flying back to the underground cave system that was the home of all Fittus members.</p>\n\n      <div class=\"underline\"></div>\n\n",
+            "file": "",
+            "url": "reader.html?book=exploded&page=3"
           }
         ]
       }
@@ -105,5 +121,5 @@
       ]
     }
   },
-  "lastUpdated": "2026-11-14T20:30:32.225992"
+  "lastUpdated": "2026-11-14T20:32:33.998462"
 }

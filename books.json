@@ -27,6 +27,34 @@
           }
         ]
       }
+    },
+    {
+      "id": "exploded",
+      "title": "Exploded",
+      "description": "",
+      "totalPages": 1,
+      "pagesUrl": "/exploded-pages.html",
+      "chaptersUrl": "/exploded-chapters.html",
+      "pages": [
+        {
+          "page_number": 1,
+          "chapter_title": "Prologue",
+          "content": "      <p>The mother was not surprised when something exploded two feet away from her, overwhelming her vision with the red and orange of fire, and she was thrown into an out-of-control spiral.</p>\n\n      <p>The wind screamed past her, the ground approaching, harsh and stern, her erratically flapping wings weak, grey and red blurring through her eyes. More wing flapping eventually allowed her to regain her balance, talons hitting the ground solidly, pain zinging up into her legs.</p>\n\n      <p>There were innumerable craters defacing the ground scattered around her, all a terrible witness to the death and destruction occurring. Each was filled with blood, death, decay: it was too much to bear thinking about. But she had to, for the sake of her egg, because her egg could be in any one of these.</p>\n\n      <p>And yet… it could be anywhere, even crushed under a dead dragon. But, in her heart, the life of the egg pulsed, tied to her. It had to be alive.</p>\n\n      <p>She tired and landed again, but once she had regained her strength she spread her wings and took off, flying low. She swept the ground with her eyes, scanning every grain for some sign of her egg.</p>\n\n      <p>As she headed closer and closer to the battle, the number of stray arrows and explosives increased. She hoped she could find her egg before — no, she couldn't, wouldn't think about that — wait. Why would the humans use arrows if they had explosives? Her thoughts were cut short when a volley of weaponry blasted towards her, arrows and debris flaming orange. She somersaulted and spun in response, letting herself be lost in the dance of the wind, just the once.</p>\n\n      <p>She landed - she needed to keep closer to the ground. The air was too exposed. \nA hiss. A rip. Then red hot blades slicing into her wing.</p>\n\n      <p>An arrow. The thought drifted across the haze of pain blanketing her mind, her vision filled with the black shaft. She took a breath, allowing the breeze to clear her head, steeling herself. She gripped the arrow in her teeth and wrenched it out. Her vision went red. She slumped, gasping, as the shaft clattered to the stones.</p>\n\n",
+          "file": "",
+          "url": "reader.html?book=exploded&page=1"
+        }
+      ],
+      "chapters": {
+        "Prologue": [
+          {
+            "page_number": 1,
+            "chapter_title": "Prologue",
+            "content": "      <p>The mother was not surprised when something exploded two feet away from her, overwhelming her vision with the red and orange of fire, and she was thrown into an out-of-control spiral.</p>\n\n      <p>The wind screamed past her, the ground approaching, harsh and stern, her erratically flapping wings weak, grey and red blurring through her eyes. More wing flapping eventually allowed her to regain her balance, talons hitting the ground solidly, pain zinging up into her legs.</p>\n\n      <p>There were innumerable craters defacing the ground scattered around her, all a terrible witness to the death and destruction occurring. Each was filled with blood, death, decay: it was too much to bear thinking about. But she had to, for the sake of her egg, because her egg could be in any one of these.</p>\n\n      <p>And yet… it could be anywhere, even crushed under a dead dragon. But, in her heart, the life of the egg pulsed, tied to her. It had to be alive.</p>\n\n      <p>She tired and landed again, but once she had regained her strength she spread her wings and took off, flying low. She swept the ground with her eyes, scanning every grain for some sign of her egg.</p>\n\n      <p>As she headed closer and closer to the battle, the number of stray arrows and explosives increased. She hoped she could find her egg before — no, she couldn't, wouldn't think about that — wait. Why would the humans use arrows if they had explosives? Her thoughts were cut short when a volley of weaponry blasted towards her, arrows and debris flaming orange. She somersaulted and spun in response, letting herself be lost in the dance of the wind, just the once.</p>\n\n      <p>She landed - she needed to keep closer to the ground. The air was too exposed. \nA hiss. A rip. Then red hot blades slicing into her wing.</p>\n\n      <p>An arrow. The thought drifted across the haze of pain blanketing her mind, her vision filled with the black shaft. She took a breath, allowing the breeze to clear her head, steeling herself. She gripped the arrow in her teeth and wrenched it out. Her vision went red. She slumped, gasping, as the shaft clattered to the stones.</p>\n\n",
+            "file": "",
+            "url": "reader.html?book=exploded&page=1"
+          }
+        ]
+      }
     }
   ],
   "poetry": {
@@ -63,5 +91,5 @@
       ]
     }
   },
-  "lastUpdated": "2026-11-10T23:22:19.693875"
+  "lastUpdated": "2026-11-14T20:29:17.548320"
 }

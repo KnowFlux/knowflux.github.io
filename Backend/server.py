@@ -370,15 +370,14 @@ def add_page_to_books_json(book_id, book_title, page_num, chapter_title, rendere
             break
     
     if book_entry is None:
+        # Only store what can't be derived. totalPages, chapters, pagesUrl and
+        # chaptersUrl were all write-only: contents.js rebuilds chapters from
+        # pages at runtime, so storing them just created copies that drift.
         book_entry = {
             "id": book_id,
             "title": book_title,
             "description": "",
-            "totalPages": 0,
-            "pagesUrl": f"/{book_id}-pages.html",
-            "chaptersUrl": f"/{book_id}-chapters.html",
             "pages": [],
-            "chapters": {}
         }
         data["books"].append(book_entry)
     
@@ -399,18 +398,6 @@ def add_page_to_books_json(book_id, book_title, page_num, chapter_title, rendere
     # Insert in sorted order
     book_entry["pages"].append(new_page)
     book_entry["pages"].sort(key=lambda x: x["page_number"])
-    
-    # Update totalPages
-    book_entry["totalPages"] = len(book_entry["pages"])
-    
-    # Update chapters grouping
-    chapters = {}
-    for p in book_entry["pages"]:
-        ch = p["chapter_title"]
-        if ch not in chapters:
-            chapters[ch] = []
-        chapters[ch].append(p)
-    book_entry["chapters"] = chapters
     
     from datetime import datetime
     data["lastUpdated"] = datetime.now().isoformat()
@@ -635,44 +622,8 @@ def update_poetry_html(poem_title, poem_filename, section_name):
 
 
 # ---------------------------------------------------------------------------
-# Books JSON generation
+# Poetry
 # ---------------------------------------------------------------------------
-
-def extract_page_content(filename):
-    """Extract the main content HTML from a page file."""
-    filepath = BASE_DIR / filename
-    if not filepath.exists():
-        return ""
-    content = filepath.read_text(encoding="utf-8")
-    match = re.search(
-        r'<div class="page-content"[^>]*>(.*?)</div>',
-        content,
-        re.DOTALL
-    )
-    return match.group(1).strip() if match else ""
-
-
-def extract_page_info(filename):
-    """Extract page number, chapter title, and content from a page file."""
-    filepath = BASE_DIR / filename
-    if not filepath.exists():
-        return None
-    
-    content = filepath.read_text(encoding="utf-8")
-    page_match = re.search(r'<h2 class="page-title">Page (\d+)</h2>', content)
-    chapter_match = re.search(r'<h3 class="page-subtitle">([^<]+)</h3>', content)
-    
-    if page_match and chapter_match:
-        return {
-            "page_number": int(page_match.group(1)),
-            "chapter_title": chapter_match.group(1),
-            "file": filename,
-            "url": f"/{filename}",
-            "content": extract_page_content(filename)
-        }
-    return None
-
-
 
 def extract_poetry_data():
     """Extract all poetry sections and poems from poetry.html."""
@@ -714,86 +665,6 @@ def extract_poetry_data():
                 poetry_data[section] = poems_in_section
     
     return poetry_data
-
-
-def generate_books_json():
-    """Generate the complete books.json structure from current HTML files."""
-    books_data = {
-        "books": [],
-        "poetry": {},
-        "lastUpdated": None
-    }
-    
-    # Find all Exploded pages by searching the filesystem
-    exploded_pages = []
-    for page_file in sorted(BASE_DIR.glob("exploded-page*.html")):
-        page_info = extract_page_info(page_file.name)
-        if page_info:
-            exploded_pages.append(page_info)
-    
-    if exploded_pages:
-        # Extract unique chapters from exploded pages
-        exploded_chapters = {}
-        for page in sorted(exploded_pages, key=lambda p: p["page_number"]):
-            chapter = page["chapter_title"]
-            if chapter not in exploded_chapters:
-                exploded_chapters[chapter] = []
-            exploded_chapters[chapter].append(page)
-        
-        books_data["books"].append({
-            "id": "exploded",
-            "title": "Exploded",
-            "description": "Mysteries Unravel And Truth Is Revealed",
-            "totalPages": len(exploded_pages),
-            "pagesUrl": "/exploded-pages.html",
-            "chaptersUrl": "/exploded-chapters.html",
-            "pages": sorted(exploded_pages, key=lambda x: x["page_number"]),
-            "chapters": {
-                chapter: pages for chapter, pages in sorted(exploded_chapters.items())
-            }
-        })
-    
-    # Find all Pinnacle pages by searching the filesystem
-    pinnacle_pages = []
-    for page_file in sorted(BASE_DIR.glob("pinnacle-page*.html")):
-        page_info = extract_page_info(page_file.name)
-        if page_info:
-            pinnacle_pages.append(page_info)
-    
-    if pinnacle_pages:
-        pinnacle_chapters = {}
-        for page in sorted(pinnacle_pages, key=lambda p: p["page_number"]):
-            chapter = page["chapter_title"]
-            if chapter not in pinnacle_chapters:
-                pinnacle_chapters[chapter] = []
-            pinnacle_chapters[chapter].append(page)
-        
-        books_data["books"].append({
-            "id": "pinnacle",
-            "title": "The Pinnacle of Reality",
-            "description": "An Epic Tale of Reality and Destiny",
-            "totalPages": len(pinnacle_pages),
-            "pagesUrl": "/pinnacle-pages.html",
-            "chaptersUrl": "/pinnacle-chapters.html",
-            "pages": sorted(pinnacle_pages, key=lambda x: x["page_number"]),
-            "chapters": {
-                chapter: pages for chapter, pages in sorted(pinnacle_chapters.items())
-            }
-        })
-    
-    # Extract poetry data
-    poetry_data = extract_poetry_data()
-    if poetry_data:
-        books_data["poetry"] = {
-            "url": "/poetry.html",
-            "sections": poetry_data
-        }
-    
-    # Add timestamp
-    from datetime import datetime
-    books_data["lastUpdated"] = datetime.now().isoformat()
-    
-    return books_data
 
 
 def get_priority_and_freq(filename):
@@ -878,15 +749,12 @@ def update_sitemap():
 
 
 def save_books_json():
-    """Update the poetry section in books.json WITHOUT deleting book pages.
+    """Rebuild ONLY the poetry section of books.json; leave book pages alone.
 
-    The old implementation called generate_books_json(), which scans static
-    HTML files (exploded-page*.html, pinnacle-page*.html) on disk. Those files
-    no longer exist because books are now served dynamically from books.json,
-    so that scan returned zero pages and overwrote the book list with [].
-
-    Instead, load the current file, rebuild ONLY the poetry section from
-    poetry.html, and write it back leaving the books untouched.
+    Book pages live in books.json and are served dynamically by reader.html,
+    not as static HTML files on disk. Anything that regenerates the whole file
+    by scanning for HTML pages would therefore find nothing and wipe the book
+    list. So: load current data, refresh poetry from poetry.html, write back.
     """
     books_json_file = BASE_DIR / "books.json"
 

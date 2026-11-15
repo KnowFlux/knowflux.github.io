@@ -7,11 +7,12 @@ Standalone script to regenerate books.json.
 
 import json
 import re
-from pathlib import Path
 from datetime import datetime
 from config import ROOT_DIR
 
-BASE_DIR = Path(__file__).parent
+# ROOT_DIR is the repo root (parent of Backend/). poetry.html and books.json
+# live there, so this script must read/write from ROOT_DIR — not Backend/.
+BASE_DIR = ROOT_DIR
 
 def extract_poetry_data():
     """Extract all poetry sections and poems from poetry.html."""
@@ -34,9 +35,14 @@ def extract_poetry_data():
             poems_in_section = []
             for match in re.finditer(r'<a href="([^"]+)"[^>]*>.*?<div class="poetry-box">.*?<h3>([^<]+)</h3>', section_content, re.DOTALL):
                 filename, title = match.groups()
+                # Validate against disk: hrefs are written as Poetry/foo.html
+                # relative to the repo root, so a stale or unprefixed href
+                # is a real 404 and must not enter books.json.
+                if not (BASE_DIR / filename).exists():
+                    print(f"WARNING: skipping {title.strip()!r} -> {filename} (file not found)")
+                    continue
                 poems_in_section.append({
                     "title": title.strip(),
-                    "file": filename,
                     "url": f"/{filename}"
                 })
             if poems_in_section:

@@ -71,13 +71,22 @@ def parse_content_blocks(raw_content):
     current_lines = []
     for line in content.splitlines():
         stripped = line.strip().lower()
-        if stripped in ("[dream]", "[underline]"):
+        if stripped == "[underline]":
+            # Divider, not container: flush pending text, emit the rule, stay normal.
             if current_lines:
                 text = "\n".join(current_lines).strip()
                 if text:
                     segments.append((current_type, text))
             current_lines = []
-            current_type = "dream" if stripped == "[dream]" else "underline"
+            segments.append(("underline", ""))
+            current_type = "normal"
+        elif stripped == "[dream]":
+            if current_lines:
+                text = "\n".join(current_lines).strip()
+                if text:
+                    segments.append((current_type, text))
+            current_lines = []
+            current_type = "dream"
         elif stripped in ("[/dream]", "[/underline]"):
             if current_lines:
                 text = "\n".join(current_lines).strip()
@@ -97,6 +106,11 @@ def parse_content_blocks(raw_content):
 def render_content_blocks(segments):
     html = ""
     for seg_type, content in segments:
+        # Underline is a self-closing divider with no text — handle it before
+        # the empty-paragraph check, which would otherwise discard it.
+        if seg_type == "underline":
+            html += "      <div class=\"underline\"></div>\n\n"
+            continue
         paragraphs = [p.strip() for p in re.split(r"\n\s*\n", content) if p.strip()]
         if not paragraphs:
             continue
@@ -109,8 +123,6 @@ def render_content_blocks(segments):
             for p in paragraphs:
                 html += f"        <p>{p}</p>\n\n"
             html += "      </div>\n\n"
-        elif seg_type == "underline":
-            html += "      <div class=\"underline\"></div>\n\n"
     return html
 
 
@@ -118,13 +130,18 @@ def render_content_blocks(segments):
 # Shared page HTML builder
 # ---------------------------------------------------------------------------
 
-COMMON_HEAD = """\
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
-  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-  <link rel="stylesheet" href = "css/main.css">
-  <script src = "js/bundle.js?cachebust=14"></script>"""
+def _with_prefix(markup, prefix):
+    """Rewrite root-relative href/src values for a page in a subfolder.
+
+    Generated poems live in Poetry/, so "css/main.css" must become
+    "../css/main.css". Absolute URLs, mailto:, fragments and already-prefixed
+    paths are left untouched.
+    """
+    return re.sub(
+        r'(href|src)="(?!https?:|mailto:|#|\.\./)([^"]+)"',
+        lambda m: f'{m.group(1)}="{prefix}{m.group(2)}"',
+        markup,
+    )
 
 COMMON_NAV = """\
   <div id="promo">
@@ -140,13 +157,15 @@ COMMON_NAV = """\
           <li>
             <a href="index.html">Home</a>
           </li>
+          <li>
+            <a href="aboutbook.html">Books</a>
+          </li>
           <li class="has-submenu">
-            <a href="aboutbook.html" id="read-link">Read</a>
+            <a href="#" id="read-link">Read</a>
             <ul>
-              <li><a href="aboutbook.html">About Book</a></li>
-              <li><a href="reader.html?book=exploded&page=1">Open Book</a></li>
-              <li><a href="exploded-pages.html">Pages</a></li>
-              <li><a href="exploded-chapters.html">Chapters</a></li>
+              <li><a href="reader.html?book=exploded&page=1">Exploded: Book 1</a></li>
+              <li><a href="reader.html?book=pinnacle&page=1">The Pinnacle of Reality</a></li>
+              <li><a href="contents.html">Contents</a></li>
               <li><a href="omni-dex.html">Omni‑Dex</a></li>
             </ul>
           </li>
@@ -158,7 +177,7 @@ COMMON_NAV = """\
           </li>
         </ul>
       </div>
-      <a class="logo" href="index.html">KnowFlux</a>
+      <a class="logo" href="index.html"><img src="Images/favicon.jpeg" alt="KnowFlux logo">KnowFlux</a>
     </div>
   </div>"""
 
@@ -524,24 +543,33 @@ def generate_poem_html(title, section_name, raw_content):
 
     subtitle = f"A {section_name.rstrip('s').upper()}"
 
+    # Poems are written into Poetry/, so every root-relative asset and link
+    # needs a "../" prefix. _with_prefix handles the shared nav/footer; the
+    # head assets are written out explicitly below.
+    safe_title = html.escape(title)
+    nav = _with_prefix(COMMON_NAV, "../")
+    footer = _with_prefix(SUBSCRIBE_FOOTER, "../")
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8" />
-  <title>{title} | KnowFlux</title>
+  <title>{safe_title} | KnowFlux</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton|Open+Sans">
-  <link rel="icon" type="image/png" href="Images/favicon.jpeg">
-  <link rel="stylesheet" href = "css/main.css">
-  <script src = "js/bundle.js?cachebust=14"></script>
+  <link rel="icon" type="image/png" href="../Images/favicon.jpeg">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/poetry.css">
+  <script src="../js/bundle.js?cachebust=14"></script>
 </head>
 
 <body>
-{COMMON_NAV}
+{nav}
   <div class="wrap">
     <div class="page-header-container">
-      <h2 class="page-title">{title}</h2>
+      <h2 class="page-title">{safe_title}</h2>
       <h3 class="page-subtitle">{subtitle}</h3>
     </div>
     <div class="clear spacer v20"></div>
@@ -550,7 +578,7 @@ def generate_poem_html(title, section_name, raw_content):
     <div class="clear spacer v100"></div>
   </div>
 
-{SUBSCRIBE_FOOTER}
+{footer}
 </body>
 
 </html>"""
@@ -1112,14 +1140,19 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                     return
 
                 poem_filename = get_poem_filename(poem_title)
-                poem_file = BASE_DIR / poem_filename
+                # Poems live in Poetry/. The site-root-relative path is used
+                # both for writing the file and for the link in poetry.html,
+                # so the card href always resolves from the site root.
+                poem_rel_path = f"Poetry/{poem_filename}"
+                poem_file = BASE_DIR / poem_rel_path
                 if poem_file.exists():
-                    self._send_json(400, {"success": False, "error": f"{poem_filename} already exists. Delete it first to regenerate."})
+                    self._send_json(400, {"success": False, "error": f"{poem_rel_path} already exists. Delete it first to regenerate."})
                     return
 
-                html = generate_poem_html(poem_title, section_name, raw_content)
-                poem_file.write_text(html, encoding="utf-8")
-                update_poetry_html(poem_title, poem_filename, section_name)
+                poem_file.parent.mkdir(parents=True, exist_ok=True)
+                page_html = generate_poem_html(poem_title, section_name, raw_content)
+                poem_file.write_text(page_html, encoding="utf-8")
+                update_poetry_html(poem_title, poem_rel_path, section_name)
 
                 # Regenerate books.json and sitemap
                 save_books_json()
@@ -1128,7 +1161,7 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
                 self._send_json(200, {
                     "success": True,
-                    "file": poem_filename,
+                    "file": poem_rel_path,
                     "section": section_name,
                 })
 

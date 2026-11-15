@@ -1,6 +1,5 @@
 import urllib.request
 import ssl
-import certifi
 from html.parser import HTMLParser
 import json
 import xml.etree.ElementTree as ET
@@ -49,8 +48,14 @@ def extract_book_page_info(url):
             return (book, page)
     return None
 
-# Create a secure SSL context using certifi's CA bundle
-ssl_context = ssl.create_default_context(cafile=certifi.where())
+# Secure SSL context. Prefer certifi's CA bundle when it's installed
+# (more reliable on macOS), but fall back to the stdlib trust store so
+# this script runs with zero third-party packages.
+try:
+    import certifi
+    ssl_context = ssl.create_default_context(cafile=certifi.where())
+except ImportError:
+    ssl_context = ssl.create_default_context()
 
 # Parse sitemap
 

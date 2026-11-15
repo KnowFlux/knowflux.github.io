@@ -208,7 +208,7 @@ KnowFlux/
 | `[dream]…[/dream]` | Horizontal rule + styled italic memory card |
 | `[underline]` / `[/underline]` | Orange horizontal divider |
 
-> ⚠️ **Known bug:** `[underline]` is parsed as an *opening tag* but rendered as a *divider*. Any paragraphs written after a bare `[underline]` are silently discarded, because the renderer never emits them. Always close it with `[/underline]` — and see Known Issues.
+> ⚠️ **Known bug:** `[underline]` is parsed as an *opening tag* but rendered as a *divider*. Any paragraphs written after a bare `[underline]` are silently discarded, because the renderer never emits them. Always close it with `[/underline]`.
 
 ### Content model
 ```json
@@ -238,44 +238,6 @@ Algolia keys are inlined in `search.html` — swap them for your own fork.
 
 ---
 
-## 🧪 Testing
-
-The project has **no automated tests**. Highest-value first targets, in order:
-
-1. **`parse_content_blocks` / `render_content_blocks`** — round-trip a fixture with every marker combination and assert no text is lost. This is exactly where the bullet was dodged.
-2. **`add_page_to_books_json`** — adding page *N* twice, adding out of order, adding into a brand-new book.
-3. **`update_poetry_html`** — inserting into an existing section vs. creating a new one (it does fragile string surgery on `\n    </div>\n  </div>`).
-4. **`auto_commit`** — that the remote URL is always restored, even when the push fails.
-
----
-
-## 🐞 Known Issues
-
-- **`[underline]` swallows content.** Parsed as a container, rendered as a divider. A missing `[/underline]` means silent data loss on save. Fix: treat it as a self-closing divider (flush → emit → stay in `normal`), and reject unbalanced tags with a `400` *before* writing.
-- **`generate_books_json.py` targets the wrong directory.** `BASE_DIR = Path(__file__).parent` resolves to `Backend/`, so it never finds `poetry.html` and writes only a timestamp.
-- **`algolia-build-index.py` cannot run.** Imports `certifi`, which is not installed or declared in `requirements.txt`.
-- **Dead nav links.** `COMMON_NAV` in `server.py` links to `exploded-pages.html` and `exploded-chapters.html`; neither file exists. Those 404s ship on every generated poem page.
-- **Redundant fields in `books.json`.** `pagesUrl` / `chaptersUrl` are read by nothing. `file` is `""` on all 16 Exploded pages, and a slash-prefixed duplicate of `url` on Pinnacle. `totalPages` and `chapters` are both derivable from `pages` — and `chapters` has already drifted from it once.
-- **Broken poetry paths in `books.json`.** `symbolsofnature.html` is missing its `Poetry/` prefix; `Poetry/unrestfulstillness.html.html` has a doubled extension.
-- **`node_modules/` is committed** (352 files, 13 MB) for a dependency that is never imported.
-
-### 🧹 Cleanup candidates
-
-| Path | Why it's dead |
-|---|---|
-| `node_modules/`, `package.json`, `package-lock.json` | The only dep is `algoliasearch` v5; `search.html` loads v4 from a CDN. Unused *and* tracked in git. |
-| `script.js` | Byte-identical rebuild of `js/bundle.js`. Only `Poetry/*.html` loads it — repoint those to `../js/bundle.js`, then delete. |
-| `Backend/generate_books_json.py` | Superseded by `save_books_json()` in `server.py`; the path bug makes it a no-op. |
-| `Backend/algolia-build-index.py` | Cannot import. Fix `certifi` or rewrite using `urllib` alone. |
-| `comingsoon.html` | Linked from nowhere. |
-| `KnowFlux Summer Updates/`, `Poetry Recreate/` | Scratch directories, not referenced by the site. |
-| `COMMON_HEAD` in `server.py` | Defined at line 121, never used. |
-
-Deliberately left alone: `404.html` (GitHub Pages serves it), `feedback.html` (footer links it), `omni-dex-data.json` (read by two scripts).
-
-Worth consolidating, not deleting: `js/lore-lens.js` and `js/omni-dex.js` both fetch `omni-dex-data.json`, both build a modal, and both define `formatStatName`. They look like two halves of one feature that grew apart.
-
----
 
 ## 📄 License
 

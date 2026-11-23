@@ -930,7 +930,7 @@ class AdminHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
         if self.path == "/admin/login":
             password = params.get("password", [""])[0]
-            if password == ADMIN_PASSWORD:
+            if ADMIN_PASSWORD and secrets.compare_digest(password, ADMIN_PASSWORD):
                 token = secrets.token_hex(32)
                 SESSIONS.add(token)
                 self._send_json(200, {"success": True, "token": token})

@@ -20,8 +20,8 @@
 - Interactive character/universe database (`omni-dex.html`):
   - Universe & type filtering (tabs + pills)
   - Animated stat bars
-  - Modal detail view with stats sidebar and keyboard navigation (`←`/`→`/`Esc`)
-- **Lore Lens** — site-wide hover popovers that scan the rendered page for Omni-Dex entry names and show that card inline
+  - Modal detail view with a stats sidebar; keyboard: `→` moves to the next entry, `Esc` closes
+- **Lore Lens** — scans the rendered page for Omni-Dex entry names and links the first mention of each entry; clicking a link opens that card in a popover (expandable to a full modal). Works by click/tap, so it behaves the same on mobile.
 - Both features read from `omni-dex-data.json`
 
 ### 📚 Reading Experience
@@ -85,9 +85,9 @@ Books used to be generated from `exploded-page*.html` files on disk. They aren't
 | Backend | **Python standard library only** (`http.server`, `socketserver`, `json`, `re`) |
 | Search | **Algolia** — `algoliasearch` v4 from CDN in `search.html` |
 | Newsletter | **Kit (ConvertKit)** |
-| Hosting | **GitHub Pages** (`CNAME` → `knowflux.ink`) + auto-commit content pipeline |
+| Hosting | **GitHub Pages** for the static site (`CNAME` → `knowflux.ink`); **Render** runs `server.py` for the `/admin` authoring API |
 
-> `auto_commit()` still honours a `RENDER_GIT_BRANCH` env var from an earlier Render deployment. Harmless — it defaults to `main`.
+> **How publishing actually works:** the static site is served by GitHub Pages, but `/admin` is served by `server.py` on Render. Publishing a page therefore hits Render, which writes to its own checkout and (with `GITHUB_TOKEN`) commits back to the repo, which Pages then redeploys. `auto_commit()` pushes to `RENDER_GIT_BRANCH`, defaulting to `main`.
 
 ---
 
@@ -95,8 +95,7 @@ Books used to be generated from `exploded-page*.html` files on disk. They aren't
 
 ### Prerequisites
 - Python 3.12+
-- **No npm step.** No external Python packages are required (see `requirements.txt`).
-  - ⚠️ Exception: `Backend/algolia-build-index.py` imports `certifi`, which is neither installed nor declared. That script fails on import today.
+- **No npm step.** No external Python packages are required (see `requirements.txt`). `Backend/algolia-build-index.py` uses `certifi` if it happens to be installed, and otherwise falls back to the standard library trust store.
 
 ### 1. Build the JS bundle
 ```bash
@@ -120,12 +119,12 @@ ADMIN_PASSWORD=your_password_here
 GITHUB_TOKEN=your_token_here   # optional: enables auto-commit on publish
 ```
 
-> 🔒 **If `ADMIN_PASSWORD` is unset, `/admin/login` accepts an empty password.** The env var defaults to `""` and the check is a plain `==`. Always set it before exposing the server.
+> 🔒 **If `ADMIN_PASSWORD` is unset, `/admin/login` rejects every attempt.** The server fails closed, so an unset password locks you out instead of letting you in. On Render, set it in the dashboard's environment variables.
 
 ### 3. Regenerate the poetry index (optional)
 ```bash
-python Backend/generate_books_json.py   # ⚠️ currently broken — see Known Issues
-python Backend/algolia-build-index.py   # ⚠️ currently broken — missing certifi
+python Backend/generate_books_json.py   # refresh the poetry section of books.json
+python Backend/algolia-build-index.py   # rebuild algolia_records.json from sitemap.xml
 ```
 
 ---
@@ -179,8 +178,8 @@ KnowFlux/
 ├── Backend/
 │   ├── server.py              # Dev server + admin content API
 │   ├── build.py               # JS bundler
-│   ├── generate_books_json.py # Poetry regeneration (⚠️ broken path)
-│   ├── algolia-build-index.py # Algolia records from sitemap (⚠️ missing certifi)
+│   ├── generate_books_json.py # Poetry regeneration (preserves book pages)
+│   ├── algolia-build-index.py # Algolia records from sitemap
 │   └── config.py              # Shared ROOT_DIR constant
 ├── Images/                    # Static images
 └── Poetry/                    # Generated poem HTML files (static, one per poem)
@@ -208,7 +207,7 @@ KnowFlux/
 | `[dream]…[/dream]` | Horizontal rule + styled italic memory card |
 | `[underline]` / `[/underline]` | Orange horizontal divider |
 
-> ⚠️ **Known bug:** `[underline]` is parsed as an *opening tag* but rendered as a *divider*. Any paragraphs written after a bare `[underline]` are silently discarded, because the renderer never emits them. Always close it with `[/underline]`.
+> All three markers are parsed once, at save time, by `parse_content_blocks()` → `render_content_blocks()`. `[underline]` is a **divider**, not a container: it flushes any pending text, emits the rule, and continues in normal mode, so paragraphs written after it are kept. A stray `[/underline]` is accepted and ignored.
 
 ### Content model
 ```json
@@ -229,7 +228,7 @@ KnowFlux/
 | Variable | Purpose |
 |---|---|
 | `PORT` | Server port (default `5001`) |
-| `ADMIN_PASSWORD` | Admin panel password. **Unset = no protection.** |
+| `ADMIN_PASSWORD` | Admin panel password. **Required** — if unset, all logins are rejected. |
 | `GITHUB_TOKEN` | Enables auto-commit/push on publish |
 | `GIT_REPO_URL` | Override repo URL for auto-commit (defaults to `origin`) |
 | `GIT_NAME` / `GIT_EMAIL` | Commit author (defaults to `KnowFlux Bot <bot@knowflux.ink>`) |

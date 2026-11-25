@@ -113,11 +113,17 @@ python server.py
 ```
 Serves on `http://localhost:5001` (override with `PORT`).
 
-To unlock the admin panel, add environment variables in render for:
+To unlock the admin panel, use Render. Once you create an account, assuming you are on the free tier, add the following environment variables:
 ```env
 ADMIN_PASSWORD=your_password_here
 GITHUB_TOKEN=your_token_here
+GIT_EMAIL=your_email_here
+GIT_NAME=your_repo_name_here
+GIT_REPO_URL=your_repo_url_here
 ```
+
+After this, to use the admin panel, use Render's link for your site. 
+**Important:**If you are using Render on a paid tier, then instructions differ. 
 
 > 🔒 **If `ADMIN_PASSWORD` is unset, `/admin/login` rejects every attempt.** The server fails closed, so an unset password locks you out instead of letting you in. On Render, set it in the dashboard's environment variables.
 

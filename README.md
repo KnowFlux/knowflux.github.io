@@ -115,8 +115,8 @@ Serves on `http://localhost:5001` (override with `PORT`).
 
 To unlock the admin panel, add environment variables in render for:
 ```env
-ADMIN_PASSWORD=#your_password_here
-GITHUB_TOKEN=#your-token-here
+ADMIN_PASSWORD=your_password_here
+GITHUB_TOKEN=your_token_here
 ```
 
 > 🔒 **If `ADMIN_PASSWORD` is unset, `/admin/login` rejects every attempt.** The server fails closed, so an unset password locks you out instead of letting you in. On Render, set it in the dashboard's environment variables.

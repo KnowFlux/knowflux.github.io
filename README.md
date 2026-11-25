@@ -123,7 +123,8 @@ GIT_REPO_URL=your_repo_url_here
 ```
 
 After this, to use the admin panel, use Render's link for your site. 
-**Important**:If you are using Render on a paid tier, then instructions differ. 
+
+**Important**: If you are using Render on a paid tier, then instructions differ. 
 
 > 🔒 **If `ADMIN_PASSWORD` is unset, `/admin/login` rejects every attempt.** The server fails closed, so an unset password locks you out instead of letting you in. On Render, set it in the dashboard's environment variables.
 
